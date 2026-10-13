@@ -1,15 +1,16 @@
 import type { Metadata, Viewport } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Google_Sans_Code, Inter } from "next/font/google"
 import { PRODUCT_NAME } from "../constants/site"
 import "./globals.css"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// The same pair coolors.co uses: Inter for text, Google Sans Code for code.
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const googleSansCode = Google_Sans_Code({
+  variable: "--font-google-sans-code",
   subsets: ["latin"],
 })
 
@@ -30,7 +31,7 @@ export default (p: LayoutProps<"/">) => {
   const { children } = p
 
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${inter.variable} ${googleSansCode.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">{children}</body>
     </html>
   )
