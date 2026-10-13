@@ -68,5 +68,5 @@ Beyond that:
 
 ## Git
 
-- Feature branch + pull request; don't commit to `main`.
+- Commit directly to `main`; no feature branches or pull requests until the owner asks for them.
 - Imperative, sentence-case subjects (`Add pricing section`); one concern per commit.
