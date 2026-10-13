@@ -13,11 +13,11 @@ export default async (p: CodeBlock) => {
   return (
     <figure className="mt-6 min-w-0">
       {caption ? (
-        <figcaption className="mb-2 font-mono text-xs text-black/60 dark:text-white/60">{caption}</figcaption>
+        <figcaption className="mb-2 font-mono text-xs text-black dark:text-white">{caption}</figcaption>
       ) : null}
       {/* Code scrolls inside its own box so long lines never widen the page on a phone. */}
       <div
-        className="[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:ring-1 [&_pre]:ring-midnight-green/15 [&_pre]:font-mono [&_pre]:text-[13px]/6 [&_pre]:[-webkit-overflow-scrolling:touch]"
+        className="[&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-4 [&_pre]:font-mono [&_pre]:text-[13px]/6 [&_pre]:[-webkit-overflow-scrolling:touch]"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
         dangerouslySetInnerHTML={{ __html: html }}
       />

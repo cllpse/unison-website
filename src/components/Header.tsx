@@ -10,10 +10,7 @@ export default () => {
         <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-black/70 hover:text-bittersweet dark:text-white/70 dark:hover:text-bittersweet"
-              >
+              <a href={link.href} className="text-black hover:text-magenta dark:text-white dark:hover:text-magenta">
                 {link.label}
               </a>
             </li>

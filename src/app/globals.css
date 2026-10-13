@@ -1,18 +1,23 @@
 @import "tailwindcss";
 
-/* Palette: https://coolors.co/palette/1a535c-4ecdc4-f7fff7-ff6b6b-ffe66d, plus a softened black and pure white. */
+/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black for text, white, and one gray. */
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
+  /* Drop Tailwind's default colors so only the ones below can be used. */
+  --color-*: initial;
+
   --color-black: rgb(10, 10, 10);
   --color-white: rgb(255, 255, 255);
 
-  --color-midnight-green: #1a535c;
-  --color-robin-egg: #4ecdc4;
-  --color-mint-cream: #f7fff7;
-  --color-bittersweet: #ff6b6b;
-  --color-naples-yellow: #ffe66d;
+  --color-gray: #f7f7f7;
+
+  --color-amethyst: #9b5de5;
+  --color-magenta: #f15bb5;
+  --color-minion-yellow: #fee440;
+  --color-capri: #00bbf9;
+  --color-aquamarine: #00f5d4;
 }
 
 @layer base {
@@ -29,6 +34,6 @@
   }
 
   ::selection {
-    @apply bg-naples-yellow text-black;
+    @apply bg-minion-yellow text-black;
   }
 }

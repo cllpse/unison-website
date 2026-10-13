@@ -142,7 +142,7 @@ const UPDATE_DIFF = `  <Frame
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
-const BODY = "mt-4 text-base/7 text-pretty text-black/70 dark:text-white/70"
+const BODY = "mt-4 text-base/7 text-pretty text-black dark:text-white"
 
 export default () => {
   return (
@@ -217,10 +217,7 @@ export default () => {
             <h3 className="text-lg font-semibold tracking-tight">The same bet as Polar&apos;s Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
-              <a
-                href={ORBIT_URL}
-                className="underline decoration-black/30 underline-offset-4 hover:text-bittersweet dark:decoration-white/30"
-              >
+              <a href={ORBIT_URL} className="underline decoration-amethyst underline-offset-4 hover:text-magenta">
                 building an LLM-safe design system
               </a>
               : models write fluent Tailwind with no idea which spacing or gray your team actually chose, so the UI

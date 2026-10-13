@@ -2,8 +2,8 @@ import { createHighlighterCore, type ThemeRegistration } from "shiki/core"
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript"
 
 /**
- * A Shiki theme built from the site palette (see `globals.css`) for code blocks on #f7f7f7. Robin egg and Naples
- * yellow are too light to read on it, so props take midnight green, tags the bittersweet accent and the rest black.
+ * A Shiki theme built from the site palette (see `globals.css`) for code blocks on #f7f7f7. Yellow, capri and
+ * aquamarine are too light to read on it, so props take amethyst, tags magenta and everything else black.
  */
 const THEME: ThemeRegistration = {
   name: "palette",
@@ -15,18 +15,18 @@ const THEME: ThemeRegistration = {
   tokenColors: [
     {
       scope: ["comment", "punctuation.definition.comment"],
-      settings: { foreground: "#0a0a0a8c", fontStyle: "italic" },
+      settings: { foreground: "#0a0a0a", fontStyle: "italic" },
     },
-    { scope: ["punctuation", "meta.brace", "keyword.operator"], settings: { foreground: "#0a0a0a8c" } },
+    { scope: ["punctuation", "meta.brace", "keyword.operator"], settings: { foreground: "#0a0a0a" } },
     {
       scope: ["entity.name.tag", "support.class.component", "entity.name.type", "support.type"],
-      settings: { foreground: "#ff6b6b" },
+      settings: { foreground: "#f15bb5" },
     },
-    { scope: ["entity.other.attribute-name"], settings: { foreground: "#1a535c" } },
+    { scope: ["entity.other.attribute-name"], settings: { foreground: "#9b5de5" } },
     { scope: ["string", "constant.numeric", "constant.language"], settings: { foreground: "#0a0a0a" } },
-    { scope: ["keyword", "storage"], settings: { foreground: "#ff6b6b" } },
-    { scope: ["markup.inserted", "punctuation.definition.inserted"], settings: { foreground: "#1a535c" } },
-    { scope: ["markup.deleted", "punctuation.definition.deleted"], settings: { foreground: "#ff6b6b" } },
+    { scope: ["keyword", "storage"], settings: { foreground: "#f15bb5" } },
+    { scope: ["markup.inserted", "punctuation.definition.inserted"], settings: { foreground: "#9b5de5" } },
+    { scope: ["markup.deleted", "punctuation.definition.deleted"], settings: { foreground: "#f15bb5" } },
   ],
 }
 
