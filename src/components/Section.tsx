@@ -11,7 +11,7 @@ export default (p: Section) => {
 
   return (
     <section id={id} className="mt-16 scroll-mt-6 sm:mt-24">
-      <h2 className="text-2xl font-semibold tracking-tight text-balance sm:text-3xl">{title}</h2>
+      <h2 className="text-heading text-balance">{title}</h2>
       {children}
     </section>
   )

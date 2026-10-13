@@ -142,17 +142,15 @@ const UPDATE_DIFF = `  <Frame
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
-const BODY = "mt-4 text-base/7 text-pretty text-black dark:text-white"
+const BODY = "mt-4 text-body text-pretty text-black dark:text-white"
 
 export default () => {
   return (
     <>
       <Header />
       <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 sm:px-6 sm:pt-20">
-        <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
-          Your Figma properties, as code.
-        </h1>
-        <p className={`${BODY} sm:text-lg/8`}>
+        <h1 className="text-display-sm text-balance sm:text-display">Your Figma properties, as code.</h1>
+        <p className="mt-4 text-lead-sm text-pretty text-black sm:text-lead dark:text-white">
           Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is literally
           what the developer writes, on web and native, and a plugin writes it for you.
         </p>
@@ -178,7 +176,7 @@ export default () => {
           </p>
           {FEATURES.map((feature) => (
             <div key={feature.title} className="mt-10">
-              <h3 className="text-lg font-semibold tracking-tight">{feature.title}</h3>
+              <h3 className="text-subheading">{feature.title}</h3>
               <p className={BODY}>{feature.body}</p>
               {feature.code ? <CodeBlock code={feature.code} /> : null}
             </div>
@@ -192,7 +190,7 @@ export default () => {
           </p>
           {PLUGIN_POINTS.map((point) => (
             <div key={point.title} className="mt-10">
-              <h3 className="text-lg font-semibold tracking-tight">{point.title}</h3>
+              <h3 className="text-subheading">{point.title}</h3>
               <p className={BODY}>{point.body}</p>
             </div>
           ))}
@@ -205,7 +203,7 @@ export default () => {
             component or apply a design change, and the result stays on-system and easy to review.
           </p>
           <div className="mt-10">
-            <h3 className="text-lg font-semibold tracking-tight">A vocabulary agents can&apos;t get creative with</h3>
+            <h3 className="text-subheading">A vocabulary agents can&apos;t get creative with</h3>
             <p className={BODY}>
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
               layout. An agent doesn&apos;t invent margins or reach for a hex code; if it guesses a value that
@@ -214,7 +212,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-lg font-semibold tracking-tight">The same bet as Polar&apos;s Orbit</h3>
+            <h3 className="text-subheading">The same bet as Polar&apos;s Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
               <a href={ORBIT_URL} className="underline decoration-amethyst underline-offset-4 hover:text-magenta">
@@ -230,7 +228,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-lg font-semibold tracking-tight">Port once, run everywhere</h3>
+            <h3 className="text-subheading">Port once, run everywhere</h3>
             <p className={BODY}>
               Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
               Figma. Once a component is written with Frame and Text it is portable by construction, because the same
@@ -242,7 +240,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-lg font-semibold tracking-tight">Updates without rewrites</h3>
+            <h3 className="text-subheading">Updates without rewrites</h3>
             <p className={BODY}>
               When the design changes, an agent edits existing components instead of regenerating them. Layout and
               styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
@@ -256,7 +254,7 @@ export default () => {
         <Section title="Built for teams that ship what they design.">
           {AUDIENCES.map((audience) => (
             <div key={audience.title} className="mt-8">
-              <h3 className="text-lg font-semibold tracking-tight">{audience.title}</h3>
+              <h3 className="text-subheading">{audience.title}</h3>
               <p className={BODY}>{audience.body}</p>
             </div>
           ))}
@@ -265,8 +263,8 @@ export default () => {
         <Section id="get-started" title="From canvas to component in three steps.">
           <ol className="list-decimal pl-5">
             {STEPS.map((step) => (
-              <li key={step.title} className="mt-8 marker:font-semibold">
-                <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
+              <li key={step.title} className="mt-8 marker:font-extrabold">
+                <h3 className="text-subheading">{step.title}</h3>
                 <p className={BODY}>{step.body}</p>
               </li>
             ))}

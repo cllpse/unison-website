@@ -5,6 +5,37 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-google-sans-code), ui-monospace, SFMono-Regular, monospace;
 
+  /* Type scale measured from coolors.co: extra-bold, tightly tracked headings over 450-weight text. */
+  --text-display: 70px;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 800;
+  --text-display-sm: 50px;
+  --text-display-sm--line-height: 1.1;
+  --text-display-sm--letter-spacing: -0.035em;
+  --text-display-sm--font-weight: 800;
+  --text-heading: 35px;
+  --text-heading--line-height: 1.1;
+  --text-heading--letter-spacing: -0.035em;
+  --text-heading--font-weight: 800;
+  --text-subheading: 24px;
+  --text-subheading--line-height: 1.1;
+  --text-subheading--letter-spacing: -0.035em;
+  --text-subheading--font-weight: 800;
+  --text-lead: 24px;
+  --text-lead--line-height: 1.4;
+  --text-lead-sm: 20px;
+  --text-lead-sm--line-height: 1.4;
+  --text-body: 16px;
+  --text-body--line-height: 1.4;
+  --text-nav: 15px;
+  --text-nav--font-weight: 500;
+  --text-label: 14px;
+  --text-label--line-height: 1.6;
+  --text-label--font-weight: 500;
+  --text-fine: 13px;
+  --text-fine--line-height: 20px;
+
   /* Drop Tailwind's default colors so only the ones below can be used. */
   --color-*: initial;
 
@@ -30,7 +61,7 @@
   }
 
   body {
-    @apply bg-white text-black dark:bg-black dark:text-white;
+    @apply bg-white text-body font-[450] text-black dark:bg-black dark:text-white;
   }
 
   ::selection {
