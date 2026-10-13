@@ -21,12 +21,12 @@
   --text-subheading: 24px;
   --text-subheading--line-height: 1.1;
   --text-subheading--letter-spacing: -0.035em;
-  --text-subheading--font-weight: 800;
+  --text-subheading--font-weight: 600;
   --text-lead: 24px;
   --text-lead--line-height: 1.4;
   --text-lead-sm: 20px;
   --text-lead-sm--line-height: 1.4;
-  --text-body: 16px;
+  --text-body: 18px;
   --text-body--line-height: 1.4;
   --text-nav: 15px;
   --text-nav--font-weight: 500;
