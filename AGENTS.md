@@ -43,10 +43,11 @@ apply here.
 - Every section has the same shape: a "For <Audience>" label linking to the section, a heading (`title`) that's a
   promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
   `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
-- `Section` styles the `h4`, `p`, links and emphasis inside it, and turns a direct `div`, `ol` or `ul` child into a
-  two-column grid of h4 points, so section markup in `page.tsx` stays class-free. Section headings and paragraphs keep a
-  `max-w-measure` (700px) measure inside the wider `max-w-page` (1168px) column. All text wraps with `text-pretty` (set
-  on `body`); don't use `text-balance`. The h1's break after the comma is the one manual break.
+- `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and
+  turns a direct `div`, `ol` or `ul` child into a two-column grid of h4 points, so section markup in `page.tsx` stays
+  class-free. Section headings and paragraphs keep a `max-w-measure` (700px) measure inside the wider `max-w-page`
+  (1168px) column. All text wraps with `text-pretty` (set on `body`); don't use `text-balance`. The h1's break after
+  the comma is the one manual break.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.

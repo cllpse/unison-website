@@ -23,10 +23,10 @@ export type Section = {
 }
 
 /**
- * A titled section in its accent color, which also styles what's inside it: subheadings, paragraphs, links, and any
- * direct `div`, `ol` or `ul` child, which becomes a two-column grid (of h4 points, or of code blocks side by side)
- * from `md` up; the grid gap spaces those code blocks, so they drop their own top margin. Headings and paragraphs
- * stay at a readable measure while grids and code blocks use the full width.
+ * A titled section in its accent color, which also styles what's inside it: subheadings, paragraphs (emphasis takes
+ * the accent, links keep the text color), and any direct `div`, `ol` or `ul` child, which becomes a two-column grid (of
+ * h4 points, or of code blocks side by side) from `md` up; the grid gap spaces those code blocks, so they drop their
+ * own top margin. Headings and paragraphs stay at a readable measure while grids and code blocks use the full width.
  */
 export default (p: Section) => {
   const { id, audience, title, pitch, children } = p
@@ -42,14 +42,14 @@ export default (p: Section) => {
       className={`${SECTION_ACCENTS[id]} group -mx-4 scroll-mt-(--header-height) border-t border-rule px-4`}
     >
       <div
-        className={`mx-auto max-w-page border-x border-rule px-6 pt-10 pb-12 group-last:pb-28 max-sm:px-3 max-sm:pt-5 max-sm:pb-6 max-sm:group-last:pb-14 [&_:is(a,em,strong)]:text-(--accent) [&_h4]:text-xl [&_h4]:font-semibold [&_h4+p]:mt-1 [&_*+p]:mt-4 [&_:is(p,h4)]:font-paragraph [&>:is(div,ol,ul)]:mt-8 [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-10 [&>:is(div,ol,ul)]:gap-y-8 [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:max-w-measure`}
+        className={`mx-auto max-w-page border-x border-rule px-6 pt-10 pb-12 group-last:pb-28 max-sm:px-3 max-sm:pt-5 max-sm:pb-6 max-sm:group-last:pb-14 [&_:is(em,strong)]:text-(--accent) [&_h4]:text-xl [&_h4]:font-semibold [&_h4+p]:mt-1 [&_*+p]:mt-4 [&_:is(p,h4)]:font-paragraph [&>:is(div,ol,ul)]:mt-8 [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-10 [&>:is(div,ol,ul)]:gap-y-8 [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:max-w-measure`}
       >
         {/* hgroup ties the audience label to the heading as its kicker. */}
         <hgroup>
           {audience ? (
             <p className="mb-3 text-xl font-semibold">
               {/* Like GitHub's heading anchors: a link icon (Octicons, MIT) hangs in the padding on hover. */}
-              <a href={`#${id}`} className="group/anchor relative">
+              <a href={`#${id}`} className="group/anchor relative text-(--accent)">
                 <svg
                   viewBox="0 0 16 16"
                   aria-hidden="true"
