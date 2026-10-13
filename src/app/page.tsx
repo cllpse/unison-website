@@ -150,7 +150,7 @@ export default () => {
       <Header />
       <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 sm:px-6 sm:pt-20">
         <h1 className="text-display-sm text-balance sm:text-display">Your Figma properties, as code.</h1>
-        <p className="mt-4 text-lead-sm text-pretty text-black sm:text-lead dark:text-white">
+        <p className="mt-4 text-lead-sm text-pretty text-subtle sm:text-lead dark:text-subtle-inverse">
           Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is literally
           what the developer writes, on web and native, and a plugin writes it for you.
         </p>

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black for text, white, and one gray. */
+/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black for text, white, one gray, and coolors.co's text grays. */
 @theme {
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-google-sans-code), ui-monospace, SFMono-Regular, monospace;
@@ -43,6 +43,12 @@
   --color-white: rgb(255, 255, 255);
 
   --color-gray: #f7f7f7;
+
+  /* Secondary text colors from coolors.co: subtle for leads and descriptions, muted for small labels. Coolors has no
+     dark mode, so subtle-inverse is the matching step for text on black. */
+  --color-subtle: #525252;
+  --color-subtle-inverse: #a3a3a3;
+  --color-muted: #737373;
 
   --color-amethyst: #9b5de5;
   --color-magenta: #f15bb5;
