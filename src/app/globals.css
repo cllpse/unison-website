@@ -52,7 +52,7 @@
   --color-amethyst: #9b5de5;
   --color-magenta: #f15bb5;
   --color-minion-yellow: #fee440;
-  --color-minion-yellow-dark: #bca201;
+  --color-minion-yellow-dark: #c8ad01;
   --color-capri: #00bbf9;
   --color-aquamarine: #00f5d4;
   --color-aquamarine-dark: #00b89f;
@@ -68,14 +68,12 @@
   }
 
   body {
-    /* Sections set their own accent; code outside a section gets no visible border. */
-    --accent: transparent;
     @apply bg-white text-body font-[450] text-black dark:bg-black dark:text-white;
   }
 
   /* Links and emphasis take the color of the section they're in. */
   section :is(a, em, strong) {
-    color: var(--accent-text);
+    color: var(--accent);
   }
 
   ::selection {

@@ -174,7 +174,7 @@ export default () => {
           </p>
           {FEATURES.map((feature) => (
             <div key={feature.title} className="mt-10">
-              <h3 className="text-subheading text-(--accent-text)">{feature.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{feature.title}</h3>
               <p className={BODY}>{feature.body}</p>
               {feature.code ? <CodeBlock code={feature.code} /> : null}
             </div>
@@ -188,7 +188,7 @@ export default () => {
           </p>
           {PLUGIN_POINTS.map((point) => (
             <div key={point.title} className="mt-10">
-              <h3 className="text-subheading text-(--accent-text)">{point.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{point.title}</h3>
               <p className={BODY}>{point.body}</p>
             </div>
           ))}
@@ -201,7 +201,7 @@ export default () => {
             component or apply a design change, and the result stays on-system and easy to review.
           </p>
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent-text)">A vocabulary agents can't get creative with</h3>
+            <h3 className="text-subheading text-(--accent)">A vocabulary agents can't get creative with</h3>
             <p className={BODY}>
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
               layout. An agent doesn't invent margins or reach for a hex code; if it guesses a value that isn't in your
@@ -210,7 +210,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent-text)">The same bet as Polar's Orbit</h3>
+            <h3 className="text-subheading text-(--accent)">The same bet as Polar's Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
               <a href={ORBIT_URL} className="underline underline-offset-4 hover:decoration-2">
@@ -226,7 +226,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent-text)">Port once, run everywhere</h3>
+            <h3 className="text-subheading text-(--accent)">Port once, run everywhere</h3>
             <p className={BODY}>
               Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
               Figma. Once a component is written with Frame and Text it is portable by construction, because the same
@@ -238,7 +238,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent-text)">Updates without rewrites</h3>
+            <h3 className="text-subheading text-(--accent)">Updates without rewrites</h3>
             <p className={BODY}>
               When the design changes, an agent edits existing components instead of regenerating them. Layout and
               styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
@@ -252,7 +252,7 @@ export default () => {
         <Section id="audiences" title="Built for teams that ship what they design.">
           {AUDIENCES.map((audience) => (
             <div key={audience.title} className="mt-8">
-              <h3 className="text-subheading text-(--accent-text)">{audience.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{audience.title}</h3>
               <p className={BODY}>{audience.body}</p>
             </div>
           ))}
@@ -262,7 +262,7 @@ export default () => {
           <ol className="list-decimal pl-5">
             {STEPS.map((step) => (
               <li key={step.title} className="mt-8 marker:font-extrabold">
-                <h3 className="text-subheading text-(--accent-text)">{step.title}</h3>
+                <h3 className="text-subheading text-(--accent)">{step.title}</h3>
                 <p className={BODY}>{step.body}</p>
               </li>
             ))}

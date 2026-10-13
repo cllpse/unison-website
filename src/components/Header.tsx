@@ -12,7 +12,7 @@ export default () => {
           {NAV_LINKS.map((link) => (
             <li key={link.id} className={ACCENT_CLASSES[SECTION_ACCENTS[link.id]]}>
               {/* Each link takes the accent of the section it points at. */}
-              <a href={`#${link.id}`} className="text-(--accent-text) underline-offset-4 hover:underline">
+              <a href={`#${link.id}`} className="text-(--accent) underline-offset-4 hover:underline">
                 {link.label}
               </a>
             </li>
