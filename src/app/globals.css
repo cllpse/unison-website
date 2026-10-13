@@ -19,10 +19,10 @@
   --text-heading--line-height: 1.1;
   --text-heading--letter-spacing: -0.035em;
   --text-heading--font-weight: 700;
-  --text-subheading: 24px;
-  --text-subheading--line-height: 1.1;
-  --text-subheading--letter-spacing: -0.035em;
-  --text-subheading--font-weight: 600;
+  /* Subheadings read as bold body text: same size, no tracking. */
+  --text-subheading: 18px;
+  --text-subheading--line-height: 1.4;
+  --text-subheading--font-weight: 700;
   --text-lead: 24px;
   --text-lead--line-height: 1.4;
   --text-lead-sm: 20px;
