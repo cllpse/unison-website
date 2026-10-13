@@ -140,6 +140,8 @@ const UPDATE_DIFF = `  <Frame
     onPress={openInvoice}
   >`
 
+const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
+
 const BODY = "mt-4 text-base/7 text-pretty text-black/70 dark:text-white/70"
 
 export default () => {
@@ -208,6 +210,25 @@ export default () => {
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
               layout. An agent doesn&apos;t invent margins or reach for a hex code; if it guesses a value that
               isn&apos;t in your tokens, the type checker stops it before you review anything.
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold tracking-tight">The same bet as Polar&apos;s Orbit</h3>
+            <p className={BODY}>
+              Polar wrote about{" "}
+              <a
+                href={ORBIT_URL}
+                className="underline decoration-black/30 underline-offset-4 hover:text-bittersweet dark:decoration-white/30"
+              >
+                building an LLM-safe design system
+              </a>
+              : models write fluent Tailwind with no idea which spacing or gray your team actually chose, so the UI
+              drifts one plausible value at a time. Their answer is a single typed primitive whose props only accept
+              design tokens, so off-system choices can&apos;t be expressed. {PRODUCT_NAME} makes the same bet, with one
+              difference: the vocabulary isn&apos;t invented by a design-system team. The props are the settings in
+              Figma&apos;s properties panel and the values are your Figma variables, so the designer, the developer and
+              the agent all read and write the same words, and the plugin writes them first.
             </p>
           </div>
 
