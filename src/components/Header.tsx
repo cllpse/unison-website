@@ -8,7 +8,7 @@ export default () => {
         {REPO_NAME}
       </a>
       <nav>
-        <ul className="flex flex-wrap gap-x-5 gap-y-1 text-body">
+        <ul className="flex flex-wrap gap-x-5 gap-y-1 text-body font-extrabold tracking-tight">
           {NAV_LINKS.map((link) => (
             <li key={link.id} className={ACCENT_CLASSES[SECTION_ACCENTS[link.id]]}>
               {/* Each link takes the accent of the section it points at. */}
