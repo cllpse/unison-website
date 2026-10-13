@@ -3,11 +3,12 @@ import { highlight } from "../utilities/highlight"
 export type CodeBlock = {
   code: string
   caption?: string
+  lang?: "tsx" | "diff"
 }
 
 export default async (p: CodeBlock) => {
-  const { code, caption } = p
-  const html = await highlight(code)
+  const { code, caption, lang } = p
+  const html = await highlight(code, lang)
 
   return (
     <figure className="mt-6 min-w-0">

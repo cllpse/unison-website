@@ -124,6 +124,22 @@ const STEPS = [
   },
 ]
 
+const PORT_BEFORE = `// Card.tsx, React Native, styled by hand
+<View style={{ flexDirection: "row", gap: 16, padding: 24, borderRadius: 16 }}>`
+
+const PORT_AFTER = `// Card.tsx, ported by an agent; now renders on web, iOS and Android
+<Frame flow-horizontal gap-4 padding-6 corner-radius-4>`
+
+const UPDATE_DIFF = `  <Frame
+    flow-horizontal
+-   gap-4
++   gap-6
+    padding-6
+-   fill-primary-100
++   fill-secondary-100
+    onPress={openInvoice}
+  >`
+
 const BODY = "mt-4 text-base/7 text-pretty text-black/70 dark:text-white/70"
 
 export default () => {
@@ -179,6 +195,44 @@ export default () => {
             </div>
           ))}
           <CodeBlock code={PLUGIN_OUTPUT} caption="Plugin output" />
+        </Section>
+
+        <Section id="agents" title="Made for coding agents.">
+          <p className={BODY}>
+            The same properties that make the code readable for people make it predictable for agents. Ask one to port a
+            component or apply a design change, and the result stays on-system and easy to review.
+          </p>
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold tracking-tight">A vocabulary agents can&apos;t get creative with</h3>
+            <p className={BODY}>
+              Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
+              layout. An agent doesn&apos;t invent margins or reach for a hex code; if it guesses a value that
+              isn&apos;t in your tokens, the type checker stops it before you review anything.
+            </p>
+          </div>
+
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold tracking-tight">Port once, run everywhere</h3>
+            <p className={BODY}>
+              Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
+              Figma. Once a component is written with Frame and Text it is portable by construction, because the same
+              props render on web and React Native; the bundler picks the platform shell, and the component code
+              doesn&apos;t change.
+            </p>
+            <CodeBlock code={PORT_BEFORE} caption="Before · one platform" />
+            <CodeBlock code={PORT_AFTER} caption="After · every platform" />
+          </div>
+
+          <div className="mt-10">
+            <h3 className="text-lg font-semibold tracking-tight">Updates without rewrites</h3>
+            <p className={BODY}>
+              When the design changes, an agent edits existing components instead of regenerating them. Layout and
+              styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
+              state, handlers and data stay exactly as they were. Each line in the diff names the setting that changed,
+              so a designer can review it too.
+            </p>
+            <CodeBlock code={UPDATE_DIFF} lang="diff" caption="Gap 16 → 24, fill primary → secondary" />
+          </div>
         </Section>
 
         <Section title="Built for teams that ship what they design.">

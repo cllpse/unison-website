@@ -25,26 +25,28 @@ const THEME: ThemeRegistration = {
     { scope: ["entity.other.attribute-name"], settings: { foreground: "#1a535c" } },
     { scope: ["string", "constant.numeric", "constant.language"], settings: { foreground: "#0a0a0a" } },
     { scope: ["keyword", "storage"], settings: { foreground: "#ff6b6b" } },
+    { scope: ["markup.inserted", "punctuation.definition.inserted"], settings: { foreground: "#1a535c" } },
+    { scope: ["markup.deleted", "punctuation.definition.deleted"], settings: { foreground: "#ff6b6b" } },
   ],
 }
 
-// One highlighter for the whole build, loading only the grammar the site uses. The JavaScript regex engine avoids
+// One highlighter for the whole build, loading only the grammars the site uses. The JavaScript regex engine avoids
 // shipping Oniguruma's WebAssembly.
 const HIGHLIGHTER = createHighlighterCore({
   themes: [THEME],
-  langs: [import("shiki/langs/tsx.mjs")],
+  langs: [import("shiki/langs/tsx.mjs"), import("shiki/langs/diff.mjs")],
   engine: createJavaScriptRegexEngine(),
 })
 
 /**
- * Highlights a TSX snippet with Shiki and returns it as an HTML string.
+ * Highlights a TSX (or diff) snippet with Shiki and returns it as an HTML string.
  *
  * @example
  * await highlight("<Frame gap-4 />")
  * // → '<pre class="shiki palette" …><code><span class="line">…</span></code></pre>'
  */
-export const highlight = async (code: string) => {
+export const highlight = async (code: string, lang: "tsx" | "diff" = "tsx") => {
   const highlighter = await HIGHLIGHTER
 
-  return highlighter.codeToHtml(code, { lang: "tsx", theme: THEME.name ?? "palette" })
+  return highlighter.codeToHtml(code, { lang, theme: THEME.name ?? "palette" })
 }
