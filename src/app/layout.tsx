@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
 import localFont from "next/font/local"
 import SnappyScroll from "../components/SnappyScroll"
+import Theme from "../components/Theme"
 import { PRODUCT_NAME } from "../constants/site"
 import "./globals.css"
 
@@ -33,18 +34,25 @@ export const metadata: Metadata = {
     "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it.",
 }
 
+// The browser's toolbar in the page background; Theme darkens it on the dark theme, which doesn't follow the system
+// setting while it's being tried out.
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "rgb(255, 255, 255)" },
-    { media: "(prefers-color-scheme: dark)", color: "rgb(10, 10, 10)" },
-  ],
+  themeColor: "rgb(255, 255, 255)",
 }
 
 export default (p: LayoutProps<"/">) => {
   const { children } = p
 
   return (
-    <html lang="en" className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full antialiased`}>
+    // Theme sets data-theme on <html> before React hydrates; suppressHydrationWarning accepts the attribute.
+    <html
+      lang="en"
+      className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <Theme />
+      </head>
       {/* Outside a section the accent is plain text color, so selections there are a light gray. */}
       <body className="flex min-h-full flex-col bg-white font-sans text-body font-normal text-pretty text-black [--accent:var(--color-black)] selection:bg-(--accent)/10 dark:bg-black dark:text-white dark:[--accent:var(--color-white)]">
         {children}

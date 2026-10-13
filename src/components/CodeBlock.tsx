@@ -19,11 +19,12 @@ export default async (p: CodeBlock) => {
         </figcaption>
       ) : null}
       {/* The wrapper styles Shiki's <pre>: GitHub's token colors on the site's own surface (its inline background is
-          overridden). Code scrolls inside it, so long lines never widen the page on a phone. The scrollbar track is
-          always reserved and doubles as the bottom padding, so code sits right above the thumb. Italic runs skip the
-          thinning stroke to keep their full weight. */}
+          overridden), switched on the dark theme to the dark colors Shiki leaves in --shiki-dark. Code scrolls inside
+          it, so long lines never widen the page on a phone. The scrollbar track is always reserved and doubles as the
+          bottom padding, so code sits right above the thumb. Italic runs skip the thinning stroke to keep their full
+          weight. */}
       <div
-        className="*:overflow-x-scroll *:overflow-y-hidden *:scrollbar-code *:rounded-3xl *:border *:border-gray-edge *:bg-gray! [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:px-4 [&_code]:pt-4 *:font-mono *:text-code *:text-thin-gray *:[corner-shape:squircle] [&_[style*=italic]]:[-webkit-text-stroke:0]"
+        className="*:overflow-x-scroll *:overflow-y-hidden *:scrollbar-code *:rounded-3xl *:border *:border-gray-edge *:bg-gray! [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:px-4 [&_code]:pt-4 *:font-mono *:text-code *:text-thin-gray *:[corner-shape:squircle] [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
         dangerouslySetInnerHTML={{ __html: await highlight(code, lang, error) }}
       />

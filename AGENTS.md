@@ -27,12 +27,16 @@ apply here.
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`).
+  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`,
+  `Theme.tsx`).
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
 - Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
-  is syntax highlighting, which uses Shiki's `github-light-default` theme (`highlight.ts`).
+  is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
+- The dark theme is opt-in while it's tried out: `?theme=dark` makes `Theme.tsx` set `data-theme="dark"` on `<html>`,
+  and the `dark:` variant follows that attribute, not the system setting. It keeps the accents and redefines only the
+  neutrals (`globals.css`); style anything black or white with a `dark:` counterpart.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "For <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
 - The page speaks to four audiences (everyone, designers, developers, agents), one section each, then starters.

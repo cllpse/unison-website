@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* The dark theme is opt-in for now: ?theme=dark in the URL (see Theme.tsx) sets data-theme="dark" on <html>, and the
+   dark: variant follows that attribute instead of the system setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 /* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black, white and three grays. */
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
@@ -49,6 +53,19 @@
   --color-aquamarine: #00b89f;
 }
 
+/* The dark theme's neutrals; the accents stay as they are. Black and white swap roles through dark: variants, with
+   white softened to an off-white for text, and the grays turn into a slightly raised code surface, its edge and a
+   muted text gray at about the light theme's contrast. */
+@layer theme {
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --color-white: rgb(237, 237, 237);
+    --color-gray: #141414;
+    --color-gray-edge: #262626;
+    --color-muted: #808080;
+  }
+}
+
 /* No focus styling anywhere, including the browser's default focus rings. */
 @layer base {
   :focus {
@@ -85,6 +102,8 @@
 /* The sticky header's scrim as --scrim-gradient: solid, then an eased fade over the last --scrim-fade. The opacity
    follows an ease-in-out curve (the "easing gradients" scrim), so the fade has no visible start or end, which a linear
    fade would. The header paints it as a translucent background and uses it to mask its backdrop blur.
+   --scrim-grain is fine grain for a sandblasted-glass look, used as a mask to paint specks of the scrim color: tiling
+   fractal noise (about half fully transparent, the rest up to 70% opaque), inlined as an SVG.
    --rule-holes masks out 2px strips where the sections' side rules run (the page gutter, or the centered page
    column's edges), so the rules show through the header all the way to the top. */
 @utility scrim {
@@ -99,6 +118,7 @@
     transparent 0 calc(100% - var(--rule-x) + 0.5px),
     black 0
   );
+  --scrim-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.2 0 0 0 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --scrim-gradient: linear-gradient(
     to bottom,
     var(--scrim) calc(100% - var(--scrim-fade)),
@@ -124,22 +144,22 @@
   }
 }
 
-/* Fine grain for the header's sandblasted-glass look: tiling fractal noise as white pixels of varying opacity (about
-   half fully transparent, the rest up to 70%), inlined as an SVG. */
-@utility bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.2 0 0 0 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 /* Code-block scrollbars: shown on hover when the code scrolls (the track's space stays reserved, so nothing shifts),
-   with a rounded thumb floating in a transparent track that spans the block's full width. The thumb is black mixed
-   into the code surface at a contrast just over 3:1 (WCAG's minimum for UI parts), darker on hover. Styling the
+   with a rounded thumb floating in a transparent track that spans the block's full width. The thumb is the text color
+   (black, or white on the dark theme) mixed into the code surface at a contrast just over 3:1 (WCAG's minimum for UI
+   parts), stronger on hover. Styling the
    WebKit scrollbar also takes it out of macOS overlay mode; Firefox ignores those pseudo-elements and gets the same
    colors through scrollbar-color. */
 @utility scrollbar-code {
+  --scrollbar-ink: var(--color-black);
   --scrollbar-thumb: transparent;
 
+  @variant dark {
+    --scrollbar-ink: var(--color-white);
+  }
+
   &:hover {
-    --scrollbar-thumb: color-mix(in oklab, var(--color-black) 45%, var(--color-gray));
+    --scrollbar-thumb: color-mix(in oklab, var(--scrollbar-ink) 45%, var(--color-gray));
   }
 
   &::-webkit-scrollbar {
@@ -160,7 +180,7 @@
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: color-mix(in oklab, var(--color-black) 60%, var(--color-gray));
+    background-color: color-mix(in oklab, var(--scrollbar-ink) 60%, var(--color-gray));
   }
 
   @supports not selector(::-webkit-scrollbar) {

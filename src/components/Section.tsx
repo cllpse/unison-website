@@ -1,9 +1,12 @@
 import type { ReactNode } from "react"
 import { SECTION_ACCENTS, type SectionId } from "../constants/site"
 
-/** The section heading's classes: the accent as a gradient, from a touch darker to lighter. Also used by the hero. */
+/**
+ * The section heading's classes: the accent as a gradient that fades toward the page, from a touch darker to lighter,
+ * and from a touch lighter to darker on the dark theme. Also used by the hero.
+ */
 export const HEADING =
-  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
+  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
 
 /** The pitch's classes, also used by the hero's subtitle. */
 export const PITCH = "mt-4 max-w-measure pb-2 text-[1.625rem] leading-[1.3] font-normal text-(--accent)"

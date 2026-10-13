@@ -8,8 +8,12 @@ export default () => {
     // they ease out together, and once a section is under the header (data-rules, set by Nav) both leave gaps for its
     // side rules, so those run up to the top. Fine grain on top gives a sandblasted-glass look.
     <header className="pointer-events-none sticky top-0 z-10 -mb-(--scrim-fade) scrim px-4 pb-(--scrim-fade) font-extrabold tracking-tight before:absolute before:inset-0 before:-z-10 before:backdrop-blur-lg before:mask-intersect before:[mask-image:var(--scrim-gradient)] data-rules:before:[mask-image:var(--scrim-gradient),var(--rule-holes)] after:absolute after:inset-0 after:-z-10 after:bg-(--scrim) after:opacity-70 after:mask-intersect after:[mask-image:var(--scrim-gradient)] data-rules:after:[mask-image:var(--scrim-gradient),var(--rule-holes)]">
-      {/* The grain gets its own layer above the scrim, without the rule gaps, which would show as grain-free lines. */}
-      <div aria-hidden="true" className="absolute inset-0 -z-5 bg-noise mask-(--scrim-gradient)" />
+      {/* The grain gets its own layer above the scrim, without the rule gaps, which would show as grain-free lines: the
+          scrim color, masked to grain and faded with the scrim. */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-5 bg-(--scrim) mask-intersect [mask-image:var(--scrim-grain),var(--scrim-gradient)]"
+      />
       {/* Phones only: a 24px edge at the very top, fading from transparent up to solid, so content vanishes at the
           screen edge. */}
       <div
