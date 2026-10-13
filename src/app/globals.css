@@ -1,83 +1,34 @@
 @import "tailwindcss";
 
-/* Brand colors mirror the library's own COLORS tokens (src/constants/colors.ts). */
+/* Palette: https://coolors.co/palette/1a535c-4ecdc4-f7fff7-ff6b6b-ffe66d, plus a softened black and pure white. */
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
 
-  --color-brand-50: #faf7ff;
-  --color-brand-100: #f6efff;
-  --color-brand-200: #eedeff;
-  --color-brand-300: #e1c4ff;
-  --color-brand-400: #d1a3ff;
-  --color-brand-500: #bd7fff;
-  --color-brand-600: #a852ff;
-  --color-brand-700: #9225ff;
-  --color-brand-800: #6b12d6;
-  --color-brand-900: #4a00b0;
+  --color-black: rgb(10, 10, 10);
+  --color-white: rgb(255, 255, 255);
 
-  --color-accent-100: #fdf1fb;
-  --color-accent-300: #f9caf1;
-  --color-accent-500: #f28ce1;
-  --color-accent-700: #e93bcc;
-
-  --color-sky-brand-100: #f0f8fe;
-  --color-sky-brand-300: #c9e6fa;
-  --color-sky-brand-700: #39a4eb;
+  --color-midnight-green: #1a535c;
+  --color-robin-egg: #4ecdc4;
+  --color-mint-cream: #f7fff7;
+  --color-bittersweet: #ff6b6b;
+  --color-naples-yellow: #ffe66d;
 }
 
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-tap-highlight-color: transparent;
+    /* Stop iOS from inflating text when the phone is rotated to landscape. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-white text-gray-950 dark:bg-gray-950 dark:text-white;
+    @apply bg-white text-black dark:bg-black dark:text-white;
   }
 
   ::selection {
-    @apply bg-brand-200 text-brand-900;
-  }
-}
-
-/* Hairline grid lines, the way tailwindcss.com frames its sections. */
-@utility rule-x {
-  @apply border-x border-gray-950/5 dark:border-white/10;
-}
-
-@utility rule-t {
-  @apply border-t border-gray-950/5 dark:border-white/10;
-}
-
-@utility rule-b {
-  @apply border-b border-gray-950/5 dark:border-white/10;
-}
-
-@utility bg-grid {
-  background-image:
-    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-  background-size: 32px 32px;
-  --grid-line: color-mix(in oklab, var(--color-gray-950) 4%, transparent);
-
-  @variant dark {
-    --grid-line: color-mix(in oklab, white 5%, transparent);
-  }
-}
-
-@utility bg-stripes {
-  background-image: repeating-linear-gradient(
-    315deg,
-    var(--stripe) 0,
-    var(--stripe) 1px,
-    transparent 0,
-    transparent 50%
-  );
-  background-size: 10px 10px;
-  --stripe: color-mix(in oklab, var(--color-gray-950) 5%, transparent);
-
-  @variant dark {
-    --stripe: color-mix(in oklab, white 8%, transparent);
+    @apply bg-naples-yellow text-black;
   }
 }

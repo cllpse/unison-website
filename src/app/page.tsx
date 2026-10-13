@@ -1,22 +1,34 @@
-import CodeWindow from "../components/CodeWindow"
-import Features from "../components/Features"
+import CodeBlock from "../components/CodeBlock"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
-import PluginMock from "../components/PluginMock"
-import PropertiesPlayground from "../components/PropertiesPlayground"
 import Section from "../components/Section"
-import SectionGap from "../components/SectionGap"
 import { PRODUCT_NAME } from "../constants/site"
 
+const EXAMPLE = `<Frame
+  flow-horizontal
+  gap-4
+  padding-6
+  alignment-center
+  corner-radius-4
+  fill-primary-100
+  width-fill
+>
+  <Frame width-12 height-12 corner-radius-2 fill-primary-700 />
+  <Frame width-12 height-16 corner-radius-2 fill-primary-700 />
+  <Frame width-12 height-12 corner-radius-2 fill-primary-700 />
+</Frame>`
+
 const BEFORE = `// Card.tsx, translated by eye from the spec
+// Close to the spec, but are these the designer's tokens?
 <div
-  style={{
-    display: "flex",
-    gap: 15,              // was it 16?
-    padding: "22px 24px", // close enough
-    borderRadius: 14,
-    background: "#F7F0FF", // not quite primary-100
-  }}
+  className="
+    flex
+    gap-4
+    px-6
+    py-5
+    rounded-xl
+    bg-purple-50
+  "
 >`
 
 const AFTER = `// Card.tsx, written by the plugin
@@ -27,6 +39,45 @@ const AFTER = `// Card.tsx, written by the plugin
   corner-radius-4
   fill-primary-100
 >`
+
+const PLUGIN_OUTPUT = `<Frame flow-vertical gap-4 padding-6 corner-radius-4 fill-white effect-shadow-small width-fill>
+  <Frame flow-horizontal gap-2 alignment-left width-fill>
+    <Text typography-header-small-wrap fill-text-800>Invoices</Text>
+  </Frame>
+  <Text typography-body-wrap fill-neutral-600>
+    Three invoices are due this week.
+  </Text>
+</Frame>`
+
+const FEATURES = [
+  {
+    title: "Code that reads like the properties panel",
+    body: "Frame and Text take boolean props named after Figma settings. A designer can read the JSX and recognize their own design; a developer never has to decode a spec.",
+    code: `<Text typography-body-wrap fill-text-800>\n  Hello\n</Text>`,
+  },
+  {
+    title: "Tokens enforced by the type system",
+    body: "Props are generated from your token tables for spacing, color and typography. An off-system value is a TypeScript error, not a code-review comment.",
+    code: `<Frame flow-vertical gap-9 fill-primary-100 />\n// Property 'gap-9' does not exist on type 'IntrinsicAttributes & Frame'.`,
+  },
+  {
+    title: "One API for web, iOS and Android",
+    body: "Each component is one base implementation with thin web and native shells. The same props produce the same layout everywhere.",
+  },
+  {
+    title: "Auto layout semantics, not approximations",
+    body: 'Flow, alignment and hug or fill sizing behave the way Figma means them, including alignment that follows the flow direction. It behaves like the canvas, not "close enough" flexbox.',
+  },
+  {
+    title: "Interaction and motion, same language",
+    body: "Hover fills and strokes, durations, easing and opacity use the same boolean style, so states and motion are tokens too.",
+    code: `<Frame\n  fill-hover-primary-100\n  animation-duration-jog\n  animation-easing-elastic\n/>`,
+  },
+  {
+    title: "Small, readable surface area",
+    body: "A deliberately small set of primitives (Frame, Text and Vector) composes into everything else, alongside ready-made inputs, buttons, popovers, tooltips and a data table. Nothing hidden behind a theme object.",
+  },
+]
 
 const PLUGIN_POINTS = [
   {
@@ -73,140 +124,78 @@ const STEPS = [
   },
 ]
 
+const BODY = "mt-4 text-base/7 text-pretty text-black/70 dark:text-white/70"
+
 export default () => {
   return (
     <>
       <Header />
-      <main id="top" className="flex-1 overflow-x-clip">
-        {/* Hero */}
-        <div className="relative">
-          <div
-            aria-hidden="true"
-            className="absolute inset-x-0 top-0 -z-10 h-[36rem] bg-[radial-gradient(60%_60%_at_50%_0%,var(--color-brand-100),transparent)] dark:bg-[radial-gradient(60%_60%_at_50%_0%,color-mix(in_oklab,var(--color-brand-900)_40%,transparent),transparent)]"
-          />
-          <div className="mx-auto max-w-7xl rule-x px-4 pt-16 pb-12 sm:px-6 sm:pt-24 lg:px-8">
-            <p className="inline-flex items-center gap-2 rounded-full bg-white/70 px-3 py-1 font-mono text-xs text-gray-600 ring-1 ring-gray-950/10 dark:bg-white/5 dark:text-gray-300 dark:ring-white/15">
-              <span className="size-1.5 rounded-full bg-accent-700" />
-              Frame · Text · Vector for React and React Native
-            </p>
-            <h1 className="mt-6 max-w-4xl text-5xl font-semibold tracking-tighter text-balance sm:text-7xl">
-              Your Figma properties,{" "}
-              <span className="bg-linear-to-r from-brand-700 to-accent-700 bg-clip-text text-transparent">
-                as code.
-              </span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg/8 text-pretty text-gray-600 dark:text-gray-400">
-              Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is
-              literally what the developer writes, on web and native, and a plugin writes it for you.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#get-started"
-                className="rounded-full bg-gray-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-gray-800 dark:bg-white dark:text-gray-950 dark:hover:bg-gray-200"
-              >
-                Get started
-              </a>
-              <a
-                href="#problem"
-                className="rounded-full px-5 py-2.5 text-sm font-semibold text-gray-950 ring-1 ring-gray-950/10 transition hover:bg-gray-950/5 dark:text-white dark:ring-white/15 dark:hover:bg-white/5"
-              >
-                Why {PRODUCT_NAME}?
-              </a>
-            </div>
-          </div>
-          <div className="rule-t">
-            <div className="mx-auto max-w-7xl rule-x px-4 py-10 sm:px-6 lg:px-8">
-              <p className="mb-4 font-mono text-xs text-gray-500">Try it: change a property, the code follows.</p>
-              <PropertiesPlayground />
-            </div>
-          </div>
-        </div>
+      <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 sm:px-6 sm:pt-20">
+        <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
+          Your Figma properties, as code.
+        </h1>
+        <p className={`${BODY} sm:text-lg/8`}>
+          Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is literally
+          what the developer writes, on web and native, and a plugin writes it for you.
+        </p>
+        <CodeBlock code={EXAMPLE} caption="Card.tsx" />
 
-        <SectionGap />
-
-        <Section
-          id="problem"
-          eyebrow="The problem"
-          title="Every design-to-code handoff loses something."
-          lead={
-            <>
-              Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
-              Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
-              get hard-coded, and &ldquo;the button looks different on iOS&rdquo; becomes a ticket.{" "}
-              <strong className="font-semibold text-gray-950 dark:text-white">
-                {PRODUCT_NAME} removes the translation step.
-              </strong>
-            </>
-          }
-        >
-          <div className="grid gap-px bg-gray-950/5 lg:grid-cols-2 dark:bg-white/10">
-            <div className="bg-white p-4 sm:p-8 dark:bg-gray-950">
-              <p className="mb-3 font-mono text-xs text-gray-500">Before · translated by hand</p>
-              <CodeWindow code={BEFORE} filename="Card.tsx" />
-            </div>
-            <div className="bg-white p-4 sm:p-8 dark:bg-gray-950">
-              <p className="mb-3 font-mono text-xs text-brand-700 dark:text-brand-400">After · one vocabulary</p>
-              <CodeWindow code={AFTER} filename="Card.tsx" />
-            </div>
-          </div>
+        <Section id="problem" title="Every design-to-code handoff loses something.">
+          <p className={BODY}>
+            Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
+            Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
+            get hard-coded, and &ldquo;the button looks different on iOS&rdquo; becomes a ticket.{" "}
+            <strong className="font-semibold text-black dark:text-white">
+              {PRODUCT_NAME} removes the translation step.
+            </strong>
+          </p>
+          <CodeBlock code={BEFORE} caption="Before · translated by hand" />
+          <CodeBlock code={AFTER} caption="After · one vocabulary" />
         </Section>
 
-        <SectionGap />
-
-        <Section
-          id="features"
-          eyebrow="Features"
-          title="One vocabulary from canvas to web and native."
-          lead="A small set of components whose props are the settings in Figma's properties panel, typed against your design tokens."
-        >
-          <Features />
+        <Section id="features" title="One vocabulary from canvas to web and native.">
+          <p className={BODY}>
+            A small set of components whose props are the settings in Figma&apos;s properties panel, typed against your
+            design tokens.
+          </p>
+          {FEATURES.map((feature) => (
+            <div key={feature.title} className="mt-10">
+              <h3 className="text-lg font-semibold tracking-tight">{feature.title}</h3>
+              <p className={BODY}>{feature.body}</p>
+              {feature.code ? <CodeBlock code={feature.code} /> : null}
+            </div>
+          ))}
         </Section>
 
-        <SectionGap />
-
-        <Section
-          id="plugin"
-          eyebrow="Figma plugin"
-          title="The plugin writes the code. And keeps the file honest."
-          lead="Select a frame and get ready-to-paste components. Anything that can't become clean code is flagged before it reaches a developer."
-        >
-          <div className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
-            {PLUGIN_POINTS.map((point) => (
-              <div key={point.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
-                <h3 className="font-semibold tracking-tight">{point.title}</h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{point.body}</p>
-              </div>
-            ))}
-          </div>
-          <div className="bg-grid rule-t px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-            <PluginMock />
-          </div>
+        <Section id="plugin" title="The plugin writes the code. And keeps the file honest.">
+          <p className={BODY}>
+            Select a frame and get ready-to-paste components. Anything that can&apos;t become clean code is flagged
+            before it reaches a developer.
+          </p>
+          {PLUGIN_POINTS.map((point) => (
+            <div key={point.title} className="mt-10">
+              <h3 className="text-lg font-semibold tracking-tight">{point.title}</h3>
+              <p className={BODY}>{point.body}</p>
+            </div>
+          ))}
+          <CodeBlock code={PLUGIN_OUTPUT} caption="Plugin output" />
         </Section>
 
-        <SectionGap />
-
-        <Section eyebrow="Who it's for" title="Built for teams that ship what they design.">
-          <div className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
-            {AUDIENCES.map((audience) => (
-              <div key={audience.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
-                <h3 className="font-semibold tracking-tight">{audience.title}</h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{audience.body}</p>
-              </div>
-            ))}
-          </div>
+        <Section title="Built for teams that ship what they design.">
+          {AUDIENCES.map((audience) => (
+            <div key={audience.title} className="mt-8">
+              <h3 className="text-lg font-semibold tracking-tight">{audience.title}</h3>
+              <p className={BODY}>{audience.body}</p>
+            </div>
+          ))}
         </Section>
 
-        <SectionGap />
-
-        <Section id="get-started" eyebrow="Get started" title="From canvas to component in three steps.">
-          <ol className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
-            {STEPS.map((step, index) => (
-              <li key={step.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
-                <span className="grid size-8 place-items-center rounded-full bg-brand-100 font-mono text-sm font-semibold text-brand-800 dark:bg-brand-900/50 dark:text-brand-300">
-                  {index + 1}
-                </span>
-                <h3 className="mt-4 font-semibold tracking-tight">{step.title}</h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{step.body}</p>
+        <Section id="get-started" title="From canvas to component in three steps.">
+          <ol className="list-decimal pl-5">
+            {STEPS.map((step) => (
+              <li key={step.title} className="mt-8 marker:font-semibold">
+                <h3 className="text-lg font-semibold tracking-tight">{step.title}</h3>
+                <p className={BODY}>{step.body}</p>
               </li>
             ))}
           </ol>

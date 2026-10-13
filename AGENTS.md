@@ -27,10 +27,10 @@ apply here.
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components` — one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state or event handlers (`PropertiesPlayground.tsx`).
+  `"use client"` only where a component needs state or event handlers.
 - `src/constants` — site-wide constants such as `PRODUCT_NAME` and `NAV_LINKS`. The product name lives only there.
-- `src/utilities` — pure helpers (`tokenize.ts`).
-- Brand colors in `globals.css` mirror the library's `COLORS` tokens. Code samples on the site use real flags and
+- `src/utilities` — helpers (`highlight.ts`, which wraps Shiki for the code blocks).
+- Colors come from the palette in `globals.css` (and the Shiki theme in `highlight.ts`); don't add others. Code samples on the site use real flags and
   tokens from the library; check `src/types/figmaProperties.ts` and `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 
@@ -50,7 +50,7 @@ Biome enforces the formatting: 2-space indent, 120-column lines, double quotes, 
 Beyond that:
 
 - Naming: PascalCase for components, component files and types; camelCase for all other files and for functions,
-  verb first (`tokenize`, `toAlignmentFlag`); `SCREAMING_SNAKE_CASE` for module-level constants.
+  verb first (`highlight`, `toAlignmentFlag`); `SCREAMING_SNAKE_CASE` for module-level constants.
 - Arrow functions only. Components are anonymous default exports, `export default (p: Section) => { … }`; everything
   else is a named `export const`. Next.js route files (`page.tsx`, `layout.tsx`) follow the same rule.
 - A component's props type is exported under the component's name (`export type Section = { … }`).
