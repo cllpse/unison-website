@@ -1,7 +1,7 @@
-import { NAV_LINKS } from "@/lib/site";
-import { Logo } from "./Logo";
+import { NAV_LINKS } from "../constants/site"
+import Logo from "./Logo"
 
-export function Header() {
+export default () => {
   return (
     <header className="sticky top-0 z-20 rule-b bg-white/80 backdrop-blur-md dark:bg-gray-950/80">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
@@ -30,5 +30,5 @@ export function Header() {
         </nav>
       </div>
     </header>
-  );
+  )
 }

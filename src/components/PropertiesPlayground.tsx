@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Highlight } from "./Code";
+import { useState } from "react"
+import Highlight from "./Highlight"
 
-type Flow = "horizontal" | "vertical";
-type Vertical = "top" | "center" | "bottom";
-type Horizontal = "left" | "center" | "right";
+type Flow = "horizontal" | "vertical"
+type Vertical = "top" | "center" | "bottom"
+type Horizontal = "left" | "center" | "right"
 
 // Values below are real tokens from the library's UNITS and COLORS tables.
 const GAPS = [
@@ -13,28 +13,28 @@ const GAPS = [
   { token: "4", px: 16 },
   { token: "6", px: 24 },
   { token: "8", px: 32 },
-] as const;
+] as const
 
 const PADDINGS = [
   { token: "4", px: 16 },
   { token: "6", px: 24 },
   { token: "8", px: 32 },
-] as const;
+] as const
 
 const RADII = [
   { token: "2", px: 8 },
   { token: "4", px: 16 },
   { token: "6", px: 24 },
-] as const;
+] as const
 
 const FILLS = [
   { token: "primary", surface: "#F6EFFF", child: "#9225FF" },
   { token: "secondary", surface: "#FDF1FB", child: "#E93BCC" },
   { token: "tertiary", surface: "#F0F8FE", child: "#39A4EB" },
-] as const;
+] as const
 
-const VERTICALS: Vertical[] = ["top", "center", "bottom"];
-const HORIZONTALS: Horizontal[] = ["left", "center", "right"];
+const VERTICALS: Vertical[] = ["top", "center", "bottom"]
+const HORIZONTALS: Horizontal[] = ["left", "center", "right"]
 
 const CSS_ALIGN = {
   top: "flex-start",
@@ -42,32 +42,28 @@ const CSS_ALIGN = {
   center: "center",
   bottom: "flex-end",
   right: "flex-end",
-};
-
-function alignmentProp(v: Vertical, h: Horizontal) {
-  if (v === "center")
-    return h === "center" ? "alignment-center" : `alignment-${h}`;
-  return `alignment-${v}-${h}`;
 }
 
-function Segmented<T extends string>({
-  label,
-  value,
-  options,
-  onChange,
-  render = (option) => option,
-}: {
-  label: string;
-  value: T;
-  options: readonly T[];
-  onChange: (value: T) => void;
-  render?: (option: T) => string;
-}) {
+/** Builds the Figma alignment flag, which drops the redundant "center" from the vertical-center row. */
+const toAlignmentFlag = (v: Vertical, h: Horizontal) => {
+  if (v === "center") return h === "center" ? "alignment-center" : `alignment-${h}`
+  return `alignment-${v}-${h}`
+}
+
+type Segmented<T extends string> = {
+  label: string
+  value: T
+  options: readonly T[]
+  onChange: (value: T) => void
+  render?: (option: T) => string
+}
+
+const Segmented = <T extends string>(p: Segmented<T>) => {
+  const { label, value, options, onChange, render = (option) => option } = p
+
   return (
     <fieldset className="grid gap-1.5">
-      <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">
-        {label}
-      </legend>
+      <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">{label}</legend>
       <div className="flex rounded-md bg-gray-100 p-0.5 dark:bg-white/5">
         {options.map((option) => (
           <button
@@ -82,34 +78,33 @@ function Segmented<T extends string>({
         ))}
       </div>
     </fieldset>
-  );
+  )
 }
 
-export function PropertiesPlayground() {
-  const [flow, setFlow] = useState<Flow>("horizontal");
-  const [gap, setGap] = useState<(typeof GAPS)[number]["token"]>("4");
-  const [padding, setPadding] =
-    useState<(typeof PADDINGS)[number]["token"]>("6");
-  const [radius, setRadius] = useState<(typeof RADII)[number]["token"]>("4");
-  const [fill, setFill] = useState<(typeof FILLS)[number]["token"]>("primary");
-  const [vertical, setVertical] = useState<Vertical>("center");
-  const [horizontal, setHorizontal] = useState<Horizontal>("center");
+export default () => {
+  const [flow, setFlow] = useState<Flow>("horizontal")
+  const [gap, setGap] = useState<(typeof GAPS)[number]["token"]>("4")
+  const [padding, setPadding] = useState<(typeof PADDINGS)[number]["token"]>("6")
+  const [radius, setRadius] = useState<(typeof RADII)[number]["token"]>("4")
+  const [fill, setFill] = useState<(typeof FILLS)[number]["token"]>("primary")
+  const [vertical, setVertical] = useState<Vertical>("center")
+  const [horizontal, setHorizontal] = useState<Horizontal>("center")
 
-  const gapPx = GAPS.find((g) => g.token === gap)?.px ?? 16;
-  const paddingPx = PADDINGS.find((p) => p.token === padding)?.px ?? 24;
-  const radiusPx = RADII.find((r) => r.token === radius)?.px ?? 16;
-  const fillColors = FILLS.find((f) => f.token === fill) ?? FILLS[0];
+  const gapPx = GAPS.find((g) => g.token === gap)?.px ?? 16
+  const paddingPx = PADDINGS.find((p) => p.token === padding)?.px ?? 24
+  const radiusPx = RADII.find((r) => r.token === radius)?.px ?? 16
+  const fillColors = FILLS.find((f) => f.token === fill) ?? FILLS[0]
 
   // Figma alignment follows the flow: the main axis takes the alignment along the flow.
-  const isHorizontal = flow === "horizontal";
-  const justifyContent = CSS_ALIGN[isHorizontal ? horizontal : vertical];
-  const alignItems = CSS_ALIGN[isHorizontal ? vertical : horizontal];
+  const isHorizontal = flow === "horizontal"
+  const justifyContent = CSS_ALIGN[isHorizontal ? horizontal : vertical]
+  const alignItems = CSS_ALIGN[isHorizontal ? vertical : horizontal]
 
   const code = `<Frame
   flow-${flow}
   gap-${gap}
   padding-${padding}
-  ${alignmentProp(vertical, horizontal)}
+  ${toAlignmentFlag(vertical, horizontal)}
   corner-radius-${radius}
   fill-${fill}-100
   width-fill
@@ -118,7 +113,7 @@ export function PropertiesPlayground() {
   <Frame width-12 height-12 corner-radius-2 fill-${fill}-700 />
   <Frame width-12 height-16 corner-radius-2 fill-${fill}-700 />
   <Frame width-12 height-12 corner-radius-2 fill-${fill}-700 />
-</Frame>`;
+</Frame>`
 
   return (
     <div className="grid overflow-hidden rounded-2xl bg-white shadow-xl ring-1 ring-gray-950/10 lg:grid-cols-[15rem_1fr] dark:bg-gray-900 dark:ring-white/10">
@@ -139,22 +134,20 @@ export function PropertiesPlayground() {
 
         <div className="grid grid-cols-[auto_1fr] items-start gap-4">
           <fieldset>
-            <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">
-              Alignment
-            </legend>
+            <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">Alignment</legend>
             <div className="grid grid-cols-3 gap-0.5 rounded-md bg-gray-100 p-1 dark:bg-white/5">
               {VERTICALS.flatMap((v) =>
                 HORIZONTALS.map((h) => {
-                  const active = v === vertical && h === horizontal;
+                  const active = v === vertical && h === horizontal
                   return (
                     <button
                       key={`${v}-${h}`}
                       type="button"
-                      aria-label={alignmentProp(v, h)}
+                      aria-label={toAlignmentFlag(v, h)}
                       aria-pressed={active}
                       onClick={() => {
-                        setVertical(v);
-                        setHorizontal(h);
+                        setVertical(v)
+                        setHorizontal(h)
                       }}
                       className="grid size-6 place-items-center rounded-sm transition hover:bg-white/80 aria-pressed:bg-white dark:hover:bg-white/10 dark:aria-pressed:bg-white/15"
                     >
@@ -162,7 +155,7 @@ export function PropertiesPlayground() {
                         className={`rounded-full transition-all ${active ? "h-1 w-3 bg-brand-700" : "size-1 bg-gray-400"}`}
                       />
                     </button>
-                  );
+                  )
                 }),
               )}
             </div>
@@ -192,9 +185,7 @@ export function PropertiesPlayground() {
         />
 
         <fieldset>
-          <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">
-            Fill
-          </legend>
+          <legend className="mb-1.5 text-[11px] font-medium text-gray-500 dark:text-gray-400">Fill</legend>
           <div className="flex gap-2">
             {FILLS.map((f) => (
               <button
@@ -246,5 +237,5 @@ export function PropertiesPlayground() {
         </pre>
       </div>
     </div>
-  );
+  )
 }

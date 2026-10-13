@@ -1,4 +1,4 @@
-import { Highlight } from "./Code";
+import Highlight from "./Highlight"
 
 const OUTPUT = `<Frame flow-vertical gap-4 padding-6 corner-radius-4 fill-white effect-shadow-small width-fill>
   <Frame flow-horizontal gap-2 alignment-left width-fill>
@@ -7,7 +7,7 @@ const OUTPUT = `<Frame flow-vertical gap-4 padding-6 corner-radius-4 fill-white 
   <Text typography-body-wrap fill-neutral-600>
     Three invoices are due this week.
   </Text>
-</Frame>`;
+</Frame>`
 
 const ISSUES = [
   {
@@ -21,16 +21,14 @@ const ISSUES = [
     value: "Inter 17",
   },
   { rule: "Unknown color", layer: "Badge", value: "#9325FF" },
-];
+]
 
-export function PluginMock() {
+export default () => {
   return (
     <div className="grid gap-px overflow-hidden rounded-2xl bg-gray-950/10 shadow-xl ring-1 ring-gray-950/10 lg:grid-cols-[1fr_22rem] dark:bg-white/10 dark:ring-white/10">
       <div className="min-w-0 bg-gray-950 dark:bg-gray-900">
         <div className="flex items-center gap-4 border-b border-white/10 px-4 font-mono text-xs">
-          <span className="border-b-2 border-brand-500 py-3 text-white">
-            Code
-          </span>
+          <span className="border-b-2 border-brand-500 py-3 text-white">Code</span>
           <span className="py-3 text-gray-500">Lint · 3</span>
           <span className="ml-auto flex items-center gap-1.5 text-gray-500">
             <span className="size-1.5 animate-pulse rounded-full bg-emerald-400" />
@@ -60,13 +58,11 @@ export function PluginMock() {
                   {issue.layer} · {issue.value}
                 </p>
               </div>
-              <span className="font-mono text-[11px] text-brand-700 dark:text-brand-400">
-                Select →
-              </span>
+              <span className="font-mono text-[11px] text-brand-700 dark:text-brand-400">Select →</span>
             </li>
           ))}
         </ul>
       </div>
     </div>
-  );
+  )
 }

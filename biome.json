@@ -12,7 +12,8 @@
   "formatter": {
     "enabled": true,
     "indentStyle": "space",
-    "indentWidth": 2
+    "indentWidth": 2,
+    "lineWidth": 120
   },
   "css": {
     "parser": {
@@ -22,7 +23,20 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "style": {
+        "noRestrictedImports": {
+          "level": "error",
+          "options": {
+            "patterns": [
+              {
+                "group": ["@/*", "src/*"],
+                "message": "Absolute imports are not allowed. Use relative imports instead (e.g., ./... or ../...)"
+              }
+            ]
+          }
+        }
+      }
     },
     "domains": {
       "next": "recommended",
@@ -34,6 +48,12 @@
       "source": {
         "organizeImports": "on"
       }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double",
+      "semicolons": "asNeeded"
     }
   }
 }

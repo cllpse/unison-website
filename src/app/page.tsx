@@ -1,11 +1,12 @@
-import { CodeWindow } from "@/components/Code";
-import { Features } from "@/components/Features";
-import { Footer } from "@/components/Footer";
-import { Header } from "@/components/Header";
-import { PluginMock } from "@/components/PluginMock";
-import { PropertiesPlayground } from "@/components/PropertiesPlayground";
-import { Gap, Section } from "@/components/Section";
-import { PRODUCT_NAME } from "@/lib/site";
+import CodeWindow from "../components/CodeWindow"
+import Features from "../components/Features"
+import Footer from "../components/Footer"
+import Header from "../components/Header"
+import PluginMock from "../components/PluginMock"
+import PropertiesPlayground from "../components/PropertiesPlayground"
+import Section from "../components/Section"
+import SectionGap from "../components/SectionGap"
+import { PRODUCT_NAME } from "../constants/site"
 
 const BEFORE = `// Card.tsx, translated by eye from the spec
 <div
@@ -16,7 +17,7 @@ const BEFORE = `// Card.tsx, translated by eye from the spec
     borderRadius: 14,
     background: "#F7F0FF", // not quite primary-100
   }}
->`;
+>`
 
 const AFTER = `// Card.tsx, written by the plugin
 <Frame
@@ -25,7 +26,7 @@ const AFTER = `// Card.tsx, written by the plugin
   padding-6
   corner-radius-4
   fill-primary-100
->`;
+>`
 
 const PLUGIN_POINTS = [
   {
@@ -40,7 +41,7 @@ const PLUGIN_POINTS = [
     title: "A linter for design files",
     body: "Padding, gap, radius or size not bound to a variable, text without a text style, unknown colors and unsupported layout modes are flagged, each linked to its layer.",
   },
-];
+]
 
 const AUDIENCES = [
   {
@@ -55,7 +56,7 @@ const AUDIENCES = [
     title: "Design-system owners",
     body: "You want token compliance enforced by the compiler and the plugin, not by reviewers squinting at hex codes.",
   },
-];
+]
 
 const STEPS = [
   {
@@ -70,9 +71,9 @@ const STEPS = [
     title: "Paste the code",
     body: "Drop the generated Frame and Text tree into your web or React Native app.",
   },
-];
+]
 
-export default function Home() {
+export default () => {
   return (
     <>
       <Header />
@@ -95,9 +96,8 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg/8 text-pretty text-gray-600 dark:text-gray-400">
-              Components that speak Figma&apos;s own vocabulary. What a designer
-              sets in the properties panel is literally what the developer
-              writes, on web and native, and a plugin writes it for you.
+              Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is
+              literally what the developer writes, on web and native, and a plugin writes it for you.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
@@ -116,15 +116,13 @@ export default function Home() {
           </div>
           <div className="rule-t">
             <div className="mx-auto max-w-7xl rule-x px-4 py-10 sm:px-6 lg:px-8">
-              <p className="mb-4 font-mono text-xs text-gray-500">
-                Try it: change a property, the code follows.
-              </p>
+              <p className="mb-4 font-mono text-xs text-gray-500">Try it: change a property, the code follows.</p>
               <PropertiesPlayground />
             </div>
           </div>
         </div>
 
-        <Gap />
+        <SectionGap />
 
         <Section
           id="problem"
@@ -132,11 +130,9 @@ export default function Home() {
           title="Every design-to-code handoff loses something."
           lead={
             <>
-              Designers think in auto layout, variables and text styles.
-              Developers translate that by eye into CSS, Tailwind or StyleSheet
-              objects, and the two drift apart with every sprint. Spacing gets
-              eyeballed, colors get hard-coded, and &ldquo;the button looks
-              different on iOS&rdquo; becomes a ticket.{" "}
+              Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
+              Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
+              get hard-coded, and &ldquo;the button looks different on iOS&rdquo; becomes a ticket.{" "}
               <strong className="font-semibold text-gray-950 dark:text-white">
                 {PRODUCT_NAME} removes the translation step.
               </strong>
@@ -145,21 +141,17 @@ export default function Home() {
         >
           <div className="grid gap-px bg-gray-950/5 lg:grid-cols-2 dark:bg-white/10">
             <div className="bg-white p-4 sm:p-8 dark:bg-gray-950">
-              <p className="mb-3 font-mono text-xs text-gray-500">
-                Before · translated by hand
-              </p>
+              <p className="mb-3 font-mono text-xs text-gray-500">Before · translated by hand</p>
               <CodeWindow code={BEFORE} filename="Card.tsx" />
             </div>
             <div className="bg-white p-4 sm:p-8 dark:bg-gray-950">
-              <p className="mb-3 font-mono text-xs text-brand-700 dark:text-brand-400">
-                After · one vocabulary
-              </p>
+              <p className="mb-3 font-mono text-xs text-brand-700 dark:text-brand-400">After · one vocabulary</p>
               <CodeWindow code={AFTER} filename="Card.tsx" />
             </div>
           </div>
         </Section>
 
-        <Gap />
+        <SectionGap />
 
         <Section
           id="features"
@@ -170,7 +162,7 @@ export default function Home() {
           <Features />
         </Section>
 
-        <Gap />
+        <SectionGap />
 
         <Section
           id="plugin"
@@ -180,14 +172,9 @@ export default function Home() {
         >
           <div className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
             {PLUGIN_POINTS.map((point) => (
-              <div
-                key={point.title}
-                className="bg-white p-6 sm:p-8 dark:bg-gray-950"
-              >
+              <div key={point.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
                 <h3 className="font-semibold tracking-tight">{point.title}</h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
-                  {point.body}
-                </p>
+                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{point.body}</p>
               </div>
             ))}
           </div>
@@ -196,51 +183,30 @@ export default function Home() {
           </div>
         </Section>
 
-        <Gap />
+        <SectionGap />
 
-        <Section
-          eyebrow="Who it's for"
-          title="Built for teams that ship what they design."
-        >
+        <Section eyebrow="Who it's for" title="Built for teams that ship what they design.">
           <div className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
             {AUDIENCES.map((audience) => (
-              <div
-                key={audience.title}
-                className="bg-white p-6 sm:p-8 dark:bg-gray-950"
-              >
-                <h3 className="font-semibold tracking-tight">
-                  {audience.title}
-                </h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
-                  {audience.body}
-                </p>
+              <div key={audience.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
+                <h3 className="font-semibold tracking-tight">{audience.title}</h3>
+                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{audience.body}</p>
               </div>
             ))}
           </div>
         </Section>
 
-        <Gap />
+        <SectionGap />
 
-        <Section
-          id="get-started"
-          eyebrow="Get started"
-          title="From canvas to component in three steps."
-        >
+        <Section id="get-started" eyebrow="Get started" title="From canvas to component in three steps.">
           <ol className="grid gap-px bg-gray-950/5 md:grid-cols-3 dark:bg-white/10">
             {STEPS.map((step, index) => (
-              <li
-                key={step.title}
-                className="bg-white p-6 sm:p-8 dark:bg-gray-950"
-              >
+              <li key={step.title} className="bg-white p-6 sm:p-8 dark:bg-gray-950">
                 <span className="grid size-8 place-items-center rounded-full bg-brand-100 font-mono text-sm font-semibold text-brand-800 dark:bg-brand-900/50 dark:text-brand-300">
                   {index + 1}
                 </span>
-                <h3 className="mt-4 font-semibold tracking-tight">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">
-                  {step.body}
-                </p>
+                <h3 className="mt-4 font-semibold tracking-tight">{step.title}</h3>
+                <p className="mt-2 text-sm/6 text-gray-600 dark:text-gray-400">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -248,5 +214,5 @@ export default function Home() {
       </main>
       <Footer />
     </>
-  );
+  )
 }

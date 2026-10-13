@@ -7,3 +7,66 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+# figma-website
+
+The commercial website and documentation for the Figma component library (cllpse/figma). Code conventions follow the
+library's AGENTS.md; the library-only sections (base/web/native shells, Figma flag types, `compute*` helpers) don't
+apply here.
+
+## Commands
+
+- `bun install` — bun is the package manager; never add npm/yarn lockfiles
+- `bun dev` — local server on http://localhost:3000
+- `bun run typecheck` — `tsc --noEmit`; must pass before committing
+- `bunx biome check --write .` — format, lint and organize imports; must pass before committing
+- `bun run build` — production build; run it before opening a pull request
+
+## Architecture
+
+- Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
+  `tailwind.config`).
+- `src/components` — one component per file, PascalCase file names. Server components by default; add
+  `"use client"` only where a component needs state or event handlers (`PropertiesPlayground.tsx`).
+- `src/constants` — site-wide constants such as `PRODUCT_NAME` and `NAV_LINKS`. The product name lives only there.
+- `src/utilities` — pure helpers (`tokenize.ts`).
+- Brand colors in `globals.css` mirror the library's `COLORS` tokens. Code samples on the site use real flags and
+  tokens from the library; check `src/types/figmaProperties.ts` and `src/constants` in cllpse/figma before writing one.
+- Icon is being replaced by Vector; don't feature Icon in copy or samples.
+
+## TypeScript
+
+- `type`, not `interface`.
+- Type-only imports use `import type` or inline `type` specifiers.
+- Module-level constants are `SCREAMING_SNAKE_CASE`, `as const` where the literals matter; derive types from them
+  (`(typeof GAPS)[number]["token"]`) instead of duplicating literals.
+- Keep casts local and suppress lint/type errors one line at a time (`// @ts-expect-error`,
+  `// biome-ignore <rule>: <reason>`).
+- Avoid `any`; `noImplicitAny` is on.
+
+## Code style
+
+Biome enforces the formatting: 2-space indent, 120-column lines, double quotes, no semicolons, sorted imports.
+Beyond that:
+
+- Naming: PascalCase for components, component files and types; camelCase for all other files and for functions,
+  verb first (`tokenize`, `toAlignmentFlag`); `SCREAMING_SNAKE_CASE` for module-level constants.
+- Arrow functions only. Components are anonymous default exports, `export default (p: Section) => { … }`; everything
+  else is a named `export const`. Next.js route files (`page.tsx`, `layout.tsx`) follow the same rule.
+- A component's props type is exported under the component's name (`export type Section = { … }`).
+- The props parameter is `p`. Destructure what you use: `const { id, title, children } = p`.
+- Relative imports only; `@/*` and `src/*` paths are blocked by Biome.
+- Leave a blank line before the final `return` and between logical blocks.
+- No `useMemo` / `useCallback` / `React.memo`: React Compiler is on.
+- Style with Tailwind classes; use inline `style` only for values computed at runtime.
+
+## Comments and docs
+
+- Comments explain *why*, in full sentences.
+- Exported utilities and non-obvious types get JSDoc, with `@example` showing input → output.
+- TODOs are attributed: `@todo @cllpse: …`.
+
+## Git
+
+- Feature branch + pull request; don't commit to `main`.
+- Imperative, sentence-case subjects (`Add pricing section`); one concern per commit.

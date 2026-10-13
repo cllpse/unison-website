@@ -11,4 +11,4 @@ bun run build
 bun run lint
 ```
 
-Brand colors in `src/app/globals.css` mirror the library's `COLORS` tokens, and the product name lives in `src/lib/site.ts`.
+See AGENTS.md for conventions.
