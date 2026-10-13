@@ -28,7 +28,8 @@ apply here.
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
   `"use client"` only where a component needs state or event handlers.
-- `src/constants`: site-wide constants such as `PRODUCT_NAME` and `NAV_LINKS`. The product name lives only there.
+- `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
+  section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
 - Colors come from the palette in `globals.css` (and the Shiki theme in `highlight.ts`); don't add others. Code samples on the site use real flags and
   tokens from the library; check `src/types/figmaProperties.ts` and `src/constants` in cllpse/figma before writing one.

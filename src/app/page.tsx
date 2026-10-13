@@ -156,7 +156,7 @@ export default () => {
         </p>
         <CodeBlock code={EXAMPLE} caption="Card.tsx" />
 
-        <Section accent="amethyst" id="problem" title="Every design-to-code handoff loses something.">
+        <Section id="problem" title="Every design-to-code handoff loses something.">
           <p className={BODY}>
             Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
             Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
@@ -167,7 +167,7 @@ export default () => {
           <CodeBlock code={AFTER} caption="After: one vocabulary" />
         </Section>
 
-        <Section accent="magenta" id="features" title="One vocabulary from canvas to web and native.">
+        <Section id="features" title="One vocabulary from canvas to web and native.">
           <p className={BODY}>
             A small set of components whose props are the settings in Figma's properties panel, typed against your
             design tokens.
@@ -181,7 +181,7 @@ export default () => {
           ))}
         </Section>
 
-        <Section accent="minion-yellow" id="plugin" title="The plugin writes the code. And keeps the file honest.">
+        <Section id="plugin" title="The plugin writes the code. And keeps the file honest.">
           <p className={BODY}>
             Select a frame and get ready-to-paste components. Anything that can't become clean code is flagged before it
             reaches a developer.
@@ -195,7 +195,7 @@ export default () => {
           <CodeBlock code={PLUGIN_OUTPUT} caption="Plugin output" />
         </Section>
 
-        <Section accent="capri" id="agents" title="Made for coding agents.">
+        <Section id="agents" title="Made for coding agents.">
           <p className={BODY}>
             The same properties that make the code readable for people make it predictable for agents. Ask one to port a
             component or apply a design change, and the result stays on-system and easy to review.
@@ -249,7 +249,7 @@ export default () => {
           </div>
         </Section>
 
-        <Section accent="aquamarine" title="Built for teams that ship what they design.">
+        <Section id="audiences" title="Built for teams that ship what they design.">
           {AUDIENCES.map((audience) => (
             <div key={audience.title} className="mt-8">
               <h3 className="text-subheading text-(--accent-text)">{audience.title}</h3>
@@ -258,7 +258,7 @@ export default () => {
           ))}
         </Section>
 
-        <Section accent="amethyst" id="get-started" title="From canvas to component in three steps.">
+        <Section id="get-started" title="From canvas to component in three steps.">
           <ol className="list-decimal pl-5">
             {STEPS.map((step) => (
               <li key={step.title} className="mt-8 marker:font-extrabold">
