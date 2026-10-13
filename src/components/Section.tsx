@@ -26,7 +26,7 @@ export default (p: Section) => {
 
   return (
     <section id={id} className={`mt-16 scroll-mt-6 sm:mt-24 ${ACCENT_CLASSES[accent]}`}>
-      <h2 className="text-heading text-balance text-(--accent)">{title}</h2>
+      <h2 className="w-fit text-heading text-balance text-accent-gradient">{title}</h2>
       {children}
     </section>
   )

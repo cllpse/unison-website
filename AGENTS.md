@@ -27,7 +27,7 @@ apply here.
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state or event handlers.
+  `"use client"` only where a component needs state, effects or event handlers (`SnappyScroll.tsx`).
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).

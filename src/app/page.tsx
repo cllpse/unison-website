@@ -1,21 +1,37 @@
 import CodeBlock from "../components/CodeBlock"
-import Footer from "../components/Footer"
 import Header from "../components/Header"
 import Section from "../components/Section"
 import { PRODUCT_NAME } from "../constants/site"
 
 const EXAMPLE = `<Frame
-  flow-horizontal
+  flow-vertical
   gap-4
   padding-6
-  alignment-center
   corner-radius-4
-  fill-primary-100
+  fill-white
+  effect-shadow-small
   width-fill
 >
-  <Frame width-12 height-12 corner-radius-2 fill-primary-700 />
-  <Frame width-12 height-16 corner-radius-2 fill-primary-700 />
-  <Frame width-12 height-12 corner-radius-2 fill-primary-700 />
+  <Text typography-header-small-wrap fill-text-800>
+    Invoices
+  </Text>
+  <Text typography-body-wrap fill-neutral-600>
+    Three invoices are due this week.
+  </Text>
+  <Frame
+    flow-horizontal
+    padding-vertical-2
+    padding-horizontal-4
+    alignment-center
+    corner-radius-full
+    fill-primary-700
+    fill-hover-primary-800
+    onPress={openInvoices}
+  >
+    <Text typography-label-nowrap fill-white>
+      Review invoices
+    </Text>
+  </Frame>
 </Frame>`
 
 const BEFORE = `// Card.tsx, translated by eye from the spec
@@ -94,21 +110,6 @@ const PLUGIN_POINTS = [
   },
 ]
 
-const AUDIENCES = [
-  {
-    title: "Product teams",
-    body: "Your designers work in Figma variables and you want the code to stay faithful to them, sprint after sprint.",
-  },
-  {
-    title: "Cross-platform teams",
-    body: "You ship the same UI on web and React Native and want one component API and one mental model for both.",
-  },
-  {
-    title: "Design-system owners",
-    body: "You want token compliance enforced by the compiler and the plugin, not by reviewers squinting at hex codes.",
-  },
-]
-
 const STEPS = [
   {
     title: "Install the plugin",
@@ -148,9 +149,9 @@ export default () => {
   return (
     <>
       <Header />
-      <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 sm:px-6 sm:pt-20">
+      <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24">
         <h1 className="text-display-sm text-balance sm:text-display">Your Figma properties, as code.</h1>
-        <p className="mt-6 text-lead-sm text-pretty text-subtle sm:mt-8 sm:text-lead dark:text-subtle-inverse">
+        <p className="mt-6 text-lead-sm font-normal text-pretty text-black sm:mt-8 sm:text-lead dark:text-white">
           Components that speak Figma's own vocabulary. What a designer sets in the properties panel is literally what
           the developer writes, on web and native, and a plugin writes it for you.
         </p>
@@ -174,7 +175,7 @@ export default () => {
           </p>
           {FEATURES.map((feature) => (
             <div key={feature.title} className="mt-10">
-              <h3 className="text-subheading text-(--accent)">{feature.title}</h3>
+              <h3 className="text-lead-sm text-(--accent) sm:text-lead">{feature.title}</h3>
               <p className={BODY}>{feature.body}</p>
               {feature.code ? <CodeBlock code={feature.code} /> : null}
             </div>
@@ -188,7 +189,7 @@ export default () => {
           </p>
           {PLUGIN_POINTS.map((point) => (
             <div key={point.title} className="mt-10">
-              <h3 className="text-subheading text-(--accent)">{point.title}</h3>
+              <h3 className="text-lead-sm text-(--accent) sm:text-lead">{point.title}</h3>
               <p className={BODY}>{point.body}</p>
             </div>
           ))}
@@ -201,7 +202,7 @@ export default () => {
             component or apply a design change, and the result stays on-system and easy to review.
           </p>
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">A vocabulary agents can't get creative with</h3>
+            <h3 className="text-lead-sm text-(--accent) sm:text-lead">A vocabulary agents can't get creative with</h3>
             <p className={BODY}>
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
               layout. An agent doesn't invent margins or reach for a hex code; if it guesses a value that isn't in your
@@ -210,7 +211,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">The same bet as Polar's Orbit</h3>
+            <h3 className="text-lead-sm text-(--accent) sm:text-lead">The same bet as Polar's Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
               <a href={ORBIT_URL} className="underline underline-offset-4 hover:decoration-2">
@@ -226,7 +227,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">Port once, run everywhere</h3>
+            <h3 className="text-lead-sm text-(--accent) sm:text-lead">Port once, run everywhere</h3>
             <p className={BODY}>
               Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
               Figma. Once a component is written with Frame and Text it is portable by construction, because the same
@@ -238,7 +239,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">Updates without rewrites</h3>
+            <h3 className="text-lead-sm text-(--accent) sm:text-lead">Updates without rewrites</h3>
             <p className={BODY}>
               When the design changes, an agent edits existing components instead of regenerating them. Layout and
               styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
@@ -249,27 +250,17 @@ export default () => {
           </div>
         </Section>
 
-        <Section id="audiences" title="Built for teams that ship what they design.">
-          {AUDIENCES.map((audience) => (
-            <div key={audience.title} className="mt-8">
-              <h3 className="text-subheading text-(--accent)">{audience.title}</h3>
-              <p className={BODY}>{audience.body}</p>
-            </div>
-          ))}
-        </Section>
-
         <Section id="get-started" title="From canvas to component in three steps.">
           <ol className="list-decimal pl-5">
             {STEPS.map((step) => (
               <li key={step.title} className="mt-8 marker:font-extrabold">
-                <h3 className="text-subheading text-(--accent)">{step.title}</h3>
+                <h3 className="text-lead-sm text-(--accent) sm:text-lead">{step.title}</h3>
                 <p className={BODY}>{step.body}</p>
               </li>
             ))}
           </ol>
         </Section>
       </main>
-      <Footer />
     </>
   )
 }

@@ -9,9 +9,8 @@ export const SECTION_ACCENTS = {
   problem: "amethyst",
   features: "magenta",
   plugin: "minion-yellow",
-  agents: "capri",
-  audiences: "aquamarine",
-  "get-started": "amethyst",
+  agents: "aquamarine",
+  "get-started": "capri",
 } as const
 
 export type SectionId = keyof typeof SECTION_ACCENTS

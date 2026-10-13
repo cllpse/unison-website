@@ -1,17 +1,26 @@
 import type { Metadata, Viewport } from "next"
-import { Google_Sans_Code, Inter } from "next/font/google"
+import { Inter } from "next/font/google"
+import localFont from "next/font/local"
+import SnappyScroll from "../components/SnappyScroll"
 import { PRODUCT_NAME } from "../constants/site"
 import "./globals.css"
 
-// The same pair coolors.co uses: Inter for text, Google Sans Code for code.
+// Inter for text, as on coolors.co.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 })
 
-const googleSansCode = Google_Sans_Code({
-  variable: "--font-google-sans-code",
-  subsets: ["latin"],
+// Comic Code for code, the owner's terminal font (licensed for web use). The files are subset to Latin from the Nerd
+// Font build, which is mostly icon glyphs, so each is about 27 KB instead of 2.2 MB. As in their Ghostty config, the
+// SemiBold face is the regular weight and Bold is bold.
+const comicCode = localFont({
+  variable: "--font-comic-code",
+  src: [
+    { path: "./fonts/ComicCode-SemiBold.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/ComicCode-Bold.woff2", weight: "700", style: "normal" },
+  ],
+  adjustFontFallback: false,
 })
 
 export const metadata: Metadata = {
@@ -31,8 +40,11 @@ export default (p: LayoutProps<"/">) => {
   const { children } = p
 
   return (
-    <html lang="en" className={`${inter.variable} ${googleSansCode.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">{children}</body>
+    <html lang="en" className={`${inter.variable} ${comicCode.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col font-sans">
+        {children}
+        <SnappyScroll />
+      </body>
     </html>
   )
 }
