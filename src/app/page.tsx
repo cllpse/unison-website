@@ -156,7 +156,7 @@ export default () => {
         </p>
         <CodeBlock code={EXAMPLE} caption="Card.tsx" />
 
-        <Section id="problem" title="Every design-to-code handoff loses something.">
+        <Section accent="amethyst" id="problem" title="Every design-to-code handoff loses something.">
           <p className={BODY}>
             Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
             Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
@@ -169,41 +169,41 @@ export default () => {
           <CodeBlock code={AFTER} caption="After · one vocabulary" />
         </Section>
 
-        <Section id="features" title="One vocabulary from canvas to web and native.">
+        <Section accent="magenta" id="features" title="One vocabulary from canvas to web and native.">
           <p className={BODY}>
             A small set of components whose props are the settings in Figma&apos;s properties panel, typed against your
             design tokens.
           </p>
           {FEATURES.map((feature) => (
             <div key={feature.title} className="mt-10">
-              <h3 className="text-subheading">{feature.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{feature.title}</h3>
               <p className={BODY}>{feature.body}</p>
               {feature.code ? <CodeBlock code={feature.code} /> : null}
             </div>
           ))}
         </Section>
 
-        <Section id="plugin" title="The plugin writes the code. And keeps the file honest.">
+        <Section accent="minion-yellow" id="plugin" title="The plugin writes the code. And keeps the file honest.">
           <p className={BODY}>
             Select a frame and get ready-to-paste components. Anything that can&apos;t become clean code is flagged
             before it reaches a developer.
           </p>
           {PLUGIN_POINTS.map((point) => (
             <div key={point.title} className="mt-10">
-              <h3 className="text-subheading">{point.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{point.title}</h3>
               <p className={BODY}>{point.body}</p>
             </div>
           ))}
           <CodeBlock code={PLUGIN_OUTPUT} caption="Plugin output" />
         </Section>
 
-        <Section id="agents" title="Made for coding agents.">
+        <Section accent="capri" id="agents" title="Made for coding agents.">
           <p className={BODY}>
             The same properties that make the code readable for people make it predictable for agents. Ask one to port a
             component or apply a design change, and the result stays on-system and easy to review.
           </p>
           <div className="mt-10">
-            <h3 className="text-subheading">A vocabulary agents can&apos;t get creative with</h3>
+            <h3 className="text-subheading text-(--accent)">A vocabulary agents can&apos;t get creative with</h3>
             <p className={BODY}>
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
               layout. An agent doesn&apos;t invent margins or reach for a hex code; if it guesses a value that
@@ -212,7 +212,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading">The same bet as Polar&apos;s Orbit</h3>
+            <h3 className="text-subheading text-(--accent)">The same bet as Polar&apos;s Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
               <a href={ORBIT_URL} className="underline decoration-amethyst underline-offset-4 hover:text-magenta">
@@ -228,7 +228,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading">Port once, run everywhere</h3>
+            <h3 className="text-subheading text-(--accent)">Port once, run everywhere</h3>
             <p className={BODY}>
               Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
               Figma. Once a component is written with Frame and Text it is portable by construction, because the same
@@ -240,7 +240,7 @@ export default () => {
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading">Updates without rewrites</h3>
+            <h3 className="text-subheading text-(--accent)">Updates without rewrites</h3>
             <p className={BODY}>
               When the design changes, an agent edits existing components instead of regenerating them. Layout and
               styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
@@ -251,20 +251,20 @@ export default () => {
           </div>
         </Section>
 
-        <Section title="Built for teams that ship what they design.">
+        <Section accent="aquamarine" title="Built for teams that ship what they design.">
           {AUDIENCES.map((audience) => (
             <div key={audience.title} className="mt-8">
-              <h3 className="text-subheading">{audience.title}</h3>
+              <h3 className="text-subheading text-(--accent)">{audience.title}</h3>
               <p className={BODY}>{audience.body}</p>
             </div>
           ))}
         </Section>
 
-        <Section id="get-started" title="From canvas to component in three steps.">
+        <Section accent="amethyst" id="get-started" title="From canvas to component in three steps.">
           <ol className="list-decimal pl-5">
             {STEPS.map((step) => (
               <li key={step.title} className="mt-8 marker:font-extrabold">
-                <h3 className="text-subheading">{step.title}</h3>
+                <h3 className="text-subheading text-(--accent)">{step.title}</h3>
                 <p className={BODY}>{step.body}</p>
               </li>
             ))}

@@ -67,6 +67,8 @@
   }
 
   body {
+    /* Sections set their own accent; code outside a section gets no visible border. */
+    --accent: transparent;
     @apply bg-white text-body font-[450] text-black dark:bg-black dark:text-white;
   }
 
