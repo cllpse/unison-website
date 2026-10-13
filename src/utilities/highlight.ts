@@ -46,7 +46,7 @@ const HIGHLIGHTER = createHighlighterCore({
  *
  * @example
  * await highlight("<Frame gap-4 />")
- * // → '<pre class="shiki grayscale" …><code><span class="line">…</span></code></pre>'
+ * // => '<pre class="shiki grayscale" ...><code><span class="line">...</span></code></pre>'
  */
 export const highlight = async (code: string, lang: "tsx" | "diff" = "tsx") => {
   const highlighter = await HIGHLIGHTER

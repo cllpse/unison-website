@@ -16,20 +16,20 @@ apply here.
 
 ## Commands
 
-- `bun install` — bun is the package manager; never add npm/yarn lockfiles
-- `bun dev` — local server on http://localhost:3000
-- `bun run typecheck` — `tsc --noEmit`; must pass before committing
-- `bunx biome check --write .` — format, lint and organize imports; must pass before committing
-- `bun run build` — production build; run it before opening a pull request
+- `bun install`: bun is the package manager; never add npm/yarn lockfiles
+- `bun dev`: local server on http://localhost:3000
+- `bun run typecheck`: `tsc --noEmit`; must pass before committing
+- `bunx biome check --write .`: format, lint and organize imports; must pass before committing
+- `bun run build`: production build; run it before pushing
 
 ## Architecture
 
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
-- `src/components` — one component per file, PascalCase file names. Server components by default; add
+- `src/components`: one component per file, PascalCase file names. Server components by default; add
   `"use client"` only where a component needs state or event handlers.
-- `src/constants` — site-wide constants such as `PRODUCT_NAME` and `NAV_LINKS`. The product name lives only there.
-- `src/utilities` — helpers (`highlight.ts`, which wraps Shiki for the code blocks).
+- `src/constants`: site-wide constants such as `PRODUCT_NAME` and `NAV_LINKS`. The product name lives only there.
+- `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
 - Colors come from the palette in `globals.css` (and the Shiki theme in `highlight.ts`); don't add others. Code samples on the site use real flags and
   tokens from the library; check `src/types/figmaProperties.ts` and `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
@@ -51,20 +51,25 @@ Beyond that:
 
 - Naming: PascalCase for components, component files and types; camelCase for all other files and for functions,
   verb first (`highlight`, `toAlignmentFlag`); `SCREAMING_SNAKE_CASE` for module-level constants.
-- Arrow functions only. Components are anonymous default exports, `export default (p: Section) => { … }`; everything
+- Arrow functions only. Components are anonymous default exports, `export default (p: Section) => { ... }`; everything
   else is a named `export const`. Next.js route files (`page.tsx`, `layout.tsx`) follow the same rule.
-- A component's props type is exported under the component's name (`export type Section = { … }`).
+- A component's props type is exported under the component's name (`export type Section = { ... }`).
 - The props parameter is `p`. Destructure what you use: `const { id, title, children } = p`.
 - Relative imports only; `@/*` and `src/*` paths are blocked by Biome.
 - Leave a blank line before the final `return` and between logical blocks.
 - No `useMemo` / `useCallback` / `React.memo`: React Compiler is on.
 - Style with Tailwind classes; use inline `style` only for values computed at runtime.
 
+## Copy
+
+- Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
+  quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
+
 ## Comments and docs
 
 - Comments explain *why*, in full sentences.
-- Exported utilities and non-obvious types get JSDoc, with `@example` showing input → output.
-- TODOs are attributed: `@todo @cllpse: …`.
+- Exported utilities and non-obvious types get JSDoc, with `@example` showing input => output.
+- TODOs are attributed: `@todo @cllpse: ...`.
 
 ## Git
 

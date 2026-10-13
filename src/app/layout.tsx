@@ -15,7 +15,7 @@ const googleSansCode = Google_Sans_Code({
 })
 
 export const metadata: Metadata = {
-  title: `${PRODUCT_NAME} – Your Figma properties, as code`,
+  title: `${PRODUCT_NAME} - Your Figma properties, as code`,
   description:
     "Components that speak Figma's own vocabulary. What a designer sets in the properties panel is literally what the developer writes, on web and native, and a plugin writes it for you.",
 }

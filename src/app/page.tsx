@@ -151,8 +151,8 @@ export default () => {
       <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 sm:px-6 sm:pt-20">
         <h1 className="text-display-sm text-balance sm:text-display">Your Figma properties, as code.</h1>
         <p className="mt-6 text-lead-sm text-pretty text-subtle sm:mt-8 sm:text-lead dark:text-subtle-inverse">
-          Components that speak Figma&apos;s own vocabulary. What a designer sets in the properties panel is literally
-          what the developer writes, on web and native, and a plugin writes it for you.
+          Components that speak Figma's own vocabulary. What a designer sets in the properties panel is literally what
+          the developer writes, on web and native, and a plugin writes it for you.
         </p>
         <CodeBlock code={EXAMPLE} caption="Card.tsx" />
 
@@ -160,16 +160,16 @@ export default () => {
           <p className={BODY}>
             Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
             Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
-            get hard-coded, and &ldquo;the button looks different on iOS&rdquo; becomes a ticket.{" "}
+            get hard-coded, and "the button looks different on iOS" becomes a ticket.{" "}
             <strong className="font-semibold">{PRODUCT_NAME} removes the translation step.</strong>
           </p>
-          <CodeBlock code={BEFORE} caption="Before · translated by hand" />
-          <CodeBlock code={AFTER} caption="After · one vocabulary" />
+          <CodeBlock code={BEFORE} caption="Before: translated by hand" />
+          <CodeBlock code={AFTER} caption="After: one vocabulary" />
         </Section>
 
         <Section accent="magenta" id="features" title="One vocabulary from canvas to web and native.">
           <p className={BODY}>
-            A small set of components whose props are the settings in Figma&apos;s properties panel, typed against your
+            A small set of components whose props are the settings in Figma's properties panel, typed against your
             design tokens.
           </p>
           {FEATURES.map((feature) => (
@@ -183,8 +183,8 @@ export default () => {
 
         <Section accent="minion-yellow" id="plugin" title="The plugin writes the code. And keeps the file honest.">
           <p className={BODY}>
-            Select a frame and get ready-to-paste components. Anything that can&apos;t become clean code is flagged
-            before it reaches a developer.
+            Select a frame and get ready-to-paste components. Anything that can't become clean code is flagged before it
+            reaches a developer.
           </p>
           {PLUGIN_POINTS.map((point) => (
             <div key={point.title} className="mt-10">
@@ -201,16 +201,16 @@ export default () => {
             component or apply a design change, and the result stays on-system and easy to review.
           </p>
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">A vocabulary agents can&apos;t get creative with</h3>
+            <h3 className="text-subheading text-(--accent)">A vocabulary agents can't get creative with</h3>
             <p className={BODY}>
               Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
-              layout. An agent doesn&apos;t invent margins or reach for a hex code; if it guesses a value that
-              isn&apos;t in your tokens, the type checker stops it before you review anything.
+              layout. An agent doesn't invent margins or reach for a hex code; if it guesses a value that isn't in your
+              tokens, the type checker stops it before you review anything.
             </p>
           </div>
 
           <div className="mt-10">
-            <h3 className="text-subheading text-(--accent)">The same bet as Polar&apos;s Orbit</h3>
+            <h3 className="text-subheading text-(--accent)">The same bet as Polar's Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
               <a href={ORBIT_URL} className="underline underline-offset-4 hover:decoration-2">
@@ -218,10 +218,10 @@ export default () => {
               </a>
               : models write fluent Tailwind with no idea which spacing or gray your team actually chose, so the UI
               drifts one plausible value at a time. Their answer is a single typed primitive whose props only accept
-              design tokens, so off-system choices can&apos;t be expressed. {PRODUCT_NAME} makes the same bet, with one
-              difference: the vocabulary isn&apos;t invented by a design-system team. The props are the settings in
-              Figma&apos;s properties panel and the values are your Figma variables, so the designer, the developer and
-              the agent all read and write the same words, and the plugin writes them first.
+              design tokens, so off-system choices can't be expressed. {PRODUCT_NAME} makes the same bet, with one
+              difference: the vocabulary isn't invented by a design-system team. The props are the settings in Figma's
+              properties panel and the values are your Figma variables, so the designer, the developer and the agent all
+              read and write the same words, and the plugin writes them first.
             </p>
           </div>
 
@@ -230,11 +230,11 @@ export default () => {
             <p className={BODY}>
               Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
               Figma. Once a component is written with Frame and Text it is portable by construction, because the same
-              props render on web and React Native; the bundler picks the platform shell, and the component code
-              doesn&apos;t change.
+              props render on web and React Native; the bundler picks the platform shell, and the component code doesn't
+              change.
             </p>
-            <CodeBlock code={PORT_BEFORE} caption="Before · one platform" />
-            <CodeBlock code={PORT_AFTER} caption="After · every platform" />
+            <CodeBlock code={PORT_BEFORE} caption="Before: one platform" />
+            <CodeBlock code={PORT_AFTER} caption="After: every platform" />
           </div>
 
           <div className="mt-10">
@@ -245,7 +245,7 @@ export default () => {
               state, handlers and data stay exactly as they were. Each line in the diff names the setting that changed,
               so a designer can review it too.
             </p>
-            <CodeBlock code={UPDATE_DIFF} lang="diff" caption="Gap 16 → 24, fill primary → secondary" />
+            <CodeBlock code={UPDATE_DIFF} lang="diff" caption="Gap 16 to 24, fill primary to secondary" />
           </div>
         </Section>
 
