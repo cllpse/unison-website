@@ -161,9 +161,7 @@ export default () => {
             Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
             Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
             get hard-coded, and &ldquo;the button looks different on iOS&rdquo; becomes a ticket.{" "}
-            <strong className="font-semibold text-black dark:text-white">
-              {PRODUCT_NAME} removes the translation step.
-            </strong>
+            <strong className="font-semibold">{PRODUCT_NAME} removes the translation step.</strong>
           </p>
           <CodeBlock code={BEFORE} caption="Before · translated by hand" />
           <CodeBlock code={AFTER} caption="After · one vocabulary" />
@@ -215,7 +213,7 @@ export default () => {
             <h3 className="text-subheading text-(--accent)">The same bet as Polar&apos;s Orbit</h3>
             <p className={BODY}>
               Polar wrote about{" "}
-              <a href={ORBIT_URL} className="underline decoration-amethyst underline-offset-4 hover:text-magenta">
+              <a href={ORBIT_URL} className="underline underline-offset-4 hover:decoration-2">
                 building an LLM-safe design system
               </a>
               : models write fluent Tailwind with no idea which spacing or gray your team actually chose, so the UI
