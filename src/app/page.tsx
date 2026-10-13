@@ -1,8 +1,9 @@
 import CodeBlock from "../components/CodeBlock"
+import Disclaimer from "../components/Disclaimer"
 import Header from "../components/Header"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
-import { PRODUCT_NAME } from "../constants/site"
+import { PRODUCT_NAME, REPO_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
   flow-vertical
@@ -83,6 +84,14 @@ const UPDATE_DIFF = `  <Frame
   >`
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
+
+// Ends every section that mentions React Native, while its support is unstable.
+const REACT_NATIVE_DISCLAIMER = (
+  <Disclaimer label="Heads up">
+    React Native support is unstable for now, so expect rough edges. Watch the <a href={REPO_URL}>GitHub repository</a>{" "}
+    to stay in the loop.
+  </Disclaimer>
+)
 
 const EVERYONE: Point[] = [
   {
@@ -200,6 +209,7 @@ export default () => {
           pitch="Designers, developers and agents share one vocabulary, straight from the Figma file."
         >
           <Points points={EVERYONE} />
+          {REACT_NATIVE_DISCLAIMER}
         </Section>
 
         <Section
@@ -252,6 +262,7 @@ export default () => {
               </li>
             ))}
           </ol>
+          {REACT_NATIVE_DISCLAIMER}
         </Section>
       </main>
     </>

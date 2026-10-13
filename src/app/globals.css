@@ -4,7 +4,8 @@
    dark: variant follows that attribute instead of the system setting. */
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black, white and three grays. */
+/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus a red-orange, black, white and three
+   grays. */
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-paragraph: var(--font-atkinson), system-ui, sans-serif;
@@ -51,6 +52,9 @@
   /* Yellow and aquamarine, darkened from #fee440 and #00f5d4 to read as text on white. */
   --color-minion-yellow: #e7c701;
   --color-aquamarine: #00b89f;
+  /* A red-orange for caveats, made to fit the palette: in OKLCH, between magenta and yellow on the hue wheel but close
+     to red (35deg), at magenta's chroma (0.2) and lightness (0.68). */
+  --color-vermilion: #fa5d36;
 }
 
 /* The dark theme's neutrals; the accents stay as they are. Black and white swap roles through dark: variants, with

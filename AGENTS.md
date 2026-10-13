@@ -51,6 +51,8 @@ apply here.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
+- React Native support is unstable: every section that mentions React Native ends with `REACT_NATIVE_DISCLAIMER`
+  (`page.tsx`), a `Disclaimer` box.
 
 ## TypeScript
 
