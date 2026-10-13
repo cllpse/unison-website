@@ -1,15 +1,16 @@
 import type { ReactNode } from "react"
 
 /**
- * Each accent sets `--accent` for the whole section, so headings and code-block borders inside it pick up the color
- * without being told. The class names are spelled out so Tailwind can find them.
+ * Each accent sets `--accent` (borders) and `--accent-text` (headings, links, emphasis) for the whole section, so
+ * everything inside it picks up the color without being told. Yellow and aquamarine are too light to read as text on
+ * white, so their text uses a darker shade. The class names are spelled out so Tailwind can find them.
  */
 const ACCENT_CLASSES = {
-  amethyst: "[--accent:var(--color-amethyst)]",
-  magenta: "[--accent:var(--color-magenta)]",
-  "minion-yellow": "[--accent:var(--color-minion-yellow)]",
-  capri: "[--accent:var(--color-capri)]",
-  aquamarine: "[--accent:var(--color-aquamarine)]",
+  amethyst: "[--accent:var(--color-amethyst)] [--accent-text:var(--color-amethyst)]",
+  magenta: "[--accent:var(--color-magenta)] [--accent-text:var(--color-magenta)]",
+  "minion-yellow": "[--accent:var(--color-minion-yellow)] [--accent-text:var(--color-minion-yellow-dark)]",
+  capri: "[--accent:var(--color-capri)] [--accent-text:var(--color-capri)]",
+  aquamarine: "[--accent:var(--color-aquamarine)] [--accent-text:var(--color-aquamarine-dark)]",
 } as const
 
 export type Section = {
@@ -24,7 +25,7 @@ export default (p: Section) => {
 
   return (
     <section id={id} className={`mt-16 scroll-mt-6 sm:mt-24 ${ACCENT_CLASSES[accent]}`}>
-      <h2 className="text-heading text-balance text-(--accent)">{title}</h2>
+      <h2 className="text-heading text-balance text-(--accent-text)">{title}</h2>
       {children}
     </section>
   )
