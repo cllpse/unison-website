@@ -1,16 +1,15 @@
-import { highlight, type Theme } from "../utilities/highlight"
+import { highlight } from "../utilities/highlight"
 
 export type CodeBlock = {
   code: string
   caption?: string
   lang?: "tsx" | "diff"
-  /** Grayscale by default; "colorful" for a block that should stand out. */
-  theme?: Theme
+  /** Text to mark with a red error squiggle (its first occurrence). */
+  error?: string
 }
 
 export default async (p: CodeBlock) => {
-  const { code, caption, lang, theme } = p
-  const html = await highlight(code, lang, theme)
+  const { code, caption, lang, error } = p
 
   return (
     <figure className="mt-6 min-w-0">
@@ -19,12 +18,14 @@ export default async (p: CodeBlock) => {
           {caption}
         </figcaption>
       ) : null}
-      {/* Code scrolls inside its own box so long lines never widen the page on a phone. Italic runs (text between
-          tags and comments) are lighter in color, so they skip the thinning stroke to keep their full weight. */}
+      {/* The wrapper styles Shiki's <pre>: GitHub's token colors on the site's own surface (its inline background is
+          overridden). Code scrolls inside it, so long lines never widen the page on a phone. The scrollbar track is
+          always reserved and doubles as the bottom padding, so code sits right above the thumb. Italic runs skip the
+          thinning stroke to keep their full weight. */}
       <div
-        className="[&_pre]:overflow-x-auto [&_pre]:rounded-3xl [&_pre]:border [&_pre]:border-gray-edge [&_pre]:outline-none [&_pre]:[corner-shape:squircle] [&_pre]:p-4 [&_pre]:font-mono [&_pre]:text-code [&_pre]:font-normal [&_pre]:text-thin-gray [&_pre_span[style*=italic]]:[-webkit-text-stroke:0] [&_pre]:[-webkit-overflow-scrolling:touch]"
+        className="*:overflow-x-scroll *:overflow-y-hidden *:scrollbar-code *:rounded-3xl *:border *:border-gray-edge *:bg-gray! [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:px-4 [&_code]:pt-4 *:font-mono *:text-code *:text-thin-gray *:[corner-shape:squircle] [&_[style*=italic]]:[-webkit-text-stroke:0]"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
-        dangerouslySetInnerHTML={{ __html: html }}
+        dangerouslySetInnerHTML={{ __html: await highlight(code, lang, error) }}
       />
     </figure>
   )

@@ -1,6 +1,7 @@
 import CodeBlock from "../components/CodeBlock"
 import Header from "../components/Header"
-import Section from "../components/Section"
+import Points, { type Point } from "../components/Points"
+import Section, { HEADING, PITCH } from "../components/Section"
 import { PRODUCT_NAME } from "../constants/site"
 
 const EXAMPLE = `<Frame
@@ -34,8 +35,8 @@ const EXAMPLE = `<Frame
   </Frame>
 </Frame>`
 
-const BEFORE = `// Card.tsx, translated by eye from the spec
-// Close to the spec, but are these the designer's tokens?
+const BEFORE = `// Card.tsx, as an agent writes it from the spec
+// Plausible values, but are these the designer's tokens?
 <div
   className="
     flex
@@ -47,7 +48,7 @@ const BEFORE = `// Card.tsx, translated by eye from the spec
   "
 >`
 
-const AFTER = `// Card.tsx, written by the plugin
+const AFTER = `// Card.tsx, in Figma's vocabulary; only your tokens compile
 <Frame
   flow-horizontal
   gap-4
@@ -65,71 +66,11 @@ const PLUGIN_OUTPUT = `<Frame flow-vertical gap-4 padding-6 corner-radius-4 fill
   </Text>
 </Frame>`
 
-const FEATURES = [
-  {
-    title: "Code that reads like the properties panel",
-    body: "Frame and Text take boolean props named after Figma settings. A designer can read the JSX and recognize their own design; a developer never has to decode a spec.",
-    code: `<Text typography-body-wrap fill-text-800>\n  Hello\n</Text>`,
-  },
-  {
-    title: "Tokens enforced by the type system",
-    body: "Props are generated from your token tables for spacing, color and typography. An off-system value is a TypeScript error, not a code-review comment.",
-    code: `<Frame flow-vertical gap-9 fill-primary-100 />\n// Property 'gap-9' does not exist on type 'IntrinsicAttributes & Frame'.`,
-  },
-  {
-    title: "One API for web, iOS and Android",
-    body: "Each component is one base implementation with thin web and native shells. The same props produce the same layout everywhere.",
-  },
-  {
-    title: "Auto layout semantics, not approximations",
-    body: 'Flow, alignment and hug or fill sizing behave the way Figma means them, including alignment that follows the flow direction. It behaves like the canvas, not "close enough" flexbox.',
-  },
-  {
-    title: "Interaction and motion, same language",
-    body: "Hover fills and strokes, durations, easing and opacity use the same boolean style, so states and motion are tokens too.",
-    code: `<Frame\n  fill-hover-primary-100\n  animation-duration-jog\n  animation-easing-elastic\n/>`,
-  },
-  {
-    title: "Small, readable surface area",
-    body: "A deliberately small set of primitives (Frame, Text and Vector) composes into everything else, alongside ready-made inputs, buttons, popovers, tooltips and a data table. Nothing hidden behind a theme object.",
-  },
-]
-
-const PLUGIN_POINTS = [
-  {
-    title: "Select a frame, get React",
-    body: "The plugin emits ready-to-paste components using Frame and Text, and updates live as the design changes. It works in Design and Dev Mode.",
-  },
-  {
-    title: "Figma noise, collapsed",
-    body: "Groups become frames, empty wrappers are dropped and instances resolve to their main component. Tag a layer EXCLUDE_FROM_OUTPUT to keep it out of the code.",
-  },
-  {
-    title: "A linter for design files",
-    body: "Padding, gap, radius or size not bound to a variable, text without a text style, unknown colors and unsupported layout modes are flagged, each linked to its layer.",
-  },
-]
-
 const STEPS = [
-  {
-    title: "Install the plugin",
-    body: "Run it in Design or Dev Mode on any file that uses variables and text styles.",
-  },
-  {
-    title: "Select a frame",
-    body: "Fix anything the linter flags, so the design is on-system before handoff.",
-  },
-  {
-    title: "Paste the code",
-    body: "Drop the generated Frame and Text tree into your web or React Native app.",
-  },
+  { title: "Install the plugin", body: "Run it in Design or Dev Mode." },
+  { title: "Select a frame", body: "Fix anything the linter flags." },
+  { title: "Paste the code", body: "Into your web or React Native app, or hand it to your agent." },
 ]
-
-const PORT_BEFORE = `// Card.tsx, React Native, styled by hand
-<View style={{ flexDirection: "row", gap: 16, padding: 24, borderRadius: 16 }}>`
-
-const PORT_AFTER = `// Card.tsx, ported by an agent; now renders on web, iOS and Android
-<Frame flow-horizontal gap-4 padding-6 corner-radius-4>`
 
 const UPDATE_DIFF = `  <Frame
     flow-horizontal
@@ -143,119 +84,171 @@ const UPDATE_DIFF = `  <Frame
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
-const BODY = "mt-4 text-body text-pretty text-black dark:text-white [h3+&]:mt-1"
+const EVERYONE: Point[] = [
+  {
+    title: "Figma is the source of truth",
+    body: "No Storybook, no second component catalog and no spec docs drifting out of date. Components, variants, states and tokens live in the Figma file and the code is generated from it, so there's one place to look and one place to update when the design moves.",
+  },
+  {
+    title: "Phone apps & web apps, one codebase",
+    body: "Built on React Native, so the same components run on iOS, Android and the web, and your design looks and behaves the same on every one of them.",
+  },
+  {
+    title: "Less back-and-forth",
+    body: "Designers are usually the only ones who know the unwritten rules of the design system inside out. With guardrails in Figma and in code, those rules become explicit and enforced, resulting in far less handoff ping-pong and fewer misunderstandings.",
+  },
+  {
+    title: "More time in design land",
+    body: "Generating ready-to-use component code frees up time for design, feedback rounds and polish, all in Figma, where everyone can chime in, instead of in pull requests and half-built features only a few people ever look at.",
+  },
+]
+
+const DESIGNERS: Point[] = [
+  {
+    title: "Tokens fixed, Figma primitives free",
+    body: "Colors, fonts and sizes are locked as design tokens; everything else is fair game. There's no rigid component library to wait on or work around: every design is a mix of just a few primitives, endlessly malleable, morphing into anything from a single button to a whole screen.",
+  },
+  {
+    title: "Guidance & errors as you go",
+    body: "The plugin flags what can't reasonably be built and how to fix it. Each issue takes you straight to the offending layer, so there's no searching around, and nothing impossible leaves the file.",
+  },
+  {
+    title: "Primitives become the component",
+    body: "Select a frame and the plugin writes the code, tidying up groups, empty wrappers and instances on the way.",
+    code: [{ code: PLUGIN_OUTPUT, caption: "Plugin output" }],
+  },
+  {
+    title: "Behavior built in",
+    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no unique design per resolution, and fewer design smells to catch.",
+  },
+]
+
+const DEVELOPERS: Point[] = [
+  {
+    title: "Red squiggles, not review comments",
+    body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
+    code: [
+      {
+        code: `<Frame flow-vertical gap-9 fill-primary-100 />`,
+        error: "gap-9",
+      },
+    ],
+  },
+  {
+    title: "Reads like the properties panel",
+    body: "The JSX says what Figma's properties panel says, so you never decode a spec.",
+    code: [{ code: `<Text typography-body-wrap fill-text-800>\n  Hello\n</Text>` }],
+  },
+  {
+    title: "Easy to review",
+    body: "JSX properties name Figma properties, so a design update reads like the design itself, and what changed is clear at a glance.",
+    code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Gap 16 to 24, fill primary to secondary" }],
+  },
+  {
+    title: "Few pieces, nothing missing",
+    body: "A handful of core components cover everything; your own inputs, buttons, popovers, tooltips and tables are built from them.",
+  },
+]
+
+const AGENTS: Point[] = [
+  {
+    title: "No room to improvise",
+    body: "If an agent guesses a value that isn't a token, TypeScript stops it before anyone reviews it.",
+  },
+  {
+    title: "Output reads like the design",
+    body: "Every prop is a Figma setting and every value a token, so you review the design, not the CSS.",
+  },
+  {
+    title: "Ports & redesigns, handled",
+    body: "Porting is a lookup: every style maps to exactly one prop. Design changes go deeper, sometimes reshuffling a whole composition, but the component tree mirrors the Figma layers one to one, so an agent can line the new frame up against the existing code and restructure it, keeping your state, handlers and data where they are.",
+  },
+  {
+    title: "The same bet as Polar's Orbit",
+    body: (
+      <>
+        Polar built an <a href={ORBIT_URL}>LLM-safe design system</a> on the same idea: props that only accept tokens.
+        Ours uses Figma's own vocabulary, so your designers can read it too.
+      </>
+    ),
+  },
+]
 
 export default () => {
   return (
     <>
       <Header />
-      <main id="top" className="mx-auto w-full max-w-3xl flex-1 px-4 pt-12 pb-16 sm:px-6 sm:pt-20 sm:pb-24">
-        <h1 className="text-display-sm text-balance sm:text-display">Your Figma properties, as code.</h1>
-        <p className="mt-6 text-lead-sm font-normal text-pretty text-black sm:mt-8 sm:text-lead dark:text-white">
-          Components that speak Figma's own vocabulary. What a designer sets in the properties panel is literally what
-          the developer writes, on web and native, and a plugin writes it for you.
-        </p>
-        <CodeBlock code={EXAMPLE} caption="Card.tsx" />
+      <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
+        <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">
+          <h1 className={`${HEADING} sm:max-w-none sm:text-display`}>
+            {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
+                space keeps "properties, as" apart when the break is hidden. */}
+            Your Figma properties, <br className="max-sm:hidden" />
+            as code.
+          </h1>
+          <h2 className={PITCH}>
+            Your Figma file becomes the spec: designers get guardrails, developers get types, your agent can't drift,
+            and one codebase powers your app and your website.
+          </h2>
+          <CodeBlock code={EXAMPLE} caption="Card.tsx" />
+        </div>
 
-        <Section id="problem" title="Every design-to-code handoff loses something.">
-          <p className={BODY}>
-            Designers think in auto layout, variables and text styles. Developers translate that by eye into CSS,
-            Tailwind or StyleSheet objects, and the two drift apart with every sprint. Spacing gets eyeballed, colors
-            get hard-coded, and "the button looks different on iOS" becomes a ticket.{" "}
-            <strong className="font-semibold">{PRODUCT_NAME} removes the translation step.</strong>
-          </p>
-          <CodeBlock code={BEFORE} caption="Before: translated by hand" />
-          <CodeBlock code={AFTER} caption="After: one vocabulary" />
+        <Section
+          id="everyone"
+          audience="Everyone"
+          title="One source of truth, from Figma to every screen."
+          pitch="Designers, developers and agents share one vocabulary, straight from the Figma file."
+        >
+          <Points points={EVERYONE} />
         </Section>
 
-        <Section id="features" title="One vocabulary from canvas to web and native.">
-          <p className={BODY}>
-            A small set of components whose props are the settings in Figma's properties panel, typed against your
-            design tokens.
-          </p>
-          {FEATURES.map((feature) => (
-            <div key={feature.title} className="mt-10">
-              <h3 className="text-lead-sm text-(--accent) sm:text-lead">{feature.title}</h3>
-              <p className={BODY}>{feature.body}</p>
-              {feature.code ? <CodeBlock code={feature.code} /> : null}
-            </div>
-          ))}
+        <Section
+          id="designers"
+          audience="Designers"
+          title="Design freely. It ships exactly the way you laid it out."
+          pitch="Anything you build in Figma, the code mirrors faithfully, property for property."
+        >
+          <Points points={DESIGNERS} />
         </Section>
 
-        <Section id="plugin" title="The plugin writes the code. And keeps the file honest.">
-          <p className={BODY}>
-            Select a frame and get ready-to-paste components. Anything that can't become clean code is flagged before it
-            reaches a developer.
-          </p>
-          {PLUGIN_POINTS.map((point) => (
-            <div key={point.title} className="mt-10">
-              <h3 className="text-lead-sm text-(--accent) sm:text-lead">{point.title}</h3>
-              <p className={BODY}>{point.body}</p>
-            </div>
-          ))}
-          <CodeBlock code={PLUGIN_OUTPUT} caption="Plugin output" />
+        <Section
+          id="developers"
+          audience="Developers"
+          title="Your editor catches it before review does."
+          pitch="Typed against your tokens and generated from the design, so you write logic, not layout."
+        >
+          <Points points={DEVELOPERS} />
         </Section>
 
-        <Section id="agents" title="Made for coding agents.">
-          <p className={BODY}>
-            The same properties that make the code readable for people make it predictable for agents. Ask one to port a
-            component or apply a design change, and the result stays on-system and easy to review.
+        <Section
+          id="agents"
+          audience="Agents"
+          title="Your coding agent knows your design system."
+          pitch={`${PRODUCT_NAME} gives your agent a vocabulary in which only your design system can be written.`}
+        >
+          <p>
+            Without it, AI writes plausible CSS: a gap here, a purple-50 there. Nothing fails review, nothing matches
+            your tokens, and the product drifts. Prompt rules help until the model forgets them; a vocabulary doesn't
+            need remembering.
           </p>
-          <div className="mt-10">
-            <h3 className="text-lead-sm text-(--accent) sm:text-lead">A vocabulary agents can't get creative with</h3>
-            <p className={BODY}>
-              Every prop is a Figma setting and every value is a design token, so there is exactly one way to write a
-              layout. An agent doesn't invent margins or reach for a hex code; if it guesses a value that isn't in your
-              tokens, the type checker stops it before you review anything.
-            </p>
+          <div>
+            <CodeBlock code={BEFORE} caption="Before: an agent's best guess" />
+            <CodeBlock code={AFTER} caption="After: one vocabulary" />
           </div>
-
-          <div className="mt-10">
-            <h3 className="text-lead-sm text-(--accent) sm:text-lead">The same bet as Polar's Orbit</h3>
-            <p className={BODY}>
-              Polar wrote about{" "}
-              <a href={ORBIT_URL} className="underline underline-offset-4 hover:decoration-2">
-                building an LLM-safe design system
-              </a>
-              : models write fluent Tailwind with no idea which spacing or gray your team actually chose, so the UI
-              drifts one plausible value at a time. Their answer is a single typed primitive whose props only accept
-              design tokens, so off-system choices can't be expressed. {PRODUCT_NAME} makes the same bet, with one
-              difference: the vocabulary isn't invented by a design-system team. The props are the settings in Figma's
-              properties panel and the values are your Figma variables, so the designer, the developer and the agent all
-              read and write the same words, and the plugin writes them first.
-            </p>
-          </div>
-
-          <div className="mt-10">
-            <h3 className="text-lead-sm text-(--accent) sm:text-lead">Port once, run everywhere</h3>
-            <p className={BODY}>
-              Porting is a lookup, not a judgment call: each style maps to the one prop that means the same thing in
-              Figma. Once a component is written with Frame and Text it is portable by construction, because the same
-              props render on web and React Native; the bundler picks the platform shell, and the component code doesn't
-              change.
-            </p>
-            <CodeBlock code={PORT_BEFORE} caption="Before: one platform" />
-            <CodeBlock code={PORT_AFTER} caption="After: every platform" />
-          </div>
-
-          <div className="mt-10">
-            <h3 className="text-lead-sm text-(--accent) sm:text-lead">Updates without rewrites</h3>
-            <p className={BODY}>
-              When the design changes, an agent edits existing components instead of regenerating them. Layout and
-              styling live in one prop per setting, so a change in Figma becomes a change of a few lines, while your
-              state, handlers and data stay exactly as they were. Each line in the diff names the setting that changed,
-              so a designer can review it too.
-            </p>
-            <CodeBlock code={UPDATE_DIFF} lang="diff" caption="Gap 16 to 24, fill primary to secondary" />
-          </div>
+          <Points points={AGENTS} />
         </Section>
 
-        <Section id="get-started" title="From canvas to component in three steps.">
-          <ol className="list-decimal pl-5">
+        <Section
+          id="get-started"
+          audience="Starters"
+          title="From canvas to component in three steps."
+          pitch="All you need is a Figma file that uses variables and text styles."
+        >
+          <ol className="list-decimal pl-5 marker:font-extrabold">
             {STEPS.map((step) => (
-              <li key={step.title} className="mt-8 marker:font-extrabold">
-                <h3 className="text-lead-sm text-(--accent) sm:text-lead">{step.title}</h3>
-                <p className={BODY}>{step.body}</p>
+              <li key={step.title}>
+                <h4>{step.title}</h4>
+                <p>{step.body}</p>
               </li>
             ))}
           </ol>

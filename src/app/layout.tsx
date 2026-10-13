@@ -1,19 +1,23 @@
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
 import localFont from "next/font/local"
 import SnappyScroll from "../components/SnappyScroll"
 import { PRODUCT_NAME } from "../constants/site"
 import "./globals.css"
 
-// Inter for text, as on coolors.co.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 })
 
-// Comic Code for code, the owner's terminal font (licensed for web use). The files are subset to Latin from the Nerd
-// Font build, which is mostly icon glyphs, so each is about 27 KB instead of 2.2 MB. As in their Ghostty config, the
-// SemiBold face is the regular weight and Bold is bold.
+// Paragraphs and the nav: the variable Next version, so in-between weights render exactly.
+const atkinson = Atkinson_Hyperlegible_Next({
+  variable: "--font-atkinson",
+  subsets: ["latin"],
+})
+
+// The owner's terminal font, licensed for web use and subset to Latin (27 KB per face instead of 2.2 MB). As in their
+// Ghostty config, SemiBold is the regular weight.
 const comicCode = localFont({
   variable: "--font-comic-code",
   src: [
@@ -26,7 +30,7 @@ const comicCode = localFont({
 export const metadata: Metadata = {
   title: `${PRODUCT_NAME} - Your Figma properties, as code`,
   description:
-    "Components that speak Figma's own vocabulary. What a designer sets in the properties panel is literally what the developer writes, on web and native, and a plugin writes it for you.",
+    "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it.",
 }
 
 export const viewport: Viewport = {
@@ -40,8 +44,9 @@ export default (p: LayoutProps<"/">) => {
   const { children } = p
 
   return (
-    <html lang="en" className={`${inter.variable} ${comicCode.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-sans">
+    <html lang="en" className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full antialiased`}>
+      {/* Outside a section the accent is plain text color, so selections there are a light gray. */}
+      <body className="flex min-h-full flex-col bg-white font-sans text-body font-normal text-pretty text-black [--accent:var(--color-black)] selection:bg-(--accent)/10 dark:bg-black dark:text-white dark:[--accent:var(--color-white)]">
         {children}
         <SnappyScroll />
       </body>

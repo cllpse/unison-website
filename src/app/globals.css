@@ -1,98 +1,170 @@
 @import "tailwindcss";
 
-/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black for text, white, one gray, and
-   a muted gray for labels. */
+/* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black, white and three grays. */
 @theme {
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  /* Comic Code, loaded in layout.tsx; the system monospace font only shows while it loads. */
-  --font-mono:
-    var(--font-comic-code), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-    monospace;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-paragraph: var(--font-atkinson), system-ui, sans-serif;
+  --font-mono: var(--font-comic-code), ui-monospace, monospace;
 
-  /* Type scale measured from coolors.co (extra-bold, tightly tracked headings over 450-weight text), with roomier line
-     heights for text. */
-  --text-display: 70px;
+  /* Type scale measured from coolors.co, in rem so it follows the reader's browser font size. */
+  /* The hero title on wider screens; phones use the section heading size. */
+  --text-display: 4.375rem;
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.035em;
   --text-display--font-weight: 800;
-  --text-display-sm: 50px;
-  --text-display-sm--line-height: 1.1;
-  --text-display-sm--letter-spacing: -0.035em;
-  --text-display-sm--font-weight: 800;
-  --text-heading: 42px;
+  --text-heading: 2.875rem;
   --text-heading--line-height: 1.1;
   --text-heading--letter-spacing: -0.035em;
   --text-heading--font-weight: 700;
-  --text-lead: 24px;
+  --text-lead: 1.5rem;
   --text-lead--line-height: 1.4;
-  --text-lead-sm: 20px;
-  --text-lead-sm--line-height: 1.4;
-  --text-body: 18px;
-  --text-body--line-height: 1.65;
-  --text-code: 16px;
+  --text-body: 1.125rem;
+  --text-body--line-height: 1.4;
+  --text-code: 1rem;
   --text-code--line-height: 1.6;
-  --text-label: 14px;
+  --text-label: 0.875rem;
   --text-label--line-height: 1.6;
   --text-label--font-weight: 500;
 
-  /* Drop Tailwind's default colors so only the ones below can be used. */
-  --color-*: initial;
+  /* The page column: 1168px, so with the 16px gutters on each side the page spans 1200px. */
+  --container-page: 73rem;
 
+  /* The reading measure for running text and headings: 700px at the default root size. */
+  --container-measure: 43.75rem;
+
+  /* Only these colors exist; Tailwind's defaults are dropped. */
+  --color-*: initial;
   --color-black: rgb(10, 10, 10);
   --color-white: rgb(255, 255, 255);
-
   --color-gray: #fbfbfb;
-  /* A step darker than gray, for the hairline around code blocks. */
   --color-gray-edge: #ececec;
-
-  /* coolors.co's muted gray for small labels such as code captions. */
   --color-muted: #737373;
-
+  /* GitHub's error red, for squiggles under invalid code. */
+  --color-error: #cf222e;
   --color-amethyst: #9b5de5;
   --color-magenta: #f15bb5;
-  --color-minion-yellow: #fee440;
-  --color-minion-yellow-dark: #e7c701;
   --color-capri: #00bbf9;
-  --color-aquamarine: #00f5d4;
-  --color-aquamarine-dark: #00b89f;
+  /* Yellow and aquamarine, darkened from #fee440 and #00f5d4 to read as text on white. */
+  --color-minion-yellow: #e7c701;
+  --color-aquamarine: #00b89f;
 }
 
+/* No focus styling anywhere, including the browser's default focus rings. */
 @layer base {
-  html {
-    -webkit-tap-highlight-color: transparent;
-    /* Stop iOS from inflating text when the phone is rotated to landscape. */
-    -webkit-text-size-adjust: 100%;
-    text-size-adjust: 100%;
-  }
-
-  body {
-    @apply bg-white text-body font-[450] text-black dark:bg-black dark:text-white;
-  }
-
-  /* Links and emphasis take the color of the section they're in. */
-  section :is(a, em, strong) {
-    color: var(--accent);
-  }
-
-  /* Selections keep the text's own color over a pale tint of the section accent (10%, mixed toward white). Outside a
-     section there is no accent, so black gives a light gray. */
-  ::selection {
-    background-color: color-mix(in oklab, var(--accent, var(--color-black)) 10%, white);
+  :focus {
+    @apply outline-none;
   }
 }
 
-/* Comic Code only ships as SemiBold and Bold here, which reads heavy. A hairline stroke in the background color is
-   painted over each glyph's edge after the fill, shaving a little off every stroke: an optical weight reduction that
-   keeps bold text proportionally bolder. Pass the color of the surface the text sits on. */
+/* Every link is underlined at the position and thickness the font's own metrics give; on hover the underline fades out
+   (a line can't animate on and off, its color can). The site name has none. */
+@layer base {
+  a {
+    @apply underline decoration-from-font underline-offset-auto [text-underline-position:from-font];
+    @apply transition-[text-decoration-color] duration-58 ease-in;
+    @apply hover:decoration-transparent motion-reduce:transition-none;
+  }
+}
+
+/* Thins text optically: a hairline stroke in the surface color is painted over each glyph's edge. Comic Code ships as
+   SemiBold and Bold only, which reads heavy; bold stays proportionally bolder. */
 @utility text-thin-* {
-  -webkit-text-stroke: 0.3px --value(--color-*, [color]);
+  -webkit-text-stroke: 0.3px --value(--color-*);
 }
 
-/* Heading text in the section accent, shading from the accent itself to a little lighter at 45 degrees. Pair it with
-   w-fit so the gradient spans the words rather than the full column. */
-@utility text-accent-gradient {
-  background-image: linear-gradient(45deg, var(--accent), color-mix(in oklab, var(--accent) 70%, white));
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
+/* The dotted rules between and beside sections; set the sides with border-x, border-t or border-b. */
+@utility border-rule {
+  border-style: dotted;
+  border-color: color-mix(in oklab, var(--color-black) 20%, transparent);
+
+  @variant dark {
+    border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+  }
+}
+
+/* The sticky header's scrim as --scrim-gradient: solid, then an eased fade over the last --scrim-fade. The opacity
+   follows an ease-in-out curve (the "easing gradients" scrim), so the fade has no visible start or end, which a linear
+   fade would. The header paints it as a translucent background and uses it to mask its backdrop blur.
+   --rule-holes masks out 2px strips where the sections' side rules run (the page gutter, or the centered page
+   column's edges), so the rules show through the header all the way to the top. */
+@utility scrim {
+  --scrim: var(--color-white);
+  --scrim-fade: 4.5rem;
+  --rule-x: max(1rem, (100% - var(--container-page)) / 2);
+  --rule-holes: linear-gradient(
+    to right,
+    black calc(var(--rule-x) - 0.5px),
+    transparent 0 calc(var(--rule-x) + 1.5px),
+    black 0 calc(100% - var(--rule-x) - 1.5px),
+    transparent 0 calc(100% - var(--rule-x) + 0.5px),
+    black 0
+  );
+  --scrim-gradient: linear-gradient(
+    to bottom,
+    var(--scrim) calc(100% - var(--scrim-fade)),
+    color-mix(in oklab, var(--scrim) 98.7%, transparent) calc(100% - var(--scrim-fade) * 0.919),
+    color-mix(in oklab, var(--scrim) 95.1%, transparent) calc(100% - var(--scrim-fade) * 0.845),
+    color-mix(in oklab, var(--scrim) 89.6%, transparent) calc(100% - var(--scrim-fade) * 0.775),
+    color-mix(in oklab, var(--scrim) 82.5%, transparent) calc(100% - var(--scrim-fade) * 0.71),
+    color-mix(in oklab, var(--scrim) 74.1%, transparent) calc(100% - var(--scrim-fade) * 0.647),
+    color-mix(in oklab, var(--scrim) 64.8%, transparent) calc(100% - var(--scrim-fade) * 0.588),
+    color-mix(in oklab, var(--scrim) 55%, transparent) calc(100% - var(--scrim-fade) * 0.529),
+    color-mix(in oklab, var(--scrim) 45%, transparent) calc(100% - var(--scrim-fade) * 0.471),
+    color-mix(in oklab, var(--scrim) 35.2%, transparent) calc(100% - var(--scrim-fade) * 0.412),
+    color-mix(in oklab, var(--scrim) 25.9%, transparent) calc(100% - var(--scrim-fade) * 0.353),
+    color-mix(in oklab, var(--scrim) 17.5%, transparent) calc(100% - var(--scrim-fade) * 0.29),
+    color-mix(in oklab, var(--scrim) 10.4%, transparent) calc(100% - var(--scrim-fade) * 0.225),
+    color-mix(in oklab, var(--scrim) 4.9%, transparent) calc(100% - var(--scrim-fade) * 0.155),
+    color-mix(in oklab, var(--scrim) 1.3%, transparent) calc(100% - var(--scrim-fade) * 0.081),
+    transparent 100%
+  );
+
+  @variant dark {
+    --scrim: var(--color-black);
+  }
+}
+
+/* Fine grain for the header's sandblasted-glass look: tiling fractal noise as white pixels of varying opacity (about
+   half fully transparent, the rest up to 70%), inlined as an SVG. */
+@utility bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.2 0 0 0 -0.5'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Code-block scrollbars: shown on hover when the code scrolls (the track's space stays reserved, so nothing shifts),
+   with a rounded thumb floating in a transparent track that spans the block's full width. The thumb is black mixed
+   into the code surface at a contrast just over 3:1 (WCAG's minimum for UI parts), darker on hover. Styling the
+   WebKit scrollbar also takes it out of macOS overlay mode; Firefox ignores those pseudo-elements and gets the same
+   colors through scrollbar-color. */
+@utility scrollbar-code {
+  --scrollbar-thumb: transparent;
+
+  &:hover {
+    --scrollbar-thumb: color-mix(in oklab, var(--color-black) 45%, var(--color-gray));
+  }
+
+  &::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 4px solid transparent;
+    border-radius: 9999px;
+    background-clip: padding-box;
+    background-color: var(--scrollbar-thumb);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklab, var(--color-black) 60%, var(--color-gray));
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) transparent;
+  }
 }

@@ -27,12 +27,24 @@ apply here.
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state, effects or event handlers (`SnappyScroll.tsx`).
+  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`).
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
-- Colors come from the palette in `globals.css` (and the Shiki theme in `highlight.ts`); don't add others. Code samples on the site use real flags and
-  tokens from the library; check `src/types/figmaProperties.ts` and `src/constants` in cllpse/figma before writing one.
+- Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
+  is syntax highlighting, which uses Shiki's `github-light-default` theme (`highlight.ts`).
+- Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
+  its points h4s. The "For <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
+- The page speaks to four audiences (everyone, designers, developers, agents), one section each, then starters.
+- Every section has the same shape: a "For <Audience>" label linking to the section, a heading (`title`) that's a
+  promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
+  `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
+- `Section` styles the `h4`, `p`, links and emphasis inside it, and turns a direct `div`, `ol` or `ul` child into a
+  two-column grid of h4 points, so section markup in `page.tsx` stays class-free. Section headings and paragraphs keep a
+  `max-w-measure` (700px) measure inside the wider `max-w-page` (1168px) column. All text wraps with `text-pretty` (set
+  on `body`); don't use `text-balance`. The h1's break after the comma is the one manual break.
+- Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
+  `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 
 ## TypeScript
@@ -65,6 +77,7 @@ Beyond that:
 
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
+- The one exception is the real ellipsis in the nav's "for…", which the owner asked for.
 
 ## Comments and docs
 
