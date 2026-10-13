@@ -142,7 +142,7 @@ const UPDATE_DIFF = `  <Frame
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
-const BODY = "mt-4 text-body text-pretty text-black dark:text-white"
+const BODY = "mt-4 text-body text-pretty text-black dark:text-white [h3+&]:mt-1"
 
 export default () => {
   return (
