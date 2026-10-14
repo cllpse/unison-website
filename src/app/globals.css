@@ -43,8 +43,6 @@
   --color-gray: #fbfbfb;
   --color-gray-edge: #ececec;
   --color-muted: #737373;
-  /* GitHub's error red, for squiggles under invalid code. */
-  --color-error: #cf222e;
   --color-amethyst: #9b5de5;
   --color-magenta: #f15bb5;
   --color-capri: #00bbf9;
@@ -141,6 +139,22 @@
 
   @variant dark {
     --scrim: var(--color-black);
+  }
+}
+
+/* The code blocks' token colors, from the site's palette (highlight.ts maps GitHub's to these). On the light theme
+   each accent is darkened, keeping its hue and 87.5% of its chroma, until it reaches 4.5:1 against the code surface
+   (WCAG AA for text): aquamarine to 77% of its lightness, capri to 73%, magenta to 81% (already 4.9:1 there, the
+   800 step of the 50-900 scale). On the dark theme the accents read as they are, at 6:1 to 8:1. */
+@utility code-colors {
+  --code-tag: oklch(from var(--color-aquamarine) calc(l * 0.77) calc(c * 0.875) h);
+  --code-property: oklch(from var(--color-capri) calc(l * 0.73) calc(c * 0.875) h);
+  --code-error: oklch(from var(--color-magenta) calc(l * 0.81) calc(c * 0.875) h);
+
+  @variant dark {
+    --code-tag: var(--color-aquamarine);
+    --code-property: var(--color-capri);
+    --code-error: var(--color-magenta);
   }
 }
 
