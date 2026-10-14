@@ -41,9 +41,9 @@ apply here.
   and the `dark:` variant follows that attribute, not the system setting. It keeps the accents and redefines only the
   neutrals (`globals.css`); style anything black or white with a `dark:` counterpart.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
-  its points h4s. The "For <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
+  its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
 - The page speaks to four audiences (everyone, designers, developers, agents), one section each, then starters.
-- Every section has the same shape: a "For <Audience>" label linking to the section, a heading (`title`) that's a
+- Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
   promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
   `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
 - `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and
