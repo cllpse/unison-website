@@ -3,7 +3,7 @@ import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
 import localFont from "next/font/local"
 import SnappyScroll from "../components/SnappyScroll"
 import Theme from "../components/Theme"
-import { PRODUCT_NAME } from "../constants/site"
+import { PRODUCT_NAME, SITE_DESCRIPTION } from "../constants/site"
 import "./globals.css"
 
 const inter = Inter({
@@ -30,8 +30,7 @@ const comicCode = localFont({
 
 export const metadata: Metadata = {
   title: `${PRODUCT_NAME} - Your Figma properties, as code`,
-  description:
-    "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it.",
+  description: SITE_DESCRIPTION,
 }
 
 // The browser's toolbar in the page background; Theme darkens it on the dark theme, which doesn't follow the system

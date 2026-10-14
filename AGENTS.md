@@ -32,6 +32,9 @@ apply here.
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
+- Icons: `src/app/icon.svg` (the 16px mark, white in dark mode) and `favicon.ico` (16 and 32) for tabs,
+  `apple-icon.png` for iOS, and `public/icon-*.png` for `manifest.ts`. The larger PNGs draw the 32px mark at twice its
+  pixel density on white; regenerate them all together when the mark changes.
 - Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
   is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
 - The dark theme is opt-in while it's tried out: `?theme=dark` makes `Theme.tsx` set `data-theme="dark"` on `<html>`,

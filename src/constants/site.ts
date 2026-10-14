@@ -6,6 +6,10 @@ export const REPO_NAME = "cllpse/figma"
 
 export const REPO_URL = `https://github.com/${REPO_NAME}`
 
+/** The one-line description, for search results and the web app manifest. */
+export const SITE_DESCRIPTION =
+  "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it."
+
 /**
  * Each section's accent as a Tailwind class setting `--accent`, shared by the section and the nav link that points at
  * it. Headings, links, emphasis and selections inside pick it up. Spelled out in full so Tailwind can find them.
