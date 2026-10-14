@@ -13,23 +13,26 @@ const HIGHLIGHTER = createHighlighterCore({
  * GitHub's greens, property blues and diff reds, swapped for the site's own colors through the code-colors utility
  * (globals.css), which sets them per theme: tag names and added diff lines in the agents section's aquamarine,
  * properties in the starters section's capri, removed diff lines in the designers section's magenta, like the error
- * squiggle. Keys are each theme's hex.
+ * squiggle, and keywords (JSDoc tags, the = before a prop's {expression}) in the developers section's yellow. Keys
+ * are each theme's hex.
  */
 const COLOR_REPLACEMENTS = {
   "github-light-default": {
     "#116329": "var(--code-tag)",
     "#0550ae": "var(--code-property)",
     "#82071e": "var(--code-error)",
+    "#cf222e": "var(--code-keyword)",
   },
   "github-dark-default": {
     "#7ee787": "var(--code-tag)",
     "#79c0ff": "var(--code-property)",
     "#ffa198": "var(--code-error)",
+    "#ff7b72": "var(--code-keyword)",
   },
 }
 
 /** An editor-style error squiggle, in the code's pink rather than red. */
-const SQUIGGLE = "underline decoration-(--code-error) decoration-wavy decoration-1 underline-offset-4"
+const SQUIGGLE = "underline decoration-(--code-error) decoration-wavy decoration-[1.5px] underline-offset-4"
 
 /**
  * Highlights a TSX (or diff) snippet with Shiki, in GitHub's colors, and returns it as an HTML string. Tokens are
@@ -38,7 +41,7 @@ const SQUIGGLE = "underline decoration-(--code-error) decoration-wavy decoration
  *
  * @example
  * await highlight("<Frame gap-9 />", "tsx", "gap-9")
- * // => '<pre class="shiki shiki-themes github-light-default github-dark-default" ...>...<span style="color:#0550AE;--shiki-dark:#79C0FF" class="underline decoration-magenta ...">gap-9</span>...'
+ * // => '<pre class="shiki shiki-themes github-light-default github-dark-default" ...>...<span style="color:var(--code-property);--shiki-dark:var(--code-property)" class="underline decoration-(--code-error) ...">gap-9</span>...'
  */
 export const highlight = async (code: string, lang: "tsx" | "diff" = "tsx", error?: string) => {
   const start = error ? code.indexOf(error) : -1
