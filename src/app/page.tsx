@@ -3,37 +3,61 @@ import Disclaimer from "../components/Disclaimer"
 import Header from "../components/Header"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
+import ShapesPreview from "../components/ShapesPreview"
 import { PRODUCT_NAME, REPO_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
-  flow-vertical
-  gap-4
-  padding-6
-  corner-radius-4
-  fill-white
-  effect-shadow-small
-  width-fill
+  alignment-left
+  flow-horizontal
+  gap-8
+  height-hug
+  width-hug
 >
-  <Text typography-header-small-wrap fill-text-800>
-    Invoices
-  </Text>
-  <Text typography-body-wrap fill-neutral-600>
-    Three invoices are due this week.
-  </Text>
-  <Frame
-    flow-horizontal
-    padding-vertical-2
-    padding-horizontal-4
-    alignment-center
-    corner-radius-full
-    fill-primary-700
-    fill-hover-primary-800
-    onPress={openInvoices}
-  >
-    <Text typography-label-nowrap fill-white>
-      Review invoices
-    </Text>
-  </Frame>
+    <Frame
+      alignment-center
+      fill-primary-50
+      flow-vertical
+      height-28
+      stroke-primary-400
+      width-28
+    >
+        <Text
+          fill-primary-800
+          typography-align-left
+        >
+            square
+        </Text>
+    </Frame>
+    <Frame
+      alignment-center
+      corner-radius-5
+      fill-secondary-50
+      flow-vertical
+      height-20
+      stroke-secondary-400
+      width-20
+    >
+        <Text
+          fill-secondary-800
+          typography-align-left
+        >
+            squircle
+        </Text>
+    </Frame>
+    <Frame
+      alignment-center
+      corner-radius-full
+      fill-tertiary-50
+      flow-vertical
+      stroke-tertiary-400
+    >
+        <Text
+          fill-tertiary-800
+          typography-align-left
+        >
+            circle
+        </Text>
+    </Frame>
 </Frame>`
 
 const BEFORE = `// Card.tsx, as an agent writes it from the spec
@@ -199,7 +223,19 @@ export default () => {
             Your Figma file becomes the spec: designers get guardrails, developers get types, your agent can't drift,
             and one codebase powers your app and your website.
           </h2>
-          <CodeBlock code={EXAMPLE} caption="Card.tsx" />
+          {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits on
+              the code's surface, full width at its own aspect ratio, centered in a box as tall as the code. */}
+          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0">
+            <CodeBlock code={EXAMPLE} caption="Shapes.tsx" />
+            <figure className="flex min-w-0 flex-col">
+              <figcaption className="mb-2 font-mono text-label text-muted text-thin-white dark:text-thin-black">
+                Rendered
+              </figcaption>
+              <div className="flex flex-1 items-center justify-center rounded-2xl border border-gray-edge bg-gray p-8 [corner-shape:squircle]">
+                <ShapesPreview />
+              </div>
+            </figure>
+          </div>
         </div>
 
         <Section
