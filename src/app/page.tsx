@@ -87,9 +87,9 @@ const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
 // Ends every section that mentions React Native, while its support is unstable.
 const REACT_NATIVE_DISCLAIMER = (
-  <Disclaimer label="Heads up">
-    React Native support is unstable for now, so expect rough edges. Watch the <a href={REPO_URL}>GitHub repository</a>{" "}
-    to stay in the loop.
+  <Disclaimer>
+    React Native support is still in the oven, so it's a little underbaked for now. Watch the{" "}
+    <a href={REPO_URL}>GitHub repository</a> to know when it's done.
   </Disclaimer>
 )
 
