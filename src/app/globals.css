@@ -78,7 +78,7 @@
 @layer base {
   a {
     @apply underline decoration-from-font underline-offset-auto [text-underline-position:from-font];
-    @apply transition-[text-decoration-color] duration-58 ease-in;
+    @apply transition-[text-decoration-color] duration-58 ease-out;
     @apply hover:decoration-transparent motion-reduce:transition-none;
   }
 }
