@@ -23,14 +23,14 @@ apply here.
 - `bun run build`: production build; run it before pushing
 - `bun run bake`: the landing page as one small, self-contained `dist/index.html` that opens straight from disk
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
-  mirrors `Nav.tsx`, `SnappyScroll.tsx` and `ContainOverscroll.tsx`; keep those in step
+  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step
 
 ## Architecture
 
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`,
+  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`,
   `ContainOverscroll.tsx`).
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.

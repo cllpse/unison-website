@@ -5,15 +5,15 @@ import Nav from "./Nav"
 export default () => {
   return (
     // The bottom --scrim-fade is the scrim's fade: it hangs over the content (negative margin) and lets clicks through.
-    // Behind the content, a backdrop blur sits under a 70% layer of the scrim color. Both are masked with the scrim, so
+    // Behind the content, a backdrop blur sits under a 60% layer of the scrim color. Both are masked with the scrim, so
     // they ease out together, and once a section is under the header (data-rules, set by Nav) both leave gaps for its
     // side rules, so those run up to the top. Fine grain on top gives a sandblasted-glass look.
-    <header className="pointer-events-none sticky top-0 z-10 -mb-(--scrim-fade) scrim px-4 pb-(--scrim-fade) font-extrabold tracking-tight before:absolute before:inset-0 before:-z-10 before:backdrop-blur-lg before:mask-intersect before:[mask-image:var(--scrim-gradient)] data-rules:before:[mask-image:var(--scrim-gradient),var(--rule-holes)] after:absolute after:inset-0 after:-z-10 after:bg-(--scrim) after:opacity-70 after:mask-intersect after:[mask-image:var(--scrim-gradient)] data-rules:after:[mask-image:var(--scrim-gradient),var(--rule-holes)]">
+    <header className="pointer-events-none sticky top-0 z-10 -mb-(--scrim-fade) scrim px-4 pb-(--scrim-fade) font-extrabold tracking-tight before:absolute before:inset-0 before:-z-10 before:backdrop-blur-lg before:mask-intersect before:[mask-image:var(--scrim-gradient)] data-rules:before:[mask-image:var(--scrim-gradient),var(--rule-holes)] after:absolute after:inset-0 after:-z-10 after:bg-(--scrim) after:opacity-60 after:mask-intersect after:[mask-image:var(--scrim-gradient)] data-rules:after:[mask-image:var(--scrim-gradient),var(--rule-holes)]">
       {/* The grain gets its own layer above the scrim, without the rule gaps, which would show as grain-free lines: the
-          scrim color, masked to grain and faded with the scrim. */}
+          scrim color, masked to grain and faded with the scrim, at 6/7 strength to keep its share of the 60% layer. */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-5 bg-(--scrim) mask-intersect [mask-image:var(--scrim-grain),var(--scrim-gradient)]"
+        className="absolute inset-0 -z-5 bg-(--scrim) opacity-[calc(6/7)] mask-intersect [mask-image:var(--scrim-grain),var(--scrim-gradient)]"
       />
       {/* Phones only: a 24px edge at the very top, fading from transparent up to solid, so content vanishes at the
           screen edge. */}

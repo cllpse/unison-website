@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
 import localFont from "next/font/local"
 import ContainOverscroll from "../components/ContainOverscroll"
-import SnappyScroll from "../components/SnappyScroll"
 import { REPO_NAME, SITE_DESCRIPTION } from "../constants/site"
 import "./globals.css"
 
@@ -45,11 +44,14 @@ export default (p: LayoutProps<"/">) => {
   const { children } = p
 
   return (
-    <html lang="en" className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full antialiased`}>
+    // In-page jumps scroll smoothly at the browser's own pace, and jump straight there for reduced motion.
+    <html
+      lang="en"
+      className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full scroll-smooth antialiased motion-reduce:scroll-auto`}
+    >
       {/* Outside a section the accent is plain text color, so selections there are a light gray. */}
       <body className="flex min-h-full flex-col bg-white font-sans text-body font-normal text-pretty text-black [--accent:var(--color-black)] selection:bg-(--accent)/10 dark:bg-black dark:text-white dark:[--accent:var(--color-white)]">
         {children}
-        <SnappyScroll />
         <ContainOverscroll />
       </body>
     </html>

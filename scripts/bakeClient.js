@@ -1,5 +1,5 @@
-// The baked page's only script, in place of React: what Nav.tsx, SnappyScroll.tsx and ContainOverscroll.tsx do on the
-// live site, in plain JavaScript. Keep them in step.
+// The baked page's only script, in place of React: what Nav.tsx and ContainOverscroll.tsx do on the live site, in
+// plain JavaScript. Keep them in step.
 ;(() => {
   const header = document.querySelector("header")
   const links = [...document.querySelectorAll('nav a[href^="#"]')]
@@ -80,48 +80,4 @@
     const code = block.querySelector("code")
     if (code) blockObserver.observe(code)
   }
-
-  // In-page jumps: 232ms on Tailwind's ease-out, cubic-bezier(0, 0, 0.2, 1), solved by bisection.
-  const DURATION_MS = 232
-  const easeOut = (time) => {
-    const x = (t) => 3 * (1 - t) * t ** 2 * 0.2 + t ** 3
-    const y = (t) => 3 * (1 - t) * t ** 2 + t ** 3
-    let low = 0
-    let high = 1
-    for (let i = 0; i < 20; i++) {
-      const mid = (low + high) / 2
-      if (x(mid) < time) low = mid
-      else high = mid
-    }
-    return y((low + high) / 2)
-  }
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)")
-
-  document.addEventListener("click", (event) => {
-    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) return
-
-    const hash = event.target.closest('a[href^="#"]')?.getAttribute("href")
-    if (!hash) return
-    const target = hash === "#" ? document.body : document.getElementById(hash.slice(1))
-    if (!target) return
-
-    event.preventDefault()
-    history.pushState(null, "", hash)
-
-    const margin = Number.parseFloat(getComputedStyle(target).scrollMarginTop) || 0
-    const end = target.getBoundingClientRect().top + window.scrollY - margin
-    if (reduceMotion.matches) {
-      window.scrollTo(0, end)
-      return
-    }
-
-    const start = window.scrollY
-    const startTime = performance.now()
-    const step = (now) => {
-      const progress = Math.min((now - startTime) / DURATION_MS, 1)
-      window.scrollTo(0, start + (end - start) * easeOut(progress))
-      if (progress < 1) requestAnimationFrame(step)
-    }
-    requestAnimationFrame(step)
-  })
 })()
