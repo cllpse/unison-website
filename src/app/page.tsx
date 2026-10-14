@@ -85,7 +85,7 @@ const UPDATE_DIFF = `  <Frame
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 
-// Ends every section that mentions React Native, while its support is unstable.
+// Ends the section that introduces React Native support, while it's unstable.
 const REACT_NATIVE_DISCLAIMER = (
   <Disclaimer>
     React Native support is still in the oven, so it's a little underbaked for now. Watch the{" "}
@@ -262,7 +262,6 @@ export default () => {
               </li>
             ))}
           </ol>
-          {REACT_NATIVE_DISCLAIMER}
         </Section>
       </main>
     </>
