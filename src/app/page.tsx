@@ -1,19 +1,10 @@
 import CodeBlock from "../components/CodeBlock"
 import Disclaimer from "../components/Disclaimer"
-import GitHubMark from "../components/GitHubMark"
 import Header from "../components/Header"
-import Logo from "../components/Logo"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
 import { PLUGIN_URL, PRODUCT_NAME, REPO_URL } from "../constants/site"
-
-// The hero's buttons: links set as squircle buttons in the paragraph font, the icon at 16px, where the logo's pixel
-// grid stays crisp. They dim slightly on hover, at the site's 116ms ease-out.
-const BUTTON =
-  "inline-flex items-center gap-1.5 rounded-lg py-1.5 pr-2 pl-2 font-paragraph font-normal no-underline transition-opacity duration-116 ease-out hover:opacity-85 motion-reduce:transition-none [corner-shape:squircle]"
-const BUTTON_PRIMARY = "bg-black text-white dark:bg-white dark:text-black"
-const BUTTON_SECONDARY = "bg-gray text-black dark:text-white"
 
 const EXAMPLE = `<Frame
   alignment-left
@@ -305,21 +296,10 @@ export default () => {
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
           </h2>
-          {/* The two ways in, under the subtitle: the library for developers, the plugin for designers. */}
-          <div className="mt-6 flex flex-wrap gap-3">
-            <a href={REPO_URL} target="_blank" rel="noreferrer" className={`${BUTTON} ${BUTTON_PRIMARY}`}>
-              <GitHubMark className="size-4" />
-              Install the library
-            </a>
-            <a href={PLUGIN_URL} target="_blank" rel="noreferrer" className={`${BUTTON} ${BUTTON_SECONDARY}`}>
-              <Logo className="size-4" />
-              Get the Figma plugin
-            </a>
-          </div>
           {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits on
               the code's surface, full width at its own aspect ratio, centered in a box as tall as the code. The code
               stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
-          <div className="mt-12 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
+          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
             <CodeBlock code={EXAMPLE} caption="Shapes.tsx" />
             <figure className="flex min-w-0 flex-col">
               <figcaption className="mb-2 px-1 font-mono text-code text-muted text-thin-white dark:text-thin-black">
