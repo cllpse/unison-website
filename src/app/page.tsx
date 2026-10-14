@@ -64,32 +64,23 @@ const BEFORE = `// Card.tsx, as an agent writes it from the spec
 // Plausible values, but are these the designer's tokens?
 <div
   className="
+    bg-purple-50
     flex
     gap-4
     px-6
     py-5
     rounded-xl
-    bg-purple-50
   "
 >`
 
 const AFTER = `// Card.tsx, in Figma's vocabulary; only your tokens compile
 <Frame
+  corner-radius-4
+  fill-primary-100
   flow-horizontal
   gap-4
   padding-6
-  corner-radius-4
-  fill-primary-100
 >`
-
-const PLUGIN_OUTPUT = `<Frame flow-vertical gap-4 padding-6 corner-radius-4 fill-white effect-shadow-small width-fill>
-  <Frame flow-horizontal gap-2 alignment-left width-fill>
-    <Text typography-header-small-wrap fill-text-800>Invoices</Text>
-  </Frame>
-  <Text typography-body-wrap fill-neutral-600>
-    Three invoices are due this week.
-  </Text>
-</Frame>`
 
 const STEPS = [
   { title: "Install the plugin", body: "Run it in Design or Dev Mode." },
@@ -98,12 +89,12 @@ const STEPS = [
 ]
 
 const UPDATE_DIFF = `  <Frame
+-   fill-primary-100
++   fill-secondary-100
     flow-horizontal
 -   gap-4
 +   gap-6
     padding-6
--   fill-primary-100
-+   fill-secondary-100
     onPress={openInvoice}
   >`
 
@@ -148,7 +139,6 @@ const DESIGNERS: Point[] = [
   {
     title: "Primitives become the component",
     body: "Select a frame and the plugin writes the code, tidying up groups, empty wrappers and instances on the way.",
-    code: [{ code: PLUGIN_OUTPUT, caption: "Plugin output" }],
   },
   {
     title: "Behavior built in",
@@ -162,7 +152,7 @@ const DEVELOPERS: Point[] = [
     body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
     code: [
       {
-        code: `<Frame flow-vertical gap-9 fill-primary-100 />`,
+        code: `<Frame fill-primary-100 flow-vertical gap-9 />`,
         error: "gap-9",
       },
     ],
@@ -170,7 +160,7 @@ const DEVELOPERS: Point[] = [
   {
     title: "Reads like the properties panel",
     body: "The JSX says what Figma's properties panel says, so you never decode a spec.",
-    code: [{ code: `<Text typography-body-wrap fill-text-800>\n  Hello\n</Text>` }],
+    code: [{ code: `<Text fill-text-800 typography-body-wrap>\n  Hello\n</Text>` }],
   },
   {
     title: "Easy to review",
@@ -278,8 +268,8 @@ export default () => {
             remembering.
           </p>
           <div>
-            <CodeBlock code={BEFORE} caption="Before: an agent's best guess" />
-            <CodeBlock code={AFTER} caption="After: one vocabulary" />
+            <CodeBlock code={BEFORE} caption="An agent's best guess" />
+            <CodeBlock code={AFTER} caption="One vocabulary" />
           </div>
           <Points points={AGENTS} />
         </Section>
