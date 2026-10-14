@@ -10,8 +10,8 @@ export const HEADING =
 
 /**
  * The pitch's classes, also used by the hero's subtitle; each sets its own size, line height and tracking (the section
- * pitch 0.66 of the heading, about 30px, at 1.3 less 2px, tracked in). Both widen the word spaces a touch, by
- * 0.075em on Inter's 0.28125em.
+ * pitch 0.66 of its heading, 26px on phones and 39px wider, at 1.3 less 2px, tracked in). Both widen the word spaces
+ * a touch, by 0.075em on Inter's 0.28125em.
  */
 export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent) [word-spacing:0.075em]"
 
@@ -71,11 +71,17 @@ export default (p: Section) => {
             </p>
           ) : null}
           {/* At line-height 1, descenders reach below the box, where bg-clip-text wouldn't paint; the bottom padding
-            covers them, and the matching negative margin keeps the layout unchanged. */}
-          <h2 className={HEADING}>{title}</h2>
+            covers them, and the matching negative margin keeps the layout unchanged. Sized at 0.85 of the hero title
+            at each width (39px on phones, 59.5px wider); both sizes sit behind a breakpoint so they win over the
+            heading size HEADING sets. */}
+          <h2
+            className={`${HEADING} max-sm:text-[length:calc(var(--text-heading)*0.85)] sm:text-[length:calc(var(--text-display)*0.85)]`}
+          >
+            {title}
+          </h2>
         </hgroup>
         <h3
-          className={`${PITCH} text-[length:calc(var(--text-heading)*0.66)] leading-[calc(1.3em_-_2px)] tracking-[-0.03em]`}
+          className={`${PITCH} text-[length:calc(var(--text-heading)*0.85*0.66)] leading-[calc(1.3em_-_2px)] tracking-[-0.03em] sm:text-[length:calc(var(--text-display)*0.85*0.66)]`}
         >
           {pitch}
         </h3>

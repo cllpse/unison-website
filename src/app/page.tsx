@@ -290,10 +290,11 @@ export default () => {
               Figma properties, <br className="max-sm:hidden" />
               as code.
             </h1>
-            {/* Half the title: 23px on phones, where the title is heading-sized, and 35px on wider screens. The line
-                height is the pitches' 1.3 less 2px, worked out at 23px. */}
+            {/* Sized to the title: on phones, where the title is heading-sized, 0.66 of it (about 30px), as the section
+                pitches are of their headings; on wider screens half the 70px title. The line height is the pitches' 1.3
+                less 2px, worked out at the phone size. */}
             <h2
-              className={`${PITCH} text-[length:calc(var(--text-heading)/2)] leading-[1.213] tracking-[-0.06em] [contain:inline-size] sm:max-w-none sm:text-[length:calc(var(--text-display)/2)]`}
+              className={`${PITCH} text-[length:calc(var(--text-heading)*0.66)] leading-[1.234] tracking-[-0.06em] [contain:inline-size] sm:max-w-none sm:text-[length:calc(var(--text-display)/2)]`}
             >
               The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and
               one codebase powers apps and websites alike.
