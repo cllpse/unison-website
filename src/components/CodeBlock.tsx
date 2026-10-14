@@ -27,10 +27,12 @@ export default async (p: CodeBlock) => {
           (50% on desktops, where it's taller) and scroll, so one never fills the screen, but the cap never drops below
           416px, so short samples don't scroll on short screens. svh, the height with the mobile browser bars shown,
           holds still as those bars come and go, where dvh would resize the block mid-scroll. Scrolling that reaches a
-          block's end stays in the block instead of carrying on to the page (overscroll-behavior: contain). Italic runs
-          skip the thinning stroke to keep their full weight. */}
+          block's end stays in the block instead of carrying on to the page (overscroll-behavior: contain), but only on
+          an axis it actually scrolls, which ContainOverscroll marks. Italic runs skip the thinning stroke to keep their
+          full weight. */}
       <div
-        className="code-colors *:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:overscroll-contain *:[container-type:scroll-state] *:scrollbar-code *:rounded-md *:border *:border-black/5 dark:*:border-white/8 *:bg-gray! [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:p-2 [@container_scroll-state(scrollable:x)]:[&_code]:pb-0.5 *:font-mono *:text-code *:text-thin-gray [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
+        data-code-block
+        className="code-colors *:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:[container-type:scroll-state] *:scrollbar-code *:rounded-md *:border *:border-black/5 dark:*:border-white/8 *:bg-gray! [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:p-2 [@container_scroll-state(scrollable:x)]:[&_code]:pb-0.5 *:font-mono *:text-code *:text-thin-gray [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
         dangerouslySetInnerHTML={{ __html: await highlight(code, lang, error) }}
       />

@@ -1,5 +1,5 @@
-// The baked page's only script, in place of React: what Nav.tsx and SnappyScroll.tsx do on the live site, in plain
-// JavaScript. Keep the two in step.
+// The baked page's only script, in place of React: what Nav.tsx, SnappyScroll.tsx and ContainOverscroll.tsx do on the
+// live site, in plain JavaScript. Keep them in step.
 ;(() => {
   const header = document.querySelector("header")
   const links = [...document.querySelectorAll('nav a[href^="#"]')]
@@ -64,6 +64,22 @@
   observe()
   new ResizeObserver(observe).observe(header)
   window.addEventListener("resize", observe)
+
+  // Code blocks contain overscroll only on an axis they actually scroll (ContainOverscroll.tsx).
+  const blocks = [...document.querySelectorAll("[data-code-block] > pre")]
+  const markScrolling = () => {
+    for (const block of blocks) {
+      block.toggleAttribute("data-scroll-x", block.scrollWidth > block.clientWidth)
+      block.toggleAttribute("data-scroll-y", block.scrollHeight > block.clientHeight)
+    }
+  }
+  markScrolling()
+  const blockObserver = new ResizeObserver(markScrolling)
+  for (const block of blocks) {
+    blockObserver.observe(block)
+    const code = block.querySelector("code")
+    if (code) blockObserver.observe(code)
+  }
 
   // In-page jumps: 232ms on Tailwind's ease-out, cubic-bezier(0, 0, 0.2, 1), solved by bisection.
   const DURATION_MS = 232
