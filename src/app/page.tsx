@@ -4,7 +4,7 @@ import Header from "../components/Header"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
-import { PLUGIN_URL, PRODUCT_NAME, REPO_URL } from "../constants/site"
+import { PLUGIN_URL, REPO_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
   alignment-left
@@ -55,7 +55,7 @@ const EXAMPLE = `<Frame
 
 const BEFORE = `/**
  * @file Card.tsx, as an agent writes it from the spec
- * @todo Plausible values, but are these the designer's tokens?
+ * @todo Plausible values, but are these valid design tokens?
  */
 <div className="
   bg-purple-50
@@ -158,19 +158,19 @@ const EVERYONE: Point[] = [
   {
     title: "Less back-and-forth",
     body: [
-      "Only designers know the intricacies of the design system inside out. But with guardrails in Figma and in code, rules become explicit and enforced, resulting in fewer misunderstandings and far less handoff ping-pong.",
-      "The same applies to AI: agents follow the rules too, which makes reviewing their work quicker and easier.",
+      "Only designers know the design system inside out. But guardrails in Figma and in code make its rules explicit and enforced: fewer misunderstandings, far less handoff ping-pong.",
+      "Agents follow the same rules, which makes reviewing their work quicker and easier.",
     ],
   },
   {
     title: "Phone apps and web apps, one codebase",
-    body: "Built on React Native: the same components run on iOS, Android and the web, so implementations look and behave the same on every platform.",
+    body: "Built on React Native: one set of components runs on iOS, Android and the web, and looks and behaves the same everywhere.",
   },
   {
     title: "Time back, spent wisely",
     column: "left",
     body: [
-      "Ready-to-use component code saves hours of implementation time. Spend more time exploring, on feedback rounds and on polish, all in Figma where everyone can chime in.",
+      "Ready-to-use component code saves hours of implementation. Spend more time exploring, on feedback rounds and on polish, all in Figma where everyone can chime in.",
       "…or simply ship sooner, with fewer hoops to jump through.",
     ],
   },
@@ -183,18 +183,18 @@ const DESIGNERS: Point[] = [
       <>
         Colors, fonts and sizes are locked as design tokens; everything else is your call. There is no rigid component
         library to wait on or work around: every design is a mix of just{" "}
-        <abbr title="Frame, Text and Vector">a few primitives</abbr>, endlessly malleable, morphing into anything from a
-        single button to a whole screen.
+        <abbr title="Frame, Text and Vector">a few primitives</abbr>, shaped into anything from a single button to a
+        whole screen.
       </>
     ),
   },
   {
     title: "Behavior is built in",
-    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no more designs for each resolution your app supports, and fewer design smells to catch.",
+    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no more mockups for each resolution your app supports, and fewer design smells to catch.",
   },
   {
     title: "Guidance as you go",
-    body: "The plugin flags what can't reasonably be built, and how to fix it, in real time. Each issue raised takes you straight to the offending layer, so there's no searching around, and nothing impossible leaves the file.",
+    body: "The plugin flags what can't reasonably be built, and how to fix it, in real time. Each issue takes you straight to the offending layer, so there's no searching around.",
   },
   {
     title: "Your file, your workflow",
@@ -208,11 +208,11 @@ const DESIGNERS: Point[] = [
 
 const DEVELOPERS: Point[] = [
   {
-    title: "Few pieces, nothing missing",
+    title: "Few pieces, endless combinations",
     body: [
-      "A handful of core components cover everything, with clear APIs. Need something new? Build it yourself, no waiting on anyone, with tooling that supports you along the way.",
+      "A handful of primitives cover nearly everything, with clear APIs. Need something new? Build it yourself from the same pieces, no waiting on anyone.",
       <>
-        …think LEGO<sup>®</sup> bricks: snap them together into inputs, buttons, popovers, tooltips and tables.
+        …think LEGO<sup>®</sup> bricks: snap them together into buttons, cards, tabs and lists.
       </>,
     ],
   },
@@ -230,7 +230,7 @@ const DEVELOPERS: Point[] = [
   },
   {
     title: "Easy to review",
-    body: "JSX properties name Figma properties, so a design update reads like the design itself, and what changed is clear at a glance.",
+    body: "A design update is a diff of Figma properties, so what changed is clear at a glance.",
     code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Square to squircle, primary to secondary" }],
   },
   {
@@ -267,11 +267,11 @@ const AGENTS: Point[] = [
   },
   {
     title: "From tweaks to redesigns",
-    body: "A tweak is a lookup: every style maps to one prop. A redesign can reshuffle a whole composition, but the component tree mirrors the Figma layers one to one, which makes it straightforward for an agent, with state, handlers and data left in place.",
+    body: "A tweak is a lookup: every style maps to one prop. A redesign can reshuffle a whole composition, but the component tree mirrors the Figma layers, so an agent can rework the layout and leave state, handlers and data in place.",
   },
   {
     title: "Agent work that's easy to review",
-    body: "The agent writes in the design's own vocabulary, Figma settings and tokens, so checking its work means checking the design, not deciphering CSS.",
+    body: "The agent writes in Figma properties and tokens, so checking its work means checking the design, not deciphering CSS.",
   },
 ]
 
@@ -315,8 +315,8 @@ export default () => {
         <Section
           id="everyone"
           audience="Everyone"
-          title="One source of truth, from Figma to every screen."
-          pitch="Designers, developers and agents share one vocabulary, straight from Figma."
+          title="One source of truth runs from Figma to every screen."
+          pitch="Designers, developers and agents share one vocabulary: Figma's."
         >
           <Points points={EVERYONE} />
           {REACT_NATIVE_DISCLAIMER}
@@ -344,7 +344,7 @@ export default () => {
           id="agents"
           audience="Agents"
           title="Your coding agent knows your design system."
-          pitch={`${PRODUCT_NAME} gives your agent a vocabulary in which only your design system can be written.`}
+          pitch="The library gives your agent a vocabulary in which only your design system can be written."
         >
           <p>
             Without it, AI writes plausible CSS at best: a gap here, a color there. Each one has a chance to slip
@@ -368,7 +368,7 @@ export default () => {
               Pick your side, meet in the <s className="decoration-(--accent)">middle</s> magic.
             </>
           }
-          pitch="Designers grab the plugin, developers install the library, and the design does the rest."
+          pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
         >
           <Points points={STARTING_POINTS} />
         </Section>
@@ -383,7 +383,7 @@ export default () => {
               The <sub className="static align-[-0.25em]">fine</sub> print.
             </>
           }
-          pitch="Nothing worth having comes without trade-offs, but these are worth making."
+          pitch="Every approach has trade-offs, and these are worth making."
         >
           <Points points={FINE_PRINT} />
         </Section>

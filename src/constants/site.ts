@@ -11,7 +11,7 @@ export const PLUGIN_URL = "about:blank"
 
 /** The one-line description, for search results and the web app manifest. */
 export const SITE_DESCRIPTION =
-  "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it."
+  "Components that speak Figma's vocabulary, so designs ship as drawn and coding agents write in your design system instead of guessing at it."
 
 /**
  * Each section's accent as a Tailwind class setting `--accent`, shared by the section and the nav link that points at
