@@ -31,14 +31,14 @@ export type SectionId = keyof typeof SECTION_ACCENTS
 
 /**
  * Each section's underline for its nav link and "For" label, as a Tailwind class from globals.css: a marker stroke by
- * default, a highlighter for designers, a code-editor squiggle for developers, dashes for agents and dots for
+ * default, a highlighter for designers, a code-editor squiggle for developers, a frame of squares for agents and dots for
  * starters. Their color is set through `--underline`.
  */
 export const SECTION_UNDERLINES: Record<SectionId, string> = {
   everyone: "underline-marker",
   designers: "underline-highlighter",
   developers: "underline-squiggle",
-  agents: "underline-dashed",
+  agents: "underline-square-frame",
   "get-started": "underline-dotted",
   "fine-print": "underline-marker",
 }

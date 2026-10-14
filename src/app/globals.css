@@ -172,6 +172,32 @@
   }
 }
 
+/* A square frame: a 2px solid border in --underline, drawn by a pseudo-element around the link, its right side covering
+   the first 2px of the word's last letter, so the "s" of "Agents" steps out just past it (an Atkinson "s" is 0.497em
+   wide, so the frame ends 0.5em less 2px from the word's end). It sits behind the text (the link isolates its own
+   stacking), so the letter crosses over the frame, and it fades like the other underlines. Meant for short,
+   single-line links. */
+@utility underline-square-frame {
+  position: relative;
+  isolation: isolate;
+  text-decoration-line: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 1px calc(0.5em - 2px) 1px -0.25em;
+    border: 2px solid var(--underline, currentColor);
+    transition: border-color 116ms var(--ease-out);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      transition: none;
+    }
+  }
+}
+
 /* A highlighter pen: a translucent stroke over the lower half of the text, its edges a little uneven,
    stretched to the link's width with a slight overshoot. Painted behind the text (the link isolates its own stacking)
    in --underline at 20%, fading like the other underlines. Meant for short, single-line links. */
