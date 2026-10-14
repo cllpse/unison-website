@@ -68,7 +68,7 @@ const BEFORE = `/**
 
 const AFTER = `/**
  * @file Card.tsx, in Figma's vocabulary
- * @satisfies Your design tokens
+ * @satisfies Design tokens, fully
  */
 <Frame
   corner-radius-3
