@@ -1,7 +1,7 @@
 /**
  * What the hero's Shapes.tsx sample renders: a square, a squircle and a circle in the palette's purple, pink and yellow,
  * each labeled inside. Exported from Figma and inlined, with its hex colors swapped for the color tokens: each outline
- * and label is its color, and each fill the color at 7%, which reads as a pale tint over the light theme's surface and
+ * and label is its color, and each fill the color at 7%, which reads as a pale tint over the light theme's page and
  * a dark one over the dark theme's, so the drawing follows the theme with no second version.
  * It spans its container's width at its own aspect ratio.
  */

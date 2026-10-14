@@ -281,32 +281,34 @@ export default () => {
       <Header />
       <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
         <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">
-          <h1 className={`${HEADING} sm:max-w-none sm:text-display`}>
-            {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
-                space keeps "properties, as" apart when the break is hidden. */}
-            Figma properties, <br className="max-sm:hidden" />
-            as code.
-          </h1>
-          {/* Sized to the title: on phones, where the title is heading-sized, it matches the section pitches (28px,
-              the same share of the heading); on wider screens it's half the 70px title. It keeps the pitches' 700px
-              measure and line height, tracked a touch tighter for its larger size; on phones it's tracked like
-              them. */}
-          <h2
-            className={`${PITCH} text-[length:calc(var(--text-heading)*1.75/2.875)] leading-[1.229] tracking-[-0.02em] max-sm:tracking-[-0.0125em] sm:text-[length:calc(var(--text-display)/2)]`}
-          >
-            The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
-            codebase powers apps and websites alike.
-          </h2>
-          {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits on
-              the code's surface, full width at its own aspect ratio, centered in a box as tall as the code. The code
+          {/* As wide as the title, which the break at its comma sets on wider screens: the subtitle doesn't count
+              toward the shrink-wrapped width (contain: inline-size), it only fills it. */}
+          <div className="w-fit">
+            <h1 className={`${HEADING} sm:max-w-none sm:text-display`}>
+              {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
+                  space keeps "properties, as" apart when the break is hidden. */}
+              Figma properties, <br className="max-sm:hidden" />
+              as code.
+            </h1>
+            {/* Half the title: 23px on phones, where the title is heading-sized, and 35px on wider screens. The line
+                height is the pitches' 1.3 less 2px, worked out at 23px. */}
+            <h2
+              className={`${PITCH} text-[length:calc(var(--text-heading)/2)] leading-[1.213] tracking-[-0.06em] [contain:inline-size] sm:max-w-none sm:text-[length:calc(var(--text-display)/2)]`}
+            >
+              The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and
+              one codebase powers apps and websites alike.
+            </h2>
+          </div>
+          {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits
+              right on the page, full width at its own aspect ratio, centered in a box as tall as the code. The code
               stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
             <CodeBlock code={EXAMPLE} caption="Shapes.tsx" />
             <figure className="flex min-w-0 flex-col">
               <figcaption className="mb-2 px-1 font-mono text-code text-muted text-thin-white dark:text-thin-black">
-                Rendered
+                Outputs
               </figcaption>
-              <div className="flex flex-1 items-center justify-center rounded-md border border-black/5 bg-gray p-3 dark:border-white/8">
+              <div className="flex flex-1 items-center justify-center p-3">
                 <ShapesPreview />
               </div>
             </figure>

@@ -10,9 +10,10 @@ export const HEADING =
 
 /**
  * The pitch's classes, also used by the hero's subtitle; each sets its own size, line height and tracking (the section
- * pitch 28px at 1.3 less 2px, tracked in a touch, and a touch more on phones).
+ * pitch 0.66 of the heading, about 30px, at 1.3 less 2px, tracked in). Both widen the word spaces a touch, by
+ * 0.075em on Inter's 0.28125em.
  */
-export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent)"
+export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent) [word-spacing:0.075em]"
 
 export type Section = {
   id: SectionId
@@ -74,7 +75,7 @@ export default (p: Section) => {
           <h2 className={HEADING}>{title}</h2>
         </hgroup>
         <h3
-          className={`${PITCH} text-[1.75rem] leading-[calc(1.3em_-_2px)] tracking-[-0.01em] max-sm:tracking-[-0.0125em]`}
+          className={`${PITCH} text-[length:calc(var(--text-heading)*0.66)] leading-[calc(1.3em_-_2px)] tracking-[-0.03em]`}
         >
           {pitch}
         </h3>
