@@ -259,9 +259,9 @@ const AGENTS: Point[] = [
     title: "Constraints over instructions",
     body: (
       <>
-        The approach is shifting: agents need the design system in a <a href={ORBIT_URL}>form they can't misread</a>,
-        not <a href={PAYPAL_URL}>more instructions</a>. If an agent guesses a value that isn't a token, TypeScript stops
-        it before it ever gets to review.
+        Agents need the design system in a <a href={ORBIT_URL}>form they can't misread</a>, not{" "}
+        <a href={PAYPAL_URL}>more instructions</a>. If an agent guesses a value that isn't a token, TypeScript stops it
+        before it ever gets to review.
       </>
     ),
   },
@@ -289,9 +289,10 @@ export default () => {
           </h1>
           {/* Sized to the title: on phones, where the title is heading-sized, it matches the section pitches (28px,
               the same share of the heading); on wider screens it's half the 70px title. It keeps the pitches' 700px
-              measure and line height, tracked a touch tighter for its larger size. */}
+              measure and line height, tracked a touch tighter for its larger size; on phones it's tracked like
+              them. */}
           <h2
-            className={`${PITCH} text-[length:calc(var(--text-heading)*1.75/2.875)] leading-[1.229] tracking-[-0.02em] sm:text-[length:calc(var(--text-display)/2)]`}
+            className={`${PITCH} text-[length:calc(var(--text-heading)*1.75/2.875)] leading-[1.229] tracking-[-0.02em] max-sm:tracking-[-0.0125em] sm:text-[length:calc(var(--text-display)/2)]`}
           >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.

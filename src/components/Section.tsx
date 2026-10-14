@@ -9,8 +9,8 @@ export const HEADING =
   "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
 
 /**
- * The pitch's classes, also used by the hero's subtitle; each sets its own size and line height (the section pitch
- * 28px at 1.3 less 2px, tracked in a touch; the hero subtitle 26px, tightened by the same proportions).
+ * The pitch's classes, also used by the hero's subtitle; each sets its own size, line height and tracking (the section
+ * pitch 28px at 1.3 less 2px, tracked in a touch, and a touch more on phones).
  */
 export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent)"
 
@@ -73,7 +73,11 @@ export default (p: Section) => {
             covers them, and the matching negative margin keeps the layout unchanged. */}
           <h2 className={HEADING}>{title}</h2>
         </hgroup>
-        <h3 className={`${PITCH} text-[1.75rem] leading-[calc(1.3em_-_2px)] tracking-[-0.01em]`}>{pitch}</h3>
+        <h3
+          className={`${PITCH} text-[1.75rem] leading-[calc(1.3em_-_2px)] tracking-[-0.01em] max-sm:tracking-[-0.0125em]`}
+        >
+          {pitch}
+        </h3>
         {children}
       </div>
     </section>
