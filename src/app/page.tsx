@@ -237,9 +237,9 @@ export default () => {
           pitch={`${PRODUCT_NAME} gives your agent a vocabulary in which only your design system can be written.`}
         >
           <p>
-            Without it, AI writes plausible CSS: a gap here, a purple-50 there. Nothing fails review, nothing matches
-            your tokens, and the product drifts. Prompt rules help until the model forgets them; a vocabulary doesn't
-            need remembering.
+            Without it, AI writes plausible CSS at best: a gap here, a purple-50 there. This can slip through review,
+            and the product drifts. Prompt rules only help until the model forgets them; a vocabulary doesn't need
+            remembering.
           </p>
           <div>
             <CodeBlock code={BEFORE} caption="Before: an agent's best guess" />
