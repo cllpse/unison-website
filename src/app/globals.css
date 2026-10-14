@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* The dark theme is opt-in for now: ?theme=dark in the URL (see Theme.tsx) sets data-theme="dark" on <html>, and the
-   dark: variant follows that attribute instead of the system setting. */
-@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
-
 /* Palette: https://coolors.co/palette/9b5de5-f15bb5-fee440-00bbf9-00f5d4, plus black, white and three grays. */
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
@@ -51,16 +47,19 @@
   --color-aquamarine: #00b89f;
 }
 
-/* The dark theme's neutrals; the accents stay as they are. Black and white swap roles through dark: variants, with
-   white softened to an off-white for text, and the grays turn into a slightly raised code surface, its edge and a
-   muted text gray at about the light theme's contrast. */
+/* The dark theme follows the browser's color scheme (Tailwind's default dark: variant). These are its neutrals; the
+   accents stay as they are. Black and white swap roles through dark: variants, with white softened to an off-white
+   for text, and the grays turn into a slightly raised code surface, its edge and a muted text gray at about the light
+   theme's contrast. */
 @layer theme {
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --color-white: rgb(237, 237, 237);
-    --color-gray: #141414;
-    --color-gray-edge: #262626;
-    --color-muted: #808080;
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --color-white: rgb(237, 237, 237);
+      --color-gray: #141414;
+      --color-gray-edge: #262626;
+      --color-muted: #808080;
+    }
   }
 }
 
@@ -71,13 +70,23 @@
   }
 }
 
-/* Every link is underlined at the position and thickness the font's own metrics give; on hover the underline fades out
-   (a line can't animate on and off, its color can). The site name has none. */
+/* Every link is underlined at the thickness the font's own metrics give, a little below the font's underline position
+   (0.12em, so it scales with the text, less 1px); on hover the underline fades out (a line can't animate on and off, its color
+   can). The site name has none. */
 @layer base {
   a {
-    @apply underline decoration-from-font underline-offset-auto [text-underline-position:from-font];
+    @apply underline decoration-from-font underline-offset-[calc(0.12em_-_1px)] [text-underline-position:from-font];
     @apply transition-[text-decoration-color] duration-116 ease-out;
     @apply hover:decoration-transparent motion-reduce:transition-none;
+  }
+}
+
+/* Abbreviations with a tooltip: a dotted underline in the text color, at the links' underline spacing, and the help
+   cursor, so it's clear there's more to see on hover. */
+@layer base {
+  abbr[title] {
+    @apply cursor-help underline decoration-current decoration-dotted decoration-from-font underline-offset-[calc(0.12em_-_1px)];
+    @apply [text-underline-position:from-font];
   }
 }
 
@@ -109,9 +118,9 @@
 }
 
 /* A marker underline: one hand-drawn swipe, thicker at the start, rising a little and tapering slightly to the
-   right, stretched to the link's width (a touch past it at both ends, as a marker overshoots). Painted like
-   underline-scallops: a pseudo-element in --underline (the text color unless set), masked to the stroke, fading like
-   the other underlines. Meant for short, single-line links. */
+   right, the whole stroke tilted down a degree, which levels it out, stretched to the link's width (a touch past it at
+   both ends, as a marker overshoots). Painted like underline-scallops: a pseudo-element in --underline (the text color
+   unless set), masked to the stroke, fading like the other underlines. Meant for short, single-line links. */
 @utility underline-marker {
   position: relative;
   text-decoration-line: none;
@@ -122,6 +131,7 @@
     inset-inline: -0.1em;
     top: calc(100% - 3.5px);
     height: 6px;
+    rotate: 1deg;
     background-color: var(--underline, currentColor);
     mask:
       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M1.2 4.6C18 2.6 45 1.7 97.6 1.4C99.3 1.4 99.6 4.2 98 4.4C62 5.3 30 6.7 2.6 8.8C0.6 8.9-0.2 4.8 1.2 4.6Z'/%3E%3C/svg%3E")

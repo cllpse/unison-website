@@ -9,10 +9,10 @@ export const HEADING =
   "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
 
 /**
- * The pitch's classes, also used by the hero's subtitle; each sets its own size (the section pitch 28px, the hero
- * subtitle 26px).
+ * The pitch's classes, also used by the hero's subtitle; each sets its own size and line height (the section pitch
+ * 28px at 1.3 less 2px, tracked in a touch; the hero subtitle 26px, tightened by the same proportions).
  */
-export const PITCH = "mt-4 max-w-measure pb-2 leading-[1.3] font-normal text-(--accent)"
+export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent)"
 
 export type Section = {
   id: SectionId
@@ -21,7 +21,7 @@ export type Section = {
   /** The promise; a node, so it can carry inline markup such as a <sub>. */
   title: ReactNode
   /** The h3 under the promise: one line on how the library keeps it, set large in the accent color. */
-  pitch: string
+  pitch: ReactNode
   children: ReactNode
 }
 
@@ -73,7 +73,7 @@ export default (p: Section) => {
             covers them, and the matching negative margin keeps the layout unchanged. */}
           <h2 className={HEADING}>{title}</h2>
         </hgroup>
-        <h3 className={`${PITCH} text-[1.75rem]`}>{pitch}</h3>
+        <h3 className={`${PITCH} text-[1.75rem] leading-[calc(1.3em_-_2px)] tracking-[-0.01em]`}>{pitch}</h3>
         {children}
       </div>
     </section>

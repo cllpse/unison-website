@@ -7,7 +7,7 @@ export default (p: Disclaimer) => {
   const { children } = p
 
   return (
-    <aside className="mx-auto mt-12 w-fit rounded-2xl border border-gray-edge bg-gray px-4 py-3 font-paragraph [corner-shape:squircle]">
+    <aside className="mx-auto mt-12 w-fit rounded-md border border-gray-edge bg-gray px-4 py-3 font-paragraph">
       <p>
         {/* Oven mitts, for handling with care (Solar icon set by 480 Design, linear, CC BY 4.0): in the text color and
             in line with it, sized and set like the nav's eyes. The stroke is thickened from 1.5 to 2, a touch heavier
@@ -16,7 +16,7 @@ export default (p: Disclaimer) => {
         <svg
           viewBox="0 0 24 24"
           aria-hidden="true"
-          className="mr-2 inline-block size-[1em] fill-none stroke-current align-[-0.125em]"
+          className="mr-3 inline-block size-[1em] fill-none stroke-current align-[-0.125em]"
         >
           <path
             d="M4.02 10.954L13.297 20.026C11.952 21.342 11.279 22 10.443 22C9.606 22 8.933 21.341 7.588 20.027L4.019 16.537C2.673 15.221 2 14.563 2 13.745C2 13.209 2.29 12.741 2.87 12.111C3.46 11.469 3.756 11.147 3.89 10.81Z"

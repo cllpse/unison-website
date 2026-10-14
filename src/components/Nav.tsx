@@ -29,10 +29,10 @@ export default () => {
       const height = header.offsetHeight
       document.documentElement.style.setProperty("--header-height", `${height}px`)
 
-      // The reading line: 1px, a third of the way down the view below the header, where the eye rests, so the section
-      // filling most of the screen counts as current, not one that merely reaches up under the header. A jump to a
-      // section puts its top under the header, well above the line, so the jump's target is current too.
-      const lineTop = height + Math.round((window.innerHeight - height) / 3)
+      // The reading line: 1px, a fifth of the way down the view below the header, near where the eye rests, so the
+      // section filling most of the screen counts as current, not one that merely reaches up under the header. A jump
+      // to a section puts its top under the header, well above the line, so the jump's target is current too.
+      const lineTop = height + Math.round((window.innerHeight - height) / 5)
       const line = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
