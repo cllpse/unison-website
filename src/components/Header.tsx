@@ -21,7 +21,7 @@ export default () => {
         className="absolute inset-x-0 top-0 -z-5 h-6 bg-linear-to-t from-transparent to-(--scrim) in-data-rules:mask-(--rule-holes) sm:hidden"
       />
       <div className="pointer-events-auto mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-6 py-4 max-sm:px-3">
-        <p className="flex items-center gap-2">
+        <p className="flex items-center gap-2 text-xl">
           <a href="#top" className="no-underline">
             {REPO_NAME}
           </a>

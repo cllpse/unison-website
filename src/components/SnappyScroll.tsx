@@ -3,10 +3,10 @@
 import { useEffect } from "react"
 
 /**
- * How long an in-page jump takes: twice the site's 58ms fades (links, anchor icons), since it covers a whole page
+ * How long an in-page jump takes: twice the site's 116ms fades (links, anchor icons), since it covers a whole page
  * instead of a color. CSS `scroll-behavior: smooth` can't be timed, and browsers make it slow.
  */
-const DURATION_MS = 58 * 2
+const DURATION_MS = 116 * 2
 
 /**
  * Tailwind's `ease-out`, cubic-bezier(0, 0, 0.2, 1), the curve every transition on the site uses, so the jump moves

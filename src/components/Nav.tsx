@@ -1,9 +1,9 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { NAV_LINKS, SECTION_ACCENTS, type SectionId } from "../constants/site"
+import { NAV_LINKS, SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constants/site"
 
-/** The section links in the sticky header; the one for the section you're reading fades its underline out. */
+/** The section links in the sticky header: plain until hovered, with a squiggle under the section you're reading. */
 export default () => {
   const ref = useRef<HTMLElement>(null)
   const [current, setCurrent] = useState<SectionId>()
@@ -17,8 +17,8 @@ export default () => {
     let atBottom = false
     let observers: IntersectionObserver[] = []
 
-    // The current section is the last one crossing the line under the header, or the last section once it's fully
-    // in view (at the bottom of the page it may never reach that line).
+    // The current section is the last one crossing the reading line, or the last section once it's fully in view (at
+    // the bottom of the page it may never reach that line).
     const update = () => setCurrent(atBottom ? ids.at(-1) : ids.findLast((id) => crossing.has(id)))
 
     // The observers' margins depend on the header's height (it grows when the nav wraps on phones) and the viewport,
@@ -29,7 +29,10 @@ export default () => {
       const height = header.offsetHeight
       document.documentElement.style.setProperty("--header-height", `${height}px`)
 
-      // A 1px line just under the header: the sections crossing it.
+      // The reading line: 1px, a third of the way down the view below the header, where the eye rests, so the section
+      // filling most of the screen counts as current, not one that merely reaches up under the header. A jump to a
+      // section puts its top under the header, well above the line, so the jump's target is current too.
+      const lineTop = height + Math.round((window.innerHeight - height) / 3)
       const line = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
@@ -39,7 +42,7 @@ export default () => {
           }
           update()
         },
-        { rootMargin: `-${height}px 0px -${window.innerHeight - height - 1}px 0px` },
+        { rootMargin: `-${lineTop}px 0px -${window.innerHeight - lineTop - 1}px 0px` },
       )
 
       // Fully in view, give or take: fractional layout keeps the ratio just under 1, so a threshold of exactly 1 would
@@ -84,7 +87,7 @@ export default () => {
   }, [])
 
   return (
-    <nav ref={ref} className="flex flex-wrap gap-x-5 gap-y-1 font-paragraph font-semibold tracking-normal">
+    <nav ref={ref} className="flex flex-wrap gap-x-5 gap-y-1 font-paragraph text-xl font-semibold tracking-normal">
       <p>
         {/* Two eyes looking right, toward the links: outlines and pupils in the text color, whites in the page color. */}
         <svg
@@ -104,7 +107,7 @@ export default () => {
           key={link.id}
           href={`#${link.id}`}
           aria-current={link.id === current ? "location" : undefined}
-          className={`${SECTION_ACCENTS[link.id]} text-(--accent) aria-[current=location]:decoration-transparent`}
+          className={`${SECTION_ACCENTS[link.id]} ${SECTION_UNDERLINES[link.id]} text-(--accent) [--underline:transparent] hover:[--underline:var(--accent)] aria-[current=location]:[--underline:var(--accent)]`}
         >
           {link.label}
         </a>

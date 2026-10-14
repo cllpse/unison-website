@@ -20,9 +20,25 @@ export const SECTION_ACCENTS = {
   developers: "[--accent:var(--color-minion-yellow)]",
   agents: "[--accent:var(--color-aquamarine)]",
   "get-started": "[--accent:var(--color-capri)]",
+  // The fine print speaks to everyone, in the plain text color.
+  "fine-print": "[--accent:var(--color-black)] dark:[--accent:var(--color-white)]",
 } as const
 
 export type SectionId = keyof typeof SECTION_ACCENTS
+
+/**
+ * Each section's underline for its nav link and "For" label, as a Tailwind class from globals.css: a marker stroke by
+ * default, a highlighter for designers, a code-editor squiggle for developers, dashes for agents and dots for
+ * starters. Their color is set through `--underline`.
+ */
+export const SECTION_UNDERLINES: Record<SectionId, string> = {
+  everyone: "underline-marker",
+  designers: "underline-highlighter",
+  developers: "underline-squiggle",
+  agents: "underline-dashed",
+  "get-started": "underline-dotted",
+  "fine-print": "underline-marker",
+}
 
 export const NAV_LINKS: { id: SectionId; label: string }[] = [
   { id: "everyone", label: "Everyone" },

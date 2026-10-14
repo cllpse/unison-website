@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { SECTION_ACCENTS, type SectionId } from "../constants/site"
+import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constants/site"
 
 /**
  * The section heading's classes: the accent as a gradient that fades toward the page, from a touch darker to lighter,
@@ -8,15 +8,18 @@ import { SECTION_ACCENTS, type SectionId } from "../constants/site"
 export const HEADING =
   "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
 
-/** The pitch's classes, also used by the hero's subtitle. */
-export const PITCH = "mt-4 max-w-measure pb-2 text-[1.625rem] leading-[1.3] font-normal text-(--accent)"
+/**
+ * The pitch's classes, also used by the hero's subtitle; each sets its own size (the section pitch 28px, the hero
+ * subtitle 26px).
+ */
+export const PITCH = "mt-4 max-w-measure pb-2 leading-[1.3] font-normal text-(--accent)"
 
 export type Section = {
   id: SectionId
-  /** Who the section speaks to, in Capital Case; shown as a "For <Audience>" link to the section above the heading. */
+  /** Who the section speaks to, in Capital Case; shown as a "for <Audience>" link to the section above the heading. */
   audience?: string
-  /** The promise. */
-  title: string
+  /** The promise; a node, so it can carry inline markup such as a <sub>. */
+  title: ReactNode
   /** The h3 under the promise: one line on how the library keeps it, set large in the accent color. */
   pitch: string
   children: ReactNode
@@ -49,16 +52,20 @@ export default (p: Section) => {
           {audience ? (
             <p className="mb-3 text-xl font-semibold">
               {/* Like GitHub's heading anchors: a link icon (Font Awesome Free, CC BY 4.0) hangs in the padding on
-                  hover. */}
-              <a href={`#${id}`} className="group/anchor relative text-(--accent)">
+                  hover. Only the audience is underlined, not "For"; it's an inline block, like the nav's links (flex
+                  items), so the drawn underlines sit at the same distance below the text in both. */}
+              <a
+                href={`#${id}`}
+                className="group/anchor relative text-(--accent) no-underline hover:[--underline:transparent]"
+              >
                 <svg
                   viewBox="0 0 640 512"
                   aria-hidden="true"
-                  className="absolute top-1/2 right-full mr-0.75 h-[0.7em] w-[0.875em] -translate-y-1/2 fill-current opacity-0 transition-opacity duration-58 ease-out group-hover/anchor:opacity-100 motion-reduce:transition-none"
+                  className="absolute top-1/2 right-full mr-0.75 h-[0.7em] w-[0.875em] -translate-y-1/2 fill-current opacity-0 transition-opacity duration-116 ease-out group-hover/anchor:opacity-100 motion-reduce:transition-none"
                 >
                   <path d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0l112.3-112.3zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l112.2-112.3c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z" />
                 </svg>
-                For {audience}
+                for <span className={`${SECTION_UNDERLINES[id]} inline-block`}>{audience}</span>
               </a>
             </p>
           ) : null}
@@ -66,7 +73,7 @@ export default (p: Section) => {
             covers them, and the matching negative margin keeps the layout unchanged. */}
           <h2 className={HEADING}>{title}</h2>
         </hgroup>
-        <h3 className={PITCH}>{pitch}</h3>
+        <h3 className={`${PITCH} text-[1.75rem]`}>{pitch}</h3>
         {children}
       </div>
     </section>
