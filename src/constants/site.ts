@@ -6,6 +6,9 @@ export const REPO_NAME = "cllpse/figma"
 
 export const REPO_URL = `https://github.com/${REPO_NAME}`
 
+/** The Figma plugin's Community page. @todo @cllpse: link the published plugin. */
+export const PLUGIN_URL = "about:blank"
+
 /** The one-line description, for search results and the web app manifest. */
 export const SITE_DESCRIPTION =
   "Components that speak Figma's vocabulary, so your coding agent writes your design system instead of guessing at it."

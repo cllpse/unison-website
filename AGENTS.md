@@ -21,14 +21,16 @@ apply here.
 - `bun run typecheck`: `tsc --noEmit`; must pass before committing
 - `bunx biome check --write .`: format, lint and organize imports; must pass before committing
 - `bun run build`: production build; run it before pushing
+- `bun run bake`: the landing page as one small, self-contained `dist/index.html` that opens straight from disk
+  (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
+  mirrors `Nav.tsx` and `SnappyScroll.tsx`; keep those in step
 
 ## Architecture
 
 - Next.js App Router in `src/app`, with React Compiler and Tailwind CSS v4 (configured in `src/app/globals.css`, no
   `tailwind.config`).
 - `src/components`: one component per file, PascalCase file names. Server components by default; add
-  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`,
-  `Theme.tsx`).
+  `"use client"` only where a component needs state, effects or event handlers (`Nav.tsx`, `SnappyScroll.tsx`).
 - `src/constants`: site-wide constants such as `PRODUCT_NAME`, `REPO_NAME`, `NAV_LINKS` and `SECTION_ACCENTS` (each
   section's color, shared with the nav). The product name lives only there.
 - `src/utilities`: helpers (`highlight.ts`, which wraps Shiki for the code blocks).
@@ -37,20 +39,20 @@ apply here.
   pixel density on white; regenerate them all together when the mark changes.
 - Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
   is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
-- The dark theme is opt-in while it's tried out: `?theme=dark` makes `Theme.tsx` set `data-theme="dark"` on `<html>`,
-  and the `dark:` variant follows that attribute, not the system setting. It keeps the accents and redefines only the
-  neutrals (`globals.css`); style anything black or white with a `dark:` counterpart.
+- The dark theme follows the browser's color scheme (`prefers-color-scheme`, Tailwind's default `dark:` variant).
+  It keeps the accents and redefines only the neutrals (`globals.css`); style anything black or white with a `dark:`
+  counterpart.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
 - The page speaks to four audiences (everyone, designers, developers, agents), one section each, then starters.
 - Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
   promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
   `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
-- `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and
-  turns a direct `div`, `ol` or `ul` child into a two-column grid of h4 points, so section markup in `page.tsx` stays
-  class-free. Section headings and paragraphs keep a `max-w-measure` (700px) measure inside the wider `max-w-page`
-  (1168px) column. All text wraps with `text-pretty` (set on `body`); don't use `text-balance`. The h1's break after
-  the comma is the one manual break.
+- `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and turns a
+  direct `div`, `ol` or `ul` child into a two-column grid, so section markup in `page.tsx` stays class-free. `Points`
+  uses that grid for two independent columns, so a tall point only pushes down the points below it. Section headings and
+  paragraphs keep a `max-w-measure` (700px) measure inside the wider `max-w-page` (1168px) column. All text wraps with
+  `text-pretty` (set on `body`); don't use `text-balance`. The h1's break after the comma is the one manual break.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/figma before writing one.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
@@ -87,7 +89,8 @@ Beyond that:
 
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
-- The one exception is the real ellipsis in the nav's "for…", which the owner asked for.
+- The exceptions, which the owner asked for: the real ellipses in the nav's "for…" and at the start of "…or simply
+  ship sooner" (For Everyone) and "…think LEGO® bricks" (For Developers), and the ® itself (a registered trademark).
 
 ## Comments and docs
 
