@@ -57,6 +57,7 @@ const BEFORE = `/**
  * @file Card.tsx, as an agent writes it from the spec
  * @todo Plausible values, but are these valid design tokens?
  */
+
 <div className="
   bg-purple-50
   flex
@@ -70,6 +71,7 @@ const AFTER = `/**
  * @file Card.tsx, in Figma's vocabulary
  * @satisfies Design tokens, fully
  */
+
 <Frame
   corner-radius-3
   fill-primary-50
@@ -242,9 +244,9 @@ const DEVELOPERS: Point[] = [
     column: "right",
     body: (
       <>
-        {/* Set like a code block in miniature: its font, thinning, surface and edge, scaled to sit in the line without
-            changing its height, and in the code's property blue, since className is a property. */}
-        <span className="code-colors rounded-md border border-gray-edge bg-gray px-1 font-mono text-[0.85em] text-(--code-property) text-thin-gray">
+        {/* Set like a code block in miniature: its font, thinning, surface and corners, with no border, scaled to sit
+            in the line without changing its height, and in the code's property blue, since className is a property. */}
+        <span className="code-colors rounded-sm bg-[rgb(0_0_0/4%)] px-1 dark:bg-gray font-mono text-[0.85em] text-(--code-property) text-thin-gray">
           className
         </span>{" "}
         is still there for the rare thing the design system doesn't cover. Reaching for it is a deliberate choice, and
@@ -303,7 +305,7 @@ export default () => {
               right on the page, full width at its own aspect ratio, centered in a box as tall as the code. The code
               stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
-            <CodeBlock code={EXAMPLE} caption="Shapes.tsx" />
+            <CodeBlock code={EXAMPLE} wide pattern />
             <figure className="flex min-w-0 flex-col">
               <div className="flex flex-1 items-center justify-center p-3">
                 <ShapesPreview />
@@ -352,8 +354,8 @@ export default () => {
             up, then summarized away, but a vocabulary doesn't need remembering.
           </p>
           <div>
-            <CodeBlock code={BEFORE} caption="An agent's best guess" />
-            <CodeBlock code={AFTER} caption="One vocabulary" />
+            <CodeBlock code={BEFORE} caption="An agent's best guess" wide />
+            <CodeBlock code={AFTER} caption="One vocabulary" wide />
           </div>
           <Points points={AGENTS} />
         </Section>

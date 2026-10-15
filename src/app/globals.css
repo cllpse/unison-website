@@ -384,21 +384,22 @@
 }
 
 /* Code-block scrollbars: shown on hover when the code scrolls (the track's space stays reserved, so nothing shifts),
-   with a rounded thumb floating in a transparent track that spans the block's full width. The thumb is the text color
-   (black, or white on the dark theme) mixed into the code surface at a contrast just over 3:1 (WCAG's minimum for UI
-   parts), stronger on hover. Styling the
-   WebKit scrollbar also takes it out of macOS overlay mode; Firefox ignores those pseudo-elements and gets the same
-   colors through scrollbar-color. */
+   a rounded thumb floating in a transparent track that spans the block's full width. The thumb is the text color
+   (black, or white on the dark theme) at 60% over the page, 75% under the pointer. Styling the WebKit scrollbar also
+   takes it out of macOS overlay mode; Firefox ignores those pseudo-elements and gets the same colors through
+   scrollbar-color. */
 @utility scrollbar-code {
   --scrollbar-ink: var(--color-black);
+  --scrollbar-page: var(--color-white);
   --scrollbar-thumb: transparent;
 
   @variant dark {
     --scrollbar-ink: var(--color-white);
+    --scrollbar-page: var(--color-black);
   }
 
   &:hover {
-    --scrollbar-thumb: color-mix(in oklab, var(--scrollbar-ink) 45%, var(--color-gray));
+    --scrollbar-thumb: color-mix(in oklab, var(--scrollbar-ink) 60%, var(--scrollbar-page));
   }
 
   &::-webkit-scrollbar {
@@ -419,7 +420,7 @@
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: color-mix(in oklab, var(--scrollbar-ink) 60%, var(--color-gray));
+    background-color: color-mix(in oklab, var(--scrollbar-ink) 75%, var(--scrollbar-page));
   }
 
   @supports not selector(::-webkit-scrollbar) {
