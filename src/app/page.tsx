@@ -307,7 +307,7 @@ export default () => {
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
             <CodeBlock code={EXAMPLE} wide pattern />
             <figure className="flex min-w-0 flex-col">
-              <div className="flex flex-1 items-center justify-center p-3">
+              <div className="flex flex-1 items-center justify-center">
                 <ShapesPreview />
               </div>
             </figure>

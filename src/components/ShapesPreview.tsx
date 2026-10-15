@@ -3,10 +3,10 @@
  * Exported from Figma and inlined, each shape in the same steps of its own 50-900 scale (fill 50, outline 400, label
  * 700): the square neutral, the squircle purple, the circle pink. The scales flip on the dark theme, so the drawing
  * follows the theme with no second version.
- * It spans its container's width at its own aspect ratio. On phones the outlines are a fixed 2px instead of scaling
+ * It spans its container's width at its own aspect ratio. On phones the outlines are a fixed 1.5px instead of scaling
  * with the drawing (which takes them under 1px there); the drawing doesn't clip them where they reach its edges.
  */
-const OUTLINE = "max-sm:stroke-2 max-sm:[vector-effect:non-scaling-stroke]"
+const OUTLINE = "max-sm:[stroke-width:1.5] max-sm:[vector-effect:non-scaling-stroke]"
 
 export default () => {
   return (
