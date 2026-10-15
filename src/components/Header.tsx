@@ -16,10 +16,10 @@ export default () => {
         className="absolute inset-0 -z-5 bg-(--scrim) opacity-[calc(6/7)] mask-intersect [mask-image:var(--scrim-grain),var(--scrim-gradient)]"
       />
       {/* Phones only: a 24px edge at the very top, fading from transparent up to solid, so content vanishes at the
-          screen edge. */}
+          screen edge. It runs the full width, over the side rules too, unlike the scrim's other layers. */}
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-5 h-6 bg-linear-to-t from-transparent to-(--scrim) in-data-rules:mask-(--rule-holes) sm:hidden"
+        className="absolute inset-x-0 top-0 -z-5 h-6 bg-linear-to-t from-transparent to-(--scrim) sm:hidden"
       />
       <div className="pointer-events-auto mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-6 py-4 max-sm:px-3">
         <p className="flex items-center gap-2 text-xl">
