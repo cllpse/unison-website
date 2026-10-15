@@ -251,7 +251,7 @@
     content: "";
     position: absolute;
     z-index: -1;
-    inset: 1px calc(0.5em - 2px) 1px -0.25em;
+    inset: 1px calc(0.5em - 2px) 1px -0.15em;
     border: 2px solid var(--underline, currentColor);
     transition: border-color 116ms var(--ease-out);
   }
