@@ -45,12 +45,46 @@
   /* Yellow and aquamarine, darkened from #fee440 and #00f5d4 to read as text on white. */
   --color-minion-yellow: #e7c701;
   --color-aquamarine: #00b89f;
+  /* A neutral scale in Material Design's steps, from near-white at 50 to the site's black at 900. */
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f5f5f5;
+  --color-neutral-200: #e5e5e5;
+  --color-neutral-300: #bdbdbd;
+  --color-neutral-400: #8b8b8b;
+  --color-neutral-500: #737373;
+  --color-neutral-600: #525252;
+  --color-neutral-700: #404040;
+  --color-neutral-800: #262626;
+  --color-neutral-900: rgb(10, 10, 10);
+  /* The same steps for purple and pink, with the accent itself at 500: lighter steps are the accent mixed into white,
+     darker ones into the site's black. */
+  --color-amethyst-50: color-mix(in oklab, var(--color-amethyst) 8%, white);
+  --color-amethyst-100: color-mix(in oklab, var(--color-amethyst) 18%, white);
+  --color-amethyst-200: color-mix(in oklab, var(--color-amethyst) 32%, white);
+  --color-amethyst-300: color-mix(in oklab, var(--color-amethyst) 48%, white);
+  --color-amethyst-400: color-mix(in oklab, var(--color-amethyst) 72%, white);
+  --color-amethyst-500: var(--color-amethyst);
+  --color-amethyst-600: color-mix(in oklab, var(--color-amethyst) 85%, var(--color-black));
+  --color-amethyst-700: color-mix(in oklab, var(--color-amethyst) 70%, var(--color-black));
+  --color-amethyst-800: color-mix(in oklab, var(--color-amethyst) 52%, var(--color-black));
+  --color-amethyst-900: color-mix(in oklab, var(--color-amethyst) 35%, var(--color-black));
+  --color-magenta-50: color-mix(in oklab, var(--color-magenta) 8%, white);
+  --color-magenta-100: color-mix(in oklab, var(--color-magenta) 18%, white);
+  --color-magenta-200: color-mix(in oklab, var(--color-magenta) 32%, white);
+  --color-magenta-300: color-mix(in oklab, var(--color-magenta) 48%, white);
+  --color-magenta-400: color-mix(in oklab, var(--color-magenta) 72%, white);
+  --color-magenta-500: var(--color-magenta);
+  --color-magenta-600: color-mix(in oklab, var(--color-magenta) 85%, var(--color-black));
+  --color-magenta-700: color-mix(in oklab, var(--color-magenta) 70%, var(--color-black));
+  --color-magenta-800: color-mix(in oklab, var(--color-magenta) 52%, var(--color-black));
+  --color-magenta-900: color-mix(in oklab, var(--color-magenta) 35%, var(--color-black));
 }
 
 /* The dark theme follows the browser's color scheme (Tailwind's default dark: variant). These are its neutrals; the
    accents stay as they are. Black and white swap roles through dark: variants, with white softened to an off-white
    for text, and the grays turn into a slightly raised code surface, its edge and a muted text gray at about the light
-   theme's contrast. */
+   theme's contrast. The 50-900 scales run the other way, so 900 is the strongest contrast and 50 a faint tint of the
+   dark page. */
 @layer theme {
   @media (prefers-color-scheme: dark) {
     :root {
@@ -59,6 +93,37 @@
       --color-gray: #141414;
       --color-gray-edge: #262626;
       --color-muted: #808080;
+      --color-neutral-50: #0f0f0f;
+      --color-neutral-100: #141414;
+      --color-neutral-200: #262626;
+      --color-neutral-300: #404040;
+      --color-neutral-400: #525252;
+      --color-neutral-500: #737373;
+      --color-neutral-600: #a3a3a3;
+      --color-neutral-700: #c4c4c4;
+      --color-neutral-800: #d4d4d4;
+      --color-neutral-900: rgb(237, 237, 237);
+      /* Purple and pink flip the same way: lighter steps mix into the dark page, darker ones into the off-white. */
+      --color-amethyst-50: color-mix(in oklab, var(--color-amethyst) 8%, var(--color-black));
+      --color-amethyst-100: color-mix(in oklab, var(--color-amethyst) 18%, var(--color-black));
+      --color-amethyst-200: color-mix(in oklab, var(--color-amethyst) 32%, var(--color-black));
+      --color-amethyst-300: color-mix(in oklab, var(--color-amethyst) 48%, var(--color-black));
+      --color-amethyst-400: color-mix(in oklab, var(--color-amethyst) 72%, var(--color-black));
+      --color-amethyst-500: var(--color-amethyst);
+      --color-amethyst-600: color-mix(in oklab, var(--color-amethyst) 85%, var(--color-white));
+      --color-amethyst-700: color-mix(in oklab, var(--color-amethyst) 70%, var(--color-white));
+      --color-amethyst-800: color-mix(in oklab, var(--color-amethyst) 52%, var(--color-white));
+      --color-amethyst-900: color-mix(in oklab, var(--color-amethyst) 35%, var(--color-white));
+      --color-magenta-50: color-mix(in oklab, var(--color-magenta) 8%, var(--color-black));
+      --color-magenta-100: color-mix(in oklab, var(--color-magenta) 18%, var(--color-black));
+      --color-magenta-200: color-mix(in oklab, var(--color-magenta) 32%, var(--color-black));
+      --color-magenta-300: color-mix(in oklab, var(--color-magenta) 48%, var(--color-black));
+      --color-magenta-400: color-mix(in oklab, var(--color-magenta) 72%, var(--color-black));
+      --color-magenta-500: var(--color-magenta);
+      --color-magenta-600: color-mix(in oklab, var(--color-magenta) 85%, var(--color-white));
+      --color-magenta-700: color-mix(in oklab, var(--color-magenta) 70%, var(--color-white));
+      --color-magenta-800: color-mix(in oklab, var(--color-magenta) 52%, var(--color-white));
+      --color-magenta-900: color-mix(in oklab, var(--color-magenta) 35%, var(--color-white));
     }
   }
 }

@@ -305,9 +305,6 @@ export default () => {
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
             <CodeBlock code={EXAMPLE} caption="Shapes.tsx" />
             <figure className="flex min-w-0 flex-col">
-              <figcaption className="mb-2 px-1 font-mono text-code text-muted text-thin-white dark:text-thin-black">
-                Outputs
-              </figcaption>
               <div className="flex flex-1 items-center justify-center p-3">
                 <ShapesPreview />
               </div>
