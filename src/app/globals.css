@@ -10,11 +10,11 @@
   /* The hero title on wider screens; phones use the section heading size. */
   --text-display: 4.375rem;
   --text-display--line-height: 1.1;
-  --text-display--letter-spacing: -0.035em;
+  --text-display--letter-spacing: -0.02em;
   --text-display--font-weight: 800;
   --text-heading: 2.875rem;
   --text-heading--line-height: 1.1;
-  --text-heading--letter-spacing: -0.035em;
+  --text-heading--letter-spacing: -0.02em;
   --text-heading--font-weight: 700;
   --text-lead: 1.5rem;
   --text-lead--line-height: 1.4;

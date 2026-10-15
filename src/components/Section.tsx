@@ -3,17 +3,19 @@ import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constant
 
 /**
  * The section heading's classes: the accent as a gradient that fades toward the page, from a touch darker to lighter,
- * and from a touch lighter to darker on the dark theme. Also used by the hero.
+ * and from a touch lighter to darker on the dark theme, with the word spaces widened a touch (the type scale sets the
+ * tracking). Also used by the hero.
  */
 export const HEADING =
-  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent wrap-break-word"
+  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent [word-spacing:0.04em] wrap-break-word"
 
 /**
- * The pitch's classes, also used by the hero's subtitle; each sets its own size, line height and tracking (the section
- * pitch 0.66 of its heading, 26px on phones and 39px wider, at 1.3 less 2px, tracked in). Both widen the word spaces
- * a touch, by 0.075em on Inter's 0.28125em.
+ * The pitch's classes, also used by the hero's subtitle: set tight at 1.15em, tracked in, with the word spaces widened
+ * to keep the words apart. Each sets its own size (the section pitch 0.66 of its heading, 26px on phones and 39px
+ * wider).
  */
-export const PITCH = "mt-4 max-w-measure pb-2 font-normal text-(--accent) [word-spacing:0.075em]"
+export const PITCH =
+  "mt-4 max-w-measure pb-2 font-normal text-(--accent) leading-[1.15em] tracking-[-0.07em] [word-spacing:0.09em]"
 
 export type Section = {
   id: SectionId
@@ -81,7 +83,7 @@ export default (p: Section) => {
           </h2>
         </hgroup>
         <h3
-          className={`${PITCH} text-[length:calc(var(--text-heading)*0.85*0.66)] leading-[calc(1.3em_-_2px)] tracking-[-0.03em] sm:text-[length:calc(var(--text-display)*0.85*0.66)]`}
+          className={`${PITCH} text-[length:calc(var(--text-heading)*0.85*0.66)] sm:text-[length:calc(var(--text-display)*0.85*0.66)]`}
         >
           {pitch}
         </h3>

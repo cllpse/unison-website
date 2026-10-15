@@ -281,25 +281,24 @@ export default () => {
       <Header />
       <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
         <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">
-          {/* As wide as the title, which the break at its comma sets on wider screens: the subtitle doesn't count
-              toward the shrink-wrapped width (contain: inline-size), it only fills it. */}
-          <div className="w-fit">
-            <h1 className={`${HEADING} sm:max-w-none sm:text-display`}>
-              {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
-                  space keeps "properties, as" apart when the break is hidden. */}
-              Figma properties, <br className="max-sm:hidden" />
-              as code.
-            </h1>
-            {/* Sized to the title: on phones, where the title is heading-sized, 0.66 of it (about 30px), as the section
-                pitches are of their headings; on wider screens half the 70px title. The line height is the pitches' 1.3
-                less 2px, worked out at the phone size. */}
-            <h2
-              className={`${PITCH} text-[length:calc(var(--text-heading)*0.66)] leading-[1.234] tracking-[-0.06em] [contain:inline-size] sm:max-w-none sm:text-[length:calc(var(--text-display)/2)]`}
-            >
-              The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and
-              one codebase powers apps and websites alike.
-            </h2>
-          </div>
+          {/* On phones a touch over heading size (48px against 46), behind a breakpoint so it wins over the size
+              HEADING sets. */}
+          <h1
+            className={`${HEADING} max-sm:text-[length:calc(var(--text-heading)*1.05)] sm:max-w-none sm:text-display`}
+          >
+            {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
+                space keeps "properties, as" apart when the break is hidden. */}
+            Figma properties, <br className="max-sm:hidden" />
+            as code.
+          </h1>
+          {/* Sized to the title: on phones 0.66 of it (about 32px), as the section pitches are of their headings; on
+              wider screens half the 70px title. Its width is the pitches' 700px measure. */}
+          <h2
+            className={`${PITCH} text-[length:calc(var(--text-heading)*1.05*0.66)] sm:text-[length:calc(var(--text-display)/2)]`}
+          >
+            The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
+            codebase powers apps and websites alike.
+          </h2>
           {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits
               right on the page, full width at its own aspect ratio, centered in a box as tall as the code. The code
               stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
