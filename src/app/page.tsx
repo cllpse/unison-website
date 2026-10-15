@@ -124,7 +124,7 @@ const FINE_PRINT: Point[] = [
   },
   {
     title: "Developers give a little",
-    body: "Developers stop hand-writing CSS, and with it some of the fine-tuning they might enjoy. The layout comes from the design; the craft goes into logic, state and the interactions that make it feel right.",
+    body: "Developers stop hand-writing styles, and with it some of the fine-tuning they might enjoy. The layout comes from the design; the craft goes into logic, state and the interactions that make it feel right.",
   },
   {
     title: "Everyone gets a lot",
@@ -273,7 +273,7 @@ const AGENTS: Point[] = [
   },
   {
     title: "Agent work that's easy to review",
-    body: "The agent writes in Figma properties and tokens, so checking its work means checking the design, not deciphering CSS.",
+    body: "The agent writes in Figma properties and tokens, so checking its work means checking the design, not deciphering Tailwind or worse.",
   },
 ]
 
