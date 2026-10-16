@@ -240,8 +240,8 @@
 /* A square frame: a 2px solid border in --underline, drawn by a pseudo-element around the link, its right side covering
    the first 2px of the word's last letter, so the "s" of "Agents" steps out just past it (an Atkinson "s" is 0.497em
    wide, so the frame ends 0.5em less 2px from the word's end). It sits behind the text (the link isolates its own
-   stacking), so the letter crosses over the frame, and it fades like the other underlines. Meant for short,
-   single-line links. */
+   stacking), so the letter crosses over the frame, and it fades like the other underlines but in half their time
+   (58ms), a quicker beat that the tipped "s" (AgentsLabel) shares. Meant for short, single-line links. */
 @utility underline-square-frame {
   position: relative;
   isolation: isolate;
@@ -253,7 +253,7 @@
     z-index: -1;
     inset: 1px calc(0.5em - 2px) 1px -0.15em;
     border: 2px solid var(--underline, currentColor);
-    transition: border-color 116ms var(--ease-out);
+    transition: border-color 58ms var(--ease-out);
   }
 
   @media (prefers-reduced-motion: reduce) {
