@@ -41,6 +41,11 @@ apply here.
   pixel density on white; regenerate them all together when the mark changes.
 - Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
   is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
+- SEO: the site lives at `SITE_URL` (https://cllp.se/figma/, `src/constants/site.ts`), the base for every absolute
+  URL. `layout.tsx` holds the metadata (canonical, Open Graph, X card, robots), `opengraph-image.png/route.tsx` builds
+  the 1200x630 social card at build time, `sitemap.ts` lists the page, and `page.tsx` carries schema.org JSON-LD.
+  There's no robots.txt: under a path it wouldn't count. The bake keeps the JSON-LD and copies the card and sitemap
+  into `dist/`.
 - The dark theme follows the browser's color scheme (`prefers-color-scheme`, Tailwind's default `dark:` variant).
   It keeps the accents and redefines only the neutrals (`globals.css`); style anything black or white with a `dark:`
   counterpart.

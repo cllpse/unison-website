@@ -5,18 +5,24 @@
  * - React and Next.js are dropped: the prerendered HTML is already the whole page, and the little that's interactive
  *   (the nav's current section, quick in-page jumps) comes from bakeClient.js.
  * - The icons and the manifest are inlined as data URIs.
+ * - The page's structured data (its JSON-LD script) stays, and the files search engines and link previews fetch by URL,
+ *   the sitemap and the social card image, are copied alongside it.
  *
- * Run through `bun run bake`, which exports the site first; out/ is removed afterwards, so dist/ holds just the page.
+ * Run through `bun run bake`, which exports the site first; out/ is removed afterwards, so dist/ holds just the page and
+ * those files.
  *
  * @example
  * bun run bake
  * // => dist/index.html: 230 KB
  */
-import { mkdir, readFile, rm, writeFile } from "node:fs/promises"
+import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises"
 import { dirname, extname, join } from "node:path"
 
 const OUT = "out"
 const DIST = "dist"
+
+/** Files that search engines and link previews fetch by their own URL, so they're published next to the page. */
+const FETCHED_BY_URL = ["sitemap.xml", "opengraph-image.png"]
 
 const MIME_TYPES: Record<string, string> = {
   ".woff2": "font/woff2",
@@ -68,8 +74,8 @@ const inlineCss = (css: string, cssUrl: string) =>
 
 let html = await readFile(join(OUT, "index.html"), "utf8")
 
-// React, Next.js and the page's data for them: every script, and the preloads that fetch them.
-html = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, "")
+// React, Next.js and the page's data for them: every script but the structured data, and the preloads that fetch them.
+html = html.replace(/<script\b(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/script>/g, "")
 html = html.replace(/<link rel="(preload|modulepreload)"[^>]*>/g, "")
 
 html = await replaceAsync(html, /<link rel="stylesheet" href="([^"]+)"[^>]*>/g, async (_, url) => {
@@ -97,5 +103,6 @@ html = html.replace("</body>", `<script>${client}</script></body>`)
 await rm(DIST, { recursive: true, force: true })
 await mkdir(DIST, { recursive: true })
 await writeFile(join(DIST, "index.html"), html)
+for (const file of FETCHED_BY_URL) await copyFile(join(OUT, file), join(DIST, file))
 await rm(OUT, { recursive: true, force: true })
 console.log(`${join(DIST, "index.html")}: ${(Buffer.byteLength(html) / 1024).toFixed(0)} KB`)

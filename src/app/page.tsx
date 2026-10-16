@@ -5,7 +5,7 @@ import Header from "../components/Header"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
-import { PLUGIN_URL, REPO_URL } from "../constants/site"
+import { PLUGIN_URL, REPO_NAME, REPO_URL, SITE_DESCRIPTION, SITE_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
   flow-horizontal
@@ -281,9 +281,30 @@ const AGENTS: Point[] = [
   },
 ]
 
+/**
+ * Structured data for search engines (schema.org JSON-LD): the library as source code, with its repository. Written
+ * into the page as a script that only describes; bake.ts keeps it when it drops the rest.
+ */
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareSourceCode",
+  name: REPO_NAME,
+  description: SITE_DESCRIPTION,
+  url: SITE_URL,
+  codeRepository: REPO_URL,
+  programmingLanguage: ["TypeScript", "React"],
+  runtimePlatform: ["Web", "iOS", "Android"],
+  author: { "@type": "Person", name: "cllpse", url: "https://github.com/cllpse" },
+}
+
 export default () => {
   return (
     <>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: our own constant, with "<" escaped so it can't close the tag
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA).replace(/</g, "\\u003c") }}
+      />
       <Header />
       <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
         <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">

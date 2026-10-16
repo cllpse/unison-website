@@ -6,6 +6,12 @@ export const REPO_NAME = "cllpse/figma"
 
 export const REPO_URL = `https://github.com/${REPO_NAME}`
 
+/** Where the site lives: the base for its canonical URL, social cards, sitemap and structured data. */
+export const SITE_URL = "https://cllp.se/figma/"
+
+/** The page title, for the browser tab, search results and social cards. */
+export const SITE_TITLE = `${REPO_NAME} - Figma properties, as code`
+
 /** The Figma plugin's Community page. @todo @cllpse: link the published plugin. */
 export const PLUGIN_URL = "about:blank"
 

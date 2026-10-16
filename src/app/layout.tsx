@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next"
 import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
 import localFont from "next/font/local"
 import ContainOverscroll from "../components/ContainOverscroll"
-import { REPO_NAME, SITE_DESCRIPTION } from "../constants/site"
+import { REPO_NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants/site"
 import "./globals.css"
 
 const inter = Inter({
@@ -27,9 +27,47 @@ const comicCode = localFont({
   adjustFontFallback: false,
 })
 
+// What search engines and link previews read. Relative URLs resolve against the site's address (metadataBase), base
+// path included. The social card is built by the opengraph-image.png route.
+const CARD = {
+  url: "opengraph-image.png",
+  width: 1200,
+  height: 630,
+  alt: "Figma properties, as code.",
+  type: "image/png",
+}
+
 export const metadata: Metadata = {
-  title: `${REPO_NAME} - Figma properties, as code`,
+  metadataBase: new URL(SITE_URL),
+  title: SITE_TITLE,
   description: SITE_DESCRIPTION,
+  applicationName: REPO_NAME,
+  authors: [{ name: "cllpse", url: "https://github.com/cllpse" }],
+  creator: "cllpse",
+  keywords: [
+    "Figma",
+    "design system",
+    "design tokens",
+    "component library",
+    "React",
+    "React Native",
+    "TypeScript",
+    "Tailwind CSS",
+    "coding agents",
+    "design to code",
+  ],
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    url: "/",
+    siteName: REPO_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
+    images: [CARD],
+  },
+  twitter: { card: "summary_large_image", title: SITE_TITLE, description: SITE_DESCRIPTION, images: [CARD] },
+  robots: { index: true, follow: true },
 }
 
 // The browser's toolbar in the page background, which follows the browser's color scheme.
