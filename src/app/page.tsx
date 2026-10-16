@@ -44,7 +44,7 @@ const EXAMPLE = `<Frame
   <Frame
     flow-vertical
     alignment-center
-    padding-3
+    padding-2
     corner-radius-full
     fill-secondary-50
     stroke-secondary-400

@@ -1,14 +1,15 @@
 /**
  * What the hero's Shapes.tsx sample renders: a square labeled "shape" in its bottom-right corner (8px of padding at the
  * side, 6px below), a squircle labeled "reshape" in its middle, and a circle holding the site's favicon (a 24px Vector,
- * half the circle: the 32px favicon's pixel outline in whole numbers, a path the sample shortens with {...}, scaled
- * into place by a transform), in a row. Sized as the sample says: 112 and 80px across (28 and 20 units), and the circle
- * 48px from its 24px Vector and 12px of padding (3 units) all round, 32px apart (gap 8), on one centered row. Exported
- * from Figma and inlined, with the labels as live text in the page's Inter, placed where Figma puts their text boxes
- * ("shape" at 12px medium, below the sample's small label style, the library's smallest at 14px, so it reads smaller
- * than "reshape"; "reshape" in the label style, 15px medium on a 25px line), each shape in the same steps of its own
- * 50-900 scale (fill 50, outline 400, label or favicon 700): the square neutral, the squircle purple, the circle pink.
- * The scales flip on the dark theme, so the drawing follows the theme with no second version.
+ * 60% of the circle: the 32px favicon's pixel outline in whole numbers, a path the sample shortens with {...}, scaled
+ * into place by a transform), in a row. Sized as the sample says, each shape clearly smaller than the last: 112 and
+ * 80px across (28 and 20 units), and the circle 40px from its 24px Vector and 8px of padding (2 units) all round, 32px
+ * apart (gap 8), on one centered row. Exported from Figma and inlined, with the labels as live text in the page's
+ * Inter, placed where Figma puts their text boxes ("shape" at 12px medium, below the sample's small label style, the
+ * library's smallest at 14px, so it reads smaller than "reshape"; "reshape" in the label style, 15px medium on a 25px
+ * line), each shape in the same steps of its own 50-900 scale (fill 50, outline 400, label or favicon 700): the square
+ * neutral, the squircle purple, the circle pink. The scales flip on the dark theme, so the drawing follows the theme
+ * with no second version.
  * It spans its container's width at its own aspect ratio. On phones the outlines are a fixed 1.5px instead of scaling
  * with the drawing (which takes them under 1px there); the drawing doesn't clip them where they reach its edges.
  */
@@ -16,7 +17,7 @@ const OUTLINE = "max-sm:[stroke-width:1.5] max-sm:[vector-effect:non-scaling-str
 
 export default () => {
   return (
-    <svg viewBox="0 0 304 112" fill="none" role="img" className="h-auto w-full max-sm:overflow-visible">
+    <svg viewBox="0 0 296 112" fill="none" role="img" className="h-auto w-full max-sm:overflow-visible">
       <title>
         A square labeled shape, a squircle labeled reshape and a circle holding the site's pixel logo, in a row
       </title>
@@ -37,16 +38,16 @@ export default () => {
         reshape
       </text>
       <path
-        d="M280 32.5C292.979 32.5 303.5 43.021 303.5 56C303.5 68.979 292.979 79.5 280 79.5C267.021 79.5 256.5 68.979 256.5 56C256.5 43.021 267.021 32.5 280 32.5Z"
+        d="M276 36.5C286.77 36.5 295.5 45.23 295.5 56C295.5 66.77 286.77 75.5 276 75.5C265.23 75.5 256.5 66.77 256.5 56C256.5 45.23 265.23 36.5 276 36.5Z"
         className="fill-magenta-50"
       />
       <path
-        d="M280 32.5C292.979 32.5 303.5 43.021 303.5 56C303.5 68.979 292.979 79.5 280 79.5C267.021 79.5 256.5 68.979 256.5 56C256.5 43.021 267.021 32.5 280 32.5Z"
+        d="M276 36.5C286.77 36.5 295.5 45.23 295.5 56C295.5 66.77 286.77 75.5 276 75.5C265.23 75.5 256.5 66.77 256.5 56C256.5 45.23 265.23 36.5 276 36.5Z"
         className={`stroke-magenta-400 ${OUTLINE}`}
       />
       <path
         d="M3 6h1v-2h2v-1h12v1h2v2h1v5h2v2h2v2h2v2h2v2h-2v2h2v2h-2v2h2v2h-2v2h-2v-2h2v-2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-1v1h-1v1h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h-2v2h-2v-2h-5v-1h-2v-2h-1zM21 13v2h2v-2zM25 11h2v2h2v2h-2v-2h-2z"
-        transform="translate(268 44) scale(0.75)"
+        transform="translate(264 44) scale(0.75)"
         className="fill-magenta-700"
       />
     </svg>
