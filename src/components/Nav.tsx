@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { NAV_LINKS, SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constants/site"
+import AgentsLabel from "./AgentsLabel"
 
 /** The section links in the sticky header: plain until hovered, with a squiggle under the section you're reading. */
 export default () => {
@@ -107,9 +108,9 @@ export default () => {
           key={link.id}
           href={`#${link.id}`}
           aria-current={link.id === current ? "location" : undefined}
-          className={`${SECTION_ACCENTS[link.id]} ${SECTION_UNDERLINES[link.id]} text-(--accent) [--underline:transparent] hover:[--underline:var(--accent)] aria-[current=location]:[--underline:var(--accent)]`}
+          className={`${SECTION_ACCENTS[link.id]} ${SECTION_UNDERLINES[link.id]} group/link text-(--accent) [--underline:transparent] hover:[--underline:var(--accent)] aria-[current=location]:[--underline:var(--accent)]`}
         >
-          {link.label}
+          {link.id === "agents" ? <AgentsLabel withFrame /> : link.label}
         </a>
       ))}
     </nav>

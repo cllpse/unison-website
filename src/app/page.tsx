@@ -1,3 +1,4 @@
+import AgentsLabel from "../components/AgentsLabel"
 import CodeBlock from "../components/CodeBlock"
 import Disclaimer from "../components/Disclaimer"
 import Header from "../components/Header"
@@ -346,7 +347,7 @@ export default () => {
 
         <Section
           id="agents"
-          audience="Agents"
+          audience={<AgentsLabel />}
           title="Your coding agent knows your design system."
           pitch="The library gives your agent a vocabulary in which only your design system can be written."
         >
