@@ -23,7 +23,8 @@ apply here.
 - `bun run build`: production build; run it before pushing
 - `bun run bake`: the landing page as one small, self-contained `dist/index.html` that opens straight from disk
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
-  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step
+  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it again in CI and
+  publishes it to GitHub Pages (`.github/workflows/pages.yml`)
 
 ## Architecture
 
