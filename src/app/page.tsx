@@ -371,7 +371,7 @@ export default () => {
             <>
               {/* The heading's text is transparent, painted by its gradient, so the strikethrough needs a color of
                   its own. */}
-              Pick your side, meet in the <s className="decoration-(--accent)">middle</s> magic.
+              Pick your side, meet in the <s className="decoration-(--accent)">middle</s> mutual.
             </>
           }
           pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
