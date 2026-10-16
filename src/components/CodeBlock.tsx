@@ -31,7 +31,7 @@ export default async (p: CodeBlock) => {
           block with `pattern`, the hero's, over the pixel pattern (public/code.svg) in the bottom-left corner, scaled
           down on phones to fit the block whole. The pattern is painted on the wrapper, out from the scrolling code by 2
           units (4 on the left, over the pattern's dense side), so code scrolled past an edge is cut off a little inside
-          the pattern instead of at its very edge; that padding stands in for the code's own. The pattern is drawn at 3%
+          the pattern instead of at its very edge; that padding stands in for the code's own. The pattern is drawn at 4%
           opacity so it stays a faint texture behind the code, with a light copy (code-dark.svg) for the dark theme.
           Shiki's inline background color is replaced (hence the !important), the thinning stroke takes the page's
           color, and on the dark theme the token colors switch to the dark ones Shiki leaves in --shiki-dark. On
