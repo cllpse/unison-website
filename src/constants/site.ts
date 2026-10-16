@@ -18,7 +18,7 @@ export const SITE_DESCRIPTION =
  * it. Headings, links, emphasis and selections inside pick it up. Spelled out in full so Tailwind can find them.
  */
 export const SECTION_ACCENTS = {
-  everyone: "[--accent:var(--color-amethyst)]",
+  team: "[--accent:var(--color-amethyst)]",
   designers: "[--accent:var(--color-magenta)]",
   developers: "[--accent:var(--color-minion-yellow)]",
   agents: "[--accent:var(--color-aquamarine)]",
@@ -35,7 +35,7 @@ export type SectionId = keyof typeof SECTION_ACCENTS
  * starters. Their color is set through `--underline`.
  */
 export const SECTION_UNDERLINES: Record<SectionId, string> = {
-  everyone: "underline-marker",
+  team: "underline-marker",
   designers: "underline-highlighter",
   developers: "underline-squiggle",
   agents: "underline-square-frame",
@@ -44,7 +44,7 @@ export const SECTION_UNDERLINES: Record<SectionId, string> = {
 }
 
 export const NAV_LINKS: { id: SectionId; label: string }[] = [
-  { id: "everyone", label: "Everyone" },
+  { id: "team", label: "The Team" },
   { id: "designers", label: "Designers" },
   { id: "developers", label: "Developers" },
   { id: "agents", label: "Agents" },

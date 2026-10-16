@@ -45,7 +45,7 @@ apply here.
   counterpart.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
-- The page speaks to four audiences (everyone, designers, developers, agents), one section each, then starters.
+- The page speaks to four audiences (the team, designers, developers, agents), one section each, then starters.
 - Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
   promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
   `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
@@ -59,7 +59,7 @@ apply here.
   alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one liberty:
   typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
-- React Native support is unstable: the Everyone section, which introduces it, ends with `REACT_NATIVE_DISCLAIMER`
+- React Native support is unstable: the Team section, which introduces it, ends with `REACT_NATIVE_DISCLAIMER`
   (`page.tsx`), a `Disclaimer` box. Don't repeat it in other sections.
 
 ## TypeScript
@@ -93,7 +93,7 @@ Beyond that:
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
 - The exceptions, which the owner asked for: the real ellipses in the nav's "for…" and at the start of "…or simply
-  ship sooner" (For Everyone) and "…think LEGO® bricks" (For Developers), and the ® itself (a registered trademark).
+  ship sooner" (For Team) and "…think LEGO® bricks" (For Developers), and the ® itself (a registered trademark).
 
 ## Comments and docs
 

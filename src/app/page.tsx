@@ -131,7 +131,7 @@ const FINE_PRINT: Point[] = [
     body: "Developers stop hand-writing styles, and with it some of the fine-tuning they might enjoy. The layout comes from the design; the craft goes into logic, state and the interactions that make it feel right.",
   },
   {
-    title: "Everyone gets a lot",
+    title: "And the team gets a lot",
     body: "Design and code stay aligned, agents stay on brand, and features ship faster, from one source of truth to every screen. Fewer misunderstandings, less handoff ping-pong, more time for the work that matters.",
   },
   {
@@ -156,7 +156,7 @@ const REACT_NATIVE_DISCLAIMER = (
   </Disclaimer>
 )
 
-const EVERYONE: Point[] = [
+const TEAM: Point[] = [
   {
     title: "Figma is the source of truth",
     body: "No Storybook, second catalog or handoff documentation drifting out of date and costing time to maintain. Components, variants, states and tokens live in Figma, and the code is generated from there: one place to look, one place to update.",
@@ -176,7 +176,7 @@ const EVERYONE: Point[] = [
     title: "Time back, spent wisely",
     column: "left",
     body: [
-      "Ready-to-use component code saves hours of implementation. Spend more time exploring, on feedback rounds and on polish, all in Figma where everyone can chime in.",
+      "Ready-to-use component code saves hours of implementation. Spend more time exploring, on feedback rounds and on polish, all in Figma where the whole team can chime in.",
       "…or simply ship sooner, with fewer hoops to jump through.",
     ],
   },
@@ -319,12 +319,12 @@ export default () => {
         </div>
 
         <Section
-          id="everyone"
-          audience="Everyone"
+          id="team"
+          audience="The Team"
           title="One source of truth runs from Figma to every screen."
           pitch="Designers, developers and agents share one vocabulary: Figma's."
         >
-          <Points points={EVERYONE} />
+          <Points points={TEAM} />
           {REACT_NATIVE_DISCLAIMER}
         </Section>
 

@@ -19,8 +19,8 @@ export const PITCH = "mt-4 max-w-measure pb-2 text-(--accent) leading-[1.15em] t
 export type Section = {
   id: SectionId
   /**
-   * Who the section speaks to, in Capital Case; shown as a "for <Audience>" link to the section above the heading. A
-   * node, so a letter can be set apart, like the tipped "s" in Agents.
+   * Who the section speaks to, in Capital Case ("The Team"); shown as a "for <Audience>" link to the section above the
+   * heading. A node, so a letter can be set apart, like the tipped "s" in Agents.
    */
   audience?: ReactNode
   /** The promise; a node, so it can carry inline markup such as a <sub>. */
