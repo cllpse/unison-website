@@ -132,7 +132,7 @@ const FINE_PRINT: Point[] = [
   },
   {
     title: "And the team gets a lot",
-    body: "Design and code stay aligned, agents stay on brand, and features ship faster, from one source of truth to every screen. Fewer misunderstandings, less handoff ping-pong, more time for the work that matters.",
+    body: "Design and code stay aligned, agents stay on brand, and features ship faster, together. Fewer misunderstandings, less handoff ping-pong, more time for the work that matters.",
   },
   {
     title: "Worth a try",
@@ -241,7 +241,7 @@ const DEVELOPERS: Point[] = [
   },
   {
     title: "Reads like the properties panel",
-    body: "The JSX says what Figma's properties panel says, in plain words anyone can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
+    body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
   },
   {
     title: "An escape hatch, when you need it",
@@ -322,7 +322,7 @@ export default () => {
           id="team"
           audience="The Team"
           title="One source of truth runs from Figma to every screen."
-          pitch="Designers, developers and agents share one vocabulary: Figma's."
+          pitch="The whole team shares one vocabulary: Figma's, from designers to developers to agents."
         >
           <Points points={TEAM} />
           {REACT_NATIVE_DISCLAIMER}
