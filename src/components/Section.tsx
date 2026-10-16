@@ -7,7 +7,7 @@ import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constant
  * tracking). Also used by the hero.
  */
 export const HEADING =
-  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.1em] bg-clip-text pb-[0.1em] text-heading text-transparent [word-spacing:0.04em] wrap-break-word"
+  "w-fit max-w-measure bg-linear-to-br/srgb from-[color-mix(in_oklab,var(--accent)_96%,black)] to-[color-mix(in_oklab,var(--accent)_60%,white)] dark:from-[color-mix(in_oklab,var(--accent)_96%,white)] dark:to-[color-mix(in_oklab,var(--accent)_60%,black)] -mb-[0.15em] bg-clip-text pb-[0.15em] text-heading text-transparent [word-spacing:0.04em] wrap-break-word"
 
 /**
  * The pitch's classes, also used by the hero's subtitle: set tight at 1.15em, tracked in, with the word spaces widened
@@ -72,12 +72,12 @@ export default (p: Section) => {
               </a>
             </p>
           ) : null}
-          {/* At line-height 1, descenders reach below the box, where bg-clip-text wouldn't paint; the bottom padding
-            covers them, and the matching negative margin keeps the layout unchanged. Sized at 0.85 of the hero title
-            at each width (39px on phones, 59.5px wider); both sizes sit behind a breakpoint so they win over the
-            heading size HEADING sets. */}
+          {/* Set solid, at 0.95em. At a line height that tight, the last line's descenders reach about 0.13em below
+            the box, where bg-clip-text wouldn't paint; HEADING's bottom padding covers them, and the matching negative
+            margin keeps the layout unchanged. Sized at 0.85 of the hero title at each width (39px on phones, 59.5px
+            wider); both sizes sit behind a breakpoint so they win over the heading size HEADING sets. */}
           <h2
-            className={`${HEADING} max-sm:text-[length:calc(var(--text-heading)*0.85)] sm:text-[length:calc(var(--text-display)*0.85)]`}
+            className={`${HEADING} leading-[0.95em] max-sm:text-[length:calc(var(--text-heading)*0.85)] sm:text-[length:calc(var(--text-display)*0.85)]`}
           >
             {title}
           </h2>
