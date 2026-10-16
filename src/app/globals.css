@@ -310,6 +310,19 @@
   -webkit-text-stroke: 0.3px --value(--color-*);
 }
 
+/* Warning tape: diagonal stripes drawn in 7px pixels, half the squares of the hero code pattern (code.svg), three
+   pixels of tint and four clear, stepping one pixel per row like caution tape in pixel art. A 28-unit SVG tile drawn at
+   49px, so each 4-unit pixel lands on whole pixels (7px), in that pattern's own tint: black at 4%, its off-white on the
+   dark theme. */
+@utility warning-tape {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h12v4h-12zM0 4h8v4h-8zM24 4h4v4h-4zM0 8h4v4h-4zM20 8h8v4h-8zM16 12h12v4h-12zM12 16h12v4h-12zM8 20h12v4h-12zM4 24h12v4h-12z' fill='black' fill-opacity='.04'/%3E%3C/svg%3E");
+  background-size: 49px 49px;
+
+  @variant dark {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' shape-rendering='crispEdges'%3E%3Cpath d='M0 0h12v4h-12zM0 4h8v4h-8zM24 4h4v4h-4zM0 8h4v4h-4zM20 8h8v4h-8zM16 12h12v4h-12zM12 16h12v4h-12zM8 20h12v4h-12zM4 24h12v4h-12z' fill='rgb(237,237,237)' fill-opacity='.04'/%3E%3C/svg%3E");
+  }
+}
+
 /* Pixel corners: each corner of the box loses a square, --pixel-corner wide (2px unless set), so its corners step in
    like pixel art instead of curving (with a 2px border and 2px corners, the border turns them in one pixel step).
    Clips everything (background, border and contents) to that outline. */
