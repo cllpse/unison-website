@@ -75,12 +75,12 @@ const AFTER = `/**
  */
 
 <Frame
-  corner-radius-3
-  fill-primary-50
   flow-horizontal
-  gap-4
   padding-horizontal-6
   padding-vertical-5
+  gap-4
+  corner-radius-3
+  fill-primary-50
 >`
 
 const STARTING_POINTS: Point[] = [
@@ -111,12 +111,12 @@ const STARTING_POINTS: Point[] = [
 ]
 
 const UPDATE_DIFF = `  <Frame
+    flow-vertical
     alignment-center
+    height-28
 +   corner-radius-5
 -   fill-primary-50
 +   fill-secondary-50
-    flow-vertical
-    height-28
   >`
 
 const FINE_PRINT: Point[] = [
