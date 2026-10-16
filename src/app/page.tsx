@@ -7,50 +7,50 @@ import ShapesPreview from "../components/ShapesPreview"
 import { PLUGIN_URL, REPO_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
-  alignment-left
   flow-horizontal
-  gap-8
-  height-hug
+  alignment-left
   width-hug
+  height-hug
+  gap-8
 >
   <Frame
-    alignment-center
-    fill-neutral-50
     flow-vertical
-    height-28
-    stroke-neutral-400
+    alignment-bottom-right
     width-28
+    height-28
+    padding-2
+    fill-neutral-50
+    stroke-neutral-400
   >
-    <Text fill-neutral-700 typography-align-left>
-      square
+    <Text typography-label-small fill-neutral-700>
+      shape
     </Text>
   </Frame>
 
   <Frame
+    flow-vertical
     alignment-center
+    width-20
+    height-20
     corner-radius-5
     fill-primary-50
-    flow-vertical
-    height-20
     stroke-primary-400
-    width-20
   >
-    <Text fill-primary-700 typography-align-left>
-      squircle
+    <Text typography-label fill-primary-700>
+      reshape
     </Text>
   </Frame>
 
   <Frame
+    flow-vertical
     alignment-center
+    padding-3
     corner-radius-full
     fill-secondary-50
-    flow-vertical
-    height-12
     stroke-secondary-400
-    width-12
   >
-    <Vector fill-secondary-700 height-4 width-4>
-      <Path d="M8 14L2.2 7.9A3.5 3.5 0 1 1 8 4.2A3.5 3.5 0 1 1 13.8 7.9Z" />
+    <Vector width-6 height-6 fill-secondary-700>
+      <Path d="M3 6h1v-2h2v-1h12v1h2v2{...}" />
     </Vector>
   </Frame>
 </Frame>`
