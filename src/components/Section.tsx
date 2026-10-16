@@ -48,7 +48,7 @@ export default (p: Section) => {
       className={`${SECTION_ACCENTS[id]} group -mx-4 scroll-mt-(--header-height) border-t border-rule px-4`}
     >
       <div
-        className={`mx-auto max-w-page border-x border-rule px-6 pt-10 pb-12 group-last:pb-28 max-sm:px-3 max-sm:pt-5 max-sm:pb-6 max-sm:group-last:pb-14 [&_:is(em,strong)]:text-(--accent) [&_h4]:text-xl [&_h4]:font-semibold [&_h4+p]:mt-1 [&_*+p]:mt-4 [&_:is(p,h4)]:font-paragraph [&>:is(div,ol,ul)]:mt-8 [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-10 [&>:is(div,ol,ul)]:gap-y-8 [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:max-w-measure`}
+        className={`mx-auto max-w-page border-x border-rule px-6 pt-10 pb-12 group-last:pb-28 max-sm:px-3 max-sm:pt-5 max-sm:pb-6 max-sm:group-last:pb-14 [&_:is(em,strong)]:text-(--accent) [&_h4]:text-xl [&_h4]:font-semibold [&_h4+p]:mt-1.25 [&_*+p]:mt-4 [&_li>p+p]:mt-1.5 [&_:is(p,h4)]:font-paragraph [&>:is(div,ol,ul)]:mt-8 [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-10 [&>:is(div,ol,ul)]:gap-y-8 [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:max-w-measure`}
       >
         {/* hgroup ties the audience label to the heading as its kicker. */}
         <hgroup>
