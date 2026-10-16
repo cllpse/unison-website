@@ -310,6 +310,27 @@
   -webkit-text-stroke: 0.3px --value(--color-*);
 }
 
+/* Pixel corners: each corner of the box loses a square, --pixel-corner wide (2px unless set), so its corners step in
+   like pixel art instead of curving (with a 2px border and 2px corners, the border turns them in one pixel step).
+   Clips everything (background, border and contents) to that outline. */
+@utility pixel-corners {
+  --pixel-corner-size: var(--pixel-corner, 2px);
+  clip-path: polygon(
+    var(--pixel-corner-size) 0,
+    calc(100% - var(--pixel-corner-size)) 0,
+    calc(100% - var(--pixel-corner-size)) var(--pixel-corner-size),
+    100% var(--pixel-corner-size),
+    100% calc(100% - var(--pixel-corner-size)),
+    calc(100% - var(--pixel-corner-size)) calc(100% - var(--pixel-corner-size)),
+    calc(100% - var(--pixel-corner-size)) 100%,
+    var(--pixel-corner-size) 100%,
+    var(--pixel-corner-size) calc(100% - var(--pixel-corner-size)),
+    0 calc(100% - var(--pixel-corner-size)),
+    0 var(--pixel-corner-size),
+    var(--pixel-corner-size) var(--pixel-corner-size)
+  );
+}
+
 /* The dotted rules between and beside sections; set the sides with border-x, border-t or border-b. */
 @utility border-rule {
   border-style: dotted;
