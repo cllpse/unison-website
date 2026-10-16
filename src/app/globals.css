@@ -323,6 +323,24 @@
   }
 }
 
+/* Crumble: the element's bottom-right corner breaks apart into the hero code pattern's pixels, the rest stays solid.
+   A mask of three layers: code-crumble.svg, a 10 x 10-cell window of the hero pattern (flipped top to bottom, so it
+   thins toward its bottom-right) that's solid beyond 7.5 cells from its bottom-right corner, drawn at 140px so its
+   pixels are the hero pattern's own 14px, in the bottom-right corner; and solid fills for everything left of it and above it, which
+   collapse to nothing in boxes smaller than it. Mask the background, not the text: put it on a pseudo-element. */
+@utility crumble {
+  mask-image: url(/code-crumble.svg), linear-gradient(#000 0 0), linear-gradient(#000 0 0);
+  mask-position:
+    right bottom,
+    left top,
+    left top;
+  mask-size:
+    140px 140px,
+    calc(100% - 140px) 100%,
+    100% calc(100% - 140px);
+  mask-repeat: no-repeat;
+}
+
 /* Pixel corners: each corner of the box loses a square, --pixel-corner wide (2px unless set), so its corners step in
    like pixel art instead of curving (with a 2px border and 2px corners, the border turns them in one pixel step).
    Clips everything (background, border and contents) to that outline. */
