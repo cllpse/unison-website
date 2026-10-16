@@ -59,7 +59,7 @@ const EXAMPLE = `<Frame
 const BEFORE = `/**
  * @file Card.tsx, as an agent writes it from the spec
  * @todo Plausible values, but are these
- *   valid design tokens?
+ *       valid design tokens?
  */
 
 <div className="
