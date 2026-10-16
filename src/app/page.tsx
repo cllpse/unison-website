@@ -151,8 +151,7 @@ const PAYPAL_URL = "https://developer.paypal.com/community/blog/stopgivingaimore
 // Ends the section that introduces React Native support, while it's unstable.
 const REACT_NATIVE_DISCLAIMER = (
   <Disclaimer>
-    React Native support is still in the oven, so it's a little underbaked for now. The{" "}
-    <a href={REPO_URL}>GitHub repository</a> will say when it's done.
+    React Native support is still experimental. Watch the <a href={REPO_URL}>GitHub repository</a> for updates.
   </Disclaimer>
 )
 
