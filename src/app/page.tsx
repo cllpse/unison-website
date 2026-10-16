@@ -225,10 +225,10 @@ const DEVELOPERS: Point[] = [
     body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
     code: [
       {
-        code: `<Text fill-primary typography-body-small-nowrap>
+        code: `<Text typography-body-smol fill-neutral-700>
   Computer says no.
 </Text>`,
-        error: "fill-primary",
+        error: "typography-body-smol",
       },
     ],
   },
