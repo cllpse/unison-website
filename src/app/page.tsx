@@ -285,20 +285,20 @@ export default () => {
       <Header />
       <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
         <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">
-          {/* On phones a touch over heading size (48px against 46), behind a breakpoint so it wins over the size
-              HEADING sets. */}
+          {/* Set at 1.1em. On phones a little over heading size (53px against 46), behind a breakpoint so it wins
+              over the size HEADING sets. */}
           <h1
-            className={`${HEADING} max-sm:text-[length:calc(var(--text-heading)*1.05)] sm:max-w-none sm:text-display`}
+            className={`${HEADING} leading-[1.1em] max-sm:text-[length:calc(var(--text-heading)*1.15)] sm:max-w-none sm:text-display`}
           >
             {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
                 space keeps "properties, as" apart when the break is hidden. */}
             Figma properties, <br className="max-sm:hidden" />
             as code.
           </h1>
-          {/* Sized to the title: on phones 0.66 of it (about 32px), as the section pitches are of their headings; on
+          {/* Sized to the title: on phones 0.66 of it (about 35px), as the section pitches are of their headings; on
               wider screens half the 70px title. Its width is the pitches' 700px measure. */}
           <h2
-            className={`${PITCH} text-[length:calc(var(--text-heading)*1.05*0.66)] sm:text-[length:calc(var(--text-display)/2)]`}
+            className={`${PITCH} text-[length:calc(var(--text-heading)*1.15*0.66)] sm:text-[length:calc(var(--text-display)/2)]`}
           >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
