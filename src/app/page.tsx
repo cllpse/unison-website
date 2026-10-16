@@ -298,7 +298,7 @@ export default () => {
           {/* Sized to the title: on phones 0.66 of it (about 35px), as the section pitches are of their headings; on
               wider screens half the 70px title. Its width is the pitches' 700px measure. */}
           <h2
-            className={`${PITCH} text-[length:calc(var(--text-heading)*1.15*0.66)] sm:text-[length:calc(var(--text-display)/2)]`}
+            className={`${PITCH} font-normal text-[length:calc(var(--text-heading)*1.15*0.66)] sm:text-[length:calc(var(--text-display)/2)]`}
           >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.

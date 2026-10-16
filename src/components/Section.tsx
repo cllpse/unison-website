@@ -11,11 +11,10 @@ export const HEADING =
 
 /**
  * The pitch's classes, also used by the hero's subtitle: set tight at 1.15em, tracked in, with the word spaces widened
- * to keep the words apart. Each sets its own size (the section pitch 0.66 of its heading, 26px on phones and 39px
- * wider).
+ * to keep the words apart. Each sets its own size and weight: the hero subtitle regular (400), the section pitch 0.8 of
+ * that (320) and the hero subtitle's share of its heading (0.66 on phones, about 28px, and half wider, 28px).
  */
-export const PITCH =
-  "mt-4 max-w-measure pb-2 font-normal text-(--accent) leading-[1.15em] tracking-[-0.07em] [word-spacing:0.09em]"
+export const PITCH = "mt-4 max-w-measure pb-2 text-(--accent) leading-[1.15em] tracking-[-0.07em] [word-spacing:0.09em]"
 
 export type Section = {
   id: SectionId
@@ -72,18 +71,17 @@ export default (p: Section) => {
               </a>
             </p>
           ) : null}
-          {/* Set solid, at 0.95em. At a line height that tight, the last line's descenders reach about 0.13em below
-            the box, where bg-clip-text wouldn't paint; HEADING's bottom padding covers them, and the matching negative
-            margin keeps the layout unchanged. Sized at 0.85 of the hero title at each width (39px on phones, 59.5px
-            wider); both sizes sit behind a breakpoint so they win over the heading size HEADING sets. */}
+          {/* 0.8 of the hero title at each width, in size (about 42px on phones, 56px wider) and in weight (560 on
+            phones, 640 wider, from its 700 and 800; Inter is variable, so in-between weights render as they are), at
+            its 1.1em line height. The sizes sit behind a breakpoint so they win over the heading size HEADING sets. */}
           <h2
-            className={`${HEADING} leading-[0.95em] max-sm:text-[length:calc(var(--text-heading)*0.85)] sm:text-[length:calc(var(--text-display)*0.85)]`}
+            className={`${HEADING} font-[560] leading-[1.1em] max-sm:text-[length:calc(var(--text-heading)*1.15*0.8)] sm:font-[640] sm:text-[length:calc(var(--text-display)*0.8)]`}
           >
             {title}
           </h2>
         </hgroup>
         <h3
-          className={`${PITCH} text-[length:calc(var(--text-heading)*0.85*0.66)] sm:text-[length:calc(var(--text-display)*0.85*0.66)]`}
+          className={`${PITCH} font-[320] text-[length:calc(var(--text-heading)*1.15*0.8*0.66)] sm:text-[length:calc(var(--text-display)*0.8/2)]`}
         >
           {pitch}
         </h3>
