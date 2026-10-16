@@ -11,8 +11,8 @@ export const HEADING =
 
 /**
  * The pitch's classes, also used by the hero's subtitle: set tight at 1.15em, tracked in, with the word spaces widened
- * to keep the words apart. Each sets its own size and weight: the hero subtitle regular (400), the section pitch 0.8 of
- * that (320) and the hero subtitle's share of its heading (0.66 on phones, about 28px, and half wider, 28px).
+ * to keep the words apart. Each sets its own size and weight: the hero subtitle 360, the section pitch 320 and 0.66 of
+ * its heading at every width (about 28px on phones, 37px wider).
  */
 export const PITCH = "mt-4 max-w-measure pb-2 text-(--accent) leading-[1.15em] tracking-[-0.07em] [word-spacing:0.09em]"
 
@@ -82,7 +82,7 @@ export default (p: Section) => {
           </h2>
         </hgroup>
         <h3
-          className={`${PITCH} font-[320] text-[length:calc(var(--text-heading)*1.15*0.8*0.66)] sm:text-[length:calc(var(--text-display)*0.8/2)]`}
+          className={`${PITCH} font-[320] text-[length:calc(var(--text-heading)*1.15*0.8*0.66)] sm:text-[length:calc(var(--text-display)*0.8*0.66)]`}
         >
           {pitch}
         </h3>
