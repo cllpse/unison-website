@@ -15,13 +15,13 @@ const EXAMPLE = `<Frame
 >
   <Frame
     alignment-center
-    fill-primary-50
+    fill-neutral-50
     flow-vertical
     height-28
-    stroke-primary-400
+    stroke-neutral-400
     width-28
   >
-    <Text fill-primary-700 typography-align-left>
+    <Text fill-neutral-700 typography-align-left>
       square
     </Text>
   </Frame>
@@ -29,13 +29,13 @@ const EXAMPLE = `<Frame
   <Frame
     alignment-center
     corner-radius-5
-    fill-secondary-50
+    fill-primary-50
     flow-vertical
     height-20
-    stroke-secondary-400
+    stroke-primary-400
     width-20
   >
-    <Text fill-secondary-700 typography-align-left>
+    <Text fill-primary-700 typography-align-left>
       squircle
     </Text>
   </Frame>
@@ -43,13 +43,15 @@ const EXAMPLE = `<Frame
   <Frame
     alignment-center
     corner-radius-full
-    fill-tertiary-50
+    fill-secondary-50
     flow-vertical
-    stroke-tertiary-400
+    height-12
+    stroke-secondary-400
+    width-12
   >
-    <Text fill-tertiary-700 typography-align-left>
-      circle
-    </Text>
+    <Vector fill-secondary-700 height-4 width-4>
+      <Path d="M8 14L2.2 7.9A3.5 3.5 0 1 1 8 4.2A3.5 3.5 0 1 1 13.8 7.9Z" />
+    </Vector>
   </Frame>
 </Frame>`
 
