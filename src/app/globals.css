@@ -385,7 +385,7 @@
 
 /* Code-block scrollbars: shown on hover when the code scrolls (the track's space stays reserved, so nothing shifts),
    a 5px rounded thumb floating 4px inside a transparent 13px track that spans the block's full width. The thumb is the
-   text color (black, or white on the dark theme) at 30% over the page, 45% under the pointer. Styling the WebKit
+   text color (black, or white on the dark theme) at 60% over the page, 75% under the pointer. Styling the WebKit
    scrollbar also takes it out of macOS overlay mode; Firefox ignores those pseudo-elements, draws its own thin bar and
    gets the same colors through scrollbar-color. */
 @utility scrollbar-code {
@@ -399,7 +399,7 @@
   }
 
   &:hover {
-    --scrollbar-thumb: color-mix(in oklab, var(--scrollbar-ink) 30%, var(--scrollbar-page));
+    --scrollbar-thumb: color-mix(in oklab, var(--scrollbar-ink) 60%, var(--scrollbar-page));
   }
 
   &::-webkit-scrollbar {
@@ -420,7 +420,7 @@
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: color-mix(in oklab, var(--scrollbar-ink) 45%, var(--scrollbar-page));
+    background-color: color-mix(in oklab, var(--scrollbar-ink) 75%, var(--scrollbar-page));
   }
 
   @supports not selector(::-webkit-scrollbar) {
