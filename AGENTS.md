@@ -25,6 +25,8 @@ apply here.
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
   mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it again in CI and
   publishes it to GitHub Pages (`.github/workflows/pages.yml`)
+- `bun run deploy`: bakes the page, copies `dist/` into `~/Sites/eject.io/public/figma` and `~/Sites/cllp-se/dist/figma`,
+  then runs `firebase deploy` in both projects (`scripts/deploy.ts`)
 
 ## Architecture
 
@@ -39,13 +41,13 @@ apply here.
 - Icons: `src/app/icon.svg` (the 16px mark, white in dark mode) and `favicon.ico` (16 and 32) for tabs,
   `apple-icon.png` for iOS, and `public/icon-*.png` for `manifest.ts`. The larger PNGs draw the 32px mark at twice its
   pixel density on white; regenerate them all together when the mark changes.
-- Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
-  is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
 - SEO: the site lives at `SITE_URL` (https://cllp.se/figma/, `src/constants/site.ts`), the base for every absolute
   URL. `layout.tsx` holds the metadata (canonical, Open Graph, X card, robots), `opengraph-image.png/route.tsx` builds
   the 1200x630 social card at build time, `sitemap.ts` lists the page, and `page.tsx` carries schema.org JSON-LD.
   There's no robots.txt: under a path it wouldn't count. The bake keeps the JSON-LD and copies the card and sitemap
   into `dist/`.
+- Colors exist only as tokens in `globals.css` (Tailwind's defaults are dropped); don't add others. The one exception
+  is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
 - The dark theme follows the browser's color scheme (`prefers-color-scheme`, Tailwind's default `dark:` variant).
   It keeps the accents and redefines only the neutrals (`globals.css`); style anything black or white with a `dark:`
   counterpart.

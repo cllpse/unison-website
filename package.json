@@ -9,7 +9,8 @@
     "lint": "biome check",
     "format": "biome format --write",
     "typecheck": "tsc --noEmit",
-    "bake": "BAKE=1 next build && bun scripts/bake.ts"
+    "bake": "BAKE=1 next build && bun scripts/bake.ts",
+    "deploy": "bun scripts/deploy.ts"
   },
   "dependencies": {
     "next": "16.4.0",
