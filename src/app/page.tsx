@@ -329,7 +329,7 @@ export default () => {
               right on the page, full width at its own aspect ratio, centered in a box as tall as the code. The code
               stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
           <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
-            <CodeBlock code={EXAMPLE} wide pattern />
+            <CodeBlock code={EXAMPLE} wide />
             <figure className="flex min-w-0 flex-col">
               <div className="flex flex-1 items-center justify-center">
                 <ShapesPreview />

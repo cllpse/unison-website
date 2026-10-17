@@ -90,24 +90,16 @@ export default () => {
   return (
     <nav ref={ref} className="flex flex-wrap gap-x-5 gap-y-1 font-paragraph text-xl font-semibold tracking-normal">
       <p>
-        {/* Two eyes, drawn as pixel art on a 20 x 16 grid, about one screen pixel each at the nav's size: a 2px stepped
-            outline, close to the old vector stroke's weight, and 3 x 4 pupils a pixel in from each eye's right rim, so
-            they read as pupils rather than merging into the outline. Outlines and pupils in the text color, whites in
-            the page color. */}
+        {/* Two eyes looking right, toward the links: outlines and pupils in the text color, whites in the page color. */}
         <svg
           viewBox="0 0 20 16"
           aria-hidden="true"
-          shapeRendering="crispEdges"
-          className="mr-1.5 inline-block size-[1em] translate-y-px align-[-0.125em]"
+          className="mr-1.5 inline-block size-[1em] fill-white stroke-current translate-y-px align-[-0.125em] dark:fill-black"
         >
-          <path
-            d="M4 2h3v1h-3zM13 2h3v1h-3zM3 3h5v1h-5zM12 3h5v1h-5zM2 4h7v3h-7zM11 4h7v3h-7zM2 7h3v4h-3zM8 7h1v4h-1zM11 7h3v4h-3zM17 7h1v4h-1zM2 11h7v1h-7zM11 11h7v1h-7zM3 12h5v1h-5zM12 12h5v1h-5zM4 13h3v1h-3zM13 13h3v1h-3z"
-            className="fill-white dark:fill-black"
-          />
-          <path
-            d="M3 1h5v1h-5zM12 1h5v1h-5zM2 2h2v1h-2zM7 2h2v1h-2zM11 2h2v1h-2zM16 2h2v1h-2zM1 3h2v1h-2zM8 3h4v1h-4zM17 3h2v1h-2zM1 4h1v1h-1zM9 4h2v8h-2zM18 4h1v1h-1zM0 5h2v6h-2zM18 5h2v6h-2zM5 7h3v4h-3zM14 7h3v4h-3zM1 11h1v1h-1zM18 11h1v1h-1zM1 12h2v1h-2zM8 12h4v1h-4zM17 12h2v1h-2zM2 13h2v1h-2zM7 13h2v1h-2zM11 13h2v1h-2zM16 13h2v1h-2zM3 14h5v1h-5zM12 14h5v1h-5z"
-            className="fill-current"
-          />
+          <ellipse cx="5.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />
+          <ellipse cx="14.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />
+          <circle cx="7.3" cy="8.6" r="2.2" className="fill-current stroke-none" />
+          <circle cx="16.3" cy="8.6" r="2.2" className="fill-current stroke-none" />
         </svg>
         for…
       </p>
