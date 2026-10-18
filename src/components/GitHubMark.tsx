@@ -9,7 +9,6 @@ export default (p: GitHubMark) => {
   const { className, title } = p
 
   return (
-    // biome-ignore lint/a11y/noSvgWithoutTitle: decorative and hidden unless titled, then role="img" with a <title>
     <svg
       viewBox="0 0 16 16"
       className={`fill-current ${className ?? ""}`}
