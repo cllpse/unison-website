@@ -21,9 +21,9 @@ const EXAMPLE = `<Frame
     height-28
     padding-2
     fill-neutral-50
-    stroke-neutral-400
+    stroke-neutral-300
   >
-    <Text typography-label-small fill-neutral-700>
+    <Text typography-sm fill-neutral-900>
       shape
     </Text>
   </Frame>
@@ -34,10 +34,10 @@ const EXAMPLE = `<Frame
     width-20
     height-20
     corner-radius-2xl
-    fill-primary-50
-    stroke-primary-400
+    fill-violet-50
+    stroke-violet-300
   >
-    <Text typography-label fill-primary-700>
+    <Text typography-base fill-violet-600>
       reshape
     </Text>
   </Frame>
@@ -47,10 +47,10 @@ const EXAMPLE = `<Frame
     alignment-center
     padding-2
     corner-radius-full
-    fill-secondary-50
-    stroke-secondary-400
+    fill-fuchsia-50
+    stroke-fuchsia-300
   >
-    <Vector width-6 height-6 fill-secondary-700>
+    <Vector width-6 height-6 fill-fuchsia-400>
       <Path d="M3 6h1v-2h2v-1h12v1h2v2{...}" />
     </Vector>
   </Frame>
@@ -82,7 +82,7 @@ const AFTER = `/**
   padding-vertical-5
   gap-4
   corner-radius-xl
-  fill-primary-50
+  fill-violet-50
 >`
 
 const STARTING_POINTS: Point[] = [
@@ -117,8 +117,8 @@ const UPDATE_DIFF = `  <Frame
     alignment-center
     height-28
 +   corner-radius-2xl
--   fill-primary-50
-+   fill-secondary-50
+-   fill-violet-50
++   fill-fuchsia-50
   >`
 
 const FINE_PRINT: Point[] = [
@@ -226,10 +226,10 @@ const DEVELOPERS: Point[] = [
     body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
     code: [
       {
-        code: `<Text typography-body-smol fill-neutral-700>
+        code: `<Text typography-smol fill-neutral-900>
   Computer says no.
 </Text>`,
-        error: "typography-body-smol",
+        error: "typography-smol",
       },
     ],
   },
