@@ -45,6 +45,7 @@ export const metadata: Metadata = {
   authors: [{ name: "cllpse", url: "https://github.com/cllpse" }],
   creator: "cllpse",
   keywords: [
+    "Unison",
     "Figma",
     "design system",
     "design tokens",

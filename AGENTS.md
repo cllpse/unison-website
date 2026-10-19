@@ -8,11 +8,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# figma-website
+# unison-website
 
-The commercial website and documentation for the Figma component library (cllpse/figma). Code conventions follow the
-library's AGENTS.md; the library-only sections (base/web/native shells, Figma flag types, `compute*` helpers) don't
-apply here.
+The commercial website and documentation for Unison (cllpse/unison) and its component library
+(cllpse/unison-components). Code conventions follow the library's AGENTS.md; the library-only sections (base/web/native
+shells, Figma flag types, `compute*` helpers) don't apply here.
 
 ## Commands
 
@@ -63,9 +63,9 @@ apply here.
   paragraphs keep a `max-w-measure` (700px) measure inside the wider `max-w-page` (1168px) column. All text wraps with
   `text-pretty` (set on `body`); don't use `text-balance`. The h1's break after the comma is the one manual break.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
-  `src/constants` in cllpse/figma before writing one. Order each element's properties the same way: frames flow,
-  alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one liberty:
-  typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
+  `src/constants` in cllpse/unison-components before writing one. Order each element's properties the same way:
+  frames flow, alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one
+  liberty: typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 - React Native support is unstable: the Team section, which introduces it, ends with `REACT_NATIVE_DISCLAIMER`
   (`page.tsx`), a `Disclaimer` box. Don't repeat it in other sections.

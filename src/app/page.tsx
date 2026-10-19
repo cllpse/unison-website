@@ -5,7 +5,7 @@ import Header from "../components/Header"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
-import { PLUGIN_URL, REPO_NAME, REPO_URL, SITE_DESCRIPTION, SITE_URL } from "../constants/site"
+import { REPO_NAME, REPO_URL, SITE_DESCRIPTION, SITE_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
   autolayout-horizontal
@@ -88,27 +88,11 @@ const AFTER = `/**
 const STARTING_POINTS: Point[] = [
   {
     title: "Designers",
-    body: (
-      <>
-        Install the{" "}
-        <a href={PLUGIN_URL} target="_blank" rel="noreferrer">
-          Figma plugin
-        </a>
-        , from the Figma Community.
-      </>
-    ),
+    body: "Install the Figma plugin, from the Figma Community.",
   },
   {
     title: "Developers",
-    body: (
-      <>
-        Clone the{" "}
-        <a href={REPO_URL} target="_blank" rel="noreferrer">
-          library on GitHub
-        </a>
-        , open source and ready to use.
-      </>
-    ),
+    body: "Clone the library on GitHub, open source and ready to use.",
   },
 ]
 
@@ -147,6 +131,9 @@ const FINE_PRINT: Point[] = [
 
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 const PAYPAL_URL = "https://developer.paypal.com/community/blog/stopgivingaimoredocumentation"
+
+// Ends the starters section until the plugin and the library are published, which is why its points don't link yet.
+const LAUNCH_DISCLAIMER = <Disclaimer>Unison launches soon. Watch this website for updates.</Disclaimer>
 
 // Ends the section that introduces React Native support, while it's unstable.
 const REACT_NATIVE_DISCLAIMER = (
@@ -397,6 +384,7 @@ export default () => {
           pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
         >
           <Points points={STARTING_POINTS} />
+          {LAUNCH_DISCLAIMER}
         </Section>
 
         <Section

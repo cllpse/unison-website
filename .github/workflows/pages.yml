@@ -1,6 +1,6 @@
 # Publishes the baked landing page (bun run bake: one self-contained dist/index.html) to GitHub Pages on every push to
 # main, or by hand from the Actions tab. The page needs no base path: its styles, fonts and icons are inlined and every
-# link is an in-page anchor, so it works as is at https://cllpse.github.io/figma-website/.
+# link is an in-page anchor, so it works as is at https://cllpse.github.io/unison-website/.
 name: Pages
 
 on:

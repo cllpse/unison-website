@@ -1,8 +1,8 @@
 /** Product name, kept in one place so a rename touches a single line. */
-export const PRODUCT_NAME = "Figma"
+export const PRODUCT_NAME = "Unison"
 
 /** The repository the site is about, shown as the site title in the header. */
-export const REPO_NAME = "cllpse/figma"
+export const REPO_NAME = "cllpse/unison"
 
 export const REPO_URL = `https://github.com/${REPO_NAME}`
 
