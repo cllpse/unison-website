@@ -8,14 +8,14 @@ import ShapesPreview from "../components/ShapesPreview"
 import { PLUGIN_URL, REPO_NAME, REPO_URL, SITE_DESCRIPTION, SITE_URL } from "../constants/site"
 
 const EXAMPLE = `<Frame
-  flow-horizontal
+  autolayout-horizontal
   alignment-left
   width-hug
   height-hug
   gap-8
 >
   <Frame
-    flow-vertical
+    autolayout-vertical
     alignment-bottom-right
     width-28
     height-28
@@ -29,7 +29,7 @@ const EXAMPLE = `<Frame
   </Frame>
 
   <Frame
-    flow-vertical
+    autolayout-vertical
     alignment-center
     width-20
     height-20
@@ -43,7 +43,7 @@ const EXAMPLE = `<Frame
   </Frame>
 
   <Frame
-    flow-vertical
+    autolayout-vertical
     alignment-center
     padding-2
     corner-radius-full
@@ -77,7 +77,7 @@ const AFTER = `/**
  */
 
 <Frame
-  flow-horizontal
+  autolayout-horizontal
   padding-horizontal-6
   padding-vertical-5
   gap-4
@@ -113,7 +113,7 @@ const STARTING_POINTS: Point[] = [
 ]
 
 const UPDATE_DIFF = `  <Frame
-    flow-vertical
+    autolayout-vertical
     alignment-center
     height-28
 +   corner-radius-2xl
