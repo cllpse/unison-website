@@ -33,7 +33,7 @@ const EXAMPLE = `<Frame
     alignment-center
     width-20
     height-20
-    corner-radius-5
+    corner-radius-2xl
     fill-primary-50
     stroke-primary-400
   >
@@ -81,7 +81,7 @@ const AFTER = `/**
   padding-horizontal-6
   padding-vertical-5
   gap-4
-  corner-radius-3
+  corner-radius-xl
   fill-primary-50
 >`
 
@@ -116,7 +116,7 @@ const UPDATE_DIFF = `  <Frame
     flow-vertical
     alignment-center
     height-28
-+   corner-radius-5
++   corner-radius-2xl
 -   fill-primary-50
 +   fill-secondary-50
   >`
