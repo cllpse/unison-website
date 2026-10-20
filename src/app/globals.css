@@ -22,6 +22,9 @@
   --text-xxx-large: calc(var(--font-size) * 1.375);
   --text-xxxx-large: calc(var(--font-size) * 1.625);
   --text-xxxxx-large: calc(var(--font-size) * 1.875);
+  /* Code and its captions: 0.9 of the body text, a step down so code reads as smaller than the text around it, but
+     never above the body text's largest size on phones (the base's 1.6rem floor times small's 0.625, 16px). */
+  --text-code: min(calc(var(--text-small) * 0.9), calc(1.6rem * 0.625));
   --tracking-*: initial;
   --tracking-tight: -0.02625em;
   --tracking-default: -0.01375em;
@@ -41,6 +44,9 @@
   --spacing-large: calc(var(--font-size) * 2);
   --spacing-x-large: calc(var(--font-size) * 3);
   --spacing-xx-large: calc(var(--font-size) * 4);
+  /* A card's side padding on phones: two thirds of the medium step (16px at the phone base size), so the text gets a
+     little more width; the cards' notes inset by it too. */
+  --spacing-card-side: calc(var(--spacing-medium) * 2 / 3);
 
   /* The page column: 1168px, so with the 16px gutters on each side the page spans 1200px. */
   --container-page: 73rem;
@@ -118,11 +124,11 @@
   --color-pink-900: color-mix(in oklab, var(--color-pink) 35%, var(--color-black));
 }
 
-/* The type scale's base: 2.225% of the window's width, and from 64em (1024px) up 2.1277% (about 31px at 1440px),
-   never under 24px, so body text (62.5% of it) stays at 15px or more on phones. */
+/* The type scale's base: 2.225% of the window's width, never under 25.6px, so body text (62.5% of it) is 16px on
+   phones; from 64em (1024px) up 2.1277% (about 31px at 1440px), never under 24px. */
 @layer theme {
   :root {
-    --font-size: max(1.5rem, 2.225vw);
+    --font-size: max(1.6rem, 2.225vw);
 
     @media (min-width: 64em) {
       --font-size: max(1.5rem, 2.1277vw);

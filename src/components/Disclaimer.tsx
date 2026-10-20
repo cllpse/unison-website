@@ -14,7 +14,7 @@ export default (p: Disclaimer) => {
   const { children } = p
 
   return (
-    <aside className="-mx-medium mt-medium -mb-medium border-[oklch(0_0_0/0.075)] border-t bg-canvas-shade px-medium py-medium text-center lg:-mx-large lg:mt-large lg:-mb-large lg:px-large dark:border-[oklch(1_0_0/0.075)]">
+    <aside className="-mx-card-side mt-medium -mb-medium border-[oklch(0_0_0/0.075)] border-t bg-canvas-shade px-card-side py-medium text-center lg:-mx-large lg:mt-large lg:-mb-large lg:px-large dark:border-[oklch(1_0_0/0.075)]">
       <p className="mx-auto max-w-measure text-small leading-tight">{children}</p>
     </aside>
   )

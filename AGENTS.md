@@ -128,7 +128,7 @@ Beyond that:
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
 - The exceptions, which the owner asked for: the real ellipses in the nav's "for…" and at the start of "…or simply
   ship sooner" (For Team) and "…think LEGO® bricks" (For Developers), the ® itself (a registered trademark), and
-  the "{…}" that marks a shortened path in the hero's code sample, with a space before it.
+  the "…" that ends a shortened path in the hero's code sample ("M3 6h1v-2h2v-1h12v1h…").
 
 ## Comments and docs
 

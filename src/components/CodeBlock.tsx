@@ -12,12 +12,11 @@ export default async (p: CodeBlock) => {
   const { code, caption, lang, error } = p
 
   return (
-    // On phones the code is the body text's size (small), so it stays readable; the caption is 0.9 of it. From 64em
-    // the figure sets the code size (x-small), and the caption and the code are 0.9 of it, a step down so code reads
-    // as smaller than the text around it.
-    <figure className="mt-6 min-w-0 text-small lg:text-x-small">
+    // The figure sets the code size (text-code: 0.9 of the body text, capped at the body text's largest size on
+    // phones), which the caption and the code share. The block stays inside the card's padding at every width.
+    <figure className="mt-6 min-w-0 text-code">
       {caption ? (
-        <figcaption className="mb-2 px-1 font-mono text-[0.9em] leading-default font-light [--tracking:normal] text-muted">
+        <figcaption className="mb-2 px-1 font-mono leading-default font-light [--tracking:normal] text-muted">
           {caption}
         </figcaption>
       ) : null}
@@ -39,7 +38,7 @@ export default async (p: CodeBlock) => {
       <div className="code-colors relative border border-black/7.5 bg-shade/3 dark:border-black/45">
         <div
           data-code-block
-          className="*:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:[container-type:scroll-state] *:scrollbar-code *:bg-transparent! *:font-mono lg:*:text-[0.9em] *:leading-default *:text-thin-white dark:*:text-thin-black [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[0.6em] [&_code]:pr-[1.05em] [&_code]:pb-[0.5em] [&_code]:pl-[1.05em] [@container_scroll-state(scrollable:x)]:[&_code]:pb-0.5 [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
+          className="*:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:[container-type:scroll-state] *:scrollbar-code *:bg-transparent! *:font-mono *:leading-default *:text-thin-white dark:*:text-thin-black [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[0.6em] [&_code]:pr-[1.05em] [&_code]:pb-[0.5em] [&_code]:pl-[1.05em] [@container_scroll-state(scrollable:x)]:[&_code]:pb-0.5 [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
           dangerouslySetInnerHTML={{ __html: await highlight(code, lang, error) }}
         />

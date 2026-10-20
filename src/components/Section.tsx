@@ -47,11 +47,11 @@ export default (p: Section) => {
 
   return (
     // The card: square corners and no shadow, set apart from the canvas by its color alone, with the canvas showing
-    // between the cards. On phones 2 base sizes apart, padded 1, with rows 1 apart; from 64em, as the reference's
+    // between the cards. On phones 2 base sizes apart, padded 1 (two thirds of it at the sides), with rows 1 apart; from 64em, as the reference's
     // cards: 3 apart, padded 2, with rows 1.5 apart. Content sits 1.5 below the header, in columns 2 apart.
     <section
       id={id}
-      className={`${SECTION_ACCENTS[id]} mx-auto mt-large max-w-page scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] bg-card p-medium lg:mt-x-large lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral`}
+      className={`${SECTION_ACCENTS[id]} mx-auto mt-large max-w-page scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] bg-card px-card-side py-medium lg:mt-x-large lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral`}
     >
       <header className="text-center">
         {/* hgroup ties the audience label to the heading as its kicker. */}
