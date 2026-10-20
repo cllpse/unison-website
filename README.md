@@ -1,6 +1,6 @@
 # unison-website
 
-The commercial website and documentation for Unison: a component library and the Figma plugin that writes its code.
+The explainer website and documentation for Unison: a component library and the Figma plugin that writes its code.
 
 Part of [Unison](https://github.com/cllpse/unison), alongside
 [unison-components](https://github.com/cllpse/unison-components),

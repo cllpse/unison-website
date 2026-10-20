@@ -1,0 +1,77 @@
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
+import { highlight } from "../utilities/highlight"
+
+export type PluginWindow = {
+  code: string
+}
+
+/**
+ * Figma's colors in the plugin window's drawing, each swapped for the site token it stands for, so the window follows
+ * the theme: the window in the canvas, its bars in the card (at Figma's 90%), the text and icons in the ink, the issues
+ * in the red and the orange (and their highlights at Figma's 10%), the active tab in the blue (its button the blue at
+ * 10% over the card), and the lines and panels in the shade (Figma's black, at its opacities). Masks keep Figma's
+ * colors (see drawing()).
+ */
+const COLORS: Record<string, string> = {
+  "#F5FAF6": "var(--color-canvas)",
+  white: "var(--color-card)",
+  "#29353C": "var(--color-ink)",
+  "#DC3412": "var(--color-red)",
+  "#B86200": "var(--color-orange)",
+  "#0079D8": "var(--color-blue)",
+  "#E6F4FF": "color-mix(in srgb, var(--color-blue) 10%, var(--color-card))",
+  black: "var(--color-shade)",
+}
+
+/**
+ * The drawing, read at build time and inlined, its colors moved from attributes into styles (presentation attributes
+ * can't take var()), and sized by its container instead of Figma's pixels.
+ */
+const drawing = async () => {
+  const svg = await readFile(join(process.cwd(), "src/assets/plugin-window.svg"), "utf8")
+
+  // Masks keep Figma's colors: a luminance mask's white is what lets the logo through, whatever the theme.
+  return svg
+    .replace(/ width="349" height="495"/, ' aria-hidden="true" class="size-full"')
+    .split(/(<mask[\s\S]*?<\/mask>)/)
+    .map((part) =>
+      part.startsWith("<mask")
+        ? part
+        : part.replace(/ (fill|stroke)="([^"]+)"/g, (attribute, property: string, color: string) =>
+            color in COLORS ? ` style="${property}:${COLORS[color]}"` : attribute,
+          ),
+    )
+    .join("")
+}
+
+/**
+ * The Figma plugin's window, as plugin-window.svg draws it (the hero's left.svg from Figma, its code panel left
+ * empty), with live code in that panel. Everything is measured in the SVG's 349 x 495 units and scaled with the window
+ * through container query units, so the code sits in the panel that runs from 59 to 373 units down, at 9.5 units on a
+ * 13.65-unit line, set in 9 units from the left like the issues below it, its first line level with the panel's
+ * buttons. Longer code scrolls inside the panel. The drawing is inlined with its colors on the site's tokens, so the
+ * window and its code follow the theme. It spans its container's width and scales with it, and stands out from the
+ * canvas on the cards' shadow, rounded to the window's own corners (10 units). Its scrollbar's resting thumb is the
+ * window's outermost outline as it shows against the canvas (the shade at 15% over it), a solid color, so the panel's
+ * own shading underneath doesn't darken it.
+ */
+export default async (p: PluginWindow) => {
+  const { code } = p
+
+  return (
+    <figure className="@container relative aspect-349/495 w-full rounded-[calc(10/349*100%)/calc(10/495*100%)] shadow-card">
+      <div
+        className="absolute inset-0"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: our own Figma export, read at build time
+        dangerouslySetInnerHTML={{ __html: await drawing() }}
+      />
+      <div
+        data-code-block
+        className="code-colors absolute inset-x-[calc(1/349*100%)] top-[calc(59/495*100%)] bottom-[calc(122/495*100%)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_15%,var(--color-canvas))] *:font-mono *:text-[calc(9.5/349*100cqw)] *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/9.5*1em)] [&_code]:pr-[calc(9/9.5*1em)] [&_code]:pb-[calc(9/9.5*1em)] [&_code]:pl-[calc(8/9.5*1em)]"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippet
+        dangerouslySetInnerHTML={{ __html: await highlight(code) }}
+      />
+    </figure>
+  )
+}

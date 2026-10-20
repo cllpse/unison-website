@@ -4,30 +4,18 @@ import Nav from "./Nav"
 
 export default () => {
   return (
-    // The bottom --scrim-fade is the scrim's fade: it hangs over the content (negative margin) and lets clicks through.
-    // Behind the content, a backdrop blur sits under a 60% layer of the scrim color. Both are masked with the scrim, so
-    // they ease out together, and once a section is under the header (data-rules, set by Nav) both leave gaps for its
-    // side rules, so those run up to the top. Fine grain on top gives a sandblasted-glass look.
-    <header className="pointer-events-none sticky top-0 z-10 -mb-(--scrim-fade) scrim px-4 pb-(--scrim-fade) font-extrabold tracking-tight before:absolute before:inset-0 before:-z-10 before:backdrop-blur-lg before:mask-intersect before:[mask-image:var(--scrim-gradient)] data-rules:before:[mask-image:var(--scrim-gradient),var(--rule-holes)] after:absolute after:inset-0 after:-z-10 after:bg-(--scrim) after:opacity-60 after:mask-intersect after:[mask-image:var(--scrim-gradient)] data-rules:after:[mask-image:var(--scrim-gradient),var(--rule-holes)]">
-      {/* The grain gets its own layer above the scrim, without the rule gaps, which would show as grain-free lines: the
-          scrim color, masked to grain and faded with the scrim, at 6/7 strength to keep its share of the 60% layer. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 -z-5 bg-(--scrim) opacity-[calc(6/7)] mask-intersect [mask-image:var(--scrim-grain),var(--scrim-gradient)]"
-      />
-      {/* Phones only: a 24px edge at the very top, fading from transparent up to solid, so content vanishes at the
-          screen edge. It runs the full width, over the side rules too, unlike the scrim's other layers. */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 -z-5 h-6 bg-linear-to-t from-transparent to-(--scrim) sm:hidden"
-      />
-      <div className="pointer-events-auto mx-auto flex max-w-page flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-6 py-4 max-sm:px-3">
-        <p className="flex items-center gap-2 text-xl">
+    // A plain white bar (black on the dark theme), as the reference tops its pages: solid, with no fade or blur, so the
+    // canvas starts cleanly below it. Once the page scrolls, the cards' old shadow fades in under it on the site's
+    // usual 116ms ease-out (Nav marks it data-scrolled), lifting it off the content passing below; not over the open
+    // menu. Its spacing is the reference's nav: 3 base sizes tall, inset at the sides as the canvas's content is.
+    <header className="sticky top-0 z-10 bg-white px-medium transition-shadow duration-116 ease-out data-scrolled:shadow-card lg:px-x-large motion-reduce:transition-none dark:bg-black [.menu-open_&]:shadow-none">
+      <div className="mx-auto flex min-h-x-large max-w-page flex-wrap content-center items-center justify-between gap-x-medium gap-y-small py-small">
+        <p className="flex items-center gap-2 text-small font-bold leading-default [&_a]:font-bold">
           <a href="#top" className="no-underline">
             {REPO_NAME}
           </a>
           {/* GitHub's mark, sized to the text and in the text color. */}
-          <a href={REPO_URL} className="text-black dark:text-white">
+          <a href={REPO_URL} className="text-ink">
             <GitHubMark title={`${REPO_NAME} on GitHub`} className="size-[1em]" />
           </a>
         </p>

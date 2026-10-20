@@ -2,6 +2,7 @@ import AgentsLabel from "../components/AgentsLabel"
 import CodeBlock from "../components/CodeBlock"
 import Disclaimer from "../components/Disclaimer"
 import Header from "../components/Header"
+import PluginWindow from "../components/PluginWindow"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
@@ -51,7 +52,7 @@ const EXAMPLE = `<Frame
     stroke-fuchsia-300
   >
     <Vector width-6 height-6 fill-fuchsia-400>
-      <Path d="M3 6h1v-2h2v-1h12v1h2v2{...}" />
+      <Path d="M3 6h1v-2h2v-1h12v1h2v2 {…}" />
     </Vector>
   </Frame>
 </Frame>`
@@ -234,9 +235,9 @@ const DEVELOPERS: Point[] = [
     column: "right",
     body: (
       <>
-        {/* Set like a code block in miniature: its font, thinning, surface and corners, with no border, scaled to sit
-            in the line without changing its height, and in the code's property blue, since className is a property. */}
-        <span className="code-colors rounded-sm bg-[rgb(0_0_0/4%)] px-1 dark:bg-gray font-mono text-[0.85em] text-(--code-property) text-thin-gray">
+        {/* In the code's font and weight, with no surface, scaled to sit in the line without changing its height, and in
+            the code's property blue, since className is a property. */}
+        <span className="code-colors font-mono text-[84.375%] font-light [--tracking:normal] text-(--code-property)">
           className
         </span>{" "}
         is still there for the rare thing the design system doesn't cover. Reaching for it is a deliberate choice, and
@@ -292,36 +293,24 @@ export default () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA).replace(/</g, "\\u003c") }}
       />
       <Header />
-      <main id="top" className="flex-1 scroll-mt-(--header-height) px-4">
-        <div className="mx-auto max-w-page px-6 pt-16 pb-14 max-sm:px-3">
-          {/* Set at 1.1em. On phones a little over heading size (53px against 46), behind a breakpoint so it wins
-              over the size HEADING sets. */}
-          <h1
-            className={`${HEADING} leading-[1.1em] max-sm:text-[length:calc(var(--text-heading)*1.15)] sm:max-w-none sm:text-display`}
-          >
-            {/* The break after the comma is for wider screens; on phones the title wraps on its own. The explicit
-                space keeps "properties, as" apart when the break is hidden. */}
-            Figma properties, <br className="max-sm:hidden" />
-            as code.
-          </h1>
-          {/* 0.6 of the title at every width (about 32px on phones, 42px wider), a touch under regular weight (360)
-              at that size. Its width is the pitches' 700px measure. */}
-          <h2
-            className={`${PITCH} font-[360] text-[length:calc(var(--text-heading)*1.15*0.6)] sm:text-[length:calc(var(--text-display)*0.6)]`}
-          >
+      {/* The canvas: the page's content on a faint tint, edge to edge below the header, as the reference sets its pages.
+          The sections sit on it as cards. Its spacing is the reference's: the content inset 1 base size at the
+          sides (3 from 64em), 3 above the hero and below the last card. */}
+      <main id="top" className="flex-1 scroll-mt-(--header-height) bg-canvas px-medium pb-x-large lg:px-x-large">
+        <div className="mx-auto max-w-page pt-x-large">
+          <h1 className={`${HEADING} max-w-measure`}>Figma properties, as code.</h1>
+          <h2 className={`${PITCH} w-[min(100%,calc(26.5*var(--font-size)))]`}>
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
           </h2>
-          {/* The code and what it renders, side by side where there's room, like the section grids. The preview sits
-              right on the page, full width at its own aspect ratio, centered in a box as tall as the code. The code
-              stops lower than other blocks (38% of the screen, at least 304px), keeping the hero compact. */}
-          <div className="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] gap-x-10 gap-y-8 [&>figure]:mt-0 [&_pre]:max-h-[max(38svh,19rem)]!">
-            <CodeBlock code={EXAMPLE} wide />
-            <figure className="flex min-w-0 flex-col">
-              <div className="flex flex-1 items-center justify-center">
-                <ShapesPreview />
-              </div>
-            </figure>
+          {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
+              section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
+              centered beside the window. */}
+          <div className="mt-neutral grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-neutral">
+            <PluginWindow code={EXAMPLE} />
+            <div className="min-w-0">
+              <ShapesPreview />
+            </div>
           </div>
         </div>
 
@@ -365,8 +354,8 @@ export default () => {
             up, then summarized away, but a vocabulary doesn't need remembering.
           </p>
           <div>
-            <CodeBlock code={BEFORE} caption="An agent's best guess" wide />
-            <CodeBlock code={AFTER} caption="One vocabulary" wide />
+            <CodeBlock code={BEFORE} caption="An agent's best guess" />
+            <CodeBlock code={AFTER} caption="One vocabulary" />
           </div>
           <Points points={AGENTS} />
         </Section>
@@ -376,9 +365,7 @@ export default () => {
           audience="Starters"
           title={
             <>
-              {/* The heading's text is transparent, painted by its gradient, so the strikethrough needs a color of
-                  its own. */}
-              Pick your side, meet in the <s className="decoration-(--accent)">middle</s> mutual.
+              Pick your side, meet in the <s>middle</s> mutual.
             </>
           }
           pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
@@ -391,10 +378,7 @@ export default () => {
           id="fine-print"
           title={
             <>
-              {/* Tailwind's base styles lower a <sub> with position: relative, and Safari leaves positioned children
-                  out of the heading's gradient text (background-clip: text), so "fine" came out invisible. Lowering
-                  it with vertical-align instead keeps it in the same text, painted by the gradient. */}
-              The <sub className="static align-[-0.25em]">fine</sub> print.
+              The <sub>fine</sub> print.
             </>
           }
           pitch="Every approach has trade-offs, and these are worth making."

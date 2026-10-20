@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # unison-website
 
-The commercial website and documentation for Unison (cllpse/unison) and its component library
+The explainer website and documentation for Unison (cllpse/unison) and its component library
 (cllpse/unison-components). Code conventions follow the library's AGENTS.md; the library-only sections (base/web/native
 shells, Figma flag types, `compute*` helpers) don't apply here.
 
@@ -23,8 +23,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - `bun run build`: production build; run it before pushing
 - `bun run bake`: the landing page as one small, self-contained `dist/index.html` that opens straight from disk
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
-  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it again in CI and
-  publishes it to GitHub Pages (`.github/workflows/pages.yml`)
+  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it
+  again in CI and publishes it to GitHub Pages (`.github/workflows/pages.yml`)
 - `bun run deploy`: bakes the page, copies `dist/` into `~/Sites/eject.io/public/figma` and `~/Sites/cllp-se/dist/figma`,
   then runs `firebase deploy` in both projects (`scripts/deploy.ts`)
 
@@ -50,25 +50,51 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   is syntax highlighting, which uses Shiki's `github-light-default` and `github-dark-default` themes (`highlight.ts`).
 - The dark theme follows the browser's color scheme (`prefers-color-scheme`, Tailwind's default `dark:` variant).
   It keeps the accents and redefines only the neutrals (`globals.css`); style anything black or white with a `dark:`
-  counterpart.
+  counterpart. Text is `ink` (a dark slate, off-white on the dark theme), which needs none.
+- The layout follows the reference, in the colors of its pricing page: a pale sage `canvas`, edge to edge below a plain
+  white header, with each section on a square-cornered `card` with no shadow and the canvas showing between them; no
+  page gutter and no separators. Headings and pitches are in the `ink`, the headings heavy; the accent shows in the
+  "for <Audience>" label and its underline. Don't ring or highlight headings or pitches.
+- The hero shows the code in the plugin's own window: `PluginWindow` inlines `src/assets/plugin-window.svg`, the
+  plugin window drawn in Figma with its code panel left empty, and lays the code over it, spanning its column, on the
+  cards' old shadow (`shadow-card`). It reads the file at build time and swaps each of Figma's colors for the token it
+  stands for (`COLORS`), so the window follows the theme; a new color in a fresh export needs a line there.
+  Beside it, `ShapesPreview` inlines the Figma drawing of what that code renders, its colors swapped for the palette's
+  tokens so it follows the theme. Replace both from Figma exports when the plugin's look changes.
+- Code is colored from the site's palette (`code-colors` in `globals.css`, mapped from GitHub's colors in
+  `highlight.ts`): ink text, muted comments, green tags, blue properties, orange keywords, purple strings, and errors
+  in the red (`#ff5f32`, the overdue bell in the reference's reports screenshot).
+- Type is the reference's font configuration, as its stylesheet declares it (`globals.css`): one fluid
+  `--font-size` (the body's size), sizes named as the reference names them (`text-xx-small` to `text-xxxx-large`, each a
+  share of it), its letter spacings (`--tracking`: tight, default, loose) and line heights (`leading-xx-tight` to
+  `leading-loose`), and its weights (800 headings, 600 links, bold and labels, 500 menu, 400 text). Inter stands in
+  for Graphik; code is in Martian Mono, the reference's code font, light (300). Pick from these the way the reference's elements
+  do; don't add sizes, floors or word spacing.
+- Spacing is the reference's: its `--space-*` steps as Tailwind spacing (`small`, `medium`, `neutral`, `large`,
+  `x-large`, `xx-large`: 0.5 to 4 times `--font-size`), used for every container's margins, paddings and gaps
+  (`px-medium lg:px-x-large`, `mt-x-large`, `p-neutral lg:p-large`). Don't use Tailwind's numeric steps for them.
+- Below 64em the nav folds into the reference's menu (`Nav.tsx`, mirrored in `bakeClient.js`): a toggle in the
+  3-base-size header opens the section links as a full-screen list, with the same accents and flourishes.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
 - The page speaks to four audiences (the team, designers, developers, agents), one section each, then starters.
 - Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
-  promise, a one-line `pitch` (large, in the accent color) on how the library keeps it, and the detail: usually a
-  `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
+  promise, a one-line `pitch` (large, in the ink) on how the library keeps it, and the detail:
+  usually a `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
 - `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and turns a
   direct `div`, `ol` or `ul` child into a two-column grid, so section markup in `page.tsx` stays class-free. `Points`
-  uses that grid for two independent columns, so a tall point only pushes down the points below it. Section headings and
-  paragraphs keep a `max-w-measure` (700px) measure inside the wider `max-w-page` (1168px) column. All text wraps with
-  `text-pretty` (set on `body`); don't use `text-balance`. The h1's break after the comma is the one manual break.
+  uses that grid for two independent columns, so a tall point only pushes down the points below it. Section headings
+  and pitches (centered) and running paragraphs span the card, inside the `max-w-page` (1168px) column. All
+  text wraps with `text-pretty` (set on `body`), except the hero and section titles, which balance their lines like
+  the reference's (`HEADING`). The h1's break after the comma is the one manual break.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/unison-components before writing one. Order each element's properties the same way:
   frames flow, alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one
   liberty: typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 - React Native support is unstable: the Team section, which introduces it, ends with `REACT_NATIVE_DISCLAIMER`
-  (`page.tsx`), a `Disclaimer` box. Don't repeat it in other sections.
+  (`page.tsx`), a `Disclaimer`: a toned band across the bottom of the card, so it comes last. Don't repeat it in
+  other sections.
 
 ## TypeScript
 
@@ -101,7 +127,8 @@ Beyond that:
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
 - The exceptions, which the owner asked for: the real ellipses in the nav's "for…" and at the start of "…or simply
-  ship sooner" (For Team) and "…think LEGO® bricks" (For Developers), and the ® itself (a registered trademark).
+  ship sooner" (For Team) and "…think LEGO® bricks" (For Developers), the ® itself (a registered trademark), and
+  the "{…}" that marks a shortened path in the hero's code sample, with a space before it.
 
 ## Comments and docs
 

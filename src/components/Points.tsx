@@ -18,8 +18,9 @@ export type Points = { points: Point[] }
  * columns, first left, second right, as they would in a grid, unless a point names its `column`.
  *
  * `Section` makes the wrapping div a grid, which shows the two lists side by side once there's room for two 24rem
- * columns and a 2.5rem gap (50.5rem). Below that the lists dissolve (display: contents), so their points join the
- * one-column grid directly and fall back into reading order through `order`.
+ * columns and their gap (2 base sizes, at most about 4rem where it matters). Below 52rem the lists dissolve (display:
+ * contents), so their points join the grid directly and fall back into reading order through `order`; just above the
+ * two-column width that still reads right, row by row.
  */
 export default (p: Points) => {
   const { points } = p
@@ -32,7 +33,7 @@ export default (p: Points) => {
   return (
     <div className="@container">
       {columns.map((column) => (
-        <ul key={column[0]?.title} className="flex flex-col gap-y-8 @max-[50.5rem]:contents">
+        <ul key={column[0]?.title} className="flex flex-col gap-y-neutral @max-[52rem]:contents">
           {column.map((point) => (
             <li key={point.title} style={{ order: points.indexOf(point) }}>
               <h4>{point.title}</h4>

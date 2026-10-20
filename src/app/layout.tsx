@@ -1,30 +1,21 @@
 import type { Metadata, Viewport } from "next"
-import { Atkinson_Hyperlegible_Next, Inter } from "next/font/google"
-import localFont from "next/font/local"
+import { Inter, Martian_Mono } from "next/font/google"
 import ContainOverscroll from "../components/ContainOverscroll"
 import { REPO_NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants/site"
 import "./globals.css"
 
+// Everything but code: the Google Font closest to the reference's Graphik, measured glyph by glyph against it, in shape,
+// proportions and spacing. Weights are the reference's own, as its stylesheet declares them.
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 })
 
-// Paragraphs and the nav: the variable Next version, so in-between weights render exactly.
-const atkinson = Atkinson_Hyperlegible_Next({
-  variable: "--font-atkinson",
+// Code: the reference's own code font (its code boxes, as under "Quick Start" on the reference), set light (300)
+// as the reference sets it. Variable, so in-between weights render exactly.
+const martianMono = Martian_Mono({
+  variable: "--font-martian-mono",
   subsets: ["latin"],
-})
-
-// The owner's terminal font, licensed for web use and subset to Latin (27 KB per face instead of 2.2 MB). As in their
-// Ghostty config, SemiBold is the regular weight.
-const comicCode = localFont({
-  variable: "--font-comic-code",
-  src: [
-    { path: "./fonts/ComicCode-SemiBold.woff2", weight: "400", style: "normal" },
-    { path: "./fonts/ComicCode-Bold.woff2", weight: "700", style: "normal" },
-  ],
-  adjustFontFallback: false,
 })
 
 // What search engines and link previews read. Relative URLs resolve against the site's address (metadataBase), base
@@ -86,10 +77,10 @@ export default (p: LayoutProps<"/">) => {
     // In-page jumps scroll smoothly at the browser's own pace, and jump straight there for reduced motion.
     <html
       lang="en"
-      className={`${inter.variable} ${atkinson.variable} ${comicCode.variable} h-full scroll-smooth antialiased motion-reduce:scroll-auto`}
+      className={`${inter.variable} ${martianMono.variable} h-full scroll-smooth antialiased motion-reduce:scroll-auto`}
     >
-      {/* Outside a section the accent is plain text color, so selections there are a light gray. */}
-      <body className="flex min-h-full flex-col bg-white font-sans text-body font-normal text-pretty text-black [--accent:var(--color-black)] selection:bg-(--accent)/10 dark:bg-black dark:text-white dark:[--accent:var(--color-white)]">
+      {/* Outside a section the accent is the ink, so selections there are a light slate. */}
+      <body className="flex min-h-full flex-col bg-white font-sans text-pretty text-ink [--accent:var(--color-ink)] selection:bg-(--accent)/10 dark:bg-black">
         {children}
         <ContainOverscroll />
       </body>

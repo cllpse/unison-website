@@ -53,8 +53,8 @@ const replaceAsync = async (text: string, pattern: RegExp, replace: (...match: s
 
 /**
  * Drops @font-face rules for character sets the page doesn't use. Google Fonts split each family by unicode-range;
- * only the basic Latin one (U+0000-00FF, which the minifier writes as U+??) stays, along with faces that don't split at all (Comic
- * Code).
+ * only the basic Latin one (U+0000-00FF, which the minifier writes as U+??) stays, along with faces that don't split
+ * at all.
  */
 const keepLatinFonts = (css: string) =>
   css.replace(/@font-face\{[^}]*\}/g, (face) =>

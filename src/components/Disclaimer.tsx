@@ -2,13 +2,20 @@ import type { ReactNode } from "react"
 
 export type Disclaimer = { children: ReactNode }
 
-/** A small boxed caveat, centered at the end of a section, on the code blocks' tint, set like a paragraph. */
+/**
+ * A note that closes a section, set like the captions under the reference's screenshots (the reference): a band across
+ * the bottom of the card in the page's own canvas color, a shade darker (canvas-shade, black at 1.5% over it), mixed in
+ * as a solid color rather than laid over the card, which is white, so the band reads as the canvas showing through.
+ * Above it runs the reference's 1px rule (--line), black at 7.5%. On the dark theme both use white at the same strengths.
+ * The text is centered. It steps out over the card's padding to its edges, so it must come last, and its negative
+ * margins follow the padding Section sets at each width.
+ */
 export default (p: Disclaimer) => {
   const { children } = p
 
   return (
-    <aside className="mx-auto mt-12 w-fit rounded-md bg-[rgb(0_0_0/3%)] px-4 py-3 font-paragraph dark:bg-[rgb(237_237_237/3%)]">
-      <p>{children}</p>
+    <aside className="-mx-neutral mt-neutral -mb-neutral border-[oklch(0_0_0/0.075)] border-t bg-canvas-shade px-neutral py-medium text-center lg:-mx-large lg:mt-large lg:-mb-large lg:px-large dark:border-[oklch(1_0_0/0.075)]">
+      <p className="mx-auto max-w-measure text-small leading-tight">{children}</p>
     </aside>
   )
 }

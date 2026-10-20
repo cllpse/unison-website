@@ -24,13 +24,13 @@ export const SITE_DESCRIPTION =
  * it. Headings, links, emphasis and selections inside pick it up. Spelled out in full so Tailwind can find them.
  */
 export const SECTION_ACCENTS = {
-  team: "[--accent:var(--color-amethyst)]",
-  designers: "[--accent:var(--color-magenta)]",
-  developers: "[--accent:var(--color-minion-yellow)]",
-  agents: "[--accent:var(--color-aquamarine)]",
-  "get-started": "[--accent:var(--color-capri)]",
-  // The fine print speaks to everyone, in the plain text color.
-  "fine-print": "[--accent:var(--color-black)] dark:[--accent:var(--color-white)]",
+  team: "[--accent:var(--color-purple)]",
+  designers: "[--accent:var(--color-pink)]",
+  developers: "[--accent:var(--color-orange)]",
+  agents: "[--accent:var(--color-green)]",
+  "get-started": "[--accent:var(--color-blue)]",
+  // The fine print speaks to everyone, in the ink.
+  "fine-print": "[--accent:var(--color-ink)]",
 } as const
 
 export type SectionId = keyof typeof SECTION_ACCENTS

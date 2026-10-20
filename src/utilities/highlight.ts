@@ -10,34 +10,40 @@ const HIGHLIGHTER = createHighlighterCore({
 })
 
 /**
- * GitHub's greens, property blues and diff reds, swapped for the site's own colors through the code-colors utility
- * (globals.css), which sets them per theme: tag names and added diff lines in the agents section's aquamarine,
- * properties in the starters section's capri, removed diff lines in the designers section's magenta, like the error
- * squiggle, and keywords (JSDoc tags, the = before a prop's {expression}) in the developers section's yellow. Keys
- * are each theme's hex.
+ * GitHub's colors, swapped for the site's own palette through the code-colors utility (globals.css), which sets them
+ * per theme: plain code in the ink, comments in the muted slate, tag names and added diff lines in the agents section's
+ * green, properties in the starters section's blue, keywords (JSDoc tags, the = before a prop's {expression}) in the
+ * developers section's orange, strings in the team's purple, and removed diff lines in the red, like the error
+ * squiggle. Keys are each theme's hex.
  */
 const COLOR_REPLACEMENTS = {
   "github-light-default": {
+    "#1f2328": "var(--code-text)",
+    "#6e7781": "var(--code-comment)",
     "#116329": "var(--code-tag)",
     "#0550ae": "var(--code-property)",
-    "#82071e": "var(--code-error)",
     "#cf222e": "var(--code-keyword)",
+    "#0a3069": "var(--code-string)",
+    "#82071e": "var(--code-error)",
   },
   "github-dark-default": {
+    "#e6edf3": "var(--code-text)",
+    "#8b949e": "var(--code-comment)",
     "#7ee787": "var(--code-tag)",
     "#79c0ff": "var(--code-property)",
-    "#ffa198": "var(--code-error)",
     "#ff7b72": "var(--code-keyword)",
+    "#a5d6ff": "var(--code-string)",
+    "#ffa198": "var(--code-error)",
   },
 }
 
-/** An editor-style error squiggle, in the code's pink rather than red. */
+/** An editor-style error squiggle, in the code's red. */
 const SQUIGGLE = "underline decoration-(--code-error) decoration-wavy decoration-[1.5px] underline-offset-4"
 
 /**
  * Highlights a TSX (or diff) snippet with Shiki, in GitHub's colors, and returns it as an HTML string. Tokens are
  * colored for the light theme, with the dark theme's colors alongside in `--shiki-dark` for `CodeBlock` to switch to.
- * If `error` is given, its first occurrence gets a squiggle in the palette's pink, like a type error in an editor.
+ * If `error` is given, its first occurrence gets a squiggle in the palette's red, like a type error in an editor.
  *
  * @example
  * await highlight("<Frame gap-9 />", "tsx", "gap-9")

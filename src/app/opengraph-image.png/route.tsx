@@ -38,9 +38,9 @@ const inter = async (weight: number, text: string) => {
  */
 export const GET = async () => {
   const address = SITE_URL.replace(/^https:\/\//, "").replace(/\/$/, "")
-  const [bold, regular] = await Promise.all([inter(800, TITLE.join("")), inter(400, SITE_DESCRIPTION + address)])
+  const [bold, regular] = await Promise.all([inter(900, TITLE.join("")), inter(400, SITE_DESCRIPTION + address)])
   const fonts = [
-    ...(bold ? [{ name: "Inter", data: bold, weight: 800 as const, style: "normal" as const }] : []),
+    ...(bold ? [{ name: "Inter", data: bold, weight: 900 as const, style: "normal" as const }] : []),
     ...(regular ? [{ name: "Inter", data: regular, weight: 400 as const, style: "normal" as const }] : []),
   ]
 
@@ -67,7 +67,7 @@ export const GET = async () => {
             display: "flex",
             flexDirection: "column",
             fontSize: 84,
-            fontWeight: 800,
+            fontWeight: 900,
             lineHeight: 1.05,
             letterSpacing: "-0.02em",
           }}
