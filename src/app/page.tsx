@@ -317,15 +317,16 @@ export default () => {
       <Header />
       {/* The canvas: the page's content on a faint tint, edge to edge below the header, as the reference sets its pages.
           The sections sit on it as cards. The content is inset half a base size at the sides, 2 above the hero and
-          below the last card; from 64em, the reference's 3 at the sides, above and below. Below 64em the hero is
-          inset by the cards' padding too, so it lines up with the sections' content. */}
+          below the last card; from 64em, the reference's 3 at the sides, above and below. Below 64em the hero's title
+          and subtitle are inset by the cards' padding too, so they line up with the sections' content; its pictures
+          keep to the page's own inset. */}
       <main
         id="top"
         className="flex-1 scroll-mt-(--header-height) bg-canvas px-small pb-large lg:px-x-large lg:pb-x-large"
       >
-        <div className="mx-auto max-w-page px-medium pt-large lg:px-0 lg:pt-x-large">
-          <h1 className={HEADING}>Figma properties, as code.</h1>
-          <h2 className={PITCH}>
+        <div className="mx-auto max-w-page pt-large lg:pt-x-large">
+          <h1 className={`${HEADING} max-lg:px-medium`}>Figma properties, as code.</h1>
+          <h2 className={`${PITCH} max-lg:px-medium`}>
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
           </h2>
