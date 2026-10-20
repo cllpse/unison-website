@@ -33,7 +33,7 @@ export default (p: Points) => {
   return (
     <div className="@container">
       {columns.map((column) => (
-        <ul key={column[0]?.title} className="flex flex-col gap-y-neutral @max-[52rem]:contents">
+        <ul key={column[0]?.title} className="flex flex-col gap-y-medium lg:gap-y-neutral @max-[52rem]:contents">
           {column.map((point) => (
             <li key={point.title} style={{ order: points.indexOf(point) }}>
               <h4>{point.title}</h4>

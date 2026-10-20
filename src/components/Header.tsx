@@ -8,7 +8,7 @@ export default () => {
     // canvas starts cleanly below it. Once the page scrolls, the cards' old shadow fades in under it on the site's
     // usual 116ms ease-out (Nav marks it data-scrolled), lifting it off the content passing below; not over the open
     // menu. Its spacing is the reference's nav: 3 base sizes tall, inset at the sides as the canvas's content is.
-    <header className="sticky top-0 z-10 bg-white px-medium transition-shadow duration-116 ease-out data-scrolled:shadow-card lg:px-x-large motion-reduce:transition-none dark:bg-black [.menu-open_&]:shadow-none">
+    <header className="sticky top-0 z-10 bg-white px-small transition-shadow duration-116 ease-out data-scrolled:shadow-card lg:px-x-large motion-reduce:transition-none dark:bg-black [.menu-open_&]:shadow-none">
       <div className="mx-auto flex min-h-x-large max-w-page flex-wrap content-center items-center justify-between gap-x-medium gap-y-small py-small">
         <p className="flex items-center gap-2 text-small font-bold leading-default [&_a]:font-bold">
           <a href="#top" className="no-underline">

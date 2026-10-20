@@ -316,10 +316,14 @@ export default () => {
       />
       <Header />
       {/* The canvas: the page's content on a faint tint, edge to edge below the header, as the reference sets its pages.
-          The sections sit on it as cards. Its spacing is the reference's: the content inset 1 base size at the
-          sides (3 from 64em), 3 above the hero and below the last card. */}
-      <main id="top" className="flex-1 scroll-mt-(--header-height) bg-canvas px-medium pb-x-large lg:px-x-large">
-        <div className="mx-auto max-w-page pt-x-large">
+          The sections sit on it as cards. The content is inset half a base size at the sides, 2 above the hero and
+          below the last card; from 64em, the reference's 3 at the sides, above and below. Below 64em the hero is
+          inset by the cards' padding too, so it lines up with the sections' content. */}
+      <main
+        id="top"
+        className="flex-1 scroll-mt-(--header-height) bg-canvas px-small pb-large lg:px-x-large lg:pb-x-large"
+      >
+        <div className="mx-auto max-w-page px-medium pt-large lg:px-0 lg:pt-x-large">
           <h1 className={HEADING}>Figma properties, as code.</h1>
           <h2 className={PITCH}>
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
@@ -328,7 +332,7 @@ export default () => {
           {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
               section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
               centered beside the window. */}
-          <div className="mt-neutral grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-neutral">
+          <div className="mt-neutral grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-medium lg:gap-y-neutral">
             <PluginWindow code={EXAMPLE} />
             <div className="min-w-0">
               <ShapesPreview />

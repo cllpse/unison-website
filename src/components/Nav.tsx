@@ -166,7 +166,7 @@ export default () => {
         data-menu
         data-open={open || undefined}
         aria-label="Sections"
-        className="invisible fixed inset-0 -z-10 flex flex-col overflow-y-auto bg-white px-medium pt-[calc(var(--spacing-x-large)+var(--spacing-neutral))] pb-medium opacity-0 transition-[opacity,visibility] duration-150 data-open:visible data-open:opacity-100 lg:hidden motion-reduce:transition-none dark:bg-canvas"
+        className="invisible fixed inset-0 -z-10 flex flex-col overflow-y-auto bg-white px-small pt-[calc(var(--spacing-x-large)+var(--spacing-neutral))] pb-medium opacity-0 transition-[opacity,visibility] duration-150 data-open:visible data-open:opacity-100 lg:hidden motion-reduce:transition-none dark:bg-canvas"
       >
         <ul className="grid [&>li+li]:border-ink/10 [&>li+li]:border-t">
           {NAV_LINKS.map((link) => (

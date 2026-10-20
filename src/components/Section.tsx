@@ -36,22 +36,22 @@ export type Section = {
 
 /**
  * A titled section on a card of its own, in its accent color, which also styles what's inside it: subheadings,
- * paragraphs (emphasis takes the accent, links keep the text color, their underlines and the abbreviations' 3px higher
- * than the site's and a little thinner, at 0.095em), and any direct `div`, `ol` or `ul` child, which becomes a
- * two-column grid (of h4 points, or of code blocks side by side) from `md` up; the grid gap spaces those code blocks,
- * so they drop their own top margin. The label, heading and pitch are centered over the card, as the reference heads its
- * cards; the points below read from the left, and running paragraphs span the card.
+ * paragraphs (emphasis takes the accent, links keep the text color, their underlines and the abbreviations' higher than
+ * the site's (0.09em into the line, scaling with the text) and a little thinner, at 0.095em), and any direct `div`,
+ * `ol` or `ul` child, which becomes a two-column grid (of h4 points, or of code blocks side by side) from `md` up; the
+ * grid gap spaces those code blocks, so they drop their own top margin. The label, heading and pitch are centered over
+ * the card, as the reference heads its cards; the points below read from the left, and running paragraphs span the card.
  */
 export default (p: Section) => {
   const { id, audience, title, pitch, children } = p
 
   return (
     // The card: square corners and no shadow, set apart from the canvas by its color alone, with the canvas showing
-    // between the cards. Spaced as the reference's cards: 3 base sizes apart, padded 1.5 (2 from 64em), and its
-    // content 1.5 below the header, in columns 2 apart and rows 1.5 apart.
+    // between the cards. On phones 2 base sizes apart, padded 1, with rows 1 apart; from 64em, as the reference's
+    // cards: 3 apart, padded 2, with rows 1.5 apart. Content sits 1.5 below the header, in columns 2 apart.
     <section
       id={id}
-      className={`${SECTION_ACCENTS[id]} mx-auto mt-x-large max-w-page scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] bg-card p-neutral lg:p-large [&_:is(a,abbr)]:underline-offset-[calc(0.12em_-_4px)] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral`}
+      className={`${SECTION_ACCENTS[id]} mx-auto mt-large max-w-page scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] bg-card p-medium lg:mt-x-large lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral`}
     >
       <header className="text-center">
         {/* hgroup ties the audience label to the heading as its kicker. */}

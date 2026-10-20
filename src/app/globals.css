@@ -118,14 +118,14 @@
   --color-pink-900: color-mix(in oklab, var(--color-pink) 35%, var(--color-black));
 }
 
-/* The type scale's base, as the reference declares it: 2.225% of the window's width, never under 20px, and from 64em
-   (1024px) up 2.1277%, never under 22px (about 31px at 1440px). */
+/* The type scale's base: 2.225% of the window's width, and from 64em (1024px) up 2.1277% (about 31px at 1440px),
+   never under 24px, so body text (62.5% of it) stays at 15px or more on phones. */
 @layer theme {
   :root {
-    --font-size: max(1.25rem, 2.225vw);
+    --font-size: max(1.5rem, 2.225vw);
 
     @media (min-width: 64em) {
-      --font-size: max(1.375rem, 2.1277vw);
+      --font-size: max(1.5rem, 2.1277vw);
     }
   }
 }
