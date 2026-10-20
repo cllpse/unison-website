@@ -85,8 +85,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   direct `div`, `ol` or `ul` child into a two-column grid, so section markup in `page.tsx` stays class-free. `Points`
   uses that grid for two independent columns, so a tall point only pushes down the points below it. Section headings
   and pitches (centered) and running paragraphs span the card, inside the `max-w-page` (1168px) column. All
-  text wraps with `text-pretty` (set on `body`), except the hero and section titles, which balance their lines like
-  the reference's (`HEADING`). The h1's break after the comma is the one manual break.
+  text, titles included, wraps with `text-pretty` (set on `body`); code keeps its own lines and scrolls.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/unison-components before writing one. Order each element's properties the same way:
   frames flow, alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one

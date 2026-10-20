@@ -321,21 +321,30 @@ export default () => {
       {/* The canvas: the page's content on a faint tint, edge to edge below the header, as the reference sets its pages.
           The sections sit on it as cards. The content is inset half a base size at the sides, 2 above the hero and
           below the last card, and the hero a sixth of a base size further at the sides; from 64em, the reference's
-           3 at the sides, above and below. */}
+           3 at the sides, above and below. The hero's title and subtitle are 25% larger than the sections'
+          (the heading and pitch sizes times 1.25), and
+          the spacing between them and down to the pictures grows with them; their line heights, letter spacing and
+          trims are relative already. */}
       <main
         id="top"
         className="flex-1 scroll-mt-(--header-height) bg-canvas px-small pb-large lg:px-x-large lg:pb-x-large"
       >
         <div className="mx-auto max-w-page pt-large max-lg:px-[calc(var(--spacing-medium)/6)] lg:pt-x-large">
-          <h1 className={HEADING}>Figma properties, as code.</h1>
-          <h2 className={PITCH}>
+          <h1
+            className={`${HEADING} text-[length:calc(var(--text-xxx-large)*1.25)]! lg:text-[length:calc(var(--text-xxxx-large)*1.25)]!`}
+          >
+            Figma properties, as code.
+          </h1>
+          <h2
+            className={`${PITCH} mt-[calc(var(--font-size)*1.25-0.29em)]! text-[length:calc(var(--text-x-large)*1.25)]!`}
+          >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
           </h2>
           {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
               section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
               centered beside the window. Stacked on phones, they're as far apart as the cards are. */}
-          <div className="mt-neutral grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-large lg:gap-y-neutral">
+          <div className="mt-[calc(var(--spacing-neutral)*1.25)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-large lg:gap-y-neutral">
             <PluginWindow code={EXAMPLE} />
             <div className="min-w-0">
               <ShapesPreview />

@@ -106,7 +106,7 @@ export default () => {
         <svg
           viewBox="0 0 20 16"
           aria-hidden="true"
-          className="mr-1.5 inline-block size-[1em] fill-white stroke-current translate-y-px align-[-0.125em] dark:fill-black"
+          className="mr-1.5 inline-block size-[1.05em] fill-white stroke-current align-[-0.155em] dark:fill-black"
         >
           <ellipse cx="5.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />
           <ellipse cx="14.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />

@@ -154,6 +154,8 @@
   :where(code, kbd, pre) {
     --tracking: normal;
     font-weight: 300;
+    /* Code keeps its own lines: none of the body's pretty wrapping. */
+    text-wrap-style: auto;
   }
 
   a,
