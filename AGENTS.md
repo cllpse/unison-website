@@ -60,7 +60,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   cards' old shadow (`shadow-card`). It reads the file at build time and swaps each of Figma's colors for the token it
   stands for (`COLORS`), so the window follows the theme; a new color in a fresh export needs a line there.
   Beside it, `ShapesPreview` inlines the Figma drawing of what that code renders, its colors swapped for the palette's
-  tokens so it follows the theme. Replace both from Figma exports when the plugin's look changes.
+  tokens so it follows the theme. Replace both from Figma exports when the plugin's look changes; strip the code text out of the window's panel (Figma
+  exports it as one long path) and keep the panel's shade at 3%.
 - Code is colored from the site's palette (`code-colors` in `globals.css`, mapped from GitHub's colors in
   `highlight.ts`): ink text, muted comments, green tags, blue properties, orange keywords, purple strings, and errors
   in the red (`#ff5f32`, the overdue bell in the reference's reports screenshot).
