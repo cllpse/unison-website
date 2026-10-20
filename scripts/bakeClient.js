@@ -1,4 +1,4 @@
-// The baked page's only script, in place of React: what Nav.tsx (its current section and its menu) and
+// The baked page's only script, in place of React: what Nav.tsx (its current section and the header's shadow) and
 // ContainOverscroll.tsx do on the live site, in plain JavaScript. Keep them in step.
 ;(() => {
   const header = document.querySelector("header")
@@ -62,20 +62,6 @@
   const markScrolled = () => header.toggleAttribute("data-scrolled", window.scrollY > 0)
   markScrolled()
   window.addEventListener("scroll", markScrolled, { passive: true })
-
-  // The menu below 64em: the toggle opens and closes it; a link, Escape or a window grown past 64em closes it.
-  const toggle = document.querySelector("[data-menu-toggle]")
-  const menu = document.querySelector("[data-menu]")
-  const setOpen = (open) => {
-    toggle.toggleAttribute("data-open", open)
-    menu.toggleAttribute("data-open", open)
-    toggle.setAttribute("aria-expanded", String(open))
-    document.documentElement.classList.toggle("menu-open", open)
-  }
-  toggle.addEventListener("click", () => setOpen(!menu.hasAttribute("data-open")))
-  for (const link of menu.querySelectorAll("a")) link.addEventListener("click", () => setOpen(false))
-  window.addEventListener("keydown", (event) => event.key === "Escape" && setOpen(false))
-  window.matchMedia("(min-width: 64em)").addEventListener("change", () => setOpen(false))
 
   // Code blocks contain overscroll only on an axis they actually scroll (ContainOverscroll.tsx).
   const blocks = [...document.querySelectorAll("[data-code-block] > pre")]

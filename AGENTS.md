@@ -74,8 +74,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - Spacing is the reference's: its `--space-*` steps as Tailwind spacing (`small`, `medium`, `neutral`, `large`,
   `x-large`, `xx-large`: 0.5 to 4 times `--font-size`), used for every container's margins, paddings and gaps
   (`px-medium lg:px-x-large`, `mt-x-large`, `p-neutral lg:p-large`). Don't use Tailwind's numeric steps for them.
-- Below 64em the nav folds into the reference's menu (`Nav.tsx`, mirrored in `bakeClient.js`): a toggle in the
-  3-base-size header opens the section links as a full-screen list, with the same accents and flourishes.
+- The nav stays in the header at every width, wrapping onto more rows on phones; there's no menu toggle.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
 - The page speaks to four audiences (the team, designers, developers, agents), one section each, then starters.

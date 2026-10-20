@@ -155,13 +155,6 @@
   strong {
     font-weight: 600;
   }
-
-  /* While the menu is open (below 64em), the page under it holds still. */
-  @media (width < 64em) {
-    html.menu-open {
-      overflow: hidden;
-    }
-  }
 }
 
 /* The dark theme follows the browser's color scheme (Tailwind's default dark: variant). These are its neutrals; the
