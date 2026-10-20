@@ -69,7 +69,7 @@ export default async (p: PluginWindow) => {
       />
       <div
         data-code-block
-        className="code-colors absolute inset-x-[calc(1/349*100%)] top-[calc(59/495*100%)] bottom-[calc(122/495*100%)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_15%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/349*100cqw)] [&_code]:pr-[calc(9/349*100cqw)] [&_code]:pb-[calc(9/349*100cqw)] [&_code]:pl-[calc(8/349*100cqw)]"
+        className="code-colors absolute inset-x-[calc(1/349*100%)] top-[calc(59/495*100%+1px)] bottom-[calc(122/495*100%)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_15%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/349*100cqw)] [&_code]:pr-[calc(9/349*100cqw)] [&_code]:pb-[calc(9/349*100cqw)] [&_code]:pl-[calc(8/349*100cqw)]"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippet
         dangerouslySetInnerHTML={{ __html: await highlight(code) }}
       />
