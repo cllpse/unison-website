@@ -23,8 +23,8 @@
   --text-xxxx-large: calc(var(--font-size) * 1.625);
   --text-xxxxx-large: calc(var(--font-size) * 1.875);
   /* Code and its captions: 0.9 of the body text, a step down so code reads as smaller than the text around it, but
-     never above the body text's largest size on phones (the base's 1.6rem floor times small's 0.625, 16px). */
-  --text-code: min(calc(var(--text-small) * 0.9), calc(1.6rem * 0.625));
+     never above the body text's largest size on phones (the base's 1.7rem floor times small's 0.625, 17px). */
+  --text-code: min(calc(var(--text-small) * 0.9), calc(1.7rem * 0.625));
   --tracking-*: initial;
   --tracking-tight: -0.02625em;
   --tracking-default: -0.01375em;
@@ -124,11 +124,16 @@
   --color-pink-900: color-mix(in oklab, var(--color-pink) 35%, var(--color-black));
 }
 
-/* The type scale's base: 2.225% of the window's width, never under 25.6px, so body text (62.5% of it) is 16px on
-   phones; from 64em (1024px) up 2.1277% (about 31px at 1440px), never under 24px. */
+/* The type scale's base: 2.225% of the window's width, never under 27.2px, so body text (62.5% of it) is 17px on
+   phones; from 64em (1024px) up 2.1277% (about 31px at 1440px), never under 24px. Below 64em code steps down a little
+   further, to 0.85 of the body text. */
 @layer theme {
   :root {
-    --font-size: max(1.6rem, 2.225vw);
+    --font-size: max(1.7rem, 2.225vw);
+
+    @media (width < 64em) {
+      --text-code: calc(var(--text-small) * 0.85);
+    }
 
     @media (min-width: 64em) {
       --font-size: max(1.5rem, 2.1277vw);

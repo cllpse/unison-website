@@ -25,7 +25,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
   mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it
   again in CI and publishes it to GitHub Pages (`.github/workflows/pages.yml`)
-- `bun run deploy`: bakes the page, copies `dist/` into `~/Sites/eject.io/public/figma` and `~/Sites/cllp-se/dist/figma`,
+- `bun run deploy`: bakes the page, copies `dist/` into `~/Sites/eject.io/public/unison` and `~/Sites/cllp-se/dist/unison`,
   then runs `firebase deploy` in both projects (`scripts/deploy.ts`)
 
 ## Architecture
@@ -41,7 +41,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - Icons: `src/app/icon.svg` (the 16px mark, white in dark mode) and `favicon.ico` (16 and 32) for tabs,
   `apple-icon.png` for iOS, and `public/icon-*.png` for `manifest.ts`. The larger PNGs draw the 32px mark at twice its
   pixel density on white; regenerate them all together when the mark changes.
-- SEO: the site lives at `SITE_URL` (https://cllp.se/figma/, `src/constants/site.ts`), the base for every absolute
+- SEO: the site lives at `SITE_URL` (https://cllp.se/unison/, `src/constants/site.ts`), the base for every absolute
   URL. `layout.tsx` holds the metadata (canonical, Open Graph, X card, robots), `opengraph-image.png/route.tsx` builds
   the 1200x630 social card at build time, `sitemap.ts` lists the page, and `page.tsx` carries schema.org JSON-LD.
   There's no robots.txt: under a path it wouldn't count. The bake keeps the JSON-LD and copies the card and sitemap
@@ -91,8 +91,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   frames flow, alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one
   liberty: typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
-- React Native support is unstable: the Team section, which introduces it, ends with `REACT_NATIVE_DISCLAIMER`
-  (`page.tsx`), a `Disclaimer`: a toned band across the bottom of the card, so it comes last. Don't repeat it in
+- Unison is in beta: the Team section, the first, ends with `BETA_DISCLAIMER` (`page.tsx`), a `Disclaimer`: a toned
+  band across the bottom of the card, so it comes last, inviting people to get involved on GitHub. Don't repeat it in
   other sections.
 
 ## TypeScript

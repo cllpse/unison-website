@@ -1,4 +1,4 @@
-import { REPO_NAME, REPO_URL } from "../constants/site"
+import { REPO_NAME, REPO_URL, SITE_NAME } from "../constants/site"
 import GitHubMark from "./GitHubMark"
 import Nav from "./Nav"
 
@@ -12,9 +12,9 @@ export default () => {
     // under it.
     <header className="sticky top-0 z-10 bg-white px-small transition-shadow duration-116 ease-out data-scrolled:shadow-card lg:px-x-large motion-reduce:transition-none dark:bg-black">
       <div className="mx-auto flex min-h-x-large max-w-page flex-wrap content-center items-center justify-between gap-x-medium gap-y-[calc(var(--spacing-small)/2)] py-small lg:gap-y-small">
-        <p className="flex items-center gap-2 text-small font-bold leading-default [&_a]:font-bold">
+        <p className="flex items-center gap-3 text-small font-bold leading-default [&_a]:font-bold">
           <a href="#top" className="no-underline">
-            {REPO_NAME}
+            {SITE_NAME}
           </a>
           {/* GitHub's mark, sized to the text and in the text color. */}
           <a href={REPO_URL} className="text-ink">

@@ -161,10 +161,11 @@ const TOOLKIT_DISCLAIMER = (
   </Disclaimer>
 )
 
-// Ends the section that introduces React Native support, while it's unstable.
-const REACT_NATIVE_DISCLAIMER = (
+// Ends the first section while Unison is in beta.
+const BETA_DISCLAIMER = (
   <Disclaimer>
-    React Native support is still experimental. Watch the <a href={REPO_URL}>GitHub repository</a> for updates.
+    Unison is still in beta, so you may run into the occasional error. Have you found one, or do you want to help shape
+    it? <a href={REPO_URL}>Get involved on GitHub</a>.
   </Disclaimer>
 )
 
@@ -359,7 +360,7 @@ export default () => {
           pitch="The whole team shares one vocabulary: Figma's, from designers to developers to agents."
         >
           <Points points={TEAM} />
-          {REACT_NATIVE_DISCLAIMER}
+          {BETA_DISCLAIMER}
         </Section>
 
         <Section

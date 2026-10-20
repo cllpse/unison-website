@@ -1,13 +1,16 @@
 /** Product name, kept in one place so a rename touches a single line. */
 export const PRODUCT_NAME = "Unison"
 
-/** The repository the site is about, shown as the site title in the header. */
+/** The repository the site is about. */
 export const REPO_NAME = "cllpse/unison"
+
+/** The site's own name, shown as its title in the header: where it lives. */
+export const SITE_NAME = "cllp.se/unison"
 
 export const REPO_URL = `https://github.com/${REPO_NAME}`
 
 /** Where the site lives: the base for its canonical URL, social cards, sitemap and structured data. */
-export const SITE_URL = "https://cllp.se/figma/"
+export const SITE_URL = "https://cllp.se/unison/"
 
 /** The page title, for the browser tab, search results and social cards. */
 export const SITE_TITLE = `${REPO_NAME} - Figma properties, as code`
