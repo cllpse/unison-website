@@ -6,7 +6,15 @@ import PluginWindow from "../components/PluginWindow"
 import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
-import { REPO_NAME, REPO_URL, SITE_DESCRIPTION, SITE_URL } from "../constants/site"
+import {
+  LIBRARY_URL,
+  PACKAGE_URL,
+  PLUGIN_URL,
+  REPO_NAME,
+  REPO_URL,
+  SITE_DESCRIPTION,
+  SITE_URL,
+} from "../constants/site"
 
 const EXAMPLE = `<Frame
   autolayout-horizontal
@@ -89,11 +97,20 @@ const AFTER = `/**
 const STARTING_POINTS: Point[] = [
   {
     title: "Designers",
-    body: "Install the Figma plugin, from the Figma Community.",
+    body: (
+      <>
+        Install the <a href={PLUGIN_URL}>Figma plugin</a>, from the Figma Community.
+      </>
+    ),
   },
   {
     title: "Developers",
-    body: "Clone the library on GitHub, open source and ready to use.",
+    body: (
+      <>
+        Install the <a href={PACKAGE_URL}>npm package</a>, or clone the <a href={LIBRARY_URL}>library on GitHub</a>,
+        open source and ready to use.
+      </>
+    ),
   },
 ]
 
@@ -133,8 +150,13 @@ const FINE_PRINT: Point[] = [
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 const PAYPAL_URL = "https://developer.paypal.com/community/blog/stopgivingaimoredocumentation"
 
-// Ends the starters section until the plugin and the library are published, which is why its points don't link yet.
-const LAUNCH_DISCLAIMER = <Disclaimer>Unison launches soon. Watch this website for updates.</Disclaimer>
+// Ends the starters section: where the plugin, the library and the playgrounds come together.
+const TOOLKIT_DISCLAIMER = (
+  <Disclaimer>
+    Want the whole toolkit in one place? The <a href={REPO_URL}>Unison repository</a> brings the plugin, the library and
+    both playgrounds together.
+  </Disclaimer>
+)
 
 // Ends the section that introduces React Native support, while it's unstable.
 const REACT_NATIVE_DISCLAIMER = (
@@ -298,8 +320,8 @@ export default () => {
           sides (3 from 64em), 3 above the hero and below the last card. */}
       <main id="top" className="flex-1 scroll-mt-(--header-height) bg-canvas px-medium pb-x-large lg:px-x-large">
         <div className="mx-auto max-w-page pt-x-large">
-          <h1 className={`${HEADING} max-w-measure`}>Figma properties, as code.</h1>
-          <h2 className={`${PITCH} w-[min(100%,calc(26.5*var(--font-size)))]`}>
+          <h1 className={HEADING}>Figma properties, as code.</h1>
+          <h2 className={PITCH}>
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
             codebase powers apps and websites alike.
           </h2>
@@ -371,7 +393,7 @@ export default () => {
           pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
         >
           <Points points={STARTING_POINTS} />
-          {LAUNCH_DISCLAIMER}
+          {TOOLKIT_DISCLAIMER}
         </Section>
 
         <Section

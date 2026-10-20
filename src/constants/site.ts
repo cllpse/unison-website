@@ -12,8 +12,14 @@ export const SITE_URL = "https://cllp.se/figma/"
 /** The page title, for the browser tab, search results and social cards. */
 export const SITE_TITLE = `${REPO_NAME} - Figma properties, as code`
 
-/** The Figma plugin's Community page. @todo @cllpse: link the published plugin. */
-export const PLUGIN_URL = "about:blank"
+/** The Figma plugin's Community page. */
+export const PLUGIN_URL = "https://www.figma.com/community/plugin/1691815551141309696"
+
+/** The component library's repository. */
+export const LIBRARY_URL = "https://github.com/cllpse/unison-components"
+
+/** The component library's npm package. */
+export const PACKAGE_URL = "https://www.npmjs.com/package/unison-components"
 
 /** The one-line description, for search results and the web app manifest. */
 export const SITE_DESCRIPTION =

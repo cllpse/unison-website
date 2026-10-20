@@ -5,7 +5,7 @@ import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constant
  * The heading classes, for the hero's title and the section promises, as the reference sets its intro's h1
  * (`.intro header h1`): xxx-large, xxxx-large from 64em, weight 800, tight letter spacing, the x-tight line height and
  * balanced lines, with -0.215em above and below, which trims the line's leading so the text sits where its box does.
- * In the ink, and as wide as its container: the hero caps its title (`max-w-measure`), sections don't.
+ * In the ink, and as wide as its container, in the hero as in the sections.
  */
 export const HEADING =
   "-my-[0.215em] text-xxx-large font-extrabold leading-x-tight [--tracking:var(--tracking-tight)] text-ink text-balance wrap-break-word lg:text-xxxx-large"
@@ -15,8 +15,7 @@ export const HEADING =
  * h2`): x-large (the base size), regular weight, tight letter spacing, the tight line height and balanced lines, with
  * -0.29em above and below to trim the line's leading, in the ink. The reference spaces a headline and its text 1em of the
  * base size apart; here that gap is the top margin, less the trim, and it adds up with the heading's own negative margin
- * as it does there. As wide as its container: the hero caps its subtitle at 26.5 times the base size, as the reference caps
- * its card text; sections don't.
+ * as it does there. As wide as its container, in the hero as in the sections.
  */
 export const PITCH =
   "mt-[calc(var(--font-size)-0.29em)] -mb-[0.29em] text-x-large font-normal leading-tight [--tracking:var(--tracking-tight)] text-ink text-balance"
