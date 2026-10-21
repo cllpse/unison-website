@@ -49,8 +49,8 @@ const drawing = async () => {
 /**
  * The Figma plugin's window, as plugin-window.svg draws it (the hero's left.svg from Figma, its code panel left empty),
  * with live code in that panel. Everything is measured in the SVG's 300 x 491 units and scaled with the window through
- * container query units, so the code sits in the panel that runs from 60 to 343 units down (1px clear of the lines
- * above and below), set in 9 units from the left like the issues below it, 7 units from the panel's top. The code
+ * container query units, so the code sits in the panel that runs from 60 to 343 units down (1px clear of the line
+ * below), set in 9 units from the left like the issues below it, 7 units from the panel's top. The code
  * itself is the sections' code size (text-code: 0.9 of the body text, capped at 17px), not the drawing's, so it reads
  * like the rest of the page, on the drawing's line spacing (13.65 to 9.5). Longer code scrolls inside the panel. The
  * drawing is inlined with its colors on the site's tokens, so the window and its code follow the theme. It spans its
@@ -70,7 +70,7 @@ export default async (p: PluginWindow) => {
       />
       <div
         data-code-block
-        className="code-colors absolute inset-x-[calc(1/300*100%)] top-[calc(60/491*100%+1px)] bottom-[calc(148/491*100%+1px)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_20%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/300*100cqw)] [&_code]:pr-[calc(9/300*100cqw)] [&_code]:pb-[calc(9/300*100cqw)] [&_code]:pl-[calc(8/300*100cqw)]"
+        className="code-colors absolute inset-x-[calc(1/300*100%)] top-[calc(60/491*100%)] bottom-[calc(148/491*100%+1px)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_20%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/300*100cqw)] [&_code]:pr-[calc(9/300*100cqw)] [&_code]:pb-[calc(9/300*100cqw)] [&_code]:pl-[calc(8/300*100cqw)]"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippet
         dangerouslySetInnerHTML={{ __html: await highlight(code) }}
       />
