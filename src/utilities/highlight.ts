@@ -49,7 +49,7 @@ const SQUIGGLE = "underline decoration-(--code-error) decoration-wavy decoration
  * await highlight("<Frame gap-9 />", "tsx", "gap-9")
  * // => '<pre class="shiki shiki-themes github-light-default github-dark-default" ...>...<span style="color:var(--code-property);--shiki-dark:var(--code-property)" class="underline decoration-(--code-error) ...">gap-9</span>...'
  */
-export const highlight = async (code: string, lang: "tsx" | "diff" = "tsx", error?: string) => {
+export const highlight = async (code: string, lang: "tsx" | "diff" | "text" = "tsx", error?: string) => {
   const start = error ? code.indexOf(error) : -1
   const decorations = error && start >= 0 ? [{ start, end: start + error.length, properties: { class: SQUIGGLE } }] : []
 

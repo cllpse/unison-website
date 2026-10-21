@@ -4,6 +4,7 @@ import Disclaimer from "../components/Disclaimer"
 import Header from "../components/Header"
 import PluginWindow from "../components/PluginWindow"
 import Points, { type Point } from "../components/Points"
+import ProofLink from "../components/ProofLink"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
 import {
@@ -128,6 +129,61 @@ const STARTING_POINTS: Point[] = [
   },
 ]
 
+const MOTION_SAMPLE = `<Frame
+  fill-blue-500
+  transition-colors
+  transition-duration-200
+  transition-easing-out
+/>
+
+<Frame
+  width-8
+  height-8
+  corner-radius-sm
+  fill-violet-600
+  tailwind-animate-spin
+/>`
+
+// The one prompt the proof pages were built from, as it was sent (the Google address shortened to its query).
+const PROOF_PROMPT = `Try one-shotting a few websites using ONLY the component library. Implement these as stand-alone pages in the web playground. Implement images and videos as blank frames with a background color. The URLs are: https://ui.shadcn.com/, https://www.reddit.com/r/artificial/, and https://www.google.com/search?q=Puppies`
+
+// The one commit in the web playground that added the three pages, exactly as the agent wrote them.
+const PROOF_COMMIT_URL =
+  "https://github.com/cllpse/unison-playground-web/commit/adbcbfe0aacc3490880102c0a8c85df7650c8b02"
+
+// The rebuilt pages in the web playground. @todo @cllpse: link the published pages.
+const SHADCN_PAGE_URL = ""
+const REDDIT_PAGE_URL = ""
+const GOOGLE_PAGE_URL = ""
+
+const PROOF_PAGES: Point[] = [
+  {
+    title: "shadcn/ui",
+    body: (
+      <>
+        The homepage of the component library everyone knows, rebuilt in Frames and Text.{" "}
+        <a href={SHADCN_PAGE_URL}>See the page</a>.
+      </>
+    ),
+  },
+  {
+    title: "r/artificial",
+    body: (
+      <>
+        A busy Reddit feed, with its posts, votes and sidebar. <a href={REDDIT_PAGE_URL}>See the page</a>.
+      </>
+    ),
+  },
+  {
+    title: "Google, for Puppies",
+    body: (
+      <>
+        A search results page, images and all. <a href={GOOGLE_PAGE_URL}>See the page</a>.
+      </>
+    ),
+  },
+]
+
 const UPDATE_DIFF = `  <Frame
     autolayout-vertical
     alignment-center
@@ -174,6 +230,14 @@ const TOOLKIT_DISCLAIMER = (
   </Disclaimer>
 )
 
+// Ends the developers section: where to see the library wired up.
+const PLAYGROUNDS_DISCLAIMER = (
+  <Disclaimer>
+    Setting it up? The <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
+    <a href={EXPO_PLAYGROUND_URL}>Expo playground</a> are reference implementations for websites and for apps.
+  </Disclaimer>
+)
+
 // Ends the first section while Unison is in beta.
 const BETA_DISCLAIMER = (
   <Disclaimer>
@@ -195,72 +259,81 @@ const TEAM: Point[] = [
     ],
   },
   {
+    title: "One set of tokens, both sides",
+    body: "The same tokens feed Figma and code alike: the plugin imports the design tokens as variables, text styles and shadow styles, and the components are generated from them, along with the motion tokens for easings, durations and animations.",
+  },
+  {
     title: "Phone apps and web apps, one codebase",
+    column: "left",
     body: "Built on React Native: one set of components runs on iOS, Android and the web, and looks and behaves the same everywhere.",
   },
   {
-    title: "Time back, spent wisely",
+    title: "Motion, from one source",
     column: "left",
+    body: "Easings, durations and animations live in one motion tokens file next to the design tokens, so every hover and transition moves at the same pace across the product.",
+  },
+  {
+    title: "Time back, spent wisely",
+    column: "right",
     body: [
       "Ready-to-use component code saves hours of implementation. Spend more time exploring, on feedback rounds and on polish, all in Figma where the whole team can chime in.",
       "…or simply ship sooner, with fewer hoops to jump through.",
     ],
-  },
-  {
-    title: "One set of tokens, both sides",
-    column: "right",
-    body: "A single tokens file feeds Figma and code alike: the plugin imports it as variables, text styles and shadow styles, and the components are generated from the same file.",
   },
 ]
 
 const DESIGNERS: Point[] = [
   {
     title: "Tokens are fixed, but primitives are free",
+    column: "left",
     body: (
       <>
         Colors, fonts and sizes are locked as design tokens; everything else is your call. There is no rigid component
         library to wait on or work around: every design is a mix of just{" "}
-        <abbr title="Frame, Text and Vector">a few primitives</abbr>, shaped into anything from a single button to a
-        whole screen.
+        <abbr title="Frame, Text and Vector">a few primitives</abbr>, shaped into anything from a single button to{" "}
+        <ProofLink>a whole page</ProofLink>.
       </>
     ),
   },
   {
-    title: "Behavior is built in",
-    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no more mockups for each resolution your app supports, and fewer design smells to catch.",
-  },
-  {
     title: "Guidance as you go",
+    column: "right",
     body: "The plugin flags what can't reasonably be built, and how to fix it, in real time. Each issue takes you straight to the offending layer, so there's no searching around.",
   },
   {
-    title: "Your file, your workflow",
-    body: "Keep working the way you do: annotate a layer to exclude it from the output, so notes, guides, placeholders and whatever else you want stay in Figma without leaking into the code.",
-  },
-  {
     title: "Primitives become the component",
+    column: "right",
     body: "Select a frame and the plugin writes the code, tidying up groups, empty wrappers and instances on the way.",
   },
   {
     title: "Light and dark, from one design",
+    column: "right",
     body: "Colors come from Figma's Light and Dark variable modes, so the dark theme ships with no extra work.",
+  },
+  {
+    title: "Behavior is built in",
+    column: "left",
+    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no more mockups for each resolution your app supports, and fewer design smells to catch.",
+  },
+  {
+    title: "Your file, your workflow",
+    column: "right",
+    body: "Keep working the way you do: annotate a layer to exclude it from the output, so notes, guides, placeholders and whatever else you want stay in Figma without leaking into the code.",
+  },
+  {
+    title: "Motion by name",
+    column: "left",
+    body: [
+      "Motion is a capability of the components, not something to wire up in Figma, so there are no prototype connections to keep in sync with the code.",
+      "Speeds and easings are a short list of named tokens, set in one file just like the design tokens, so changing how things move is a single edit. A spec that says 200ms, ease out means exactly one thing in code, and on the web it respects reduced-motion settings.",
+    ],
   },
 ]
 
 const DEVELOPERS: Point[] = [
   {
-    title: "Few pieces, endless combinations",
-    column: "left",
-    body: [
-      "A handful of primitives cover nearly everything, with clear APIs. Need something new? Build it yourself from the same pieces, no waiting on anyone.",
-      <>
-        …think LEGO<sup>®</sup> bricks: snap them together into buttons, cards, tabs and lists.
-      </>,
-    ],
-  },
-  {
     title: "Red squiggles and code completion",
-    column: "right",
+    column: "left",
     body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
     code: [
       {
@@ -272,20 +345,35 @@ const DEVELOPERS: Point[] = [
     ],
   },
   {
-    title: "Token changes, caught everywhere",
+    title: "Typed motion on every platform",
     column: "right",
-    body: "Rename or remove a design token and every place still using it becomes a type error, so nothing drifts out of sync unnoticed.",
+    body: [
+      "Transitions, easings and animations are flags too, typed against the motion tokens. On the web they're Tailwind classes that honor reduced motion.",
+      "On iOS and Android you're free to choose: NativeWind, or Uniwind with one import that runs them through Reanimated, so animations don't require Uniwind Pro.",
+    ],
+    code: [{ code: MOTION_SAMPLE, caption: "A color that eases, and a spinner" }],
+  },
+  {
+    title: "Reads like the properties panel",
+    column: "right",
+    body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
+  },
+  {
+    title: "Few pieces, endless combinations",
+    column: "right",
+    body: [
+      "A handful of primitives cover nearly everything, with clear APIs. Need something new? Build it yourself from the same pieces, no waiting on anyone.",
+      <>
+        …think LEGO<sup>®</sup> bricks: snap them together into buttons, cards, tabs and lists, or{" "}
+        <ProofLink tilt="clockwise">whole pages</ProofLink>.
+      </>,
+    ],
   },
   {
     title: "Easy to review",
     column: "left",
     body: "A design update is a diff of Figma properties, so what changed is clear at a glance.",
     code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Square to squircle, primary to secondary" }],
-  },
-  {
-    title: "Reads like the properties panel",
-    column: "right",
-    body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
   },
   {
     title: "Plain Tailwind, web and native",
@@ -297,6 +385,16 @@ const DEVELOPERS: Point[] = [
         the same classes into native styles, so one styling setup covers every platform.
       </>
     ),
+  },
+  {
+    title: "Straight from Dev Mode",
+    column: "left",
+    body: "The plugin runs in Dev Mode too, so developers can select a frame and copy its code without edit access to the file.",
+  },
+  {
+    title: "Token changes, caught everywhere",
+    column: "left",
+    body: "Rename or remove a design token and every place still using it becomes a type error, so nothing drifts out of sync unnoticed.",
   },
   {
     title: "An escape hatch, when you need it",
@@ -313,11 +411,6 @@ const DEVELOPERS: Point[] = [
         it stands out in review.
       </>
     ),
-  },
-  {
-    title: "Straight from Dev Mode",
-    column: "left",
-    body: "The plugin runs in Dev Mode too, so developers can select a frame and copy its code without edit access to the file.",
   },
 ]
 
@@ -367,10 +460,10 @@ export default () => {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA).replace(/</g, "\\u003c") }}
       />
       <Header />
-      {/* The canvas: the page's content on a faint tint, edge to edge below the header, as the reference sets its pages.
+      {/* The canvas: the page's content on a faint tint, edge to edge below the header.
           The sections sit on it as cards. The content is inset half a base size at the sides, 2 above the hero and
-          below the last card, and the hero a sixth of a base size further at the sides; from 64em, the reference's
-           3 at the sides, above and below. The hero's title and subtitle are 25% larger than the sections'
+          below the last card, and the hero a sixth of a base size further at the sides; from 64em, 3 at
+          the sides, above and below. The hero's title and subtitle are 25% larger than the sections'
           (the heading and pitch sizes times 1.25), and
           the spacing between them and down to the pictures grows with them; their line heights, letter spacing and
           trims are relative already. */}
@@ -427,6 +520,7 @@ export default () => {
           pitch="Generated from the design and typed against design tokens: no more pixel-pushing."
         >
           <Points points={DEVELOPERS} />
+          {PLAYGROUNDS_DISCLAIMER}
         </Section>
 
         <Section
@@ -438,13 +532,29 @@ export default () => {
           <p>
             Without it, AI writes plausible CSS at best: a gap here, a color there. Each one has a chance to slip
             through review and pull the design a little further off course. Prompt rules get buried as the context fills
-            up, then summarized away, but a vocabulary doesn't need remembering.
+            up, then summarized away, but a vocabulary doesn't need remembering. See what{" "}
+            <ProofLink>one short prompt builds</ProofLink>.
           </p>
           <div>
             <CodeBlock code={BEFORE} caption="An agent's best guess" />
             <CodeBlock code={AFTER} caption="One vocabulary" />
           </div>
           <Points points={AGENTS} />
+        </Section>
+
+        <Section
+          id="proof"
+          audience="Skeptics"
+          title="Proof over promises."
+          pitch="One short prompt and three familiar pages, built by an agent with nothing but the library."
+        >
+          <CodeBlock code={PROOF_PROMPT} lang="text" wrap caption="The whole prompt" />
+          <p>
+            Given to Claude Opus 5.5 at medium effort, it built all three pages in about 13 minutes, in{" "}
+            <a href="one-shot-session.txt">a single session</a>, with the types and lint passing. Everything it wrote is
+            in <a href={PROOF_COMMIT_URL}>one commit</a>.
+          </p>
+          <Points points={PROOF_PAGES} />
         </Section>
 
         <Section

@@ -21,8 +21,11 @@ import { dirname, extname, join } from "node:path"
 const OUT = "out"
 const DIST = "dist"
 
-/** Files that search engines and link previews fetch by their own URL, so they're published next to the page. */
-const FETCHED_BY_URL = ["sitemap.xml", "opengraph-image.png"]
+/**
+ * Files fetched by their own URL, so they're published next to the page: the sitemap and the social card image (for
+ * search engines and link previews), and the transcript the proof section links to.
+ */
+const FETCHED_BY_URL = ["sitemap.xml", "opengraph-image.png", "one-shot-session.txt"]
 
 const MIME_TYPES: Record<string, string> = {
   ".woff2": "font/woff2",

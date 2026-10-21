@@ -40,7 +40,8 @@ export const SECTION_ACCENTS = {
   team: "[--accent:var(--color-purple)]",
   designers: "[--accent:var(--color-pink)]",
   developers: "[--accent:var(--color-orange)]",
-  agents: "[--accent:var(--color-green)]",
+  agents: "[--accent:var(--color-cyan-deep)]",
+  proof: "[--accent:var(--color-green)]",
   "get-started": "[--accent:var(--color-blue)]",
   // The fine print speaks to everyone, in the ink.
   "fine-print": "[--accent:var(--color-ink)]",
@@ -50,14 +51,15 @@ export type SectionId = keyof typeof SECTION_ACCENTS
 
 /**
  * Each section's underline for its nav link and "For" label, as a Tailwind class from globals.css: a marker stroke by
- * default, a highlighter for designers, a code-editor squiggle for developers, a frame of squares for agents and dots for
- * starters. Their color is set through `--underline`.
+ * default, a highlighter for designers, a code-editor squiggle for developers, a frame of squares for agents, a
+ * double underline for skeptics and dots for starters. Their color is set through `--underline`.
  */
 export const SECTION_UNDERLINES: Record<SectionId, string> = {
   team: "underline-marker",
   designers: "underline-highlighter",
   developers: "underline-squiggle",
   agents: "underline-square-frame",
+  proof: "underline-double",
   "get-started": "underline-dotted",
   "fine-print": "underline-marker",
 }
@@ -67,5 +69,6 @@ export const NAV_LINKS: { id: SectionId; label: string }[] = [
   { id: "designers", label: "Designers" },
   { id: "developers", label: "Developers" },
   { id: "agents", label: "Agents" },
+  { id: "proof", label: "Skeptics" },
   { id: "get-started", label: "Starters" },
 ]

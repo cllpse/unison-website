@@ -2,21 +2,20 @@ import type { ReactNode } from "react"
 import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constants/site"
 
 /**
- * The heading classes, for the hero's title and the section promises, as the reference sets its intro's h1
- * (`.intro header h1`): xxx-large, xxxx-large from 64em, weight 800, tight letter spacing, the x-tight line height,
+ * The heading classes, for the hero's title and the section promises: xxx-large, xxxx-large from 64em, weight 800, tight letter spacing, the x-tight line height,
  * wrapped like the rest of the page (text-pretty, from the body), with -0.215em above and below, which trims the line's
  * leading so the text sits where its box does. In the ink, as wide as its container in the hero; sections cap it at 23
- * base sizes, centered, a little narrower than the reference sizes its page titles (29).
+ * base sizes, centered. A <sub> in it sits at 75% of
+ * the size, its baseline 10% of the heading's line height below the line's (the x-tight 1.15, over the sub's own 0.75).
  */
 export const HEADING =
-  "-my-[0.215em] text-xxx-large font-extrabold leading-x-tight [--tracking:var(--tracking-tight)] text-ink wrap-break-word lg:text-xxxx-large"
+  "-my-[0.215em] text-xxx-large font-extrabold leading-x-tight [--tracking:var(--tracking-tight)] text-ink wrap-break-word lg:text-xxxx-large [&_sub]:text-[75%] [&_sub]:-bottom-[calc(var(--leading-x-tight)*0.1em/0.75)]"
 
 /**
- * The pitch's classes, also used by the hero's subtitle, as the reference sets its hero's subtitle (`.hero__headline
- * h2`): x-large (the base size), regular weight, tight letter spacing, the tight line height, wrapped like the rest of
- * the page, with -0.29em above and below to trim the line's leading, in the ink. The reference spaces a headline and its
- * text 1em of the base size apart; here that gap is the top margin, less the trim, and it adds up with the heading's
- * own negative margin as it does there. As wide as its container in the hero; sections cap it at 23 base sizes, like
+ * The pitch's classes, also used by the hero's subtitle: x-large (the base size), regular weight, tight letter spacing, the tight line height, wrapped like the rest of
+ * the page, with -0.29em above and below to trim the line's leading, in the ink. A headline and its text sit 1em of the
+ * base size apart; that gap is the top margin, less the trim, and it adds up with the heading's own negative
+ * margin. As wide as its container in the hero; sections cap it at 23 base sizes, like
  * the heading.
  */
 export const PITCH =
@@ -42,15 +41,15 @@ export type Section = {
  * the site's (0.09em into the line, scaling with the text) and a little thinner, at 0.095em), and any direct `div`,
  * `ol` or `ul` child, which becomes a two-column grid (of h4 points, or of code blocks side by side) from `md` up; the
  * grid gap spaces those code blocks, so they drop their own top margin. The label, heading and pitch are centered over
- * the card, as the reference heads its cards; the points below read from the left, and running paragraphs span the card.
+ * the card; the points below read from the left, and running paragraphs span the card.
  */
 export default (p: Section) => {
   const { id, audience, title, pitch, children } = p
 
   return (
     // The card: square corners and no shadow, set apart from the canvas by its color alone, with the canvas showing
-    // between the cards. On phones 2 base sizes apart, padded 1 (two thirds of it at the sides), with rows 1 apart; from 64em, as the reference's
-    // cards: 3 apart, padded 2, with rows 1.5 apart. Content sits 1.5 below the header, in columns 2 apart.
+    // between the cards. On phones 2 base sizes apart, padded 1 (two thirds of it at the sides), with rows 1 apart; from 64em,
+    // 3 apart, padded 2, with rows 1.5 apart. Content sits 1.5 below the header, in columns 2 apart.
     <section
       id={id}
       className={`${SECTION_ACCENTS[id]} mx-auto mt-large max-w-page scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] bg-card px-card-side py-medium lg:mt-x-large lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral`}
@@ -58,8 +57,7 @@ export default (p: Section) => {
       <header className="text-center">
         {/* hgroup ties the audience label to the heading as its kicker. */}
         <hgroup>
-          {/* The label is set like the points' h4s, as the reference sets the bold links of its hero (`.hero__nav ul li a
-              span`): small, bold, the default line height. Its bottom margin, 1.17 of the base size, leaves half again
+          {/* The label is set like the points' h4s: small, bold, the default line height. Its bottom margin, 1.17 of the base size, leaves half again
               as much space between the label (with its underline) and the heading as between the heading and the
               pitch. */}
           {audience ? (

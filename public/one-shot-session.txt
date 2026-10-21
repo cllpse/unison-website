@@ -1,0 +1,1307 @@
+Unison: the session that built the three proof pages
+=====================================================
+
+Claude Opus 5.5, medium effort, one Claude Code session on the author's machine.
+Prompt sent 10:23:52 UTC on 2026-10-21; all three pages reported done at 10:36:31 UTC.
+
+This is the session's own log rendered as text: the prompt, the brief the project's coordinator
+session handed it, every message from Claude, and every tool call. Long tool results are trimmed
+to 800 characters; progress-checklist updates, the model's private reasoning and the app's
+system context are left out, and local paths and personal details are removed.
+
+=== PROMPT - 10:23:52 UTC ===
+Try one-shotting a few websites using ONLY the component library. Implement these as stand-alone pages in the web playground. Implement images and videos as blank frames with a background color. The URL's are: https://ui.shadcn.com/, https://www.reddit.com/r/artificial/, and https://www.google.com/search?q=Puppies
+(The Google address is shortened to its query here; the rest of it was tracking parameters.)
+
+=== BRIEF FROM THE COORDINATOR SESSION - 10:24:14 UTC ===
+The user wants three stand-alone pages in unison-playground-web (~/Sites/unison/unison-playground-web, Next.js 16 app router) that recreate the look of shadcn's homepage, the r/artificial Reddit listing, and a Google results page for "Puppies", built ONLY with the component library: Frame, Text and Vector from the bare `@unison` import with its kebab-case boolean flags (autolayout, gap, padding, width/height, fill, stroke, corner-radius, typography, effect-shadow, motion flags, etc.). All flags derive from design-tokens.json; unknown flags are type errors, so stick to tokens that exist and pick the nearest token instead of inventing values. No inline styles, no raw HTML elements, no className styling of your own; images and videos become blank Frames with a background fill. Icons may be Vectors with a path and viewBox (they need width- and height- flags).
+
+Put each page on its own route (for example src/app/shadcn, src/app/reddit, src/app/google) with pure JSX and no logic, matching the existing playground page style. Do NOT change the main suite in src/app/page.tsx; it must stay identical to the Expo playground's App.tsx. Follow the repo's AGENTS.md and Biome (120 cols, double quotes, no semicolons, relative imports, arrow functions, anonymous default export with `p`). The playground's nested unison-components copy may be behind the library; if a flag you need (such as motion) is missing, run `bun run components:sync-manual:playground-web` from ~/Sites/unison, but never commit, stash, revert or mention changes inside that nested copy. The dev server is `bun run playground-web:dev` on :3000; you have Chromium in this session to look at the source sites, and Reddit or Google may need a fetch rather than a browser. No screenshots unless a page cannot be finished without one; report in words. Nothing gets committed; the user commits or says "commit and push".
+
+=== CLAUDE - 10:24:23 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && cat AGENTS.md 2>/dev/null; ls; ls src/app; cat package.json; cat biome.json* 2>/dev/null | head -60; git status --short | head"
+}
+
+=== TOOL - 10:24:23 UTC ===
+[tool result]
+<!-- BEGIN:nextjs-agent-rules -->
+
+## This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
+
+# unison-playground-web
+
+A small Next.js site for trying out the unison-components library on web.
+
+## Commands
+
+- `bun inst
+[... 2385 more characters trimmed]
+
+=== CLAUDE - 10:24:26 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && cat src/app/page.tsx | head -80; wc -l src/app/page.tsx; cat src/app/layout.tsx; cat tsconfig.json; ls unison-components unison-components/src 2>/dev/null"
+}
+
+=== TOOL - 10:24:27 UTC ===
+[tool result]
+"use client"
+
+import { Frame, Text, Vector } from "@unison"
+import type { ReactNode } from "react"
+
+// Keep these sections in step with unison-playground-expo/App.tsx so web and native render the same cases.
+
+// A "more" icon (three dots) as Figma exports its path.
+const MORE_PATH =
+  "M1.25 2.5 C0.91 2.5 0.61 2.38 0.37 2.13 C0.12 1.89 0 1.59 0 1.25 C0 0.91 0.12 0.61 0.37 0.37 C0.61 0.12 0.91 0 1.25 0 C1.59 0 1.89 0.12 2.13 0.37 C2.38 0.61 2.5 0.91 2.5 1.25 C2.5 1.59 2.38 1.89 2.13 2.13 C1.89 2.38 1.59 2.5 1.25 2.5 Z M6.06 2.5 C5.71 2.5 5.42 2.38 5.18 2.13 C4.93 1.89 4.81 1.59 4.81 1.25 C4.81 0.91 4.93 0.61 5.18 0.37 C5.42 0.12 5.71 0 6.06 0 C6.4 0 6.7 0.12 6.94 0.37 C7.19 0.61 7.31 0.91 7.31 1.25 C7.31 1.59 7.19 1.89 6.94 2.13 C6.7 2.38 6.4 2.5 6.06 2.5 Z M10.87 2.5 C10.52 2.5 10.23 2.38
+[... 4774 more characters trimmed]
+
+=== CLAUDE - 10:24:33 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison && cat package.json | grep -n \"sync\\|playground\" ; cd unison-playground-web/unison-components && git log --oneline -3; cd ~/Sites/unison/unison-components && git log --oneline -3; ls ~/Sites/unison/unison-components/dist ~/Sites/unison/unison-components/types ~/Sites/unison/unison-components/maps; cat ~/Sites/unison/unison-components/AGENTS.md | head -80"
+}
+
+=== TOOL - 10:24:33 UTC ===
+[tool result]
+5:    "components:sync-manual:plugin": "bun run --cwd unison-components components:sync-manual:plugin",
+6:    "components:sync-watch:plugin": "bun run --cwd unison-components components:sync-watch:plugin",
+7:    "components:sync-manual:playground-web": "bun run --cwd unison-components components:sync-manual:playground-web",
+8:    "components:sync-watch:playground-web": "bun run --cwd unison-components components:sync-watch:playground-web",
+23:    "playground-web:dev": "bun run --cwd unison-playground-web dev",
+24:    "playground-web:build": "bun run --cwd unison-playground-web build",
+25:    "playground-web:start": "bun run --cwd unison-playground-web start",
+26:    "playground-web:lint": "bun run --cwd unison-playground-web lint",
+27:    "playground-web:format": "bun run --cwd unison-play
+[... 7704 more characters trimmed]
+
+=== CLAUDE - 10:24:44 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison && bun run components:sync-manual:playground-web 2>&1 | tail -5; ls unison-playground-web/unison-components/dist"
+}
+
+=== TOOL - 10:24:44 UTC ===
+[tool result]
+utilities/configureMotion.ts
+utilities/readFlags.ts
+
+sent 265,564 bytes  received 351 bytes  531,830.00 bytes/sec
+total size is 392,800  speedup is 1.48
+design-tokens.json
+design-tokens.ts
+motion-tokens.css
+native.ts
+tailwind.css
+uniwind-motion.ts
+web.ts
+
+=== CLAUDE - 10:24:48 UTC ===
+Now the flag vocabulary.
+
+=== CLAUDE - 10:24:49 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && cat maps/index.ts | head -250; wc -l maps/index.ts types/figma.ts"
+}
+
+=== CLAUDE - 10:24:49 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && cat types/figma.ts; cat dist/web.ts; ls src/web src/base"
+}
+
+=== TOOL - 10:24:50 UTC ===
+[tool result]
+// The flag types are built from the same group lists as the flag table in maps and the scales in dist/design-tokens.ts,
+// so a group or token added there gets its props here; no flag name is written out by hand.
+import type {
+  CONTAINERS,
+  ColorNameAndShade,
+  EASINGS,
+  RADIUS,
+  SHADOWS,
+  SPACING,
+  SpacingPixelKey,
+  TEXT_SIZES,
+  TRANSITION_DELAYS,
+  TRANSITION_DURATIONS,
+  TRANSITION_PROPERTIES,
+} from "../dist/design-tokens"
+import type { ColorGroup, NamedFlagGroup, NamedFlagName, RadiusGroup, SizeMode, SpacingGroup } from "../maps"
+import type { Simplify } from "./utilities"
+
+/** `<group>-<key>` boolean flags for every key. */
+type GroupFlags<Group extends string, Key extends string> = { [key in Key as `${Group}-${key}`]?: boolean }
+
+type SpacingFlags<Group extends SpacingGroup
+[... 3580 more characters trimmed]
+
+=== TOOL - 10:24:50 UTC ===
+[tool result]
+import {
+  ANIMATIONS,
+  COLORS,
+  CONTAINERS,
+  type ColorName,
+  type ColorNameAndShade,
+  type ColorShade,
+  EASINGS,
+  type PaletteColorName,
+  RADIUS,
+  SHADOWS,
+  SPACING,
+  SPACING_TAILWIND,
+  TEXT_SIZES,
+  TRANSITION_DELAYS,
+  TRANSITION_DURATIONS,
+  TRANSITION_PROPERTIES,
+} from "../dist/design-tokens"
+
+// Every token-derived flag, keyed by its full name (`padding-4`, `fill-red-500`), built once at module load from the
+// token scales in dist/design-tokens.ts. Components look up the flags a props object actually sets instead of probing every
+// scale key per group, which kept a Frame render at ~25µs (about 500 string builds and misses); see readFlags. The same
+// table gives the class names each flag can produce, which the Tailwind safelists are built from.
+
+/** Groups of spacing
+[... 8742 more characters trimmed]
+
+=== CLAUDE - 10:24:53 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && cat src/base/Frame.base.tsx | sed -n 1,80p; echo ----; grep -n \"export type\\|&\\|?:\" src/base/Text.base.tsx src/base/Vector.base.tsx | head -60"
+}
+
+=== TOOL - 10:24:54 UTC ===
+[tool result]
+import type { ComponentType } from "react"
+import {
+  Pressable,
+  type PressableProps as PressableProperties,
+  type ViewProps as ReactNativeViewProperties,
+  type Role,
+  View,
+} from "react-native"
+import type {
+  ClassName,
+  PointerEvents,
+  Style,
+  TailwindAnimate,
+  TailwindGroup,
+  ViewAttributes,
+  ViewReference,
+} from "../../types/base"
+import type {
+  FigmaFill,
+  FigmaFillHover,
+  FigmaFrameAlignment,
+  FigmaFrameAutolayout,
+  FigmaFrameCornerRadius,
+  FigmaFrameCornerRadiusBottomLeft,
+  FigmaFrameCornerRadiusBottomRight,
+  FigmaFrameCornerRadiusTopLeft,
+  FigmaFrameCornerRadiusTopRight,
+  FigmaFrameEffectShadow,
+  FigmaFrameGap,
+  FigmaFrameHeight,
+  FigmaFramePadding,
+  FigmaFramePaddingBottom,
+  FigmaFramePaddingHorizontal,
+  FigmaFramePaddingLeft,
+  FigmaFramePaddingRight
+[... 1986 more characters trimmed]
+
+=== CLAUDE - 10:25:00 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && sed -n 80,140p src/base/Frame.base.tsx; sed -n 1,40p src/base/Vector.base.tsx; sed -n 28,45p src/base/Text.base.tsx; python3 -c \"\nimport json;d=json.load(open('dist/design-tokens.json'));print(list(d.keys()))\n\"; grep -n \"SPACING =\\|RADIUS =\\|SHADOWS =\\|TEXT_SIZES =\\|CONTAINERS =\\|TRANSITION_PROPERTIES =\\|ANIMATIONS =\\|EASINGS =\" -A3 dist/design-tokens.ts | head -60"
+}
+
+=== TOOL - 10:25:00 UTC ===
+[tool result]
+FigmaFrameWrap &
+  FigmaFrameGap &
+  FigmaFramePadding &
+  FigmaFramePaddingVertical &
+  FigmaFramePaddingHorizontal &
+  FigmaFramePaddingLeft &
+  FigmaFramePaddingRight &
+  FigmaFramePaddingTop &
+  FigmaFramePaddingBottom &
+  FigmaFill &
+  FigmaStroke &
+  FigmaStrokeStyle &
+  FigmaFillHover &
+  FigmaStrokeHover &
+  FigmaFrameCornerRadius &
+  FigmaFrameCornerRadiusTopLeft &
+  FigmaFrameCornerRadiusTopRight &
+  FigmaFrameCornerRadiusBottomLeft &
+  FigmaFrameCornerRadiusBottomRight &
+  FigmaFrameEffectShadow &
+  FigmaTransition &
+  FigmaTransitionDuration &
+  FigmaTransitionDelay &
+  FigmaTransitionEasing &
+  TailwindAnimate &
+  PointerEvents &
+  TailwindGroup &
+  ViewAttributes &
+  ViewReference & {
+    onTouchStart?: PressableProperties["onTouchStart"]
+    onTouchEnd?: PressableProperties[
+[... 4042 more characters trimmed]
+
+=== CLAUDE - 10:25:05 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && sed -n 900,1110p dist/design-tokens.ts | grep -v \"^\\s*$\"; grep -n \"SpacingPixelKey\" -A5 dist/design-tokens.ts | head; grep -n \"^export const COLORS\" -A40 dist/design-tokens.ts | head -50; grep -n \"TailwindAnimate\\|PointerEvents\\|TailwindGroup\\b\" -A4 types/base.ts | head -30"
+}
+
+=== TOOL - 10:25:05 UTC ===
+[tool result]
+}[ColorName]
+export type PlainColorName = Exclude<ColorName, PaletteColorName>
+export type ColorShade = { [Name in PaletteColorName]: keyof (typeof COLORS)[Name] }[PaletteColorName]
+/** Every color as a flag suffix: `white`, `red-500`. */
+export type ColorNameAndShade =
+  | PlainColorName
+  | { [Name in PaletteColorName]: `${Name}-${keyof (typeof COLORS)[Name] & string}` }[PaletteColorName]
+/**
+ * The spacing scale from the units collection's `spacing-` variables, as [key, pixel value]. Keys are the tokens'
+ * (`spacing-0p5` gives `0p5`); see SPACING_TAILWIND for the Tailwind class suffix. `full` is a keyword, not a size:
+ * Figma stores it as 999px, and it means 100% (`w-full`); read pixels through SpacingPixelKey to leave it out.
+ * @example SPACING["4"] // 16
+ */
+export const SPACING =
+[... 6611 more characters trimmed]
+
+=== CLAUDE - 10:25:11 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && python3 -c \"\nimport json;d=json.load(open('dist/design-tokens.json'));c=d['colors'];print(json.dumps(c)[:600])\"; sed -n 625,900p dist/design-tokens.ts | grep -E '^  [a-z\"]' ; grep -n \"computeFrameStroke\\b\\|computeFrameStroke =\" -A25 utilities/computeProperties.ts | head -40; grep -n \"computeTextTypography =\" -A15 utilities/computeProperties.ts"
+}
+
+=== TOOL - 10:25:11 UTC ===
+[tool result]
+{"Light": {"fill-red-50": {"$type": "color", "$value": {"colorSpace": "srgb", "components": [0.996078431372549, 0.9490196078431372, 0.9490196078431372], "alpha": 1, "hex": "#FEF2F2"}, "$extensions": {"com.figma.scopes": ["ALL_FILLS", "STROKE_COLOR", "EFFECT_COLOR"]}}, "fill-red-100": {"$type": "color", "$value": {"colorSpace": "srgb", "components": [1, 0.8862745098039215, 0.8862745098039215], "alpha": 1, "hex": "#FFE2E2"}, "$extensions": {"com.figma.scopes": ["ALL_FILLS", "STROKE_COLOR", "EFFECT_COLOR"]}}, "fill-red-200": {"$type": "color", "$value": {"colorSpace": "srgb", "components": [1, 0.
+  currentcolor: "currentColor",
+  transparent: "transparent",
+  red: {
+  orange: {
+  amber: {
+  yellow: {
+  lime: {
+  green: {
+  emerald: {
+  teal: {
+  cyan: {
+  sky: {
+  blue: {
+  indigo: {
+  violet
+[... 2139 more characters trimmed]
+
+=== CLAUDE - 10:25:17 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && grep -n \"neutral: {\" -A12 dist/design-tokens.ts; grep -n \"computeFrameSizing\\|computeFrameAutolayout =\\|computeFrameAlignment =\" -B2 -A40 utilities/computeProperties.ts | sed -n 1,140p"
+}
+
+=== TOOL - 10:25:17 UTC ===
+[tool result]
+868:  neutral: {
+869-    "50": "#F9F9F9",
+870-    "100": "#F5F5F5",
+871-    "200": "#E5E5E5",
+872-    "300": "#D4D4D4",
+873-    "400": "#A1A1A1",
+874-    "500": "#737373",
+875-    "600": "#525252",
+876-    "700": "#404040",
+877-    "800": "#262626",
+878-    "900": "#111111",
+879-  },
+880-  stone: {
+106-const isHorizontal = (p: FigmaFrameAutolayout) => !!p["autolayout-horizontal"]
+107-
+108:export const computeFrameAutolayout = (p: FigmaFrameAutolayout): PropertiesResult => {
+109-  return isHorizontal(p) ? FLEX_ROW : FLEX_COL
+110-}
+111-
+112-// Per alignment flag, its result in a row (horizontal autolayout) and in a column.
+113-const ALIGNMENT_RESULTS = ALIGNMENT_FLAGS.map(
+114-  ([, vertical, horizontal]) =>
+115-    [result(`${JUSTIFY[horizontal]} ${ITEMS[vertical]}`), result(`${JUSTIFY[vert
+[... 3504 more characters trimmed]
+
+=== CLAUDE - 10:25:23 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && sed -n 192,230p utilities/computeProperties.ts; grep -n \"width\" src/base/Text.base.tsx | head; grep -n \"Text\\b.*width\\|computeTextWidth\\|computeTextSizing\" utilities/computeProperties.ts | head"
+}
+
+=== TOOL - 10:25:23 UTC ===
+[tool result]
+// `flex-shrink`/`flex-grow` only act on the main axis and a frame can't know its parent's direction, so the axis
+  // floors below carry the per-axis intent instead.
+  //
+  // - Exact axes are pinned with matching `min-*`/`max-*` so flex can neither grow nor shrink them — the exact size
+  //   holds even when that axis is the parent's main axis.
+  // - Fill and full axes get `min-*: 0` so they can shrink past their own content (text truncates) and always yield space to
+  //   fixed siblings, instead of overflowing them when the container is constrained from the outside (max-width /
+  //   fixed width).
+  // - Hug axes keep `min-*: auto` so they never shrink below their content.
+  const widthFloor =
+    exactWidth !== "" && exactWidth !== "full"
+      ? `min-w-${exactWidth} max-w-${exactWi
+[... 1307 more characters trimmed]
+
+=== CLAUDE - 10:25:28 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && sed -n 1,20p src/base/Text.base.tsx; sed -n 45,80p src/base/Text.base.tsx; grep -n \"font\\|weight\\|leading\" dist/tailwind.css | head -20"
+}
+
+=== TOOL - 10:25:28 UTC ===
+[tool result]
+import { type TextProps as TextProperties, Text as TextReactNative } from "react-native"
+import type { ClassName, Style, TailwindGroupHoverFill } from "../../types/base"
+import type {
+  FigmaFill,
+  FigmaFillHover,
+  FigmaFrameWidth,
+  FigmaTypography,
+  FigmaTypographyAlignment,
+  FigmaTypographyDecoration,
+} from "../../types/figma"
+import {
+  computeTextFill,
+  computeTextFillHover,
+  computeTextTailwindGroupHoverFill,
+  computeTextTypography,
+  computeTextTypographyAlignment,
+  computeTextTypographyDecoration,
+  FONT_FEATURE_STYLE,
+} from "../../utilities/computeProperties"
+
+
+  return (
+    <TextReactNative
+      style={[
+        p.style,
+        FONT_FEATURE_STYLE,
+        {
+          // @ts-expect-error React Native Web's className passthrough
+          $$css: true,
+          classNa
+[... 405 more characters trimmed]
+
+=== CLAUDE - 10:25:34 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "https://ui.shadcn.com"
+}
+
+=== TOOL - 10:25:35 UTC ===
+[tool result]
+{
+  "serverId": "preview-local_ac972d32-dd5d-4cb4-ba82-9728e94b698d",
+  "tabId": "seed",
+  "reused": false,
+  "type": "browser",
+  "navOk": true
+}
+Browser pane opened. Use serverId "preview-local_ac972d32-dd5d-4cb4-ba82-9728e94b698d" with read_page / computer / navigate.
+
+=== CLAUDE - 10:25:37 UTC ===
+[tool call: mcp__Claude_Browser__get_page_text]
+{
+  "max_chars": 8000
+}
+
+=== TOOL - 10:25:37 UTC ===
+[tool result]
+Title: shadcn/ui - The Foundation for your Design System
+URL: https://ui.shadcn.com/
+Source element: <main>
+---
+Trace, Code Block and AI Elements
+The Foundation for your Design System
+
+Composable, accessible components with thoughtful defaults. Build your own component library with code you can customize, extend, and make your own.
+
+Get Started
+View Components
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "shadcn/ui - The Foundation for your Design System" ("https://ui.shadcn.com/")
+
+=== CLAUDE - 10:25:43 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const out=[];const header=document.querySelector('header');out.push('HEADER: '+header?.innerText.replace(/\\n+/g,' | '));out.push('W '+innerWidth);const main=document.querySelector('main');\nconst walk=(el,d)=>{if(d>7)return;for(const c of el.children){const r=c.getBoundingClientRect();if(r.height<4)continue;const t=c.children.length===0?(c.innerText||'').trim().slice(0,60):'';const cs=getComputedStyle(c);out.push(' '.repeat(d)+c.tagName.toLowerCase()+` ${Math.round(r.x)},${Math.round(r.y)} ${Math.round(r.width)}x${Math.round(r.height)} bg:${cs.backgroundColor} fs:${cs.fontSize} fw:${cs.fontWeight} r:${cs.borderRadius} b:${cs.borderTopWidth} ${t}`);walk(c,d+1)}};walk(main,0);out.slice(0,250).join('\\n')"
+}
+
+=== TOOL - 10:25:43 UTC ===
+[tool result]
+"HEADER: Toggle Menu | Menu | 126k | Toggle theme | New\nW 0\ndiv 0,56 0x718 bg:rgba(0, 0, 0, 0) fs:16px fw:400 r:0px b:0px \n section 0,56 0x718 bg:rgba(0, 0, 0, 0) fs:16px fw:400 r:0px b:0px \n  div 0,56 16x718 bg:rgba(0, 0, 0, 0) fs:16px fw:400 r:0px b:0px \n   div 8,56 48x718 bg:rgba(0, 0, 0, 0) fs:16px fw:400 r:0px b:0px \n    a -82,88 228x22 bg:lab(96.52 -0.0000298023 0.0000119209) fs:12px fw:500 r:3.35544e+07px b:1px \n     svg 125,93 12x12 bg:rgba(0, 0, 0, 0) fs:12px fw:500 r:0px b:0px \n      path 131,96 4x7 bg:rgba(0, 0, 0, 0) fs:12px fw:500 r:0px b:0px \n    h1 -45,118 153x180 bg:rgba(0, 0, 0, 0) fs:30px fw:600 r:0px b:0px The Foundation for your Design System\n    p -16,306 95x384 bg:rgba(0, 0, 0, 0) fs:16px fw:400 r:0px b:0px Composable, accessible components with thoughtful d
+[... 461 more characters trimmed]
+
+=== CLAUDE - 10:25:50 UTC ===
+[tool call: mcp__Claude_Browser__resize_window]
+{
+  "width": 1440,
+  "height": 900
+}
+
+=== TOOL - 10:25:50 UTC ===
+[tool result]
+Viewport set to 1440x900 on this tab (scaled down to fit if larger than the pane). Reset it with preset "desktop" as soon as you finish testing; the desktop app also clears a size you set when your turn ends or the pane's width changes, so set it again if you still need it. If the user wants to keep a phone or tablet size after your turn, they can pick Mobile or Tablet in the pane's Viewport menu; a custom size you simply set again next turn.
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "shadcn/ui - The Foundation for your Design System" ("https://ui.shadcn.com/")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:25:56 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "location.reload();await new Promise(r=>setTimeout(r,3000));const out=[];const header=document.querySelector('header');out.push('HEADER: '+header?.innerText.replace(/\\n+/g,' | '));out.push('W '+innerWidth+' H '+document.body.scrollHeight);const main=document.querySelector('main');\nconst walk=(el,d)=>{if(d>9)return;for(const c of el.children){const r=c.getBoundingClientRect();if(r.height<4||r.width<4)continue;const t=c.children.length===0?(c.innerText||c.getAttribute('aria-label')||'').trim().slice(0,50):'';const cs=getComputedStyle(c);out.push(' '.repeat(d)+c.tagName.toLowerCase()+` ${Math.round(r.x)},${Math.round(r.y)} ${Math.round(r.width)}x${Math.round(r.height)} ${cs.backgroundColor!=='rgba(0, 0, 0, 0)'?'bg:'+cs.backgroundColor:''} fs:${cs.fontSize}/${cs.fontWeight} ${cs.borderRadius!=='0px'?'r:'+cs.borderRadius:''} ${cs.borderTopWidth!=='0px'?'b':''} ${t}`);walk(c,d+1)}};walk(header,0);walk(main,0);out.length+'\\n'+out.slice(0,400).join('\\n')"
+}
+
+=== TOOL - 10:25:56 UTC ===
+[tool result]
+The page navigated while this script was running, so the script was cut off and any return value was lost. If the script itself navigated (clicked a link, submitted a form, changed location), do not re-run it — continue from the page the tab is on now. If it did not, something else navigated the page (a reload, a redirect, or the user); check the page and redo whatever is still missing.
+
+(captured at origin https://ui.shadcn.com)
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "shadcn/ui - The Foundation for your Design System" ("https://ui.shadcn.com")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:26:04 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const out=[];const header=document.querySelector('header');out.push('HEADER: '+header?.innerText.replace(/\\n+/g,' | '));out.push('W '+innerWidth+' H '+document.body.scrollHeight);const main=document.querySelector('main');\nconst walk=(el,d)=>{if(d>9)return;for(const c of el.children){const r=c.getBoundingClientRect();if(r.height<4||r.width<4)continue;const t=c.children.length===0?(c.innerText||c.getAttribute('aria-label')||'').trim().slice(0,50):'';const cs=getComputedStyle(c);out.push(' '.repeat(d)+c.tagName.toLowerCase()+` ${Math.round(r.x)},${Math.round(r.y)} ${Math.round(r.width)}x${Math.round(r.height)} ${cs.backgroundColor!=='rgba(0, 0, 0, 0)'?'bg:'+cs.backgroundColor:''} fs:${cs.fontSize}/${cs.fontWeight} ${cs.borderRadius!=='0px'?'r:'+cs.borderRadius:''} ${cs.borderTopWidth!=='0px'?'b':''} ${t}`);walk(c,d+1)}};walk(header,0);walk(main,0);out.length+'\\n'+out.slice(0,300).join('\\n')"
+}
+
+=== TOOL - 10:26:04 UTC ===
+[tool result]
+"143\nHEADER: Home | Docs | Components | Blocks | Charts | Directory | Typeset | Create | Search documentation... | 126k | Toggle theme | New\nW 1440 H 1893\ndiv 0,0 1425x64  fs:16px/400   \n div 24,0 1377x64  fs:16px/400   \n  nav 24,16 559x32  fs:16px/400   \n   a 24,16 58x32  fs:14px/500 r:8px  Home\n   a 82,16 53x32  fs:14px/500 r:8px  Docs\n   a 136,16 103x32  fs:14px/500 r:8px  Components\n   a 239,16 64x32  fs:14px/500 r:8px  Blocks\n   a 303,16 64x32  fs:14px/500 r:8px  Charts\n   a 367,16 81x32  fs:14px/500 r:8px  Directory\n   a 448,16 72x32  fs:14px/500 r:8px  Typeset\n   a 520,16 64x32  fs:14px/500 r:8px  Create\n  div 583,16 818x32  fs:16px/400   \n   div 916,16 256x32  fs:16px/400   \n    button 916,16 256x32 bg:lab(96.52 -0.0000298023 0.0000119209) fs:14px/500 r:10px  \n
+[... 7821 more characters trimmed]
+
+=== CLAUDE - 10:26:09 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const cards=[...document.querySelectorAll('main section div[class*=\"rounded\"]')].filter(c=>{const r=c.getBoundingClientRect();return r.width>140&&r.width<340&&r.height>200&&getComputedStyle(c).backgroundColor.includes('lab(100')});cards.map(c=>{const r=c.getBoundingClientRect();return `## ${Math.round(r.x)},${Math.round(r.y)} ${Math.round(r.width)}x${Math.round(r.height)}\\n`+c.innerText.replace(/\\n+/g,' | ').slice(0,500)}).join('\\n')+'\\nBADGE:'+document.querySelector('main a').innerText"
+}
+
+=== TOOL - 10:26:09 UTC ===
+[tool result]
+"## 24,439 326x316\nButton | Secondary | Outline | Badge | Secondary | Alert Dialog | Button Group\n## 24,1027 151x224\nOverview | Analytics | Transactions | Investments | Accounts | Spending\n## 24,779 151x224\nPlanning | Documents | Budget | Reports | Goals | Calendar\n## 199,779 151x224\nSupport | Help Center | Docs | Contact Us | Status | Community\n## 199,1027 151x224\nAccount | Profile | Billing | Notifications | Security | Appearance\n## 24,1275 326x498\nSavings Targets | Active milestones for 2024 across your portfolio. Monitor how close you are to each savings goal. | RETIREMENT | $420,000 | x | 65% achieved | $273,000 | REAL ESTATE | $85,000 | x | 32% achieved | $27,200 | You have not met your targets for this year.\n## 374,439 326x480\nContribution History | Last 6 months of act
+[... 2351 more characters trimmed]
+
+=== CLAUDE - 10:26:16 UTC ===
+[tool call: Bash]
+{
+  "command": "cd <scratch>/scratchpad && curl -s -A \"Mozilla/5.0 unison-playground/1.0\" \"https://www.reddit.com/r/artificial/.json?limit=12\" -o r.json; head -c 300 r.json; echo; python3 -I -c \"\nimport json;d=json.load(open('r.json'))\nfor c in d['data']['children']:\n  p=c['data'];print(p['score'],p['num_comments'],p['author'],p.get('link_flair_text'),p['created_utc'],p['post_hint'] if 'post_hint' in p else '-',p['domain'],'|',p['title'][:110],'|',p['selftext'][:120].replace('\\n',' '))\n\"; curl -s -A \"Mozilla/5.0 unison-playground/1.0\" \"https://www.reddit.com/r/artificial/about.json\" | python3 -I -c \"import json,sys;d=json.load(sys.stdin)['data'];print(d['title'],d['subscribers'],d.get('active_user_count'),d['public_description'],d['created_utc'])\""
+}
+
+=== TOOL - 10:26:17 UTC ===
+[tool result]
+Exit code 1
+<body class=theme-beta><div><style>.theme-light,:root{--rem360:22.5rem;--rem320:20rem;--rem192:12rem;--rem144:9rem;--rem128:8rem;--rem96:6rem;--rem90:5.625rem;--rem88:5.5rem;--rem64:4rem;--rem56:3.5rem;--rem48:3rem;--rem40:2.5rem;--rem36:2.25rem;--rem32:2rem;--rem28:1.75rem;--rem26:1.625rem;--rem24:
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+    import json;d=json.load(open('r.json'))
+                  ~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/home/linuxbrew/.linuxbrew/Cellar/python@3.14/3.14.7/lib/python3.14/json/__init__.py", line 298, in load
+    return loads(fp.read(),
+        cls=cls, object_hook=object_hook,
+        parse_float=parse_float, parse_int=parse_int,
+        parse_constant=parse_constant, object_pairs_hook=object_pairs_hook, **kw)
+  File
+[... 1925 more characters trimmed]
+
+=== CLAUDE - 10:26:19 UTC ===
+Reddit blocks the JSON fetch; trying the browser instead.
+
+=== CLAUDE - 10:26:19 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "https://www.reddit.com/r/artificial/"
+}
+
+=== TOOL - 10:26:20 UTC ===
+[tool result]
+https://reddit.com is not allowed due to safety restrictions and cannot be opened in the Browser pane.
+
+=== CLAUDE - 10:26:23 UTC ===
+[tool call: Bash]
+{
+  "command": "cd <scratch>/scratchpad && for u in \"https://old.reddit.com/r/artificial/.json?limit=12\" \"https://www.reddit.com/r/artificial.rss\"; do curl -s -L -A \"linux:unison-playground:v1.0 (by /u/your_username)\" \"$u\" -o out.txt -w \"%{http_code} %{size_download}\\n\"; head -c 200 out.txt; echo; done"
+}
+
+=== TOOL - 10:26:24 UTC ===
+[tool result]
+403 189908
+<body class=theme-beta><div><style>.theme-light,:root{--rem360:22.5rem;--rem320:20rem;--rem192:12rem;--rem144:9rem;--rem128:8rem;--rem96:6rem;--rem90:5.625rem;--rem88:5.5rem;--rem64:4rem;--rem56:3.5re
+200 56987
+<?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/"><category term="artificial" label="r/artificial"/><updated>2026-10-21T10:26:
+Shell cwd was reset to ~/Sites
+
+=== CLAUDE - 10:26:29 UTC ===
+[tool call: Bash]
+{
+  "command": "cd <scratch>/scratchpad && python3 -I -c \"\nimport xml.etree.ElementTree as E,re,html\nns={'a':'http://www.w3.org/2005/Atom'}\nr=E.parse('out.txt').getroot()\nprint(r.find('a:title',ns).text, r.find('a:subtitle',ns).text if r.find('a:subtitle',ns) is not None else '')\nfor e in r.findall('a:entry',ns)[:12]:\n  c=html.unescape(re.sub('<[^>]+>',' ',e.find('a:content',ns).text or ''))\n  c=re.sub(r'\\s+',' ',c)\n  print(e.find('a:author/a:name',ns).text, e.find('a:updated',ns).text,'|',e.find('a:title',ns).text,'|',c[:160])\n\""
+}
+
+=== TOOL - 10:26:30 UTC ===
+[tool result]
+Artificial Intelligence (AI) Reddit’s home for Artificial Intelligence (AI)
+/u/pixel_tinkerer 2026-10-20T23:17:40+00:00 | New York City wants to fine companies that trap you in AI chatbot ‘doom loops’ |  Seems like a good idea. Didn’t know it was called a ‘doom loop’ but hate calling customer services and being stuck with an AI agent. submitted by /u/pixel_tinkerer [
+/u/Northbound4120 2026-10-20T14:12:57+00:00 | AfD Leak: What 421,179 Hacked Emails Show about the German Far Right |  submitted by /u/Northbound4120 [link] [comments] 
+/u/quiet_compiler 2026-10-20T12:18:10+00:00 | Google DeepMind says four AI agents beat Minecraft in 27 hours by writing 2,783 programs of their own — AI team died 605 times on Easy difficulty and ran up an estimated $520 in tokens |  submitted by /u/quiet_compiler [link
+[... 2168 more characters trimmed]
+
+=== CLAUDE - 10:26:37 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "https://www.google.com/search?q=Puppies&hl=en"
+}
+
+=== TOOL - 10:26:37 UTC ===
+[tool result]
+navigated to https://www.google.com/search?q=Puppies&hl=en
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Google Search" ("https://www.google.com/search?q=Puppies&hl=en")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:26:40 UTC ===
+[tool call: mcp__Claude_Browser__get_page_text]
+{
+  "max_chars": 6000
+}
+
+=== TOOL - 10:26:40 UTC ===
+[tool result]
+Title: Puppies - Google Search
+URL: https://www.google.com/search?q=Puppies&hl=en&sei=REDACTED
+Source element: <div>
+---
+Videos
+People in Finland are watching these puppies 24/7
+CNN
+18 hours ago
+CNN
+A livestream showing a litter of puppies' first few weeks of life is ...
+Facebook · CNN
+12 hours ago
+Facebook · CNN
+1:03
+You Can't Watch These Cute PUPPIES Just Once! FUNNY ...
+YouTube · Funny Pet's Life
+1 month ago
+YouTube · Funny Pet's Life
+11:03
+View all
+People also ask
+Is it puppy's or puppies?
+What is the 3-3-3 rule for puppies?
+What is called puppies?
+Which dog breeds are best for families?
+Web results
+Puppy
+
+Wikipedia
+https://en.wikipedia.org › wiki › Puppy
+A puppy is a juvenile dog, generally one less than 12–18 months old. Puppies generally weigh 250–450 grams (8–16 oz) shortly after birth, d
+[... 2380 more characters trimmed]
+
+=== CLAUDE - 10:26:45 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const t=[...document.querySelectorAll('[role=navigation] a, [role=list] a')].map(a=>a.innerText.trim()).filter(Boolean).slice(0,20);const rhs=document.querySelector('#rhs');const c=document.querySelector('#center_col')?.getBoundingClientRect();const box=document.querySelector('textarea[name=q]')?.closest('form')?.getBoundingClientRect();JSON.stringify({tabs:t,rhs:rhs?rhs.innerText.slice(0,500):null,center:c&&[c.x,c.width],box:box&&[box.x,box.y,box.width,box.height],top:document.body.innerText.slice(0,400)})"
+}
+
+=== TOOL - 10:26:45 UTC ===
+[tool result]
+"{\"tabs\":[\"AI Mode\",\"All\",\"Images\",\"Videos\",\"Short videos\",\"News\",\"Forums\",\"2\",\"3\",\"4\",\"5\",\"6\",\"7\",\"8\",\"9\",\"10\",\"Next\"],\"rhs\":\"Complementary results\\nShare this experience\\nPuppy\\nA puppy is a juvenile dog, generally one less than 12–18 months old. Puppies are markedly underdeveloped and dependent on their mothers at birth, but healthy puppies grow quickly and begin walking thereafter. Puppies generally weigh 250–450 grams shortly after birth, depending on the breed.\\nSource: \\nWikipedia\\nCollective noun\\nbunch, litter, puddle\",\"center\":[162.5,652],\"box\":[162.5,26,861,52],\"top\":\"Skip to main content\\nAccessibility help\\nEN\\nSign in\\nBefore you continue to Google\\nWe use cookies and data, including IP addresses, to\\nDeliver and mai
+[... 641 more characters trimmed]
+
+=== CLAUDE - 10:26:50 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && grep -n \"export default\" -A12 src/app/page.tsx; cat src/app/globals.css; grep -n \"Vector\" src/app/page.tsx | head -5"
+}
+
+=== TOOL - 10:26:50 UTC ===
+[tool result]
+122:export default () => {
+123-  return (
+124-    <Frame fill-white autolayout-vertical gap-10 height-hug padding-6 width-fill>
+125-      <Frame autolayout-vertical gap-1 height-hug width-fill>
+126-        <Text fill-black typography-3xl>
+127-          Frame, Text and Vector test suite
+128-        </Text>
+129-        <Text fill-neutral-500 typography-sm>
+130-          Every value of every token in design-tokens.json, written out flag by flag.
+131-        </Text>
+132-      </Frame>
+133-
+134-      <Section
+/* Utilities are imported unlayered on purpose. React Native Web inserts its
+   own reset rules unlayered on the client (e.g. `.css-view-*` sets
+   `background-color: transparent`), and unlayered CSS always beats layered
+   CSS. Left in `@layer utilities`, every `bg-*`/`p-*`/… class from t
+[... 2181 more characters trimmed]
+
+=== CLAUDE - 10:28:16 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-components && grep -n \"indigo: {\\|blue: {\\|sky: {\\|orange: {\" -A11 dist/design-tokens.ts | grep -E \"800|700|600|500|: \\{\"; grep -n \"STROKE_SOLID =\\|STROKE_DASHED =\" utilities/computeProperties.ts"
+}
+
+=== TOOL - 10:28:16 UTC ===
+[tool result]
+640:  orange: {
+646-    "500": "#FF6900",
+647-    "600": "#F54900",
+648-    "700": "#CA3500",
+649-    "800": "#9F2D00",
+736:  sky: {
+742-    "500": "#00A6F4",
+743-    "600": "#0084D1",
+744-    "700": "#0069A8",
+745-    "800": "#00598A",
+748:  blue: {
+754-    "500": "#2B7FFF",
+755-    "600": "#155DFC",
+756-    "700": "#1447E6",
+757-    "800": "#193CB8",
+760:  indigo: {
+766-    "500": "#615FFF",
+767-    "600": "#4F39F6",
+768-    "700": "#432DD7",
+769-    "800": "#372AAC",
+331:const STROKE_SOLID = "outline-1 outline -outline-offset-1"
+332:const STROKE_DASHED = `${STROKE_SOLID} outline-dashed`
+
+=== CLAUDE - 10:30:06 UTC ===
+[tool call: Write]
+{
+  "file_path": "~/Sites/unison/unison-playground-web/src/app/shadcn/page.tsx",
+  "content": "\"use client\"\n\nimport { Frame, Text, Vector } from \"@unison\"\n\n// A look-alike of shadcn/ui's homepage, built only from Frame, Text and Vector flags.\n\nconst LOGO_PATH = \"M22.2 2.1 2.1 22.2l-1.4-1.4L20.8.7z M21.9 11.9l-9.9 9.9-1.4-1.4 9.9-9.9z\"\n\nconst GITHUB_PATH =\n  \"M12 .5C5.73.5.5 5.74.5 12.02c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.53 11.53 0 0 0 23.5 12.02C23.5 5.74 18.27.5 12 .5z\"\n\nconst THEME_PATH =\n  \"M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z\"\n\nconst PLUS_PATH = \"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z\"\n\nconst ARROW_RIGHT_PATH = \"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"\n\nconst CHEVRON_DOWN_PATH = \"M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z\"\n\nconst CHEVRON_RIGHT_PATH = \"M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z\"\n\nconst MORE_PATH =\n  \"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"\n\nconst SEND_PATH = \"M2.01 21 23 12 2.01 3 2 10l15 2-15 2z\"\n\nexport default () => {\n  return (\n    <Frame fill-white autolayout-vertical height-hug width-fill>\n      <Frame alignment-left autolayout-horizontal gap-1 height-16 padding-horizontal-6 width-fill>\n        <Frame alignment-center autolayout-horizontal height-8 padding-horizontal-2 width-hug>\n          <Vector fill-neutral-900 height-5 path={LOGO_PATH} viewBox=\"0 0 24 24\" width-5 />\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-900 typography-sm>\n            Docs\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Components\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Blocks\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Charts\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Directory\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Typeset\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-600 typography-sm>\n            Create\n          </Text>\n        </Frame>\n        <Frame height-hug width-fill />\n        <Frame\n          corner-radius-xl\n          fill-neutral-100\n          fill-hover-neutral-200\n          alignment-left\n          autolayout-horizontal\n          height-8\n          padding-left-3\n          padding-right-1\n          transition-colors\n          width-64\n        >\n          <Frame height-hug width-fill>\n            <Text fill-neutral-500 typography-sm>\n              Search documentation...\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-md\n            fill-white\n            stroke-neutral-200\n            alignment-center\n            autolayout-horizontal\n            height-6\n            padding-horizontal-1p5\n            width-hug\n          >\n            <Text fill-neutral-500 typography-xs>\n              Ctrl K\n            </Text>\n          </Frame>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          gap-1p5\n          height-8\n          padding-horizontal-2p5\n          transition-colors\n          width-hug\n        >\n          <Vector fill-neutral-900 height-4 path={GITHUB_PATH} viewBox=\"0 0 24 24\" width-4 />\n          <Text fill-neutral-500 typography-xs>\n            126k\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-lg\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-8\n          transition-colors\n          width-8\n        >\n          <Vector fill-neutral-900 height-4 path={THEME_PATH} viewBox=\"0 0 24 24\" width-4 />\n        </Frame>\n        <Frame\n          corner-radius-xl\n          fill-neutral-900\n          fill-hover-neutral-700\n          alignment-center\n          autolayout-horizontal\n          gap-1\n          height-8\n          padding-horizontal-3\n          transition-colors\n          width-hug\n        >\n          <Vector fill-white height-3p5 path={PLUS_PATH} viewBox=\"0 0 24 24\" width-3p5 />\n          <Text fill-white typography-xs>\n            New\n          </Text>\n        </Frame>\n      </Frame>\n      <Frame fill-neutral-200 height-px width-fill />\n\n      <Frame alignment-top-center autolayout-vertical gap-5 height-hug padding-bottom-12 padding-top-20 width-fill>\n        <Frame\n          corner-radius-full\n          fill-neutral-100\n          fill-hover-neutral-200\n          stroke-neutral-200\n          alignment-center\n          autolayout-horizontal\n          gap-1\n          height-6\n          padding-horizontal-3\n          transition-colors\n          width-hug\n        >\n          <Text fill-neutral-900 typography-xs>\n            Trace, Code Block and AI Elements\n          </Text>\n          <Vector fill-neutral-900 height-3 path={ARROW_RIGHT_PATH} viewBox=\"0 0 24 24\" width-3 />\n        </Frame>\n        <Text fill-neutral-900 typography-5xl typography-align-center>\n          The Foundation for your Design System\n        </Text>\n        <Frame alignment-top-center height-hug width-3xl>\n          <Text fill-neutral-600 typography-lg typography-align-center>\n            Composable, accessible components with thoughtful defaults. Build your own component library with code you\n            can customize, extend, and make your own.\n          </Text>\n        </Frame>\n        <Frame alignment-center autolayout-horizontal gap-2 height-hug padding-top-2 width-hug>\n          <Frame\n            corner-radius-full\n            fill-neutral-900\n            fill-hover-neutral-700\n            alignment-center\n            autolayout-horizontal\n            height-9\n            padding-horizontal-4\n            transition-colors\n            width-hug\n          >\n            <Text fill-white typography-sm>\n              Get Started\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-full\n            fill-neutral-100\n            fill-hover-neutral-200\n            alignment-center\n            autolayout-horizontal\n            height-9\n            padding-horizontal-4\n            transition-colors\n            width-hug\n          >\n            <Text fill-neutral-900 typography-sm>\n              View Components\n            </Text>\n          </Frame>\n        </Frame>\n      </Frame>\n\n      <Frame fill-neutral-100 autolayout-horizontal gap-6 height-hug padding-6 width-fill>\n        <Frame autolayout-vertical gap-6 height-hug width-fill>\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-6 height-hug padding-5 width-fill>\n            <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n              <Frame\n                corner-radius-lg\n                fill-neutral-900\n                alignment-center\n                autolayout-horizontal\n                height-8\n                padding-horizontal-3\n                width-hug\n              >\n                <Text fill-white typography-sm>\n                  Button\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                fill-neutral-100\n                alignment-center\n                autolayout-horizontal\n                height-8\n                padding-horizontal-3\n                width-hug\n              >\n                <Text fill-neutral-900 typography-sm>\n                  Secondary\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                stroke-neutral-200\n                alignment-center\n                autolayout-horizontal\n                height-8\n                padding-horizontal-3\n                width-hug\n              >\n                <Text fill-neutral-900 typography-sm>\n                  Outline\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame\n              corner-radius-xl\n              stroke-neutral-200\n              autolayout-vertical\n              gap-1\n              height-hug\n              padding-4\n              width-fill\n            >\n              <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                <Frame\n                  corner-radius-full\n                  fill-neutral-900\n                  alignment-center\n                  autolayout-horizontal\n                  padding-horizontal-2\n                  padding-vertical-0p5\n                  width-hug\n                >\n                  <Text fill-white typography-xs>\n                    Badge\n                  </Text>\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  fill-neutral-100\n                  alignment-center\n                  autolayout-horizontal\n                  padding-horizontal-2\n                  padding-vertical-0p5\n                  width-hug\n                >\n                  <Text fill-neutral-900 typography-xs>\n                    Secondary\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame height-2 width-fill />\n              <Text fill-neutral-900 typography-sm>\n                Alert Dialog\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                This action cannot be undone. Your account and its data will be removed from our servers.\n              </Text>\n            </Frame>\n            <Frame autolayout-horizontal height-hug width-hug>\n              <Frame\n                corner-radius-top-left-lg\n                corner-radius-bottom-left-lg\n                stroke-neutral-200\n                alignment-center\n                autolayout-horizontal\n                height-8\n                padding-horizontal-3\n                width-hug\n              >\n                <Text fill-neutral-900 typography-sm>\n                  Button Group\n                </Text>\n              </Frame>\n              <Frame stroke-neutral-200 alignment-center autolayout-horizontal height-8 padding-horizontal-3 width-hug>\n                <Text fill-neutral-900 typography-sm>\n                  Archive\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-top-right-lg\n                corner-radius-bottom-right-lg\n                stroke-neutral-200\n                alignment-center\n                autolayout-horizontal\n                height-8\n                width-8\n              >\n                <Vector fill-neutral-900 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame autolayout-horizontal gap-6 height-hug width-fill>\n            <Frame corner-radius-3xl fill-white autolayout-vertical gap-3 height-hug padding-5 width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Planning\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Documents\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Budget\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Reports\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Goals\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Calendar\n              </Text>\n            </Frame>\n            <Frame corner-radius-3xl fill-white autolayout-vertical gap-3 height-hug padding-5 width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Support\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Help Center\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Docs\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Contact Us\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Status\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Community\n              </Text>\n            </Frame>\n          </Frame>\n          <Frame autolayout-horizontal gap-6 height-hug width-fill>\n            <Frame corner-radius-3xl fill-white autolayout-vertical gap-3 height-hug padding-5 width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Overview\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Analytics\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Transactions\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Investments\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Accounts\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Spending\n              </Text>\n            </Frame>\n            <Frame corner-radius-3xl fill-white autolayout-vertical gap-3 height-hug padding-5 width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Account\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Profile\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Billing\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Notifications\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Security\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Appearance\n              </Text>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-900 typography-base>\n                Savings Targets\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Active milestones for 2024 across your portfolio. Monitor how close you are to each savings goal.\n              </Text>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    RETIREMENT\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  $420,000\n                </Text>\n              </Frame>\n              <Frame corner-radius-full fill-neutral-100 height-2 width-fill>\n                <Frame corner-radius-full fill-neutral-900 height-2 width-48 />\n              </Frame>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    65% achieved\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-xs>\n                  $273,000\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    REAL ESTATE\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  $85,000\n                </Text>\n              </Frame>\n              <Frame corner-radius-full fill-neutral-100 height-2 width-fill>\n                <Frame corner-radius-full fill-neutral-900 height-2 width-24 />\n              </Frame>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    32% achieved\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-xs>\n                  $27,200\n                </Text>\n              </Frame>\n            </Frame>\n            <Text fill-neutral-500 typography-sm>\n              You have not met your targets for this year.\n            </Text>\n          </Frame>\n        </Frame>\n\n        <Frame autolayout-vertical gap-6 height-hug width-fill>\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-900 typography-base>\n                Contribution History\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Last 6 months of activity\n              </Text>\n            </Frame>\n            <Frame alignment-bottom-left autolayout-horizontal gap-3 height-44 width-fill>\n              <Frame corner-radius-md fill-neutral-300 height-20 width-fill />\n              <Frame corner-radius-md fill-neutral-300 height-28 width-fill />\n              <Frame corner-radius-md fill-neutral-300 height-24 width-fill />\n              <Frame corner-radius-md fill-neutral-300 height-36 width-fill />\n              <Frame corner-radius-md fill-neutral-900 height-40 width-fill />\n            </Frame>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame alignment-top-center height-hug width-fill>\n                <Text fill-neutral-500 typography-xs>\n                  Dec\n                </Text>\n              </Frame>\n              <Frame alignment-top-center height-hug width-fill>\n                <Text fill-neutral-500 typography-xs>\n                  Jan\n                </Text>\n              </Frame>\n              <Frame alignment-top-center height-hug width-fill>\n                <Text fill-neutral-500 typography-xs>\n                  Feb\n                </Text>\n              </Frame>\n              <Frame alignment-top-center height-hug width-fill>\n                <Text fill-neutral-500 typography-xs>\n                  Mar\n                </Text>\n              </Frame>\n              <Frame alignment-top-center height-hug width-fill>\n                <Text fill-neutral-900 typography-xs>\n                  Apr\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-3 height-hug width-fill>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame autolayout-vertical gap-0p5 height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    UPCOMING\n                  </Text>\n                  <Text fill-neutral-900 typography-sm>\n                    May 2024\n                  </Text>\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  fill-neutral-100\n                  alignment-center\n                  autolayout-horizontal\n                  padding-horizontal-2\n                  padding-vertical-0p5\n                  width-hug\n                >\n                  <Text fill-neutral-900 typography-xs>\n                    Scheduled\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame autolayout-vertical gap-0p5 height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    SAVINGS PLAN\n                  </Text>\n                  <Text fill-neutral-900 typography-sm>\n                    Accelerated\n                  </Text>\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  stroke-neutral-200\n                  alignment-center\n                  autolayout-horizontal\n                  padding-horizontal-2\n                  padding-vertical-0p5\n                  width-hug\n                >\n                  <Text fill-neutral-900 typography-xs>\n                    Recurring\n                  </Text>\n                </Frame>\n              </Frame>\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              fill-neutral-900\n              fill-hover-neutral-700\n              alignment-center\n              autolayout-horizontal\n              height-8\n              transition-colors\n              width-fill\n            >\n              <Text fill-white typography-sm>\n                View Full Report\n              </Text>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-500 typography-sm>\n                Claimable Balance\n              </Text>\n              <Text fill-neutral-900 typography-4xl>\n                $1,211.29\n              </Text>\n              <Frame\n                corner-radius-full\n                stroke-neutral-200\n                alignment-center\n                autolayout-horizontal\n                padding-horizontal-2\n                padding-vertical-0p5\n                width-hug\n              >\n                <Text fill-neutral-900 typography-xs>\n                  Pending Setup\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              fill-neutral-50\n              stroke-neutral-200\n              autolayout-vertical\n              gap-2\n              height-hug\n              padding-4\n              width-fill\n            >\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-sm>\n                    Net Royalties\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  $1,248.75\n                </Text>\n              </Frame>\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-sm>\n                    Processing Fee\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  -$37.46\n                </Text>\n              </Frame>\n              <Frame fill-neutral-200 height-px width-fill />\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Total Ready to Claim\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  $1,211.29 USD\n                </Text>\n              </Frame>\n            </Frame>\n            <Text fill-neutral-500 typography-sm>\n              Once your bank is connected, balances over $10.00 are automatically eligible for monthly distribution on\n              the 15th of each month.\n            </Text>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  Q2 Dividend Income\n                </Text>\n                <Text fill-neutral-500 typography-sm>\n                  Quarterly dividend payouts across your portfolio holdings.\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                fill-hover-neutral-100\n                alignment-center\n                autolayout-horizontal\n                height-7\n                transition-colors\n                width-7\n              >\n                <Vector fill-neutral-900 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-4 height-hug width-fill>\n              <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                <Frame corner-radius-full fill-red-700 height-9 width-9 />\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Vanguard\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-sm>\n                  450 Shares\n                </Text>\n              </Frame>\n              <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                <Frame corner-radius-full fill-blue-600 height-9 width-9 />\n                <Frame autolayout-vertical height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    S&amp;P 500\n                  </Text>\n                  <Text fill-neutral-500 typography-xs>\n                    VOO\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-sm>\n                  112 Shares\n                </Text>\n              </Frame>\n              <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                <Frame corner-radius-full fill-neutral-900 height-9 width-9 />\n                <Frame autolayout-vertical height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Apple\n                  </Text>\n                  <Text fill-neutral-500 typography-xs>\n                    AAPL\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-sm>\n                  85 Shares\n                </Text>\n              </Frame>\n              <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                <Frame corner-radius-full fill-sky-600 height-9 width-9 />\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Realty Income\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-sm>\n                  320 Shares\n                </Text>\n              </Frame>\n            </Frame>\n          </Frame>\n        </Frame>\n\n        <Frame autolayout-vertical gap-6 height-hug width-fill>\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-900 typography-base>\n                Set a new milestone\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Define your financial target and we'll help you pace your savings.\n              </Text>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Goal Name\n              </Text>\n              <Frame\n                corner-radius-lg\n                stroke-neutral-200\n                alignment-left\n                autolayout-horizontal\n                height-9\n                padding-horizontal-3\n                width-fill\n              >\n                <Text fill-neutral-400 typography-sm>\n                  Emergency fund\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame autolayout-vertical gap-2 height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Target Amount\n                </Text>\n                <Frame\n                  corner-radius-lg\n                  stroke-neutral-200\n                  alignment-left\n                  autolayout-horizontal\n                  height-9\n                  padding-horizontal-3\n                  width-fill\n                >\n                  <Text fill-neutral-400 typography-sm>\n                    $10,000\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame autolayout-vertical gap-2 height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Target Date\n                </Text>\n                <Frame\n                  corner-radius-lg\n                  stroke-neutral-200\n                  alignment-left\n                  autolayout-horizontal\n                  height-9\n                  padding-horizontal-3\n                  width-fill\n                >\n                  <Text fill-neutral-400 typography-sm>\n                    Dec 2025\n                  </Text>\n                </Frame>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Frame\n                corner-radius-2xl\n                fill-neutral-900\n                fill-hover-neutral-700\n                alignment-center\n                autolayout-horizontal\n                height-8\n                transition-colors\n                width-fill\n              >\n                <Text fill-white typography-sm>\n                  Create Goal\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-2xl\n                stroke-neutral-200\n                fill-hover-neutral-100\n                alignment-center\n                autolayout-horizontal\n                height-8\n                transition-colors\n                width-fill\n              >\n                <Text fill-neutral-900 typography-sm>\n                  Cancel\n                </Text>\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  Payout Threshold\n                </Text>\n                <Text fill-neutral-500 typography-sm>\n                  Set the minimum balance required before a payout is triggered.\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                fill-hover-neutral-100\n                alignment-center\n                autolayout-horizontal\n                height-7\n                transition-colors\n                width-7\n              >\n                <Vector fill-neutral-900 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Preferred Currency\n              </Text>\n              <Frame\n                corner-radius-lg\n                stroke-neutral-200\n                alignment-left\n                autolayout-horizontal\n                height-9\n                padding-horizontal-3\n                width-fill\n              >\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    USD - United States Dollar\n                  </Text>\n                </Frame>\n                <Vector fill-neutral-500 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-3 height-hug width-fill>\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Minimum Payout Amount\n                  </Text>\n                </Frame>\n                <Text fill-neutral-900 typography-sm>\n                  $2500.00\n                </Text>\n              </Frame>\n              <Frame alignment-left autolayout-horizontal height-4 width-fill>\n                <Frame corner-radius-full fill-neutral-900 height-1p5 width-20 />\n                <Frame corner-radius-full fill-white stroke-neutral-900 effect-shadow-sm height-4 width-4 />\n                <Frame corner-radius-full fill-neutral-100 height-1p5 width-fill />\n              </Frame>\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-500 typography-xs>\n                    $50 (MIN)\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 typography-xs>\n                  $10,000 (MAX)\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Notes\n              </Text>\n              <Frame corner-radius-lg stroke-neutral-200 height-20 padding-horizontal-3 padding-vertical-2 width-fill>\n                <Text fill-neutral-400 typography-sm>\n                  Add a note for your accountant...\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              fill-neutral-900\n              fill-hover-neutral-700\n              alignment-center\n              autolayout-horizontal\n              height-8\n              transition-colors\n              width-fill\n            >\n              <Text fill-white typography-sm>\n                Save Threshold\n              </Text>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-900 typography-base>\n                Account Access\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Update your credentials or re-authenticate.\n              </Text>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Email Address\n              </Text>\n              <Frame\n                corner-radius-lg\n                stroke-neutral-200\n                alignment-left\n                autolayout-horizontal\n                height-9\n                padding-horizontal-3\n                width-fill\n              >\n                <Text fill-neutral-900 typography-sm>\n                  m@example.com\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-2 height-hug width-fill>\n              <Frame autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Current Password\n                  </Text>\n                </Frame>\n                <Text fill-neutral-500 fill-hover-neutral-900 typography-xs>\n                  FORGOT?\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                stroke-neutral-200\n                alignment-left\n                autolayout-horizontal\n                height-9\n                padding-horizontal-3\n                width-fill\n              >\n                <Text fill-neutral-900 typography-sm>\n                  ************\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              fill-neutral-900\n              fill-hover-neutral-700\n              alignment-center\n              autolayout-horizontal\n              height-8\n              transition-colors\n              width-fill\n            >\n              <Text fill-white typography-sm>\n                Update Security\n              </Text>\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              fill-neutral-50\n              stroke-neutral-200\n              autolayout-vertical\n              gap-1\n              height-hug\n              padding-4\n              width-fill\n            >\n              <Text fill-red-600 typography-sm>\n                Danger Zone\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Archive account and remove catalog\n              </Text>\n            </Frame>\n          </Frame>\n        </Frame>\n\n        <Frame autolayout-vertical gap-6 height-hug width-fill>\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-5 height-hug padding-5 width-fill>\n            <Frame alignment-top-center height-hug padding-top-1 width-fill>\n              <Frame\n                corner-radius-xl\n                fill-white\n                stroke-neutral-200\n                autolayout-vertical\n                gap-2\n                height-48\n                padding-4\n                width-48\n              >\n                <Frame autolayout-horizontal gap-2 height-fill width-fill>\n                  <Frame corner-radius-md fill-neutral-900 height-12 width-12 />\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-4 />\n                  <Frame height-hug width-fill />\n                  <Frame corner-radius-md fill-neutral-900 height-12 width-12 />\n                </Frame>\n                <Frame alignment-center autolayout-horizontal gap-2 height-fill width-fill>\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-4 />\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-8 />\n                  <Frame corner-radius-xs fill-neutral-900 height-8 width-4 />\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-4 />\n                </Frame>\n                <Frame alignment-bottom-left autolayout-horizontal gap-2 height-fill width-fill>\n                  <Frame corner-radius-md fill-neutral-900 height-12 width-12 />\n                  <Frame corner-radius-xs fill-neutral-900 height-8 width-4 />\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-8 />\n                  <Frame corner-radius-xs fill-neutral-900 height-4 width-4 />\n                </Frame>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Text fill-neutral-900 typography-base>\n                Scan to connect your mobile device\n              </Text>\n              <Text fill-neutral-500 typography-sm>\n                Open the Ledger mobile app and scan this code to link your device.\n              </Text>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-4 height-hug padding-5 width-fill>\n            <Frame alignment-left autolayout-horizontal height-hug width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  New Chat\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-lg\n                fill-hover-neutral-100\n                alignment-center\n                autolayout-horizontal\n                height-7\n                transition-colors\n                width-7\n              >\n                <Vector fill-neutral-900 height-4 path={PLUS_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-top-center autolayout-vertical gap-1 height-hug padding-vertical-4 width-fill>\n              <Text fill-neutral-900 typography-lg typography-align-center>\n                Morning, shadcn!\n              </Text>\n              <Text fill-neutral-500 typography-sm typography-align-center>\n                What are we working on today?\n              </Text>\n            </Frame>\n            <Frame alignment-top-right height-hug width-fill>\n              <Frame corner-radius-2xl fill-neutral-100 height-hug padding-horizontal-3 padding-vertical-2 width-60>\n                <Text fill-neutral-900 typography-sm>\n                  I'm building a chat for our app and the scroll behavior is driving me nuts. Every time the AI\n                  streams a reply, the whole thread jumps around.\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-vertical gap-1p5 height-hug width-fill>\n              <Frame corner-radius-full fill-neutral-200 tailwind-animate-pulse height-2 width-full />\n              <Frame corner-radius-full fill-neutral-200 tailwind-animate-pulse height-2 width-48 />\n              <Frame corner-radius-full fill-neutral-200 tailwind-animate-pulse height-2 width-32 />\n            </Frame>\n            <Frame\n              corner-radius-2xl\n              stroke-neutral-200\n              autolayout-vertical\n              gap-3\n              height-hug\n              padding-3\n              width-fill\n            >\n              <Text fill-neutral-400 typography-sm>\n                How can I help you today?\n              </Text>\n              <Frame alignment-left autolayout-horizontal height-hug width-fill>\n                <Frame height-hug width-fill>\n                  <Text fill-neutral-400 typography-xs>\n                    Press send to start a new conversation\n                  </Text>\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  fill-neutral-900\n                  fill-hover-neutral-700\n                  alignment-center\n                  autolayout-horizontal\n                  height-7\n                  transition-colors\n                  width-7\n                >\n                  <Vector fill-white height-3p5 path={SEND_PATH} viewBox=\"0 0 24 24\" width-3p5 />\n                </Frame>\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame corner-radius-3xl fill-white autolayout-vertical gap-4 height-hug padding-5 width-fill>\n            <Frame alignment-left autolayout-horizontal gap-1p5 height-hug width-fill>\n              <Text fill-neutral-500 typography-sm>\n                Home\n              </Text>\n              <Vector fill-neutral-400 height-3p5 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-3p5 />\n              <Text fill-neutral-500 typography-sm>\n                Account options\n              </Text>\n              <Vector fill-neutral-400 height-3p5 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-3p5 />\n              <Text fill-neutral-900 typography-sm>\n                Payments\n              </Text>\n            </Frame>\n            <Frame corner-radius-2xl stroke-neutral-200 autolayout-vertical height-hug width-fill>\n              <Frame\n                fill-hover-neutral-50\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-hug\n                padding-4\n                transition-colors\n                width-fill\n              >\n                <Frame autolayout-vertical gap-0p5 height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Change transfer limit\n                  </Text>\n                  <Text fill-neutral-500 typography-xs>\n                    Adjust how much you can send from your balance.\n                  </Text>\n                </Frame>\n                <Vector fill-neutral-400 height-4 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n              <Frame fill-neutral-200 height-px width-fill />\n              <Frame\n                fill-hover-neutral-50\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-hug\n                padding-4\n                transition-colors\n                width-fill\n              >\n                <Frame autolayout-vertical gap-0p5 height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Scheduled transfers\n                  </Text>\n                  <Text fill-neutral-500 typography-xs>\n                    Set up a transfer to send at a later date.\n                  </Text>\n                </Frame>\n                <Vector fill-neutral-400 height-4 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n              <Frame fill-neutral-200 height-px width-fill />\n              <Frame\n                fill-hover-neutral-50\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-hug\n                padding-4\n                transition-colors\n                width-fill\n              >\n                <Frame autolayout-vertical gap-0p5 height-hug width-fill>\n                  <Text fill-neutral-900 typography-sm>\n                    Recurring card payments\n                  </Text>\n                  <Text fill-neutral-500 typography-xs>\n                    Manage your repeated card transactions.\n                  </Text>\n                </Frame>\n                <Vector fill-neutral-400 height-4 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n            </Frame>\n          </Frame>\n        </Frame>\n      </Frame>\n    </Frame>\n  )\n}\n"
+}
+
+=== TOOL - 10:30:06 UTC ===
+[tool result]
+File created successfully at: ~/Sites/unison/unison-playground-web/src/app/shadcn/page.tsx (file state is current in your context — no need to Read it back)
+
+=== CLAUDE - 10:30:14 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && sed -i 's/S&amp;P 500/{\"S\\&P 500\"}/' src/app/shadcn/page.tsx && grep -n 'S&P' src/app/shadcn/page.tsx && bun run typecheck 2>&1 | tail -20"
+}
+
+=== TOOL - 10:30:16 UTC ===
+[tool result]
+764:                    {"S&P 500"}
+$ tsc --noEmit
+unison-components/dist/uniwind-motion.ts(7,39): error TS2307: Cannot find module 'react-native-reanimated' or its corresponding type declarations.
+unison-components/dist/uniwind-motion.ts(8,29): error TS2307: Cannot find module 'uniwind' or its corresponding type declarations.
+error: script "typecheck" exited with code 1
+
+=== CLAUDE - 10:30:24 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && sed -i 's|    \"unison-components/dist/native.ts\",|    \"unison-components/dist/native.ts\",\\n    \"unison-components/dist/uniwind-motion.ts\",|' tsconfig.json && sed -i 's|// Leave out the library.s native entry and shells|&|' tsconfig.json && grep -n -B2 -A6 '\"exclude\"' tsconfig.json && bun run typecheck 2>&1 | tail -5"
+}
+
+=== TOOL - 10:30:24 UTC ===
+[tool result]
+26-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", ".next/dev/types/**/*.ts", "**/*.mts"],
+27-  // Leave out the library's native entry and shells, and its Bun build scripts.
+28:  "exclude": [
+29-    "node_modules",
+30-    "unison-components/dist/native.ts",
+31-    "unison-components/dist/uniwind-motion.ts",
+32-    "unison-components/src/native",
+33-    "unison-components/scripts"
+34-  ]
+$ tsc --noEmit
+
+=== CLAUDE - 10:30:30 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && sed -i \"s|// Leave out the library's native entry and shells, and its Bun build scripts.|// Leave out the library's native entries and shells, and its Bun build scripts.|\" tsconfig.json; printf '\"use client\"\\nimport { Frame } from \"@unison\"\\nexport default () => <Frame fill-red-55 padding-13 />\\n' > src/app/zz.tsx; bunx tsc --noEmit 2>&1 | head -3; rm src/app/zz.tsx"
+}
+
+=== TOOL - 10:30:30 UTC ===
+[tool result]
+src/app/zz.tsx(3,23): error TS2322: Type '{ "fill-red-55": true; "padding-13": true; }' is not assignable to type '{ "fill-red-55": { "unknown attribute": "fill-red-55 is not a Frame attribute"; }; "padding-13": { "unknown attribute": "padding-13 is not a Frame attribute"; }; }'.
+  Types of property 'fill-red-55' are incompatible.
+    Type 'boolean' is not assignable to type '{ "unknown attribute": "fill-red-55 is not a Frame attribute"; }'.
+
+=== CLAUDE - 10:32:15 UTC ===
+[tool call: Write]
+{
+  "file_path": "~/Sites/unison/unison-playground-web/src/app/reddit/page.tsx",
+  "content": "\"use client\"\n\nimport { Frame, Text, Vector } from \"@unison\"\n\n// A look-alike of the r/artificial listing on Reddit, built only from Frame, Text and Vector flags.\n\nconst MENU_PATH = \"M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z\"\n\nconst SEARCH_PATH =\n  \"M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"\n\nconst CHAT_PATH = \"M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z\"\n\nconst PLUS_PATH = \"M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z\"\n\nconst BELL_PATH =\n  \"M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z\"\n\nconst HOME_PATH = \"M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z\"\n\nconst POPULAR_PATH = \"M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z\"\n\nconst EXPLORE_PATH =\n  \"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5.5-2.5 7.51-3.49L17.5 6.5 9.99 9.99 6.5 17.5zm5.5-6.6c.61 0 1.1.49 1.1 1.1s-.49 1.1-1.1 1.1-1.1-.49-1.1-1.1.49-1.1 1.1-1.1z\"\n\nconst CHEVRON_DOWN_PATH = \"M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z\"\n\nconst UP_PATH = \"M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z\"\n\nconst DOWN_PATH = \"M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z\"\n\nconst SHARE_PATH =\n  \"M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z\"\n\nconst MORE_PATH =\n  \"M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"\n\nexport default () => {\n  return (\n    <Frame fill-white autolayout-vertical height-hug width-fill>\n      <Frame alignment-left autolayout-horizontal gap-2 height-14 padding-horizontal-4 width-fill>\n        <Frame alignment-left autolayout-horizontal gap-2 height-hug width-64>\n          <Frame\n            corner-radius-full\n            fill-hover-slate-100\n            alignment-center\n            autolayout-horizontal\n            height-10\n            transition-colors\n            width-10\n          >\n            <Vector fill-neutral-900 height-6 path={MENU_PATH} viewBox=\"0 0 24 24\" width-6 />\n          </Frame>\n          <Frame corner-radius-full fill-orange-600 alignment-center autolayout-horizontal height-8 width-8>\n            <Frame corner-radius-full fill-white height-3 width-5 />\n          </Frame>\n          <Text fill-orange-600 typography-2xl>\n            reddit\n          </Text>\n        </Frame>\n        <Frame alignment-center autolayout-horizontal height-hug width-fill>\n          <Frame\n            corner-radius-full\n            fill-slate-100\n            fill-hover-slate-200\n            alignment-left\n            autolayout-horizontal\n            gap-2\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-xl\n          >\n            <Vector fill-neutral-900 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n            <Frame\n              corner-radius-full\n              fill-white\n              alignment-center\n              autolayout-horizontal\n              gap-1\n              height-7\n              padding-horizontal-2\n              width-hug\n            >\n              <Frame corner-radius-full fill-sky-600 height-4 width-4 />\n              <Text fill-neutral-900 typography-xs>\n                r/artificial\n              </Text>\n            </Frame>\n            <Text fill-slate-500 typography-sm>\n              Search in r/artificial\n            </Text>\n          </Frame>\n        </Frame>\n        <Frame alignment-right autolayout-horizontal gap-1 height-hug width-64>\n          <Frame\n            corner-radius-full\n            fill-hover-slate-100\n            alignment-center\n            autolayout-horizontal\n            height-10\n            transition-colors\n            width-10\n          >\n            <Vector fill-neutral-900 height-5 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-5 />\n          </Frame>\n          <Frame\n            corner-radius-full\n            fill-hover-slate-100\n            alignment-center\n            autolayout-horizontal\n            gap-1p5\n            height-10\n            padding-horizontal-3\n            transition-colors\n            width-hug\n          >\n            <Vector fill-neutral-900 height-5 path={PLUS_PATH} viewBox=\"0 0 24 24\" width-5 />\n            <Text fill-neutral-900 typography-sm>\n              Create\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-full\n            fill-hover-slate-100\n            alignment-center\n            autolayout-horizontal\n            height-10\n            transition-colors\n            width-10\n          >\n            <Vector fill-neutral-900 height-5 path={BELL_PATH} viewBox=\"0 0 24 24\" width-5 />\n          </Frame>\n          <Frame corner-radius-full fill-emerald-500 height-8 width-8 />\n        </Frame>\n      </Frame>\n      <Frame fill-slate-200 height-px width-fill />\n\n      <Frame autolayout-horizontal height-hug width-fill>\n        <Frame autolayout-vertical gap-1 height-hug padding-4 width-64>\n          <Frame\n            corner-radius-lg\n            fill-slate-100\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            width-fill\n          >\n            <Vector fill-neutral-900 height-5 path={HOME_PATH} viewBox=\"0 0 24 24\" width-5 />\n            <Text fill-neutral-900 typography-sm>\n              Home\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-lg\n            fill-hover-slate-50\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-fill\n          >\n            <Vector fill-neutral-900 height-5 path={POPULAR_PATH} viewBox=\"0 0 24 24\" width-5 />\n            <Text fill-neutral-900 typography-sm>\n              Popular\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-lg\n            fill-hover-slate-50\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-fill\n          >\n            <Vector fill-neutral-900 height-5 path={EXPLORE_PATH} viewBox=\"0 0 24 24\" width-5 />\n            <Text fill-neutral-900 typography-sm>\n              Explore\n            </Text>\n          </Frame>\n          <Frame height-2 width-fill />\n          <Frame fill-slate-200 height-px width-fill />\n          <Frame height-2 width-fill />\n          <Frame alignment-left autolayout-horizontal height-10 padding-horizontal-4 width-fill>\n            <Frame height-hug width-fill>\n              <Text fill-slate-500 typography-xs>\n                CUSTOM FEEDS\n              </Text>\n            </Frame>\n            <Vector fill-slate-500 height-5 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-5 />\n          </Frame>\n          <Frame alignment-left autolayout-horizontal height-10 padding-horizontal-4 width-fill>\n            <Frame height-hug width-fill>\n              <Text fill-slate-500 typography-xs>\n                RECENT\n              </Text>\n            </Frame>\n            <Vector fill-slate-500 height-5 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-5 />\n          </Frame>\n          <Frame\n            corner-radius-lg\n            fill-hover-slate-50\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-fill\n          >\n            <Frame corner-radius-full fill-sky-600 height-6 width-6 />\n            <Text fill-neutral-900 typography-sm>\n              r/artificial\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-lg\n            fill-hover-slate-50\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-fill\n          >\n            <Frame corner-radius-full fill-violet-600 height-6 width-6 />\n            <Text fill-neutral-900 typography-sm>\n              r/MachineLearning\n            </Text>\n          </Frame>\n          <Frame\n            corner-radius-lg\n            fill-hover-slate-50\n            alignment-left\n            autolayout-horizontal\n            gap-3\n            height-10\n            padding-horizontal-4\n            transition-colors\n            width-fill\n          >\n            <Frame corner-radius-full fill-amber-500 height-6 width-6 />\n            <Text fill-neutral-900 typography-sm>\n              r/LocalLLaMA\n            </Text>\n          </Frame>\n          <Frame height-2 width-fill />\n          <Frame fill-slate-200 height-px width-fill />\n          <Frame height-2 width-fill />\n          <Frame alignment-left autolayout-horizontal height-10 padding-horizontal-4 width-fill>\n            <Frame height-hug width-fill>\n              <Text fill-slate-500 typography-xs>\n                RESOURCES\n              </Text>\n            </Frame>\n            <Vector fill-slate-500 height-5 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-5 />\n          </Frame>\n        </Frame>\n        <Frame fill-slate-200 height-fill width-px />\n\n        <Frame autolayout-vertical gap-4 height-hug padding-horizontal-6 padding-vertical-2 width-fill>\n          <Frame corner-radius-xl fill-sky-800 height-32 width-fill />\n          <Frame alignment-bottom-left autolayout-horizontal gap-3 height-hug padding-horizontal-4 width-fill>\n            <Frame corner-radius-full fill-white alignment-center autolayout-horizontal height-24 width-24>\n              <Frame corner-radius-full fill-sky-600 height-20 width-20 />\n            </Frame>\n            <Frame height-hug padding-bottom-2 width-fill>\n              <Text fill-neutral-900 typography-3xl>\n                r/artificial\n              </Text>\n            </Frame>\n            <Frame alignment-left autolayout-horizontal gap-2 height-hug padding-bottom-2 width-hug>\n              <Frame\n                corner-radius-full\n                stroke-slate-400\n                fill-hover-slate-100\n                alignment-center\n                autolayout-horizontal\n                gap-1\n                height-10\n                padding-horizontal-4\n                transition-colors\n                width-hug\n              >\n                <Vector fill-neutral-900 height-5 path={PLUS_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-sm>\n                  Create Post\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-full\n                fill-blue-800\n                fill-hover-blue-900\n                alignment-center\n                autolayout-horizontal\n                height-10\n                padding-horizontal-4\n                transition-colors\n                width-hug\n              >\n                <Text fill-white typography-sm>\n                  Join\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-full\n                stroke-slate-400\n                fill-hover-slate-100\n                alignment-center\n                autolayout-horizontal\n                height-10\n                transition-colors\n                width-10\n              >\n                <Vector fill-neutral-900 height-5 path={MORE_PATH} viewBox=\"0 0 24 24\" width-5 />\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame autolayout-horizontal gap-4 height-hug width-fill>\n            <Frame autolayout-vertical gap-1 height-hug width-fill>\n              <Frame alignment-left autolayout-horizontal gap-2 height-hug padding-vertical-2 width-fill>\n                <Frame\n                  corner-radius-full\n                  fill-hover-slate-100\n                  alignment-center\n                  autolayout-horizontal\n                  gap-1\n                  height-8\n                  padding-horizontal-3\n                  transition-colors\n                  width-hug\n                >\n                  <Text fill-slate-600 typography-xs>\n                    Best\n                  </Text>\n                  <Vector fill-slate-600 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  fill-hover-slate-100\n                  alignment-center\n                  autolayout-horizontal\n                  gap-1\n                  height-8\n                  padding-horizontal-3\n                  transition-colors\n                  width-hug\n                >\n                  <Text fill-slate-600 typography-xs>\n                    Card\n                  </Text>\n                  <Vector fill-slate-600 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-teal-500 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/pixel_tinkerer\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    11 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Text fill-neutral-900 typography-lg>\n                  New York City wants to fine companies that trap you in AI chatbot 'doom loops'\n                </Text>\n                <Text fill-slate-600 typography-sm>\n                  Seems like a good idea. Didn't know it was called a 'doom loop' but hate calling customer services and\n                  being stuck with an AI agent.\n                </Text>\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      412\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      58\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-orange-500 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/quiet_compiler\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    22 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Frame autolayout-horizontal gap-4 height-hug width-fill>\n                  <Frame autolayout-vertical gap-1 height-hug width-fill>\n                    <Text fill-neutral-900 typography-lg>\n                      Google DeepMind says four AI agents beat Minecraft in 27 hours by writing 2,783 programs of their\n                      own - AI team died 605 times on Easy difficulty and ran up an estimated $520 in tokens\n                    </Text>\n                    <Text fill-blue-800 typography-xs typography-decoration-underline>\n                      tomshardware.com\n                    </Text>\n                  </Frame>\n                  <Frame corner-radius-xl fill-lime-700 height-24 width-32 />\n                </Frame>\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      1.2K\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      167\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-pink-500 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/static_harbor\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    3 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Text fill-neutral-900 typography-lg>\n                  What's a task you refuse to hand over to AI, even if it could do it well?\n                </Text>\n                <Text fill-slate-600 typography-sm>\n                  What's your reason? For me its art.\n                </Text>\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      36\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      94\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-indigo-500 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/kettle_logic\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    1 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Text fill-neutral-900 typography-lg>\n                  i made something to help me finally understand how llms work\n                </Text>\n                <Text fill-slate-600 typography-sm>\n                  hi everyone i kept watching videos about how ai chatbots work and understanding them while watching,\n                  then forgetting everything the next day. so i tried building it myself, step by step.\n                </Text>\n                <Frame corner-radius-2xl fill-slate-800 height-72 width-fill />\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      18\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      7\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-cyan-600 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/loopwright\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    7 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Frame autolayout-horizontal gap-4 height-hug width-fill>\n                  <Frame autolayout-vertical gap-1 height-hug width-fill>\n                    <Text fill-neutral-900 typography-lg>\n                      OpenAI acquires Orchestra Bio, folds drug-development agents into Rosalind\n                    </Text>\n                    <Text fill-blue-800 typography-xs typography-decoration-underline>\n                      vectorwire.ai\n                    </Text>\n                  </Frame>\n                  <Frame corner-radius-xl fill-emerald-800 height-24 width-32 />\n                </Frame>\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      64\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      12\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n              <Frame fill-slate-200 height-px width-fill />\n\n              <Frame\n                corner-radius-2xl\n                fill-hover-slate-50\n                autolayout-vertical\n                gap-2\n                height-hug\n                padding-horizontal-4\n                padding-vertical-3\n                transition-colors\n                width-fill\n              >\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-yellow-500 height-6 width-6 />\n                  <Text fill-neutral-900 typography-xs>\n                    u/maple_and_moss\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    9 hr. ago\n                  </Text>\n                  <Frame height-hug width-fill />\n                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                </Frame>\n                <Text fill-neutral-900 typography-lg>\n                  Discover AI - A Teaching &amp; Learning Guide - 51 hands-on labs for learning how AI actually works.\n                </Text>\n                <Text fill-slate-600 typography-sm>\n                  This is a learning resource about how artificial intelligence works, broken down into its component\n                  parts. Understand each one, then put them together to create something of your own.\n                </Text>\n                <Frame alignment-left autolayout-horizontal gap-3 height-hug padding-top-1 width-fill>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-2\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={UP_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      27\n                    </Text>\n                    <Vector fill-neutral-900 height-4 path={DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={CHAT_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      4\n                    </Text>\n                  </Frame>\n                  <Frame\n                    corner-radius-full\n                    fill-slate-100\n                    fill-hover-slate-200\n                    alignment-center\n                    autolayout-horizontal\n                    gap-1p5\n                    height-8\n                    padding-horizontal-3\n                    transition-colors\n                    width-hug\n                  >\n                    <Vector fill-neutral-900 height-4 path={SHARE_PATH} viewBox=\"0 0 24 24\" width-4 />\n                    <Text fill-neutral-900 typography-xs>\n                      Share\n                    </Text>\n                  </Frame>\n                </Frame>\n              </Frame>\n            </Frame>\n\n            <Frame autolayout-vertical height-hug padding-top-4 width-80>\n              <Frame corner-radius-2xl fill-slate-50 autolayout-vertical gap-4 height-hug padding-4 width-fill>\n                <Frame autolayout-vertical gap-1 height-hug width-fill>\n                  <Text fill-neutral-900 typography-base>\n                    Artificial Intelligence (AI)\n                  </Text>\n                  <Text fill-slate-600 typography-sm>\n                    Reddit's home for Artificial Intelligence (AI)\n                  </Text>\n                </Frame>\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Text fill-slate-500 typography-xs>\n                    Created Jan 21, 2008\n                  </Text>\n                  <Text fill-slate-500 typography-xs>\n                    Public\n                  </Text>\n                </Frame>\n                <Frame autolayout-horizontal gap-4 height-hug width-fill>\n                  <Frame autolayout-vertical height-hug width-fill>\n                    <Text fill-neutral-900 typography-base>\n                      1.2M\n                    </Text>\n                    <Text fill-slate-500 typography-xs>\n                      Members\n                    </Text>\n                  </Frame>\n                  <Frame autolayout-vertical height-hug width-fill>\n                    <Frame alignment-left autolayout-horizontal gap-1 height-hug width-hug>\n                      <Frame corner-radius-full fill-green-500 tailwind-animate-pulse height-2 width-2 />\n                      <Text fill-neutral-900 typography-base>\n                        418\n                      </Text>\n                    </Frame>\n                    <Text fill-slate-500 typography-xs>\n                      Online\n                    </Text>\n                  </Frame>\n                  <Frame autolayout-vertical height-hug width-fill>\n                    <Text fill-neutral-900 typography-base>\n                      Top 1%\n                    </Text>\n                    <Text fill-slate-500 typography-xs>\n                      Rank by size\n                    </Text>\n                  </Frame>\n                </Frame>\n                <Frame fill-slate-200 height-px width-fill />\n                <Text fill-slate-500 typography-xs>\n                  RULES\n                </Text>\n                <Frame autolayout-vertical gap-3 height-hug width-fill>\n                  <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                    <Text fill-slate-500 typography-sm>\n                      1\n                    </Text>\n                    <Frame height-hug width-fill>\n                      <Text fill-neutral-900 typography-sm>\n                        Stay on topic\n                      </Text>\n                    </Frame>\n                    <Vector fill-slate-500 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                    <Text fill-slate-500 typography-sm>\n                      2\n                    </Text>\n                    <Frame height-hug width-fill>\n                      <Text fill-neutral-900 typography-sm>\n                        No spam or self-promotion\n                      </Text>\n                    </Frame>\n                    <Vector fill-slate-500 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                  <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n                    <Text fill-slate-500 typography-sm>\n                      3\n                    </Text>\n                    <Frame height-hug width-fill>\n                      <Text fill-neutral-900 typography-sm>\n                        Be civil\n                      </Text>\n                    </Frame>\n                    <Vector fill-slate-500 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n                  </Frame>\n                </Frame>\n                <Frame fill-slate-200 height-px width-fill />\n                <Text fill-slate-500 typography-xs>\n                  MODERATORS\n                </Text>\n                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n                  <Frame corner-radius-full fill-rose-500 height-8 width-8 />\n                  <Text fill-neutral-900 typography-sm>\n                    u/AutoModerator\n                  </Text>\n                </Frame>\n                <Frame\n                  corner-radius-full\n                  fill-slate-200\n                  fill-hover-slate-300\n                  alignment-center\n                  autolayout-horizontal\n                  height-8\n                  transition-colors\n                  width-fill\n                >\n                  <Text fill-neutral-900 typography-xs>\n                    Message Mods\n                  </Text>\n                </Frame>\n              </Frame>\n            </Frame>\n          </Frame>\n        </Frame>\n      </Frame>\n    </Frame>\n  )\n}\n"
+}
+
+=== TOOL - 10:32:15 UTC ===
+[tool result]
+File created successfully at: ~/Sites/unison/unison-playground-web/src/app/reddit/page.tsx (file state is current in your context — no need to Read it back)
+
+=== CLAUDE - 10:32:21 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && python3 - <<'EOF'\np='src/app/reddit/page.tsx';s=open(p).read()\ns=s.replace(\"Discover AI - A Teaching &amp; Learning Guide - 51 hands-on labs for learning how AI actually works.\",'{\"Discover AI - A Teaching & Learning Guide - 51 hands-on labs for learning how AI actually works.\"}')\nopen(p,'w').write(s)\nEOF\nbun run typecheck 2>&1 | tail -8"
+}
+
+=== TOOL - 10:32:22 UTC ===
+[tool result]
+$ tsc --noEmit
+
+=== CLAUDE - 10:33:56 UTC ===
+[tool call: Write]
+{
+  "file_path": "~/Sites/unison/unison-playground-web/src/app/google/page.tsx",
+  "content": "\"use client\"\n\nimport { Frame, Text, Vector } from \"@unison\"\n\n// A look-alike of a Google results page for \"Puppies\", built only from Frame, Text and Vector flags.\n\nconst CLOSE_PATH =\n  \"M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\"\n\nconst MIC_PATH =\n  \"M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z\"\n\nconst CAMERA_PATH =\n  \"M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zM9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z\"\n\nconst SEARCH_PATH =\n  \"M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z\"\n\nconst APPS_PATH =\n  \"M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z\"\n\nconst SPARKLE_PATH = \"M12 2c.6 5.2 4.8 9.4 10 10-5.2.6-9.4 4.8-10 10-.6-5.2-4.8-9.4-10-10 5.2-.6 9.4-4.8 10-10z\"\n\nconst CHEVRON_DOWN_PATH = \"M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z\"\n\nconst CHEVRON_RIGHT_PATH = \"M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z\"\n\nconst ARROW_RIGHT_PATH = \"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"\n\nconst MORE_VERT_PATH =\n  \"M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\"\n\nconst PLAY_PATH = \"M8 5v14l11-7z\"\n\nexport default () => {\n  return (\n    <Frame fill-white autolayout-vertical height-hug width-fill>\n      <Frame alignment-left autolayout-horizontal gap-5 height-hug padding-horizontal-7 padding-top-6 width-fill>\n        <Frame alignment-left autolayout-horizontal height-hug width-28>\n          <Text fill-blue-500 typography-3xl>\n            G\n          </Text>\n          <Text fill-red-500 typography-3xl>\n            o\n          </Text>\n          <Text fill-amber-400 typography-3xl>\n            o\n          </Text>\n          <Text fill-blue-500 typography-3xl>\n            g\n          </Text>\n          <Text fill-green-600 typography-3xl>\n            l\n          </Text>\n          <Text fill-red-500 typography-3xl>\n            e\n          </Text>\n        </Frame>\n        <Frame\n          corner-radius-full\n          fill-white\n          stroke-neutral-200\n          effect-shadow-sm\n          alignment-left\n          autolayout-horizontal\n          gap-3\n          height-12\n          padding-left-5\n          padding-right-4\n          transition-shadow\n          width-2xl\n        >\n          <Frame height-hug width-fill>\n            <Text fill-neutral-900 typography-base>\n              Puppies\n            </Text>\n          </Frame>\n          <Vector fill-neutral-600 height-6 path={CLOSE_PATH} viewBox=\"0 0 24 24\" width-6 />\n          <Frame fill-neutral-300 height-6 width-px />\n          <Vector fill-blue-500 height-6 path={MIC_PATH} viewBox=\"0 0 24 24\" width-6 />\n          <Vector fill-blue-500 height-6 path={CAMERA_PATH} viewBox=\"0 0 24 24\" width-6 />\n          <Vector fill-blue-500 height-6 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-6 />\n        </Frame>\n        <Frame height-hug width-fill />\n        <Frame\n          corner-radius-full\n          fill-hover-neutral-100\n          alignment-center\n          autolayout-horizontal\n          height-10\n          transition-colors\n          width-10\n        >\n          <Vector fill-neutral-600 height-6 path={APPS_PATH} viewBox=\"0 0 24 24\" width-6 />\n        </Frame>\n        <Frame\n          corner-radius-full\n          fill-blue-700\n          fill-hover-blue-800\n          alignment-center\n          autolayout-horizontal\n          height-10\n          padding-horizontal-6\n          transition-colors\n          width-hug\n        >\n          <Text fill-white typography-sm>\n            Sign in\n          </Text>\n        </Frame>\n      </Frame>\n\n      <Frame alignment-left autolayout-horizontal gap-5 height-hug padding-horizontal-7 padding-top-3 width-fill>\n        <Frame height-hug width-28 />\n        <Frame alignment-bottom-left autolayout-horizontal gap-6 height-hug width-2xl>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Frame alignment-left autolayout-horizontal gap-1 height-hug width-hug>\n              <Vector fill-neutral-600 height-4 path={SPARKLE_PATH} viewBox=\"0 0 24 24\" width-4 />\n              <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n                AI Mode\n              </Text>\n            </Frame>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-900 typography-sm>\n              All\n            </Text>\n            <Frame corner-radius-top-left-sm corner-radius-top-right-sm fill-neutral-900 height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Images\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Videos\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Short videos\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              News\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Forums\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Frame alignment-left autolayout-horizontal gap-0p5 height-hug width-hug>\n              <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n                More\n              </Text>\n              <Vector fill-neutral-600 height-4 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Frame height-1 width-fill />\n          </Frame>\n          <Frame height-hug width-fill />\n          <Frame autolayout-vertical gap-2p5 height-hug padding-top-2 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Tools\n            </Text>\n            <Frame height-1 width-fill />\n          </Frame>\n        </Frame>\n      </Frame>\n      <Frame fill-neutral-200 height-px width-fill />\n\n      <Frame autolayout-horizontal gap-5 height-hug padding-horizontal-7 padding-vertical-6 width-fill>\n        <Frame height-hug width-28 />\n        <Frame autolayout-vertical gap-8 height-hug width-2xl>\n          <Frame autolayout-vertical gap-4 height-hug width-fill>\n            <Text fill-neutral-900 typography-xl>\n              Videos\n            </Text>\n            <Frame alignment-left autolayout-horizontal gap-4 height-hug width-fill>\n              <Frame corner-radius-xl fill-amber-200 alignment-bottom-right height-24 padding-1p5 width-40>\n                <Frame corner-radius-md fill-neutral-900 alignment-center autolayout-horizontal gap-0p5 padding-horizontal-1p5 padding-vertical-0p5 width-hug>\n                  <Vector fill-white height-3 path={PLAY_PATH} viewBox=\"0 0 24 24\" width-3 />\n                  <Text fill-white typography-xs>\n                    0:58\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame autolayout-vertical gap-1 height-hug width-fill>\n                <Text fill-indigo-800 fill-hover-indigo-900 typography-lg>\n                  People in Finland are watching these puppies 24/7\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  CNN\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  18 hours ago\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame alignment-left autolayout-horizontal gap-4 height-hug width-fill>\n              <Frame corner-radius-xl fill-orange-200 alignment-bottom-right height-24 padding-1p5 width-40>\n                <Frame corner-radius-md fill-neutral-900 alignment-center autolayout-horizontal gap-0p5 padding-horizontal-1p5 padding-vertical-0p5 width-hug>\n                  <Vector fill-white height-3 path={PLAY_PATH} viewBox=\"0 0 24 24\" width-3 />\n                  <Text fill-white typography-xs>\n                    1:03\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame autolayout-vertical gap-1 height-hug width-fill>\n                <Text fill-indigo-800 fill-hover-indigo-900 typography-lg>\n                  A livestream showing a litter of puppies' first few weeks of life is ...\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  Facebook - CNN\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  12 hours ago\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame alignment-left autolayout-horizontal gap-4 height-hug width-fill>\n              <Frame corner-radius-xl fill-yellow-100 alignment-bottom-right height-24 padding-1p5 width-40>\n                <Frame corner-radius-md fill-neutral-900 alignment-center autolayout-horizontal gap-0p5 padding-horizontal-1p5 padding-vertical-0p5 width-hug>\n                  <Vector fill-white height-3 path={PLAY_PATH} viewBox=\"0 0 24 24\" width-3 />\n                  <Text fill-white typography-xs>\n                    11:03\n                  </Text>\n                </Frame>\n              </Frame>\n              <Frame autolayout-vertical gap-1 height-hug width-fill>\n                <Text fill-indigo-800 fill-hover-indigo-900 typography-lg>\n                  You Can't Watch These Cute PUPPIES Just Once! FUNNY ...\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  YouTube - Funny Pet's Life\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  1 month ago\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame alignment-center autolayout-horizontal height-hug width-fill>\n              <Frame fill-neutral-200 height-px width-fill />\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-center\n                autolayout-horizontal\n                gap-2\n                height-10\n                padding-horizontal-20\n                transition-colors\n                width-hug\n              >\n                <Text fill-neutral-900 typography-sm>\n                  View all\n                </Text>\n                <Vector fill-neutral-900 height-4 path={ARROW_RIGHT_PATH} viewBox=\"0 0 24 24\" width-4 />\n              </Frame>\n              <Frame fill-neutral-200 height-px width-fill />\n            </Frame>\n          </Frame>\n\n          <Frame autolayout-vertical height-hug width-fill>\n            <Frame height-hug padding-bottom-3 width-fill>\n              <Text fill-neutral-900 typography-xl>\n                People also ask\n              </Text>\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-left autolayout-horizontal height-12 width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  Is it puppy's or puppies?\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-6 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-6 />\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-left autolayout-horizontal height-12 width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  What is the 3-3-3 rule for puppies?\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-6 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-6 />\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-left autolayout-horizontal height-12 width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  What is called puppies?\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-6 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-6 />\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-left autolayout-horizontal height-12 width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-base>\n                  How long do puppies sleep a day?\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-6 path={CHEVRON_DOWN_PATH} viewBox=\"0 0 24 24\" width-6 />\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-right autolayout-horizontal height-hug padding-top-2 width-fill>\n              <Text fill-neutral-500 typography-xs>\n                Feedback\n              </Text>\n            </Frame>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                stroke-neutral-200\n                alignment-center\n                autolayout-horizontal\n                height-7\n                width-7\n              >\n                <Text fill-neutral-900 typography-xs>\n                  W\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Wikipedia\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://en.wikipedia.org &gt; wiki &gt; Puppy\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Puppy\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              A puppy is a juvenile dog, generally one less than 12-18 months old. Puppies generally weigh 250-450\n              grams (8-16 oz) shortly after birth, depending on the ...\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-blue-900 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  A\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  American Kennel Club\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://www.akc.org\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Frame autolayout-horizontal gap-4 height-hug width-fill>\n              <Frame autolayout-vertical gap-2 height-hug width-fill>\n                <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n                  Puppies: The Ultimate Guide to Ownership\n                </Text>\n                <Text fill-neutral-600 typography-sm>\n                  The AKC Puppy Hub is a one stop shop for everything puppy related - browse guides on how to pick,\n                  prepare, and a raise a puppy.\n                </Text>\n              </Frame>\n              <Frame corner-radius-xl fill-amber-100 alignment-bottom-right height-20 padding-1 width-28>\n                <Frame corner-radius-md fill-neutral-900 padding-horizontal-1 width-hug>\n                  <Text fill-white typography-xs>\n                    0:12\n                  </Text>\n                </Frame>\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-sky-500 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  P\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Puppies.com\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://www.puppies.com\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Puppies.com - Puppies for Sale from Breeders Nationwide ...\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              Browse thousands of puppies for sale from breeders across the USA. Search by breed, location and price.\n              View photos, health info and contact breeders direct...\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-orange-600 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  S\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  ScienceDirect.com\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://www.sciencedirect.com &gt; topics &gt; puppy\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Puppy - an overview\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              Puppies are defined as young domestic dogs that are often affected by human-controlled breeding\n              practices, which can impact their health, behavior, and overall ...\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-pink-500 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  I\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Instagram - puppies\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  5.4K+ followers\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Puppies (@puppies) - Instagram photos and videos\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              5.4K+ followers - 119 following - 174 posts - @puppies: \"The Official Puppies Account\"\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-teal-600 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  B\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  Best Friends Animal Society\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://bestfriends.org &gt; pet-care-resources &gt; puppy-dev...\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Puppy Development Stages From Birth to 2 Years Old\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              Learn about puppy development stages - birth to 2 weeks old, 2-4 weeks, 3-16 weeks, 4-6 months, and 1-2\n              years - and what puppies need at each stage.\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-2 height-hug width-fill>\n            <Frame alignment-left autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame corner-radius-full fill-blue-800 alignment-center autolayout-horizontal height-7 width-7>\n                <Text fill-white typography-xs>\n                  R\n                </Text>\n              </Frame>\n              <Frame autolayout-vertical height-hug width-fill>\n                <Text fill-neutral-900 typography-sm>\n                  RSPCA\n                </Text>\n                <Text fill-neutral-600 typography-xs>\n                  https://www.rspca.org.uk &gt; dogs &gt; health &gt; puppycare\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-4 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-xl>\n              Caring For Your Puppy - 6 weeks to 12 months\n            </Text>\n            <Text fill-neutral-600 typography-sm>\n              Get ready for your pup's first year with this step-by-step guide to how to care for your new puppy, from\n              bringing them home to neutering and puppy classes.\n            </Text>\n          </Frame>\n\n          <Frame autolayout-vertical gap-4 height-hug width-fill>\n            <Text fill-neutral-900 typography-xl>\n              People also search for\n            </Text>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppies videos\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppies dog\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppy's or puppies\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppies pictures\n                </Text>\n              </Frame>\n            </Frame>\n            <Frame autolayout-horizontal gap-3 height-hug width-fill>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppies store\n                </Text>\n              </Frame>\n              <Frame\n                corner-radius-full\n                fill-neutral-100\n                fill-hover-neutral-200\n                alignment-left\n                autolayout-horizontal\n                gap-3\n                height-12\n                padding-horizontal-4\n                transition-colors\n                width-fill\n              >\n                <Vector fill-neutral-600 height-5 path={SEARCH_PATH} viewBox=\"0 0 24 24\" width-5 />\n                <Text fill-neutral-900 typography-base>\n                  Puppies spelling\n                </Text>\n              </Frame>\n            </Frame>\n          </Frame>\n\n          <Frame alignment-center autolayout-horizontal gap-5 height-hug padding-vertical-4 width-fill>\n            <Text fill-neutral-900 typography-sm>\n              1\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              2\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              3\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              4\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              5\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              6\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              7\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              8\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              9\n            </Text>\n            <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n              10\n            </Text>\n            <Frame alignment-left autolayout-horizontal gap-1 height-hug width-hug>\n              <Text fill-indigo-800 fill-hover-indigo-900 typography-sm>\n                Next\n              </Text>\n              <Vector fill-indigo-800 height-4 path={CHEVRON_RIGHT_PATH} viewBox=\"0 0 24 24\" width-4 />\n            </Frame>\n          </Frame>\n        </Frame>\n\n        <Frame autolayout-vertical height-hug padding-left-12 width-md>\n          <Frame corner-radius-2xl stroke-neutral-200 autolayout-vertical gap-4 height-hug padding-4 width-fill>\n            <Frame autolayout-horizontal gap-1 height-48 width-fill>\n              <Frame\n                corner-radius-top-left-xl\n                corner-radius-bottom-left-xl\n                fill-amber-200\n                height-fill\n                width-fill\n              />\n              <Frame autolayout-vertical gap-1 height-fill width-24>\n                <Frame corner-radius-top-right-xl fill-orange-100 height-fill width-fill />\n                <Frame corner-radius-bottom-right-xl fill-stone-300 height-fill width-fill />\n              </Frame>\n            </Frame>\n            <Frame alignment-left autolayout-horizontal height-hug width-fill>\n              <Frame height-hug width-fill>\n                <Text fill-neutral-900 typography-3xl>\n                  Puppy\n                </Text>\n              </Frame>\n              <Vector fill-neutral-600 height-5 path={MORE_VERT_PATH} viewBox=\"0 0 24 24\" width-5 />\n            </Frame>\n            <Text fill-neutral-600 typography-sm>\n              A puppy is a juvenile dog, generally one less than 12-18 months old. Puppies are markedly underdeveloped\n              and dependent on their mothers at birth, but healthy puppies grow quickly and begin walking thereafter.\n            </Text>\n            <Frame alignment-left autolayout-horizontal gap-1 height-hug width-fill>\n              <Text fill-neutral-600 typography-sm>\n                Source:\n              </Text>\n              <Text fill-indigo-800 typography-sm typography-decoration-underline>\n                Wikipedia\n              </Text>\n            </Frame>\n            <Frame fill-neutral-200 height-px width-fill />\n            <Frame alignment-left autolayout-horizontal gap-1 height-hug width-fill>\n              <Text fill-neutral-900 typography-sm>\n                Collective noun:\n              </Text>\n              <Text fill-neutral-600 typography-sm>\n                bunch, litter, puddle\n              </Text>\n            </Frame>\n          </Frame>\n        </Frame>\n      </Frame>\n\n      <Frame fill-neutral-100 autolayout-vertical height-hug width-fill>\n        <Frame alignment-left autolayout-horizontal gap-2 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug padding-left-28 width-hug>\n            <Text fill-neutral-600 typography-sm>\n              United States\n            </Text>\n          </Frame>\n        </Frame>\n        <Frame fill-neutral-200 height-px width-fill />\n        <Frame alignment-left autolayout-horizontal gap-6 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug padding-left-28 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Help\n            </Text>\n          </Frame>\n          <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n            Send feedback\n          </Text>\n          <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n            Privacy\n          </Text>\n          <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n            Terms\n          </Text>\n        </Frame>\n      </Frame>\n    </Frame>\n  )\n}\n"
+}
+
+=== TOOL - 10:33:56 UTC ===
+[tool result]
+File created successfully at: ~/Sites/unison/unison-playground-web/src/app/google/page.tsx (file state is current in your context — no need to Read it back)
+
+=== CLAUDE - 10:34:02 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && (curl -s -o /dev/null -w \"%{http_code}\\n\" --max-time 20 http://localhost:3000/shadcn || echo down); bun run typecheck 2>&1 | tail -5"
+}
+
+=== TOOL - 10:34:03 UTC ===
+[tool result]
+200
+$ tsc --noEmit
+
+=== CLAUDE - 10:34:06 UTC ===
+[message to the user]
+The shadcn page is at http://localhost:3000/shadcn and the dev server on :3000 is already running, so it should load as is. The Reddit and Google pages are drafted too (/reddit and /google, types pass); I'm checking all three in the browser next.
+
+=== CLAUDE - 10:34:08 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && bunx biome check --write src/app/shadcn src/app/reddit src/app/google tsconfig.json 2>&1 | tail -20"
+}
+
+=== TOOL - 10:34:08 UTC ===
+[tool result]
+Checked 4 files in 14ms. Fixed 2 files.
+[This command modified 2 files you've previously read: src/app/shadcn/page.tsx, src/app/google/page.tsx. Call Read before editing.]
+
+=== CLAUDE - 10:34:17 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "http://localhost:3000/shadcn"
+}
+
+=== CLAUDE - 10:34:17 UTC ===
+[tool call: mcp__Claude_Browser__resize_window]
+{
+  "width": 1440,
+  "height": 900
+}
+
+=== TOOL - 10:34:17 UTC ===
+[tool result]
+navigated to http://localhost:3000/shadcn
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:34:17 UTC ===
+[tool result]
+Viewport set to 1440x900 on this tab (scaled down to fit if larger than the pane). Reset it with preset "desktop" as soon as you finish testing; the desktop app also clears a size you set when your turn ends or the pane's width changes, so set it again if you still need it. If the user wants to keep a phone or tablet size after your turn, they can pick Mobile or Tablet in the pane's Viewport menu; a custom size you simply set again next turn.
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:34:24 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const check=()=>{const W=innerWidth;const all=[...document.querySelectorAll('body *')];const over=all.filter(e=>{const r=e.getBoundingClientRect();return r.right>W+1&&r.width>0}).slice(0,8).map(e=>e.tagName+' '+(e.innerText||'').slice(0,30)+' '+Math.round(e.getBoundingClientRect().right));\n// children overflowing their parent horizontally\nconst clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).slice(0,10).map(e=>(e.innerText||e.tagName).slice(0,40)+` ${Math.round(e.getBoundingClientRect().width)} in ${Math.round(e.parentElement.getBoundingClientRect().width)}`);\nreturn JSON.stringify({W,H:document.body.scrollHeight,sw:document.documentElement.scrollWidth,over,clip})};check()"
+}
+
+=== CLAUDE - 10:34:25 UTC ===
+[tool call: mcp__Claude_Browser__read_console_messages]
+{
+  "onlyErrors": false,
+  "limit": 20
+}
+
+=== TOOL - 10:34:25 UTC ===
+[tool result]
+"{\"W\":1440,\"H\":1835,\"sw\":1425,\"over\":[],\"clip\":[]}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:34:25 UTC ===
+[tool result]
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[log] [HMR] connected
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:34:31 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const f=t=>[...document.querySelectorAll('div')].find(e=>e.children.length===0&&e.innerText===t);const R=e=>{const r=e.getBoundingClientRect();return [Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)].join(',')};const svgs=[...document.querySelectorAll('svg')].map(s=>R(s));JSON.stringify({h1:R(f('The Foundation for your Design System')),gs:R(f('Get Started').parentElement),search:R(f('Search documentation...').parentElement.parentElement),savings:R(f('Savings Targets')),contrib:R(f('Contribution History')),milestone:R(f('Set a new milestone')),scan:R(f('Scan to connect your mobile device')),svgCount:svgs.length,svgs:svgs.slice(0,6),bodyBg:getComputedStyle(f('Get Started').parentElement).backgroundColor})"
+}
+
+=== TOOL - 10:34:32 UTC ===
+[tool result]
+"{\"h1\":\"264,189,897,48\",\"gs\":\"579,341,108,36\",\"search\":\"965,16,256,32\",\"savings\":\"44,1285,122,24\",\"contrib\":\"394,469,153,24\",\"milestone\":\"745,469,152,24\",\"scan\":\"1095,685,270,24\",\"svgCount\":16,\"svgs\":[\"32,22,20,20\",\"1235,24,16,16\",\"1306,24,16,16\",\"1346,25,14,14\",\"808,151,12,12\",\"239,709,16,16\"],\"bodyBg\":\"rgb(17, 17, 17)\"}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:34:36 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "http://localhost:3000/reddit"
+}
+
+=== CLAUDE - 10:34:39 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "await new Promise(r=>setTimeout(r,1500));const W=innerWidth;const all=[...document.querySelectorAll('body *')];const clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).slice(0,10).map(e=>(e.innerText||e.tagName).slice(0,40)+` ${Math.round(e.getBoundingClientRect().width)} in ${Math.round(e.parentElement.getBoundingClientRect().width)}`);const f=t=>[...document.querySelectorAll('div')].find(e=>e.children.length===0&&e.innerText===t);const R=e=>{if(!e)return null;const r=e.getBoundingClientRect();return [Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)].join(',')};JSON.stringify({W,H:document.body.scrollHeight,sw:document.documentElement.scrollWidth,clip,logo:R(f('reddit')),search:R(f('Search in r/artificial')),title:R(f('r/artificial')),about:R(f('Artificial Intelligence (AI)')),join:R(f('Join')),post1:R(f('u/pixel_tinkerer'))})"
+}
+
+=== CLAUDE - 10:34:39 UTC ===
+[tool call: mcp__Claude_Browser__read_console_messages]
+{
+  "onlyErrors": true
+}
+
+=== TOOL - 10:34:40 UTC ===
+[tool result]
+navigated to http://localhost:3000/reddit
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:34:41 UTC ===
+[tool result]
+"{\"W\":1440,\"H\":1887,\"sw\":1425,\"clip\":[],\"logo\":\"104,12,67,32\",\"search\":\"565,18,127,20\",\"title\":\"497,20,53,16\",\"about\":\"1097,353,185,24\",\"join\":\"1294,267,27,20\",\"post1\":\"329,390,51,32\"}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:34:41 UTC ===
+[tool result]
+No console logs.
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:34:48 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const bad=[...document.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<40}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width)+'x'+Math.round(e.getBoundingClientRect().height)+' parent:'+getComputedStyle(e.parentElement).flexDirection);JSON.stringify(bad.slice(0,20))"
+}
+
+=== TOOL - 10:34:49 UTC ===
+[tool result]
+"[\"u/pixel_tinkerer 51x32 parent:row\",\"11 hr. ago 42x32 parent:row\",\"u/quiet_compiler 60x32 parent:row\",\"22 hr. ago 44x32 parent:row\",\"u/static_harbor 90x32 parent:row\",\"3 hr. ago 37x32 parent:row\",\"u/kettle_logic 59x32 parent:row\",\"1 hr. ago 38x32 parent:row\",\"u/loopwright 66x32 parent:row\",\"7 hr. ago 38x32 parent:row\",\"u/maple_and_moss 49x32 parent:row\",\"9 hr. ago 40x32 parent:row\"]"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:34:58 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && python3 - <<'EOF'\nimport re\np='src/app/reddit/page.tsx';s=open(p).read()\npat=re.compile(r'''(?P<i> *)<Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n(?P<body>(?:(?!</Frame>\\n).)*?)(?P=i)  <Frame height-hug width-fill />\n(?P=i)  (?P<vec><Vector fill-slate-600 height-4 path=\\{MORE_PATH\\} viewBox=\"0 0 24 24\" width-4 />)\n(?P=i)</Frame>''',re.S)\ndef rep(m):\n    i=m['i'];body=''.join('  '+l+'\\n' for l in m['body'].rstrip('\\n').split('\\n'))\n    return f'''{i}<Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n{i}  <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>\n{body}{i}  </Frame>\n{i}  {m['vec']}\n{i}</Frame>'''\ns,n=pat.subn(rep,s);print(n)\nopen(p,'w').write(s)\nEOF\ngrep -n \"u/pixel_tinkerer\" -B4 -A8 src/app/reddit/page.tsx"
+}
+
+=== TOOL - 10:34:59 UTC ===
+[tool result]
+6
+377-                <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>
+378-                  <Frame alignment-left autolayout-horizontal gap-2 height-hug width-fill>
+379-                    <Frame corner-radius-full fill-teal-500 height-6 width-6 />
+380-                    <Text fill-neutral-900 typography-xs>
+381:                      u/pixel_tinkerer
+382-                    </Text>
+383-                    <Text fill-slate-500 typography-xs>
+384-                      11 hr. ago
+385-                    </Text>
+386-                  </Frame>
+387-                  <Vector fill-slate-600 height-4 path={MORE_PATH} viewBox="0 0 24 24" width-4 />
+388-                </Frame>
+389-                <Text fill-neutral-900 typography-lg>
+
+=== CLAUDE - 10:35:07 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const res={};for(const u of ['/reddit','/shadcn','/google']){const w=window.open(u,'_blank','width=1440,height=900');await new Promise(r=>setTimeout(r,4000));const d=w.document;const bad=[...d.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(w.getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<45}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width));const all=[...d.querySelectorAll('body *')];const clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).slice(0,8).map(e=>(e.innerText||e.tagName).slice(0,30));res[u]={W:w.innerWidth,H:d.body.scrollHeight,bad:bad.slice(0,15),clip};w.close()}JSON.stringify(res)"
+}
+
+=== TOOL - 10:35:07 UTC ===
+[tool result]
+The page navigated while this script was running, so the script was cut off and any return value was lost. If the script itself navigated (clicked a link, submitted a form, changed location), do not re-run it — continue from the page the tab is on now. If it did not, something else navigated the page (a reload, a redirect, or the user); check the page and redo whatever is still missing.
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:35:11 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "http://localhost:3000/reddit"
+}
+
+=== CLAUDE - 10:35:13 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "window.__chk=()=>{const d=document;const bad=[...d.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<45}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width));const all=[...d.querySelectorAll('body *')];const clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).slice(0,8).map(e=>(e.innerText||e.tagName).slice(0,30));return JSON.stringify({W:innerWidth,H:d.body.scrollHeight,sw:d.documentElement.scrollWidth,bad:bad.slice(0,15),clip})};__chk()"
+}
+
+=== TOOL - 10:35:13 UTC ===
+[tool result]
+navigated to http://localhost:3000/reddit
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:35:13 UTC ===
+[tool result]
+"{\"W\":1440,\"H\":1839,\"sw\":1425,\"bad\":[],\"clip\":[]}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/reddit")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:35:18 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "http://localhost:3000/google"
+}
+
+=== CLAUDE - 10:35:22 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const d=document;const bad=[...d.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<45}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width));const all=[...d.querySelectorAll('body *')];const clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).slice(0,8).map(e=>(e.innerText||e.tagName).slice(0,30)+' '+Math.round(e.getBoundingClientRect().width)+' in '+Math.round(e.parentElement.getBoundingClientRect().width));const f=t=>[...document.querySelectorAll('div')].find(e=>e.children.length===0&&e.innerText===t);const R=e=>{if(!e)return null;const r=e.getBoundingClientRect();return [Math.round(r.x),Math.round(r.y),Math.round(r.width),Math.round(r.height)].join(',')};JSON.stringify({W:innerWidth,H:d.body.scrollHeight,sw:d.documentElement.scrollWidth,bad:bad.slice(0,15),clip,G:R(f('G')),box:R(f('Puppies')?.parentElement?.parentElement),all:R(f('All')),videos:R(f('Videos')),panel:R(f('Puppy')),signin:R(f('Sign in'))})"
+}
+
+=== CLAUDE - 10:35:22 UTC ===
+[tool call: mcp__Claude_Browser__read_console_messages]
+{
+  "onlyErrors": true
+}
+
+=== TOOL - 10:35:23 UTC ===
+[tool result]
+navigated to http://localhost:3000/google
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/google")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:35:23 UTC ===
+[tool result]
+"{\"W\":1440,\"H\":2393,\"sw\":1425,\"bad\":[],\"clip\":[],\"G\":\"28,30,22,36\",\"box\":\"160,24,672,48\",\"all\":\"258,92,17,20\",\"videos\":\"370,92,45,20\",\"panel\":\"160,956,60,28\",\"signin\":\"1328,38,45,20\"}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/google")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:35:23 UTC ===
+[tool result]
+No console logs.
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/google")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:35:29 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const f=t=>[...document.querySelectorAll('div')].filter(e=>e.children.length===0&&e.innerText===t).map(e=>{const r=e.getBoundingClientRect();return [Math.round(r.x),Math.round(r.y),Math.round(r.width)].join(',')});JSON.stringify({cn:f('Collective noun:'),puppy:f('Puppy'),pagin:f('Next'),country:f('United States'),viewall:f('View all'),i:f('I')})"
+}
+
+=== TOOL - 10:35:30 UTC ===
+[tool result]
+"{\"cn\":[\"916,576,106\"],\"puppy\":[\"160,956,60\",\"916,375,89\"],\"pagin\":[\"616,2228,31\"],\"country\":[\"140,2304,59\"],\"viewall\":[\"459,557,50\"],\"i\":[\"172,1534,3\"]}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/google")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:35:35 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && grep -n \"padding-left-28\" -B2 -A6 src/app/google/page.tsx"
+}
+
+=== TOOL - 10:35:35 UTC ===
+[tool result]
+747-      <Frame fill-neutral-100 autolayout-vertical height-hug width-fill>
+748-        <Frame alignment-left autolayout-horizontal gap-2 height-hug padding-horizontal-7 padding-vertical-4 width-fill>
+749:          <Frame height-hug padding-left-28 width-hug>
+750-            <Text fill-neutral-600 typography-sm>
+751-              United States
+752-            </Text>
+753-          </Frame>
+754-        </Frame>
+755-        <Frame fill-neutral-200 height-px width-fill />
+756-        <Frame alignment-left autolayout-horizontal gap-6 height-hug padding-horizontal-7 padding-vertical-4 width-fill>
+757:          <Frame height-hug padding-left-28 width-hug>
+758-            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>
+759-              Help
+760-            </Text>
+761-          </Frame>
+[... 104 more characters trimmed]
+
+=== CLAUDE - 10:35:43 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && python3 - <<'EOF'\np='src/app/google/page.tsx';s=open(p).read()\nold1='''        <Frame alignment-left autolayout-horizontal gap-2 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug padding-left-28 width-hug>\n            <Text fill-neutral-600 typography-sm>\n              United States\n            </Text>\n          </Frame>\n        </Frame>'''\nnew1='''        <Frame alignment-left autolayout-horizontal gap-5 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug width-28 />\n          <Text fill-neutral-600 typography-sm>\n            United States\n          </Text>\n        </Frame>'''\nold2='''        <Frame alignment-left autolayout-horizontal gap-6 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug padding-left-28 width-hug>\n            <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n              Help\n            </Text>\n          </Frame>'''\nnew2='''        <Frame alignment-left autolayout-horizontal gap-5 height-hug padding-horizontal-7 padding-vertical-4 width-fill>\n          <Frame height-hug width-28 />\n          <Text fill-neutral-600 fill-hover-neutral-900 typography-sm>\n            Help\n          </Text>'''\nassert old1 in s and old2 in s\ns=s.replace(old1,new1).replace(old2,new2)\nopen(p,'w').write(s)\nEOF\nbun run typecheck 2>&1 | tail -3 && bunx biome check --write src/app/shadcn src/app/reddit src/app/google tsconfig.json 2>&1 | tail -3; bunx biome check . 2>&1 | tail -3; git status --short; git diff --stat src/app/page.tsx"
+}
+
+=== TOOL - 10:35:44 UTC ===
+[tool result]
+$ tsc --noEmit
+Checked 4 files in 14ms. No fixes applied.
+Checked 11 files in 29ms. No fixes applied.
+ M tsconfig.json
+ m unison-components
+?? src/app/google/
+?? src/app/reddit/
+?? src/app/shadcn/
+[This command modified 1 file you've previously read: src/app/google/page.tsx. Call Read before editing.]
+
+=== CLAUDE - 10:35:48 UTC ===
+[tool call: mcp__Claude_Browser__navigate]
+{
+  "url": "http://localhost:3000/shadcn"
+}
+
+=== CLAUDE - 10:35:48 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const d=document;const bad=[...d.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<45}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width));JSON.stringify(bad)"
+}
+
+=== TOOL - 10:35:49 UTC ===
+[tool result]
+navigated to http://localhost:3000/shadcn
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== TOOL - 10:35:49 UTC ===
+[tool result]
+"[\"$420,000 53\",\"$273,000 46\",\"$85,000 47\",\"$27,200 40\",\"You have not met your targets for this year. 286\",\"$1,248.75 52\",\"-$37.46 43\",\"$1,211.29 USD 69\",\"450 Shares 47\",\"112 Shares 45\",\"85 Shares 43\",\"320 Shares 47\",\"$2500.00 52\",\"$10,000 (MAX) 66\",\"Update your credentials or re-authenticate. 286\",\"FORGOT? 47\",\"Manage your repeated card transactions. 226\"]"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:36:04 UTC ===
+[tool call: Bash]
+{
+  "command": "cd ~/Sites/unison/unison-playground-web && python3 - <<'EOF'\nimport re\nfor p in ['src/app/shadcn/page.tsx','src/app/reddit/page.tsx','src/app/google/page.tsx']:\n    s=open(p).read()\n    pat=re.compile(r'''(?P<open>\\n(?P<i> *)<Frame (?:autolayout-vertical (?:gap-[0-9p]+ )?)?height-hug width-fill>\\n(?:(?P=i) .*\\n)*?(?P=i)</Frame>\\n)(?P=i)(?P<text><Text [^>]*>\\n(?P=i)  .*\\n(?P=i)</Text>)''')\n    def rep(m):\n        i=m['i'];t=m['text'].replace('\\n','\\n  ')\n        return f\"{m['open']}{i}<Frame height-hug width-hug>\\n{i}  {t}\\n{i}</Frame>\"\n    n=0\n    while True:\n        s2,k=pat.subn(rep,s)\n        if k==0: break\n        s=s2;n+=k\n    print(p,n);open(p,'w').write(s)\nEOF\ngrep -n '\\$420,000' -B6 -A3 src/app/shadcn/page.tsx; bun run typecheck 2>&1 | tail -2; bunx biome check --write src/app 2>&1 | tail -2"
+}
+
+=== TOOL - 10:36:05 UTC ===
+[tool result]
+src/app/shadcn/page.tsx 15
+src/app/reddit/page.tsx 0
+src/app/google/page.tsx 0
+486-                  <Text fill-neutral-500 typography-xs>
+487-                    RETIREMENT
+488-                  </Text>
+489-                </Frame>
+490-                <Frame height-hug width-hug>
+491-                  <Text fill-neutral-900 typography-sm>
+492:                    $420,000
+493-                  </Text>
+494-                </Frame>
+495-              </Frame>
+$ tsc --noEmit
+Checked 6 files in 54ms. No fixes applied.
+[This command modified 3 files you've previously read: src/app/google/page.tsx, src/app/reddit/page.tsx, src/app/shadcn/page.tsx. Call Read before editing.]
+
+=== CLAUDE - 10:36:09 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "location.reload()"
+}
+
+=== TOOL - 10:36:10 UTC ===
+[tool result]
+undefined
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:36:14 UTC ===
+[tool call: mcp__Claude_Browser__javascript_tool]
+{
+  "action": "javascript_exec",
+  "text": "const d=document;const bad=[...d.querySelectorAll('div[dir=auto]')].filter(e=>{const lh=parseFloat(getComputedStyle(e).lineHeight)||16;return e.getBoundingClientRect().height>lh*1.5&&e.innerText.length<45}).map(e=>e.innerText+' '+Math.round(e.getBoundingClientRect().width));const all=[...d.querySelectorAll('body *')];const clip=all.filter(e=>{const p=e.parentElement;if(!p)return false;const r=e.getBoundingClientRect(),q=p.getBoundingClientRect();return r.width>0&&(r.right>q.right+1||r.left<q.left-1)}).length;JSON.stringify({bad,clip,H:d.body.scrollHeight})"
+}
+
+=== TOOL - 10:36:14 UTC ===
+[tool result]
+"{\"bad\":[\"You have not met your targets for this year. 286\",\"Update your credentials or re-authenticate. 286\",\"Manage your repeated card transactions. 226\"],\"clip\":0,\"H\":1787}"
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+- Viewport: emulating 1440x900 (you set this; reset it with preset "desktop" when you finish testing; the app also clears it when your turn ends or the pane's width changes)
+
+=== CLAUDE - 10:36:24 UTC ===
+[tool call: mcp__Claude_Browser__resize_window]
+{
+  "preset": "desktop"
+}
+
+=== TOOL - 10:36:24 UTC ===
+[tool result]
+Viewport emulation cleared; the tab is back to the pane's responsive size (desktop).
+
+
+Tab Context:
+- Executed on tabId: seed
+- Available tabs:
+  • tabId seed: "Create Next App" ("http://localhost:3000/shadcn")
+
+=== CLAUDE - 10:36:31 UTC ===
+[message to the user]
+All three pages are ready to look at, and nothing is committed:
+
+- http://localhost:3000/shadcn
+- http://localhost:3000/reddit
+- http://localhost:3000/google
+
+Each page is literal JSX using only Frame, Text and Vector flags. Images and video thumbnails are blank filled Frames, and icons are Vectors. `src/app/page.tsx` is unchanged. Typecheck and Biome both pass. I loaded each page at 1440px wide and measured it: nothing overflows and no short label wraps. On the shadcn page, the hero and the four card columns sit within about 10px of where they are on the real site.
+
+What I had to approximate:
+- **Font weight:** there's no weight flag, so headings are bigger but not bolder.
+- **Fake Reddit numbers:** Reddit blocked both the browser and its JSON API. I took the real posts, authors and times from its RSS feed, but that feed has no votes, comment counts or member numbers, so those are made up.
+- **Shrinking text:** a bare Text next to a `width-fill` frame gets squeezed until it wraps. I fixed that by wrapping those Texts in `width-hug` frames. It might be worth a look in the library itself.
+
+I also made one config change. The typecheck failed because the library's new Uniwind motion entry needs native-only packages, so I added it to the exclude list in `tsconfig.json`, next to `native.ts`.

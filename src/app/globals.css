@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
-/* Palette: the reference's, its accents the dark, contrasty colors of its screenshots
-   (the reference's screenshots), plus black, white and three grays. */
+/* Palette: a pale sage canvas, a dark slate ink, one dark, contrasty accent per section, plus black, white and three
+   grays. */
 @theme {
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-martian-mono), ui-monospace, monospace;
 
-  /* the reference's font configuration, as its stylesheet declares it: every size a percentage of one fluid
-     --font-size (set below), named as the reference names them, its three letter spacings and five line heights, and
-     Tailwind's own scales dropped. Elements pick from these the way the reference's do (see each component). */
+  /* The type scale: every size a percentage of one fluid --font-size (set below), named from xxxx-small to
+     xxxx-large, three letter spacings and five line heights, and Tailwind's own scales dropped. Each component says
+     which it picks. */
   --text-*: initial;
   --text-xxxx-small: calc(var(--font-size) * 0.375);
   --text-xxx-small: calc(var(--font-size) * 0.4375);
@@ -36,8 +36,8 @@
   --leading-default: 1.5;
   --leading-loose: 1.7;
 
-  /* the reference's spacing, named as it names it (--space-*), in shares of the base size as its containers resolve
-     them: padding, margins and gaps between blocks use these (mt-x-large, p-large, gap-neutral). */
+  /* The spacing steps, in shares of the base size: padding, margins and gaps between blocks use these (mt-x-large,
+     p-large, gap-neutral). */
   --spacing-small: calc(var(--font-size) * 0.5);
   --spacing-medium: var(--font-size);
   --spacing-neutral: calc(var(--font-size) * 1.5);
@@ -54,7 +54,7 @@
   /* The reading measure for running text and headings: 700px at the default root size. */
   --container-measure: 43.75rem;
 
-  /* The cards' shadow, after the reference's: a faint 1px ring, then soft layers that each start further down and spread
+  /* The cards' shadow: a faint 1px ring, then soft layers that each start further down and spread
      less, so the thing seems to rest just above the canvas rather than float. Used on the hero's plugin window. */
   --shadow-card:
     0 0 0 1px rgb(0 0 0 / 2%), 0 6px 60px -36px rgb(0 0 0 / 10%), 0 12px 84px -42px rgb(0 0 0 / 20%),
@@ -66,18 +66,25 @@
   --color-white: rgb(255, 255, 255);
   --color-gray: #fbfbfb;
   --color-gray-edge: #ececec;
-  /* Secondary text: the reference's muted slate, from its pricing page. */
+  /* Secondary text: a muted slate. */
   --color-muted: oklch(0.53 0.0133 231.77);
-  /* The accents, one per section, sampled from the screenshots: the darker tabs of the purple, pink and orange folders,
-     the green of the spreadsheet icon and the blue of the calendar badges. The red, the overdue bell's in the reports
-     screenshot, marks errors in code, on both themes. */
+  /* The accents, one per section, dark enough for text on white: a purple, a pink, an orange, a green (the proof's,
+     which also colors tags in code) and a blue; the agents take the cyan below. The red marks errors in code, on both
+     themes. */
   --color-purple: #9067cf;
   --color-pink: #d14597;
   --color-orange: #d16d00;
   --color-green: #008948;
   --color-blue: #0079d8;
   --color-red: #ff5f32;
-  /* The rest come from the reference's pricing page. The text color: a dark slate rather than black. */
+  /* A warm star yellow, behind the links down to the proof. It's always under dark text, so it keeps one value on both
+     themes. */
+  --color-yellow: #f5d652;
+  /* The agents' cyan, and its deep shade for text on white: the same hue darkened to about 4:1 like the other accents;
+     the dark theme uses the cyan itself. */
+  --color-cyan: #0eb4c1;
+  --color-cyan-deep: #0b8691;
+  /* The text color: a dark slate rather than black. */
   --color-ink: oklch(0.3209 0.0204 233.83);
   /* The page is a canvas framed by a white margin, with the sections on white cards above it: the canvas a pale
      sage. */
@@ -143,10 +150,10 @@
   }
 }
 
-/* The reference's element defaults: the body at the base size, regular, at the default line height; links, bold and strong
-   text semibold. The reference declares its letter spacing in em on every element, so it scales with each element's own
-   size rather than inheriting the body's in pixels; here every element sets it from --tracking (the default spacing
-   unless an ancestor sets another, such as a heading's tight), and code sets normal, in the reference's light weight. */
+/* Element defaults: the body at the base size, regular, at the default line height; links, bold and strong text
+   semibold. Letter spacing is declared in em on every element, so it scales with each element's own size rather than
+   inheriting the body's in pixels; every element sets it from --tracking (the default spacing unless an ancestor sets
+   another, such as a heading's tight), and code sets normal, in a light weight. */
 @layer base {
   body {
     font-size: var(--font-size);
@@ -209,6 +216,7 @@
       --color-orange: oklch(0.693 0.157 55.7);
       --color-green: oklch(0.667 0.142 153.1);
       --color-blue: oklch(0.72 0.13 238);
+      --color-cyan-deep: var(--color-cyan);
       /* The purple and the pink flip the same way: lighter steps mix into the dark page, darker ones into the
          off-white. */
       --color-purple-50: color-mix(in oklab, var(--color-purple) 8%, var(--color-black));
@@ -416,6 +424,13 @@
 @utility underline-dotted {
   text-decoration: underline dotted 2px var(--underline, currentColor);
   text-underline-offset: 2.5px;
+}
+
+/* A double underline: two 2px lines 1px apart, in --underline (the text color unless set). It's 1.5px below the
+   text, 1px higher than the dotted one, to make up for its height. */
+@utility underline-double {
+  text-decoration: underline double 2px var(--underline, currentColor);
+  text-underline-offset: 1.5px;
 }
 
 /* Warning tape: diagonal stripes drawn in 7px pixels, half the squares of the hero code pattern (code.svg), three

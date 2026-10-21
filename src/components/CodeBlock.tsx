@@ -3,13 +3,15 @@ import { highlight } from "../utilities/highlight"
 export type CodeBlock = {
   code: string
   caption?: string
-  lang?: "tsx" | "diff"
+  lang?: "tsx" | "diff" | "text"
   /** Text to mark with an error squiggle (its first occurrence). */
   error?: string
+  /** Wraps long lines instead of scrolling them, for prose such as a prompt. */
+  wrap?: boolean
 }
 
 export default async (p: CodeBlock) => {
-  const { code, caption, lang, error } = p
+  const { code, caption, lang, error, wrap } = p
 
   return (
     // The figure sets the code size (text-code: 0.9 of the body text, capped at the body text's largest size on
@@ -20,9 +22,9 @@ export default async (p: CodeBlock) => {
           {caption}
         </figcaption>
       ) : null}
-      {/* The box is the reference's code box (the one under "Quick Start" on the reference): the column's full
+      {/* The box: the column's full
           width, square, shaded as the hero's plugin window is, the shade at 3% (black, white on the dark theme), inside
-          its 1px line (black at 7.5%, at 45% on the dark theme), without its copy button, in its font (Martian Mono,
+          its 1px line (black at 7.5%, at 45% on the dark theme), in the code font (Martian Mono,
           light). Inside, the code is padded 1.05em on every side. Where the code scrolls, the scrollbars show on hover
           (scrollbar-code), and each track (12px, --scrollbar-track) takes its width out of the padding on its side, so
           the code stays 1.05em from every edge, scrollbar or not; a scroll-state container query tells, and browsers
@@ -36,7 +38,7 @@ export default async (p: CodeBlock) => {
       <div className="code-colors relative border border-black/7.5 bg-shade/3 dark:border-black/45">
         <div
           data-code-block
-          className="*:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:[container-type:scroll-state] *:scrollbar-code *:bg-transparent! *:font-mono *:leading-default *:text-thin-white dark:*:text-thin-black [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:p-[1.05em] [@container_scroll-state(scrollable:x)]:[&_code]:pb-[calc(1.05em-var(--scrollbar-track))] [@container_scroll-state(scrollable:y)]:[&_code]:pr-[calc(1.05em-var(--scrollbar-track))] [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!"
+          className={`${wrap ? "*:whitespace-pre-wrap *:[overflow-wrap:anywhere] [&_code]:w-auto! " : ""}*:max-h-[max(60svh,26rem)] lg:*:max-h-[max(50svh,26rem)] *:overflow-x-auto *:overflow-y-auto *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:[container-type:scroll-state] *:scrollbar-code *:bg-transparent! *:font-mono *:leading-default *:text-thin-white dark:*:text-thin-black [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:p-[1.05em] [@container_scroll-state(scrollable:x)]:[&_code]:pb-[calc(1.05em-var(--scrollbar-track))] [@container_scroll-state(scrollable:y)]:[&_code]:pr-[calc(1.05em-var(--scrollbar-track))] [&_[style*=italic]]:[-webkit-text-stroke:0] dark:[&_span]:text-(--shiki-dark)!`}
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippets
           dangerouslySetInnerHTML={{ __html: await highlight(code, lang, error) }}
         />

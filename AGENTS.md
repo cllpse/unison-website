@@ -51,10 +51,10 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - The dark theme follows the browser's color scheme (`prefers-color-scheme`, Tailwind's default `dark:` variant).
   It keeps the accents and redefines only the neutrals (`globals.css`); style anything black or white with a `dark:`
   counterpart. Text is `ink` (a dark slate, off-white on the dark theme), which needs none.
-- The layout follows the reference, in the colors of its pricing page: a pale sage `canvas`, edge to edge below a plain
-  white header, with each section on a square-cornered `card` with no shadow and the canvas showing between them; no
-  page gutter and no separators. Headings and pitches are in the `ink`, the headings heavy; the accent shows in the
-  "for <Audience>" label and its underline. Don't ring or highlight headings or pitches.
+- The layout: a pale sage `canvas`, edge to edge below a plain white header, with each section on a square-cornered
+  `card` with no shadow and the canvas showing between them; no page gutter and no separators. Headings and pitches
+  are in the `ink`, the headings heavy; the accent shows in the "for <Audience>" label and its underline. Don't ring
+  or highlight headings or pitches.
 - The hero shows the code in the plugin's own window: `PluginWindow` inlines `src/assets/plugin-window.svg`, the
   plugin window drawn in Figma with its code panel left empty, and lays the code over it, spanning its column, on the
   cards' old shadow (`shadow-card`). It reads the file at build time and swaps each of Figma's colors for the token it
@@ -64,20 +64,20 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   exports it as one long path) and keep the panel's shade at 3%.
 - Code is colored from the site's palette (`code-colors` in `globals.css`, mapped from GitHub's colors in
   `highlight.ts`): ink text, muted comments, green tags, blue properties, orange keywords, purple strings, and errors
-  in the red (`#ff5f32`, the overdue bell in the reference's reports screenshot).
-- Type is the reference's font configuration, as its stylesheet declares it (`globals.css`): one fluid
-  `--font-size` (the body's size), sizes named as the reference names them (`text-xx-small` to `text-xxxx-large`, each a
-  share of it), its letter spacings (`--tracking`: tight, default, loose) and line heights (`leading-xx-tight` to
-  `leading-loose`), and its weights (800 headings, 600 links, bold and labels, 500 menu, 400 text). Inter stands in
-  for Graphik; code is in Martian Mono, the reference's code font, light (300). Pick from these the way the reference's elements
-  do; don't add sizes, floors or word spacing.
-- Spacing is the reference's: its `--space-*` steps as Tailwind spacing (`small`, `medium`, `neutral`, `large`,
-  `x-large`, `xx-large`: 0.5 to 4 times `--font-size`), used for every container's margins, paddings and gaps
-  (`px-medium lg:px-x-large`, `mt-x-large`, `p-neutral lg:p-large`). Don't use Tailwind's numeric steps for them.
+  in the red (`#ff5f32`).
+- Type is one scale (`globals.css`): one fluid `--font-size` (the body's size), sizes from `text-xx-small` to
+  `text-xxxx-large`, each a share of it, three letter spacings (`--tracking`: tight, default, loose), line heights
+  (`leading-xx-tight` to `leading-loose`) and weights (800 headings, 600 links, bold and labels, 500 menu, 400 text).
+  Text is in Inter; code is in Martian Mono, light (300). Pick from these; don't add sizes, floors or word spacing.
+- Spacing is a set of steps as Tailwind spacing (`small`, `medium`, `neutral`, `large`, `x-large`, `xx-large`: 0.5
+  to 4 times `--font-size`), used for every container's margins, paddings and gaps (`px-medium lg:px-x-large`,
+  `mt-x-large`, `p-neutral lg:p-large`). Don't use Tailwind's numeric steps for them.
 - The nav stays in the header at every width, wrapping onto more rows on phones; there's no menu toggle.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
   its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
-- The page speaks to four audiences (the team, designers, developers, agents), one section each, then starters.
+- The page speaks to four audiences (the team, designers, developers, agents), one section each, then the proof, "for
+  Skeptics" (the one prompt an agent rebuilt three well-known pages from, in the web playground, and links to them),
+  then starters.
 - Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
   promise, a one-line `pitch` (large, in the ink) on how the library keeps it, and the detail:
   usually a `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
@@ -93,7 +93,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 - Unison is in beta: the Team section, the first, ends with `BETA_DISCLAIMER` (`page.tsx`), a `Disclaimer`: a toned
   band across the bottom of the card, so it comes last, inviting people to get involved on GitHub. Don't repeat it in
-  other sections.
+  other sections. The Developers section ends with `PLAYGROUNDS_DISCLAIMER`, pointing at the two playgrounds as
+  reference implementations.
 
 ## TypeScript
 

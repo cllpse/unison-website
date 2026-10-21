@@ -4,10 +4,10 @@ import Nav from "./Nav"
 
 export default () => {
   return (
-    // A plain white bar (black on the dark theme), as the reference tops its pages: solid, with no fade or blur, so the
+    // A plain white bar (black on the dark theme), solid, with no fade or blur, so the
     // canvas starts cleanly below it. Once the page scrolls, the cards' old shadow fades in under it on the site's
-    // usual 116ms ease-out (Nav marks it data-scrolled), lifting it off the content passing below. Its spacing is
-    // the reference's nav: 3 base sizes tall, inset at the sides as the canvas's content is, so it begins and
+    // usual 116ms ease-out (Nav marks it data-scrolled), lifting it off the content passing below. It's 3 base sizes
+    // tall, inset at the sides as the canvas's content is, so it begins and
     // ends where the section cards do. On phones, where the nav wraps below the site name, it sits a quarter base size
     // under it.
     <header className="sticky top-0 z-10 bg-white px-small transition-shadow duration-116 ease-out data-scrolled:shadow-card lg:px-x-large motion-reduce:transition-none dark:bg-black">

@@ -3,10 +3,10 @@ import type { ReactNode } from "react"
 export type Disclaimer = { children: ReactNode }
 
 /**
- * A note that closes a section, set like the captions under the reference's screenshots (the reference): a band across
+ * A note that closes a section, a band across
  * the bottom of the card in the page's own canvas color, a shade darker (canvas-shade, black at 2% over it), mixed in
  * as a solid color rather than laid over the card, which is white, so the band reads as the canvas showing through.
- * Above it runs the reference's 1px rule (--line), black at 7.5%. On the dark theme both use white at the same strengths.
+ * Above it runs a 1px rule (--line), black at 7.5%. On the dark theme both use white at the same strengths.
  * The text is centered. It steps out over the card's padding to its edges, so it must come last, and its negative
  * margins follow the padding Section sets at each width.
  */

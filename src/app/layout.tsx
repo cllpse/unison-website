@@ -4,15 +4,13 @@ import ContainOverscroll from "../components/ContainOverscroll"
 import { REPO_NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants/site"
 import "./globals.css"
 
-// Everything but code: the Google Font closest to the reference's Graphik, measured glyph by glyph against it, in shape,
-// proportions and spacing. Weights are the reference's own, as its stylesheet declares them.
+// Everything but code: Inter, at the weights the type scale uses (globals.css).
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 })
 
-// Code: the reference's own code font (its code boxes, as under "Quick Start" on the reference), set light (300)
-// as the reference sets it. Variable, so in-between weights render exactly.
+// Code: Martian Mono, set light (300). Variable, so in-between weights render exactly.
 const martianMono = Martian_Mono({
   variable: "--font-martian-mono",
   subsets: ["latin"],
