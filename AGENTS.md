@@ -25,8 +25,10 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
   mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it
   again in CI and publishes it to GitHub Pages (`.github/workflows/pages.yml`)
-- `bun run deploy`: bakes the page, copies `dist/` into `~/Sites/eject.io/public/unison` and `~/Sites/cllp-se/dist/unison`,
-  then runs `firebase deploy` in both projects (`scripts/deploy.ts`)
+- `bun run deploy`: bakes the page, bakes the web playground's one-shot pages (its `bun run bake`, a static export
+  served from `/unison/one-shot`) into `dist/one-shot`, copies `dist/` into `~/Sites/eject.io/public/unison` and
+  `~/Sites/cllp-se/dist/unison`, then runs `firebase deploy` in both projects (`scripts/deploy.ts`). The proof
+  section links those pages relatively (`one-shot/shadcn/` and so on)
 
 ## Architecture
 
