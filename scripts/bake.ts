@@ -23,9 +23,16 @@ const DIST = "dist"
 
 /**
  * Files fetched by their own URL, so they're published next to the page: the sitemap and the social card image (for
- * search engines and link previews), and the transcript the proof section links to.
+ * search engines and link previews), the transcript the proof section links to, and the GIF in its note (too large to
+ * inline), with the still frame shown instead when motion is reduced.
  */
-const FETCHED_BY_URL = ["sitemap.xml", "opengraph-image.png", "one-shot-session.txt"]
+const FETCHED_BY_URL = [
+  "sitemap.xml",
+  "opengraph-image.png",
+  "one-shot-session.txt",
+  "mindblown.gif",
+  "mindblown-still.png",
+]
 
 const MIME_TYPES: Record<string, string> = {
   ".woff2": "font/woff2",

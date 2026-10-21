@@ -96,7 +96,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - Unison is in beta: the Team section, the first, ends with `BETA_DISCLAIMER` (`page.tsx`), a `Disclaimer`: a toned
   band across the bottom of the card, so it comes last, inviting people to get involved on GitHub. Don't repeat it in
   other sections. The Developers section ends with `PLAYGROUNDS_DISCLAIMER`, pointing at the two playgrounds as
-  reference implementations.
+  reference implementations, and the proof with `EXTRAS_DISCLAIMER`, on what the agent added beyond the prompt.
 
 ## TypeScript
 

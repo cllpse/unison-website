@@ -245,6 +245,28 @@ const PLAYGROUNDS_DISCLAIMER = (
   </Disclaimer>
 )
 
+// Ends the proof section: what the agent added beyond the prompt, as the transcript and the pages show.
+const EXTRAS_DISCLAIMER = (
+  <Disclaimer>
+    {/* A reaction GIF above the text, at a third of its 220px size, clipped 1px in on every side so its own edge
+        pixels don't show, with the proof badges' rounded corners (ProofLink.tsx) and tilted twice as far as they are;
+        it holds still on its first frame for anyone who prefers reduced motion. */}
+    <picture className="mx-auto mb-small block w-fit">
+      <source srcSet="mindblown-still.png" media="(prefers-reduced-motion: reduce)" />
+      <img
+        src="mindblown.gif"
+        alt="Tim and Eric, mind blown"
+        width={220}
+        height={220}
+        loading="lazy"
+        className="block size-[calc(220px/3)] -rotate-[1.5deg] [clip-path:inset(1px_round_var(--radius-sm))]"
+      />
+    </picture>
+    Nobody asked for them, but the agent added hover states and animations to all three pages on its own. Each page also
+    has a dark mode, which came for free: the library's colors come in light and dark.
+  </Disclaimer>
+)
+
 // Ends the first section while Unison is in beta.
 const BETA_DISCLAIMER = (
   <Disclaimer>
@@ -566,6 +588,7 @@ export default () => {
             in <a href={PROOF_COMMIT_URL}>one commit</a>.
           </p>
           <Points points={PROOF_PAGES} />
+          {EXTRAS_DISCLAIMER}
         </Section>
 
         <Section
