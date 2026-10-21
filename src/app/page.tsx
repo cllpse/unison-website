@@ -151,18 +151,23 @@ const PROOF_PROMPT = `Try one-shotting a few websites using ONLY the component l
 const PROOF_COMMIT_URL =
   "https://github.com/cllpse/unison-playground-web/commit/adbcbfe0aacc3490880102c0a8c85df7650c8b02"
 
-// The rebuilt pages in the web playground. @todo @cllpse: link the published pages.
-const SHADCN_PAGE_URL = ""
-const REDDIT_PAGE_URL = ""
-const GOOGLE_PAGE_URL = ""
+// The rebuilt pages, baked from the web playground and published next to this page in one-shot/ (scripts/deploy.ts).
+const SHADCN_PAGE_URL = "one-shot/shadcn/"
+const REDDIT_PAGE_URL = "one-shot/reddit/"
+const GOOGLE_PAGE_URL = "one-shot/google/"
+
+// The pages they were built from, which keep changing, so they'll drift apart from the one-shots over time.
+const SHADCN_ORIGINAL_URL = "https://ui.shadcn.com/"
+const REDDIT_ORIGINAL_URL = "https://www.reddit.com/r/artificial/"
+const GOOGLE_ORIGINAL_URL = "https://www.google.com/search?q=Puppies"
 
 const PROOF_PAGES: Point[] = [
   {
     title: "shadcn/ui",
     body: (
       <>
-        The homepage of the component library everyone knows, rebuilt in Frames and Text.{" "}
-        <a href={SHADCN_PAGE_URL}>See the page</a>.
+        The homepage of the component library everyone knows, rebuilt in Frames and Text. See{" "}
+        <a href={SHADCN_PAGE_URL}>the one-shot</a> and <a href={SHADCN_ORIGINAL_URL}>the original</a>.
       </>
     ),
   },
@@ -170,7 +175,8 @@ const PROOF_PAGES: Point[] = [
     title: "r/artificial",
     body: (
       <>
-        A busy Reddit feed, with its posts, votes and sidebar. <a href={REDDIT_PAGE_URL}>See the page</a>.
+        A busy Reddit feed, with its posts, votes and sidebar. See <a href={REDDIT_PAGE_URL}>the one-shot</a> and{" "}
+        <a href={REDDIT_ORIGINAL_URL}>the original</a>.
       </>
     ),
   },
@@ -178,7 +184,8 @@ const PROOF_PAGES: Point[] = [
     title: "Google, for Puppies",
     body: (
       <>
-        A search results page, images and all. <a href={GOOGLE_PAGE_URL}>See the page</a>.
+        A search results page, images and all. See <a href={GOOGLE_PAGE_URL}>the one-shot</a> and{" "}
+        <a href={GOOGLE_ORIGINAL_URL}>the original</a>.
       </>
     ),
   },
@@ -548,7 +555,11 @@ export default () => {
           title="Proof over promises."
           pitch="One short prompt and three familiar pages, built by an agent with nothing but the library."
         >
-          <CodeBlock code={PROOF_PROMPT} lang="text" wrap caption="The whole prompt" />
+          <p>
+            The promise: the components hold up however the code gets written. The proof: no Figma, no plugin, just an
+            agent writing straight against the library, from this prompt alone:
+          </p>
+          <CodeBlock code={PROOF_PROMPT} lang="text" wrap />
           <p>
             Given to Claude Opus 5.5 at medium effort, it built all three pages in about 13 minutes, in{" "}
             <a href="one-shot-session.txt">a single session</a>, with the types and lint passing. Everything it wrote is
