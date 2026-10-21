@@ -105,7 +105,7 @@ const STARTING_POINTS: Point[] = [
     title: "Designers",
     body: (
       <>
-        Install the <a href={PLUGIN_URL}>Figma plugin</a>, from the Figma Community.
+        Install the <a href={PLUGIN_URL}>Figma plugin</a> from the Figma Community.
       </>
     ),
   },
@@ -122,7 +122,7 @@ const STARTING_POINTS: Point[] = [
     title: "Try it first",
     body: (
       <>
-        Play with it before installing anything: the <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
+        Take it for a spin before installing anything: the <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
         <a href={EXPO_PLAYGROUND_URL}>Expo playground</a> show the library running in a browser and on a phone.
       </>
     ),
