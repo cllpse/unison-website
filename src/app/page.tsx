@@ -7,6 +7,7 @@ import Points, { type Point } from "../components/Points"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
 import {
+  EXPO_PLAYGROUND_URL,
   LIBRARY_URL,
   PACKAGE_URL,
   PLUGIN_URL,
@@ -14,6 +15,7 @@ import {
   REPO_URL,
   SITE_DESCRIPTION,
   SITE_URL,
+  WEB_PLAYGROUND_URL,
 } from "../constants/site"
 
 const EXAMPLE = `<Frame
@@ -115,6 +117,15 @@ const STARTING_POINTS: Point[] = [
       </>
     ),
   },
+  {
+    title: "Try it first",
+    body: (
+      <>
+        Play with it before installing anything: the <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
+        <a href={EXPO_PLAYGROUND_URL}>Expo playground</a> show the library running in a browser and on a phone.
+      </>
+    ),
+  },
 ]
 
 const UPDATE_DIFF = `  <Frame
@@ -150,6 +161,8 @@ const FINE_PRINT: Point[] = [
   },
 ]
 
+const UNIWIND_URL = "https://uniwind.dev"
+const NATIVEWIND_URL = "https://www.nativewind.dev"
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 const PAYPAL_URL = "https://developer.paypal.com/community/blog/stopgivingaimoredocumentation"
 
@@ -193,6 +206,11 @@ const TEAM: Point[] = [
       "…or simply ship sooner, with fewer hoops to jump through.",
     ],
   },
+  {
+    title: "One set of tokens, both sides",
+    column: "right",
+    body: "A single tokens file feeds Figma and code alike: the plugin imports it as variables, text styles and shadow styles, and the components are generated from the same file.",
+  },
 ]
 
 const DESIGNERS: Point[] = [
@@ -223,11 +241,16 @@ const DESIGNERS: Point[] = [
     title: "Primitives become the component",
     body: "Select a frame and the plugin writes the code, tidying up groups, empty wrappers and instances on the way.",
   },
+  {
+    title: "Light and dark, from one design",
+    body: "Colors come from Figma's Light and Dark variable modes, so the dark theme ships with no extra work.",
+  },
 ]
 
 const DEVELOPERS: Point[] = [
   {
     title: "Few pieces, endless combinations",
+    column: "left",
     body: [
       "A handful of primitives cover nearly everything, with clear APIs. Need something new? Build it yourself from the same pieces, no waiting on anyone.",
       <>
@@ -237,6 +260,7 @@ const DEVELOPERS: Point[] = [
   },
   {
     title: "Red squiggles and code completion",
+    column: "right",
     body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
     code: [
       {
@@ -248,28 +272,52 @@ const DEVELOPERS: Point[] = [
     ],
   },
   {
+    title: "Token changes, caught everywhere",
+    column: "right",
+    body: "Rename or remove a design token and every place still using it becomes a type error, so nothing drifts out of sync unnoticed.",
+  },
+  {
     title: "Easy to review",
+    column: "left",
     body: "A design update is a diff of Figma properties, so what changed is clear at a glance.",
     code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Square to squircle, primary to secondary" }],
   },
   {
     title: "Reads like the properties panel",
+    column: "right",
     body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
+  },
+  {
+    title: "Plain Tailwind, web and native",
+    column: "left",
+    body: (
+      <>
+        Components emit plain Tailwind classes, never inline styles. On the web they fit right into an existing Tailwind
+        setup; on iOS and Android, <a href={UNIWIND_URL}>Uniwind</a> or <a href={NATIVEWIND_URL}>NativeWind</a> turns
+        the same classes into native styles, so one styling setup covers every platform.
+      </>
+    ),
   },
   {
     title: "An escape hatch, when you need it",
     column: "right",
     body: (
       <>
-        {/* In the code's font and weight, with no surface, scaled to sit in the line without changing its height, and in
-            the code's property blue, since className is a property. */}
-        <span className="code-colors font-mono text-[84.375%] font-light [--tracking:normal] text-(--code-property)">
+        {/* In the code's font and weight, on the code blocks' surface (the shade at 3% inside a 1px line, square),
+            scaled to sit in the line, and in the code's property blue, since className is a property. Padding and line
+            on an inline element don't change the line's height. */}
+        <span className="code-colors border border-black/7.5 bg-shade/3 px-[0.3em] py-[0.1em] font-mono text-[84.375%] font-light [--tracking:normal] text-(--code-property) dark:border-black/45">
           className
         </span>{" "}
         is still there for the rare thing the design system doesn't cover. Reaching for it is a deliberate choice, and
         it stands out in review.
       </>
     ),
+  },
+  {
+    title: "Straight from Dev Mode",
+    column: "left",
+    body: "The plugin runs in Dev Mode too, so developers can select a frame and copy its code without edit access to the file.",
   },
 ]
 
@@ -417,7 +465,7 @@ export default () => {
           id="fine-print"
           title={
             <>
-              The <sub>fine</sub> print.
+              The <sub>fine</sub> <sub>print.</sub>
             </>
           }
           pitch="Every approach has trade-offs, and these are worth making."

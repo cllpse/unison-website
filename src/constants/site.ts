@@ -21,6 +21,10 @@ export const PLUGIN_URL = "https://www.figma.com/community/plugin/16918155511413
 /** The component library's repository. */
 export const LIBRARY_URL = "https://github.com/cllpse/unison-components"
 
+/** The playgrounds: the library running in a browser, and on iOS and Android through Expo. */
+export const WEB_PLAYGROUND_URL = "https://github.com/cllpse/unison-playground-web"
+export const EXPO_PLAYGROUND_URL = "https://github.com/cllpse/unison-playground-expo"
+
 /** The component library's npm package. */
 export const PACKAGE_URL = "https://www.npmjs.com/package/unison-components"
 

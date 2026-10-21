@@ -5,8 +5,10 @@ import { useEffect } from "react"
 /**
  * Marks each code block that actually scrolls, per axis (data-scroll-x, data-scroll-y on its <pre>), so CodeBlock only
  * contains overscroll where there's something to scroll. overscroll-behavior: contain on a block that can't scroll would
- * still swallow the wheel, stopping the page from scrolling over it.
+ * still swallow the wheel, stopping the page from scrolling over it. It also marks the page's root and each code block
+ * data-scrolling while they scroll, and for 800ms after, which is when their scrollbars show (globals.css).
  */
+const SCROLLBAR_LINGER = 800
 export default () => {
   useEffect(() => {
     const blocks = [...document.querySelectorAll<HTMLElement>("[data-code-block] > pre")]
@@ -28,7 +30,26 @@ export default () => {
       if (code) observer.observe(code)
     }
 
-    return () => observer.disconnect()
+    const timers = new Map<Element, number>()
+    const showScrollbar = (element: Element) => () => {
+      element.setAttribute("data-scrolling", "")
+      window.clearTimeout(timers.get(element))
+      timers.set(
+        element,
+        window.setTimeout(() => element.removeAttribute("data-scrolling"), SCROLLBAR_LINGER),
+      )
+    }
+    const onPage = showScrollbar(document.documentElement)
+    const onBlocks = blocks.map((block) => [block, showScrollbar(block)] as const)
+    window.addEventListener("scroll", onPage, { passive: true })
+    for (const [block, onBlock] of onBlocks) block.addEventListener("scroll", onBlock, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener("scroll", onPage)
+      for (const [block, onBlock] of onBlocks) block.removeEventListener("scroll", onBlock)
+      for (const timer of timers.values()) window.clearTimeout(timer)
+    }
   }, [])
 
   return null

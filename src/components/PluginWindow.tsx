@@ -54,7 +54,7 @@ const drawing = async () => {
  * line spacing (13.65 to 9.5). Longer code scrolls inside the panel. The drawing is inlined with its colors on the
  * site's tokens, so the window and its code follow the theme. It spans its container's width and scales with it, and
  * stands out from the canvas on the cards' shadow, rounded to the window's own corners (10 units). Its scrollbar's
- * resting thumb is the window's outermost outline as it shows against the canvas (the shade at 15% over it), a solid
+ * resting thumb is the window's outermost outline as it shows against the canvas (the shade at 20% over it), a solid
  * color, so the panel's own shading underneath doesn't darken it.
  */
 export default async (p: PluginWindow) => {
@@ -69,7 +69,7 @@ export default async (p: PluginWindow) => {
       />
       <div
         data-code-block
-        className="code-colors absolute inset-x-[calc(1/300*100%)] top-[calc(59/495*100%+1px)] bottom-[calc(122/495*100%)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_15%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/300*100cqw)] [&_code]:pr-[calc(9/300*100cqw)] [&_code]:pb-[calc(9/300*100cqw)] [&_code]:pl-[calc(8/300*100cqw)]"
+        className="code-colors absolute inset-x-[calc(1/300*100%)] top-[calc(59/495*100%+1px)] bottom-[calc(122/495*100%)] *:h-full *:overflow-auto *:bg-transparent! *:data-scroll-x:overscroll-x-contain *:data-scroll-y:overscroll-y-contain *:scrollbar-code *:[--scrollbar-rest:color-mix(in_srgb,var(--color-shade)_20%,var(--color-canvas))] *:font-mono *:text-code *:leading-[calc(13.65/9.5)] [&_code]:block [&_code]:w-fit [&_code]:min-w-full [&_code]:pt-[calc(7/300*100cqw)] [&_code]:pr-[calc(9/300*100cqw)] [&_code]:pb-[calc(9/300*100cqw)] [&_code]:pl-[calc(8/300*100cqw)]"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippet
         dangerouslySetInnerHTML={{ __html: await highlight(code) }}
       />

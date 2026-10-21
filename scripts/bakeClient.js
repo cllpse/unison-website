@@ -78,4 +78,17 @@
     const code = block.querySelector("code")
     if (code) blockObserver.observe(code)
   }
+
+  // Scrollbars show while the page or a block scrolls, and for 800ms after (ContainOverscroll.tsx).
+  const timers = new Map()
+  const showScrollbar = (element) => () => {
+    element.setAttribute("data-scrolling", "")
+    clearTimeout(timers.get(element))
+    timers.set(
+      element,
+      setTimeout(() => element.removeAttribute("data-scrolling"), 800),
+    )
+  }
+  window.addEventListener("scroll", showScrollbar(document.documentElement), { passive: true })
+  for (const block of blocks) block.addEventListener("scroll", showScrollbar(block), { passive: true })
 })()

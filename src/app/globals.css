@@ -83,9 +83,11 @@
      sage. */
   --color-canvas: oklch(0.9802 0.0074 151.89);
   --color-card: var(--color-white);
-  /* The canvas a shade darker, as black at 1.5% over it would make it (lighter, with white, on the dark theme), mixed
+  /* The canvas a shade darker, as black at 2% over it would make it (lighter, with white, on the dark theme), mixed
      as a solid color so it reads as the canvas showing through: the notes' bands. */
-  --color-canvas-shade: color-mix(in srgb, black 1.5%, var(--color-canvas));
+  --color-canvas-shade: color-mix(in srgb, black 2%, var(--color-canvas));
+  /* The header bar's color: white, black on the dark theme. */
+  --color-header: var(--color-white);
   /* What drawings shade with at a low opacity, as Figma's black at a few percent (the plugin window's lines and
      panels): black, and white on the dark theme, so the shading still shows. */
   --color-shade: #000;
@@ -187,7 +189,8 @@
       /* The canvas a step up from the black header, in the sage's hue, and the cards a step above that. */
       --color-canvas: oklch(0.18 0.008 151.89);
       --color-card: oklch(0.225 0.006 151.89);
-      --color-canvas-shade: color-mix(in srgb, white 1.5%, var(--color-canvas));
+      --color-canvas-shade: color-mix(in srgb, white 2%, var(--color-canvas));
+      --color-header: var(--color-black);
       --color-shade: #fff;
       --color-neutral-50: #0f0f0f;
       --color-neutral-100: #141414;
@@ -492,33 +495,78 @@
   --code-error: var(--color-red);
 }
 
-/* Code-block scrollbars: shown on hover when the code scrolls (the track's space stays reserved, so nothing shifts),
-   a 5px rounded thumb floating 4px inside a transparent 13px track that spans the block's full width. The thumb is
-   shaded the way the plugin window is, the shade (black, or white on the dark theme) at an opacity, so it sits on
-   whatever is behind it: 15% (the window's outline), 30% under the pointer. A block can set its resting thumb through
-   --scrollbar-rest (the plugin window does). Styling the WebKit scrollbar also takes it out of macOS overlay mode;
-   Firefox ignores those pseudo-elements, draws its own thin bar and gets the same colors through scrollbar-color. */
+/* Scrollbars, the page's and the code blocks': a rounded thumb a quarter rem wide (4px), floating a quarter rem from
+   every edge of a clear track (so the track is 12px). The thumb is shaded the way the plugin window is, the shade
+   (black, or white on the dark theme) at an opacity, so it blends with whatever is behind it: 15%, 30% under the
+   pointer. Styling the WebKit scrollbar also takes it out of macOS overlay mode; Firefox
+   ignores those pseudo-elements, draws its own thin bar and gets the same colors through scrollbar-color. */
+:root {
+  --scrollbar-size: 0.25rem;
+  --scrollbar-inset: 0.25rem;
+  --scrollbar-track: calc(var(--scrollbar-size) + 2 * var(--scrollbar-inset));
+}
+
+/* The page's own scrollbar: shown only while the page scrolls (ContainOverscroll marks the root data-scrolling for a
+   moment after each scroll) or under the pointer. */
+@layer base {
+  ::-webkit-scrollbar {
+    width: var(--scrollbar-track);
+    height: var(--scrollbar-track);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: var(--scrollbar-inset) solid transparent;
+    border-radius: 9999px;
+    background-clip: padding-box;
+    background-color: var(--scrollbar-thumb, transparent);
+  }
+
+  html[data-scrolling] {
+    --scrollbar-thumb: color-mix(in srgb, var(--color-shade) 15%, transparent);
+  }
+
+  /* The page's scrollbar track paints what sits beside it: the header's white (black on the dark theme) down to the
+     header's height, the canvas below. The track holds still as the sticky header does, so it continues the header and
+     the canvas instead of cutting either. */
+  ::-webkit-scrollbar-track {
+    background: linear-gradient(
+      var(--color-header) var(--header-height, 0px),
+      var(--color-canvas) var(--header-height, 0px)
+    );
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in srgb, var(--color-shade) 30%, transparent);
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--scrollbar-thumb, transparent) var(--color-canvas);
+    }
+  }
+}
+
+/* Code-block scrollbars: shown while the block scrolls or is under the pointer, when the code scrolls at all (the
+   track's space stays reserved, so nothing shifts).
+   A block can set its resting thumb through --scrollbar-rest (the plugin window does). */
 @utility scrollbar-code {
   --scrollbar-thumb: transparent;
 
-  &:hover {
+  &:hover,
+  &[data-scrolling] {
     --scrollbar-thumb: var(--scrollbar-rest, color-mix(in srgb, var(--color-shade) 15%, transparent));
   }
 
-  &::-webkit-scrollbar {
-    width: 13px;
-    height: 13px;
-  }
-
-  &::-webkit-scrollbar-track,
-  &::-webkit-scrollbar-corner {
+  &::-webkit-scrollbar-track {
     background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
-    border: 4px solid transparent;
-    border-radius: 9999px;
-    background-clip: padding-box;
     background-color: var(--scrollbar-thumb);
   }
 

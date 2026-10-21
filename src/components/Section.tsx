@@ -5,8 +5,8 @@ import { SECTION_ACCENTS, SECTION_UNDERLINES, type SectionId } from "../constant
  * The heading classes, for the hero's title and the section promises, as the reference sets its intro's h1
  * (`.intro header h1`): xxx-large, xxxx-large from 64em, weight 800, tight letter spacing, the x-tight line height,
  * wrapped like the rest of the page (text-pretty, from the body), with -0.215em above and below, which trims the line's
- * leading so the text sits where its box does. In the ink, as wide as its container in the hero; sections cap it at 29
- * base sizes, centered, as the reference sizes its page titles.
+ * leading so the text sits where its box does. In the ink, as wide as its container in the hero; sections cap it at 23
+ * base sizes, centered, a little narrower than the reference sizes its page titles (29).
  */
 export const HEADING =
   "-my-[0.215em] text-xxx-large font-extrabold leading-x-tight [--tracking:var(--tracking-tight)] text-ink wrap-break-word lg:text-xxxx-large"
@@ -16,7 +16,7 @@ export const HEADING =
  * h2`): x-large (the base size), regular weight, tight letter spacing, the tight line height, wrapped like the rest of
  * the page, with -0.29em above and below to trim the line's leading, in the ink. The reference spaces a headline and its
  * text 1em of the base size apart; here that gap is the top margin, less the trim, and it adds up with the heading's
- * own negative margin as it does there. As wide as its container in the hero; sections cap it at 29 base sizes, like
+ * own negative margin as it does there. As wide as its container in the hero; sections cap it at 23 base sizes, like
  * the heading.
  */
 export const PITCH =
@@ -80,9 +80,9 @@ export default (p: Section) => {
               </a>
             </p>
           ) : null}
-          <h2 className={`${HEADING} mx-auto max-w-[calc(var(--font-size)*29)]`}>{title}</h2>
+          <h2 className={`${HEADING} mx-auto max-w-[calc(var(--font-size)*23)]`}>{title}</h2>
         </hgroup>
-        <h3 className={`${PITCH} mx-auto max-w-[calc(var(--font-size)*29)]`}>{pitch}</h3>
+        <h3 className={`${PITCH} mx-auto max-w-[calc(var(--font-size)*23)]`}>{pitch}</h3>
       </header>
       {children}
     </section>
