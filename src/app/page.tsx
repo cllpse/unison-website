@@ -35,7 +35,10 @@ const EXAMPLE = `<Frame
     fill-neutral-50
     stroke-neutral-300
   >
-    <Text typography-sm fill-neutral-900>
+    <Text
+      typography-sm
+      fill-neutral-900
+    >
       shape
     </Text>
   </Frame>
@@ -49,7 +52,10 @@ const EXAMPLE = `<Frame
     fill-violet-50
     stroke-violet-300
   >
-    <Text typography-base fill-violet-600>
+    <Text
+      typography-base
+      fill-violet-600
+    >
       reshape
     </Text>
   </Frame>
