@@ -30,67 +30,45 @@ export default () => {
     if (!header) return
 
     const ids = NAV_LINKS.map((link) => link.id)
-    const crossing = new Set<SectionId>()
-    let atBottom = false
-    let observers: IntersectionObserver[] = []
 
-    // The current section is the last one crossing the reading line, or the last section once it's fully in view (at
-    // the bottom of the page it may never reach that line).
-    const update = () => setCurrent(atBottom ? ids.at(-1) : ids.findLast((id) => crossing.has(id)))
-
-    // The observers' margins depend on the header's height (it grows when the nav wraps on phones) and the viewport,
-    // so they're rebuilt whenever either changes.
-    const observe = () => {
-      for (const observer of observers) observer.disconnect()
-
+    // The current section is the last one whose top has passed the reading line, a fifth of the way down the view
+    // below the header, so it stays current from its top to the next section's, through the canvas between the cards
+    // and the fine print after the last one. The last section also counts once it's fully in view, since at the bottom
+    // of the page it may never reach that line. A jump to a section puts its top under the header, above the line, so
+    // the jump's target is current too.
+    const update = () => {
       const height = header.offsetHeight
       document.documentElement.style.setProperty("--header-height", `${height}px`)
 
-      // The reading line: 1px, a fifth of the way down the view below the header, near where the eye rests, so the
-      // section filling most of the screen counts as current, not one that merely reaches up under the header. A jump
-      // to a section puts its top under the header, well above the line, so the jump's target is current too.
-      const lineTop = height + Math.round((window.innerHeight - height) / 5)
-      const line = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            const id = entry.target.id as SectionId
-            if (entry.isIntersecting) crossing.add(id)
-            else crossing.delete(id)
-          }
-          update()
-        },
-        { rootMargin: `-${lineTop}px 0px -${window.innerHeight - lineTop - 1}px 0px` },
-      )
-
-      // Fully in view, give or take: fractional layout keeps the ratio just under 1, so a threshold of exactly 1 would
-      // never fire.
-      const bottom = new IntersectionObserver(
-        ([entry]) => {
-          atBottom = entry.intersectionRatio > 0.98
-          update()
-        },
-        { threshold: [0.98, 0.99, 1] },
-      )
-
-      for (const id of ids) {
-        const section = document.getElementById(id)
-        if (section) line.observe(section)
-      }
+      const line = height + Math.round((window.innerHeight - height) / 5)
       const last = document.getElementById(ids.at(-1) ?? "")
-      if (last) bottom.observe(last)
+      const atBottom = last ? last.getBoundingClientRect().bottom <= window.innerHeight + 1 : false
 
-      observers = [line, bottom]
+      setCurrent(
+        atBottom
+          ? ids.at(-1)
+          : ids.findLast((id) => (document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) <= line),
+      )
     }
 
-    observe()
-    const resize = new ResizeObserver(observe)
+    let frame = 0
+    const schedule = () => {
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+    // The header grows when the nav wraps on phones, which moves the line.
+    const resize = new ResizeObserver(schedule)
     resize.observe(header)
-    window.addEventListener("resize", observe)
 
     return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener("scroll", schedule)
+      window.removeEventListener("resize", schedule)
       resize.disconnect()
-      window.removeEventListener("resize", observe)
-      for (const observer of observers) observer.disconnect()
     }
   }, [])
 

@@ -4,59 +4,35 @@
   const header = document.querySelector("header")
   const links = [...document.querySelectorAll('nav a[href^="#"]')]
   const ids = links.map((link) => link.getAttribute("href").slice(1))
-  const crossing = new Set()
-  let atBottom = false
-  let observers = []
 
-  // The current section: the last one crossing the reading line, or the last section once it's fully in view.
+  // The current section: the last one whose top has passed the reading line (a fifth of the way down the view below
+  // the header), or the last section once it's fully in view, so one stays current through the gaps between cards.
   const update = () => {
-    const current = atBottom ? ids.at(-1) : ids.findLast((id) => crossing.has(id))
+    const height = header.offsetHeight
+    document.documentElement.style.setProperty("--header-height", `${height}px`)
+
+    const line = height + Math.round((window.innerHeight - height) / 5)
+    const last = document.getElementById(ids.at(-1))
+    const atBottom = last ? last.getBoundingClientRect().bottom <= window.innerHeight + 1 : false
+    const current = atBottom
+      ? ids.at(-1)
+      : ids.findLast((id) => (document.getElementById(id)?.getBoundingClientRect().top ?? Infinity) <= line)
     for (const link of links) {
       if (link.getAttribute("href").slice(1) === current) link.setAttribute("aria-current", "location")
       else link.removeAttribute("aria-current")
     }
   }
 
-  const observe = () => {
-    for (const observer of observers) observer.disconnect()
-
-    const height = header.offsetHeight
-    document.documentElement.style.setProperty("--header-height", `${height}px`)
-
-    // The reading line: 1px, a fifth of the way down the view below the header.
-    const lineTop = height + Math.round((window.innerHeight - height) / 5)
-    const line = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) crossing.add(entry.target.id)
-          else crossing.delete(entry.target.id)
-        }
-        update()
-      },
-      { rootMargin: `-${lineTop}px 0px -${window.innerHeight - lineTop - 1}px 0px` },
-    )
-
-    const bottom = new IntersectionObserver(
-      ([entry]) => {
-        atBottom = entry.intersectionRatio > 0.98
-        update()
-      },
-      { threshold: [0.98, 0.99, 1] },
-    )
-
-    for (const id of ids) {
-      const section = document.getElementById(id)
-      if (section) line.observe(section)
-    }
-    const last = document.getElementById(ids.at(-1))
-    if (last) bottom.observe(last)
-
-    observers = [line, bottom]
+  let frame = 0
+  const schedule = () => {
+    cancelAnimationFrame(frame)
+    frame = requestAnimationFrame(update)
   }
 
-  observe()
-  new ResizeObserver(observe).observe(header)
-  window.addEventListener("resize", observe)
+  update()
+  window.addEventListener("scroll", schedule, { passive: true })
+  window.addEventListener("resize", schedule)
+  new ResizeObserver(schedule).observe(header)
 
   // The header's shadow fades in once the page is scrolled away from the top.
   const markScrolled = () => header.toggleAttribute("data-scrolled", window.scrollY > 0)
