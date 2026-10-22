@@ -77,7 +77,7 @@ const EXAMPLE = `<Frame
       width-6
       height-6
       fill-fuchsia-400
-      path="M3 6h1v-2h2v-1h12v1h2v2h1v5h2v2h2v2h2v2h2v2h-2v2h2v2h-2v2h2v2h-2v2h-2v-2h2v-2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-1v1h-1v1h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h-2v2h-2v-2h-5v-1h-2v-2h-1zM21 13v2h2v-2zM25 11h2v2h2v2h-2v-2h-2z"
+      path="M3 6h1v-2h2v-1h12v…"
       viewBox="0 0 32 32"
     />
   </Frame>
