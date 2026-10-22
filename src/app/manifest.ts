@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next"
-import { PRODUCT_NAME, REPO_NAME, SITE_DESCRIPTION } from "../constants/site"
+import { PRODUCT_NAME, SITE_DESCRIPTION } from "../constants/site"
 
 // Built once at build time, which the static export (bun run bake) requires.
 export const dynamic = "force-static"
@@ -11,7 +11,7 @@ export const dynamic = "force-static"
  */
 export default (): MetadataRoute.Manifest => {
   return {
-    name: REPO_NAME,
+    name: PRODUCT_NAME,
     short_name: PRODUCT_NAME,
     description: SITE_DESCRIPTION,
     start_url: "/",

@@ -1,12 +1,15 @@
 import AgentsLabel from "../components/AgentsLabel"
 import CodeBlock from "../components/CodeBlock"
 import Disclaimer from "../components/Disclaimer"
+import Footer from "../components/Footer"
 import Header from "../components/Header"
 import PluginWindow from "../components/PluginWindow"
 import Points, { type Point } from "../components/Points"
 import ProofLink from "../components/ProofLink"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
+import TldrCallout from "../components/TldrCallout"
+import TldrCard from "../components/TldrCard"
 import {
   EXPO_PLAYGROUND_URL,
   LIBRARY_URL,
@@ -14,10 +17,12 @@ import {
   PLUGIN_URL,
   REPO_NAME,
   REPO_URL,
+  SECTION_ACCENTS,
   SITE_DESCRIPTION,
   SITE_URL,
   WEB_PLAYGROUND_URL,
 } from "../constants/site"
+import { dataUri } from "../utilities/dataUri"
 
 const EXAMPLE = `<Frame
   autolayout-horizontal
@@ -72,9 +77,9 @@ const EXAMPLE = `<Frame
       width-6
       height-6
       fill-fuchsia-400
-    >
-      <Path d="M3 6h1v-2h2v-1h12v1h…" />
-    </Vector>
+      path="M3 6h1v-2h2v-1h12v1h2v2h1v5h2v2h2v2h2v2h2v2h-2v2h2v2h-2v2h2v2h-2v2h-2v-2h2v-2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h2v-2h-2v2h-2v2h-1v1h-1v1h-2v2h-2v2h-2v2h-2v-2h2v-2h2v-2h-2v2h-2v-2h-5v-1h-2v-2h-1zM21 13v2h2v-2zM25 11h2v2h2v2h-2v-2h-2z"
+      viewBox="0 0 32 32"
+    />
   </Frame>
 </Frame>`
 
@@ -84,12 +89,12 @@ const BEFORE = `/**
  */
 
 <div className="
-  bg-purple-50
   flex
-  gap-4
-  px-6
+  px-6.5
   py-5
-  rounded-xl
+  gap-4.5
+  rounded-2.5xl
+  bg-violent-50
 ">`
 
 const AFTER = `/**
@@ -111,7 +116,11 @@ const STARTING_POINTS: Point[] = [
     title: "Designers",
     body: (
       <>
-        Install the <a href={PLUGIN_URL}>Figma plugin</a> from the Figma Community.
+        Install the{" "}
+        <a href={PLUGIN_URL} target="_blank" rel="noopener">
+          Figma plugin
+        </a>{" "}
+        from the Figma Community.
       </>
     ),
   },
@@ -119,8 +128,15 @@ const STARTING_POINTS: Point[] = [
     title: "Developers",
     body: (
       <>
-        Install the <a href={PACKAGE_URL}>npm package</a>, or clone the <a href={LIBRARY_URL}>library on GitHub</a>,
-        open source and ready to use.
+        Install the{" "}
+        <a href={PACKAGE_URL} target="_blank" rel="noopener">
+          npm package
+        </a>
+        , or clone the{" "}
+        <a href={LIBRARY_URL} target="_blank" rel="noopener">
+          library on GitHub
+        </a>
+        . It's open source.
       </>
     ),
   },
@@ -128,8 +144,15 @@ const STARTING_POINTS: Point[] = [
     title: "Try it first",
     body: (
       <>
-        Take it for a spin before installing anything: the <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
-        <a href={EXPO_PLAYGROUND_URL}>Expo playground</a> show the library running in a browser and on a phone.
+        Take it for a spin before installing anything: the{" "}
+        <a href={WEB_PLAYGROUND_URL} target="_blank" rel="noopener">
+          web playground
+        </a>{" "}
+        and the{" "}
+        <a href={EXPO_PLAYGROUND_URL} target="_blank" rel="noopener">
+          Expo playground
+        </a>{" "}
+        show the library running in a browser and on a phone.
       </>
     ),
   },
@@ -147,7 +170,7 @@ const MOTION_SAMPLE = `<Frame
   height-8
   corner-radius-sm
   fill-violet-600
-  tailwind-animate-spin
+  animate-spin
 />`
 
 // The one prompt the proof pages were built from, as it was sent (the Google address shortened to its query).
@@ -173,7 +196,14 @@ const PROOF_PAGES: Point[] = [
     body: (
       <>
         The homepage of the component library everyone knows, rebuilt in Frames and Text. See{" "}
-        <a href={SHADCN_PAGE_URL}>the one-shot</a> and <a href={SHADCN_ORIGINAL_URL}>the original</a>.
+        <a href={SHADCN_PAGE_URL} target="_blank" rel="noopener">
+          the one-shot
+        </a>{" "}
+        and{" "}
+        <a href={SHADCN_ORIGINAL_URL} target="_blank" rel="noopener">
+          the original
+        </a>
+        .
       </>
     ),
   },
@@ -181,8 +211,15 @@ const PROOF_PAGES: Point[] = [
     title: "r/artificial",
     body: (
       <>
-        A busy Reddit feed, with its posts, votes and sidebar. See <a href={REDDIT_PAGE_URL}>the one-shot</a> and{" "}
-        <a href={REDDIT_ORIGINAL_URL}>the original</a>.
+        A busy Reddit feed, with its posts, votes and sidebar. See{" "}
+        <a href={REDDIT_PAGE_URL} target="_blank" rel="noopener">
+          the one-shot
+        </a>{" "}
+        and{" "}
+        <a href={REDDIT_ORIGINAL_URL} target="_blank" rel="noopener">
+          the original
+        </a>
+        .
       </>
     ),
   },
@@ -190,8 +227,15 @@ const PROOF_PAGES: Point[] = [
     title: "Google, for Puppies",
     body: (
       <>
-        A search results page, images and all. See <a href={GOOGLE_PAGE_URL}>the one-shot</a> and{" "}
-        <a href={GOOGLE_ORIGINAL_URL}>the original</a>.
+        A search results page, images and all. See{" "}
+        <a href={GOOGLE_PAGE_URL} target="_blank" rel="noopener">
+          the one-shot
+        </a>{" "}
+        and{" "}
+        <a href={GOOGLE_ORIGINAL_URL} target="_blank" rel="noopener">
+          the original
+        </a>
+        .
       </>
     ),
   },
@@ -208,23 +252,26 @@ const UPDATE_DIFF = `  <Frame
 
 const FINE_PRINT: Point[] = [
   {
-    title: "Designers give a little",
+    title: "1. Designers give a little",
     body: "Designers work with a subset of Figma: the primitives and features that translate faithfully into code. Some tools stay on the shelf, so that everything drawn ships exactly as drawn.",
   },
   {
-    title: "Developers give a little",
+    title: "2. Developers give a little",
     body: "Developers stop hand-writing styles, and with it some of the fine-tuning they might enjoy. The layout comes from the design; the craft goes into logic, state and the interactions that make it feel right.",
   },
   {
-    title: "And the team gets a lot",
-    body: "Design and code stay aligned, agents stay on brand, and features ship faster, together. Fewer misunderstandings, less handoff ping-pong, more time for the work that matters.",
+    title: "3. The team gets a lot",
+    body: "Design and code stay aligned, agents stay on brand, and features ship together, sooner. The hours saved go to the work that matters.",
   },
   {
     title: "Worth a try",
     body: (
       <>
         It's best judged on a real project, with an open mind. Anything missing? It's open source and open to change:{" "}
-        <a href={REPO_URL}>contributions are welcome</a>.
+        <a href={REPO_URL} target="_blank" rel="noopener">
+          contributions are welcome
+        </a>
+        .
       </>
     ),
   },
@@ -232,22 +279,38 @@ const FINE_PRINT: Point[] = [
 
 const UNIWIND_URL = "https://uniwind.dev"
 const NATIVEWIND_URL = "https://www.nativewind.dev"
+// Designers on the shift toward taste, linked from the Designers intro in this order: Jenny Wen's Hatch keynote "Don't
+// Trust the Process" (Berlin, September 2025), Loredana Crisan on the Figma blog (June 2026) and Jenny Wen on Lenny's
+// Podcast (March 2026).
+const WEN_TALK_URL = "https://www.youtube.com/watch?v=4u94juYwLLM"
+const CRISAN_TASTE_URL = "https://www.figma.com/blog/you-never-stop-cultivating-taste/"
+const WEN_PODCAST_URL = "https://www.lennysnewsletter.com/p/the-design-process-is-dead"
 const ORBIT_URL = "https://polar.sh/blog/orbit-llm-safe-design-system"
 const PAYPAL_URL = "https://developer.paypal.com/community/blog/stopgivingaimoredocumentation"
 
 // Ends the starters section: where the plugin, the library and the playgrounds come together.
 const TOOLKIT_DISCLAIMER = (
   <Disclaimer>
-    Want the whole toolkit in one place? The <a href={REPO_URL}>Unison repository</a> brings the plugin, the library and
-    both playgrounds together.
+    Want the whole toolkit in one place? The{" "}
+    <a href={REPO_URL} target="_blank" rel="noopener">
+      Unison repository
+    </a>{" "}
+    brings the plugin, the library and both playgrounds together.
   </Disclaimer>
 )
 
 // Ends the developers section: where to see the library wired up.
 const PLAYGROUNDS_DISCLAIMER = (
   <Disclaimer>
-    Setting it up? The <a href={WEB_PLAYGROUND_URL}>web playground</a> and the{" "}
-    <a href={EXPO_PLAYGROUND_URL}>Expo playground</a> are reference implementations for websites and for apps.
+    Setting it up? The{" "}
+    <a href={WEB_PLAYGROUND_URL} target="_blank" rel="noopener">
+      web playground
+    </a>{" "}
+    and the{" "}
+    <a href={EXPO_PLAYGROUND_URL} target="_blank" rel="noopener">
+      Expo playground
+    </a>{" "}
+    are reference implementations for websites and for apps.
   </Disclaimer>
 )
 
@@ -256,56 +319,69 @@ const EXTRAS_DISCLAIMER = (
   <Disclaimer>
     {/* A reaction GIF above the text, at a third of its 220px size, clipped 1px in on every side so its own edge
         pixels don't show, with the proof badges' rounded corners (ProofLink.tsx) and tilted twice as far as they are;
-        it holds still on its first frame for anyone who prefers reduced motion. */}
+        it holds still on its first frame for anyone who prefers reduced motion. Both are inlined: the GIF as an
+        animated WebP at one and a half times its shown size (src/assets/mindblown.webp, about 83KB), and its first
+        frame. */}
     <picture className="mx-auto mb-small block w-fit">
-      <source srcSet="mindblown-still.png" media="(prefers-reduced-motion: reduce)" />
+      <source srcSet={dataUri("src/assets/mindblown-still.webp")} media="(prefers-reduced-motion: reduce)" />
       <img
-        src="mindblown.gif"
+        src={dataUri("src/assets/mindblown.webp")}
         alt="Tim and Eric, mind blown"
         width={220}
         height={220}
-        loading="lazy"
         className="block size-[calc(220px/3)] -rotate-[1.5deg] [clip-path:inset(1px_round_var(--radius-sm))]"
       />
     </picture>
-    Nobody asked for them, but the agent added hover states and animations to all three pages on its own. Each page also
-    has a dark mode, which came for free: the library's colors come in light and dark.
+    <p>
+      The prompt didn't explicitly ask for hover states, animations or a dark mode, but the library led the agent to all
+      three.
+    </p>
+    <p>
+      Hover states and animations are flags like any other, so it added them to every one-shot on its own, and since the
+      library's colors come in light and dark, each page has a dark mode without a line written for it.
+    </p>
   </Disclaimer>
 )
 
 // Ends the first section while Unison is in beta.
 const BETA_DISCLAIMER = (
   <Disclaimer>
-    Unison is still in beta, so you may run into the occasional error. Have you found one, or do you want to help shape
-    it? <a href={REPO_URL}>Get involved on GitHub</a>.
+    Unison is still in beta, so you may run into the occasional error. Found one, or want to help shape it?{" "}
+    <a href={REPO_URL} target="_blank" rel="noopener">
+      Get involved on GitHub
+    </a>
+    .
   </Disclaimer>
 )
 
 const TEAM: Point[] = [
   {
     title: "Figma is the source of truth",
-    body: "No Storybook, second catalog or handoff documentation drifting out of date and costing time to maintain. Components, variants, states and tokens live in Figma, and the code is generated from there: one place to look, one place to update.",
+    body: (
+      <>
+        No Storybook, second catalog or handoff doc to keep in sync. Layouts, styles and tokens live in Figma, and the
+        code is generated from there: one place to look, one place to update. <TldrCallout />
+      </>
+    ),
   },
   {
     title: "Less back-and-forth",
     body: [
-      "Only designers know the design system inside out. But guardrails in Figma and in code make its rules explicit and enforced: fewer misunderstandings, far less handoff ping-pong.",
-      "Agents follow the same rules, which makes reviewing their work quicker and easier.",
+      "Designers know the design system inside out; nobody else has to. Guardrails in Figma and in code make its rules explicit and enforced: fewer misunderstandings, far less handoff ping-pong.",
+      "Agents follow the same rules, which makes their work quicker to review.",
     ],
   },
   {
     title: "One set of tokens, both sides",
-    body: "The same tokens feed Figma and code alike: the plugin imports the design tokens as variables, text styles and shadow styles, and the components are generated from them, along with the motion tokens for easings, durations and animations.",
+    body: [
+      "One tokens file feeds both sides: the plugin imports it into Figma as variables, text styles and shadow styles, and the components are generated from it. Motion has a file of its own beside it, for easings, durations and animations.",
+      "Change a token once and both sides follow, so design and code never disagree on a color, a size or a speed.",
+    ],
   },
   {
     title: "Phone apps and web apps, one codebase",
     column: "left",
     body: "Built on React Native: one set of components runs on iOS, Android and the web, and looks and behaves the same everywhere.",
-  },
-  {
-    title: "Motion, from one source",
-    column: "left",
-    body: "Easings, durations and animations live in one motion tokens file next to the design tokens, so every hover and transition moves at the same pace across the product.",
   },
   {
     title: "Time back, spent wisely",
@@ -323,44 +399,48 @@ const DESIGNERS: Point[] = [
     column: "left",
     body: (
       <>
-        Colors, fonts and sizes are locked as design tokens; everything else is your call. There is no rigid component
-        library to wait on or work around: every design is a mix of just{" "}
-        <abbr title="Frame, Text and Vector">a few primitives</abbr>, shaped into anything from a single button to{" "}
-        <ProofLink>a whole page</ProofLink>.
+        Colors, spacing, radii, type sizes and shadows are locked as design tokens; everything else is your call. There
+        is no rigid component library to wait on or work around: every design is a mix of just a few primitives, shaped
+        into anything from a single button to <ProofLink>a whole page</ProofLink>
       </>
     ),
   },
   {
     title: "Guidance as you go",
     column: "right",
-    body: "The plugin flags what can't reasonably be built, and how to fix it, in real time. Each issue takes you straight to the offending layer, so there's no searching around.",
+    body: "The plugin flags what won't translate, and what the code does instead, as you work. Each issue selects the layer in question, so there's no hunting for it.",
   },
   {
     title: "Primitives become the component",
     column: "right",
-    body: "Select a frame and the plugin writes the code, tidying up groups, empty wrappers and instances on the way.",
+    body: "Select a frame and the plugin writes the code, dropping empty wrappers and instance shells on the way.",
   },
   {
     title: "Light and dark, from one design",
     column: "right",
-    body: "Colors come from Figma's Light and Dark variable modes, so the dark theme ships with no extra work.",
+    body: "Colors come from Figma's Light and Dark variable modes, so the dark theme comes along for free.",
   },
   {
     title: "Behavior is built in",
     column: "left",
-    body: "Auto-layout behavior carries into code, so one design adapts to every screen size: no more mockups for each resolution your app supports, and fewer design smells to catch.",
+    body: "Auto layout carries into code, so one design adapts to every screen size: no more mockups for each resolution your app supports.",
   },
   {
     title: "Your file, your workflow",
     column: "right",
-    body: "Keep working the way you do: annotate a layer to exclude it from the output, so notes, guides, placeholders and whatever else you want stay in Figma without leaking into the code.",
+    body: (
+      <>
+        Keep working the way you do: annotate a layer <i className="text-muted">EXCLUDE_FROM_OUTPUT</i> and it stays out
+        of the code, so notes, guides, placeholders and whatever else you want stay in Figma.
+      </>
+    ),
   },
   {
     title: "Motion by name",
     column: "left",
     body: [
       "Motion is a capability of the components, not something to wire up in Figma, so there are no prototype connections to keep in sync with the code.",
-      "Speeds and easings are a short list of named tokens, set in one file just like the design tokens, so changing how things move is a single edit. A spec that says 200ms, ease out means exactly one thing in code, and on the web it respects reduced-motion settings.",
+      "Speeds and easings are a short list of named tokens in one file, like the design tokens, so changing how things move is a single edit. A spec that says 200ms, ease out means exactly one thing in code, and on the web it respects reduced-motion settings.",
     ],
   },
 ]
@@ -368,8 +448,15 @@ const DESIGNERS: Point[] = [
 const DEVELOPERS: Point[] = [
   {
     title: "Red squiggles and code completion",
+    id: "code-completion",
     column: "left",
-    body: "Values that aren't in the design system give you an error in your editor as you type, and every design token shows up in code completion.",
+    body: (
+      <>
+        Values that aren't in the design system are an error in your editor as you type, and every design token shows up
+        in code completion. Rename or remove a token and every place still using it turns red too, so nothing drifts out
+        of sync unnoticed. <TldrCallout />
+      </>
+    ),
     code: [
       {
         code: `<Text typography-smol fill-neutral-900>
@@ -390,25 +477,21 @@ const DEVELOPERS: Point[] = [
   },
   {
     title: "Reads like the properties panel",
-    column: "right",
-    body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read, not cryptic shorthands: no decoding a spec, no eyeballing the design into code.",
+    id: "properties-panel",
+    column: "left",
+    body: "The JSX says what Figma's properties panel says, in plain words anyone on the team can read: no decoding a spec, no eyeballing the design into code. A design update is a diff of those properties, so what changed is clear at a glance.",
+    code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Square to rounded, violet to fuchsia" }],
   },
   {
     title: "Few pieces, endless combinations",
     column: "right",
     body: [
-      "A handful of primitives cover nearly everything, with clear APIs. Need something new? Build it yourself from the same pieces, no waiting on anyone.",
       <>
-        …think LEGO<sup>®</sup> bricks: snap them together into buttons, cards, tabs and lists, or{" "}
-        <ProofLink tilt="clockwise">whole pages</ProofLink>.
+        A handful of primitives cover nearly everything, with clear APIs. Like LEGO bricks: snap them together into
+        buttons, cards, tabs and lists, or <ProofLink tilt="clockwise">whole pages</ProofLink>
       </>,
+      "Need something new? Build it from the same pieces.",
     ],
-  },
-  {
-    title: "Easy to review",
-    column: "left",
-    body: "A design update is a diff of Figma properties, so what changed is clear at a glance.",
-    code: [{ code: UPDATE_DIFF, lang: "diff", caption: "Square to squircle, primary to secondary" }],
   },
   {
     title: "Plain Tailwind, web and native",
@@ -416,8 +499,15 @@ const DEVELOPERS: Point[] = [
     body: (
       <>
         Components emit plain Tailwind classes, never inline styles. On the web they fit right into an existing Tailwind
-        setup; on iOS and Android, <a href={UNIWIND_URL}>Uniwind</a> or <a href={NATIVEWIND_URL}>NativeWind</a> turns
-        the same classes into native styles, so one styling setup covers every platform.
+        setup; on iOS and Android,{" "}
+        <a href={UNIWIND_URL} target="_blank" rel="noopener">
+          Uniwind
+        </a>{" "}
+        or{" "}
+        <a href={NATIVEWIND_URL} target="_blank" rel="noopener">
+          NativeWind
+        </a>{" "}
+        turns the same classes into native styles, so one styling setup covers every platform.
       </>
     ),
   },
@@ -425,11 +515,6 @@ const DEVELOPERS: Point[] = [
     title: "Straight from Dev Mode",
     column: "left",
     body: "The plugin runs in Dev Mode too, so developers can select a frame and copy its code without edit access to the file.",
-  },
-  {
-    title: "Token changes, caught everywhere",
-    column: "left",
-    body: "Rename or remove a design token and every place still using it becomes a type error, so nothing drifts out of sync unnoticed.",
   },
   {
     title: "An escape hatch, when you need it",
@@ -452,11 +537,19 @@ const DEVELOPERS: Point[] = [
 const AGENTS: Point[] = [
   {
     title: "Constraints over instructions",
+    id: "constraints",
     body: (
       <>
-        Agents need the design system in a <a href={ORBIT_URL}>form they can't misread</a>, not{" "}
-        <a href={PAYPAL_URL}>more instructions</a>. If an agent guesses a value that isn't a token, TypeScript stops it
-        before it ever gets to review.
+        Agents need the design system in a{" "}
+        <a href={ORBIT_URL} target="_blank" rel="noopener">
+          form they can't misread
+        </a>
+        , not{" "}
+        <a href={PAYPAL_URL} target="_blank" rel="noopener">
+          more instructions
+        </a>
+        . If an agent guesses a value that isn't a token, TypeScript stops it before it ever gets to review.{" "}
+        <TldrCallout />
       </>
     ),
   },
@@ -465,8 +558,8 @@ const AGENTS: Point[] = [
     body: "A tweak is a lookup: every style maps to one prop. A redesign can reshuffle a whole composition, but the component tree mirrors the Figma layers, so an agent can rework the layout and leave state, handlers and data in place.",
   },
   {
-    title: "Agent work that's easy to review",
-    body: "The agent writes in Figma properties and tokens, so checking its work means checking the design, not deciphering Tailwind or worse.",
+    title: "Review the design, not the styles",
+    body: "The agent writes in Figma properties and tokens, so checking its work means checking the design, not deciphering Tailwind, or worse: raw CSS.",
   },
 ]
 
@@ -516,8 +609,58 @@ export default () => {
             className={`${PITCH} mt-[calc(var(--font-size)*1.25-0.29em)]! text-[length:calc(var(--text-x-large)*1.25)]!`}
           >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
-            codebase powers apps and websites alike.
+            codebase powers apps and websites alike.{" "}
+            {/* A button that opens the TL;DR card below, styled as the header's "starters" link, at its size and
+                weight, in the starters' blue, but with a plain 2px line under it that fades on hover, like the other
+                links' lines, a quarter as far below the text as theirs. It's a block a line of the pitch tall (the pitch's size times
+                its line height) at the top of the line, so it's centered on the sentence's lines rather than sitting on
+                their baseline, and set off by half a space more (the pitch's space is about 0.28 of its size). The
+                TL;DRs in the sections (TldrCallout) open the same card. */}
+            <button
+              type="button"
+              popoverTarget="tldr"
+              className={`${SECTION_ACCENTS["get-started"]} inline-block cursor-pointer align-top text-small leading-[calc(var(--text-x-large)*1.25*1.3)] ml-[calc(var(--text-x-large)*1.25*0.28/2)] font-bold text-(--accent) underline decoration-solid decoration-2 decoration-(--accent) underline-offset-[calc((0.12em_-_1px)/4)] [text-underline-position:from-font] transition-[text-decoration-color] duration-116 ease-out hover:decoration-transparent motion-reduce:transition-none`}
+            >
+              TL;DR
+            </button>
           </h2>
+          {/* What TL;DR opens: the whole page in three paragraphs, on a floating card in the starters' blue, its
+              heading in the blue too. Its links lead to the sections that say more, picking out the
+              part that does (data-part) and collapsing the card
+              to the top on the way (TldrCard). */}
+          <Section id="get-started" popover="tldr" title={<span className="text-(--accent)">TL;DR</span>}>
+            <p>
+              AI makes one-off UI cheap, so designers no longer have to squeeze every idea into a shared component or
+              wait for one to be updated. Their focus shifts from maintaining a catalog to{" "}
+              <a href="#designers" data-part="taste">
+                exercising taste
+              </a>
+              : designers compose freely in Figma, within the design tokens, and decide what looks right.
+            </p>
+            <p>
+              Unison makes that safe. Its component library{" "}
+              <a href="#developers" data-part="properties-panel">
+                speaks Figma's language
+              </a>
+              : a handful of primitives whose properties are named after the ones in Figma's panels, such as auto
+              layout, alignment, hug and fill. The plugin turns a design into that code property for property, and the
+              output is deterministic, so the same design always produces the same code.
+            </p>
+            <p>
+              Developers get{" "}
+              <a href="#developers" data-part="code-completion">
+                typed components
+              </a>{" "}
+              that only accept the design's tokens, so the editor flags anything off the system before a reviewer has
+              to, and there's no pixel-pushing to match a mockup. Agents get{" "}
+              <a href="#agents" data-part="constraints">
+                the same vocabulary
+              </a>
+              , and since only the design system can be written in it, the code they generate stays in bounds. One
+              codebase powers apps and websites alike.
+            </p>
+          </Section>
+          <TldrCard id="tldr" />
           {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
               section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
               centered beside the window. Stacked on phones, they're as far apart as the cards are. */}
@@ -531,7 +674,7 @@ export default () => {
 
         <Section
           id="team"
-          audience="The Team"
+          audience="the team"
           title="One source of truth runs from Figma to every screen."
           pitch="The whole team shares one vocabulary: Figma's, from designers to developers to agents."
         >
@@ -541,16 +684,40 @@ export default () => {
 
         <Section
           id="designers"
-          audience="Designers"
+          audience="designers"
           title="Design freely. It ships exactly the way you composed it."
-          pitch="Anything you build in Figma, the code mirrors faithfully, property for property."
+          pitch="Build within the tokens, and the code mirrors the design property for property."
         >
+          <p>
+            Freely, because the tokens are the only thing locked. Components still have their place, but for reuse, not
+            as the way a design gets expressed, so there's no need to get tied down in ever more explicit ones.
+          </p>
+          <p id="taste">
+            With AI making one-off UI cheap, a designer's job moves{" "}
+            <a href={WEN_TALK_URL} target="_blank" rel="noopener">
+              past the old process
+            </a>{" "}
+            and toward{" "}
+            <a href={CRISAN_TASTE_URL} target="_blank" rel="noopener">
+              taste
+            </a>
+            . A drop-down for a single use case can simply be made:{" "}
+            <a href={WEN_PODCAST_URL} target="_blank" rel="noopener">
+              no aligning with other designers
+            </a>{" "}
+            to squeeze it into a shared component, and no waiting on developers to update one. The designer's taste is
+            what keeps the design coherent; reuse is a bonus.
+          </p>
+          <p>
+            And with Unison, that's a call made with confidence. Left to AI alone, a design drifts a little with every
+            prompt; Unison's output is deterministic, so the same design always produces the same code. <TldrCallout />
+          </p>
           <Points points={DESIGNERS} />
         </Section>
 
         <Section
           id="developers"
-          audience="Developers"
+          audience="developers"
           title="Your editor says no before a reviewer has to."
           pitch="Generated from the design and typed against design tokens: no more pixel-pushing."
         >
@@ -565,10 +732,10 @@ export default () => {
           pitch="The library gives your agent a vocabulary in which only your design system can be written."
         >
           <p>
-            Without it, AI writes plausible CSS at best: a gap here, a color there. Each one has a chance to slip
+            Without one, an agent writes plausible CSS at best: a gap here, a color there. Each one has a chance to slip
             through review and pull the design a little further off course. Prompt rules get buried as the context fills
             up, then summarized away, but a vocabulary doesn't need remembering. See what{" "}
-            <ProofLink>one short prompt builds</ProofLink>.
+            <ProofLink>one short prompt builds</ProofLink>
           </p>
           <div>
             <CodeBlock code={BEFORE} caption="An agent's best guess" />
@@ -579,7 +746,7 @@ export default () => {
 
         <Section
           id="proof"
-          audience="Skeptics"
+          audience="skeptics"
           title="Proof over promises."
           pitch="One short prompt and three familiar pages, built by an agent with nothing but the library."
         >
@@ -589,9 +756,15 @@ export default () => {
           </p>
           <CodeBlock code={PROOF_PROMPT} lang="text" wrap />
           <p>
-            Given to Claude Opus 5.5 at medium effort, it built all three pages in about 13 minutes, in{" "}
-            <a href="one-shot-session.txt">a single session</a>, with the types and lint passing. Everything it wrote is
-            in <a href={PROOF_COMMIT_URL}>one commit</a>.
+            Claude Opus 5.5, at medium effort, built all three pages from it in about 13 minutes, in{" "}
+            <a href="one-shot-session.txt" target="_blank" rel="noopener">
+              a single session
+            </a>
+            , with the types and lint passing. Everything it wrote is in{" "}
+            <a href={PROOF_COMMIT_URL} target="_blank" rel="noopener">
+              one commit
+            </a>
+            . <TldrCallout />
           </p>
           <Points points={PROOF_PAGES} />
           {EXTRAS_DISCLAIMER}
@@ -599,13 +772,13 @@ export default () => {
 
         <Section
           id="get-started"
-          audience="Starters"
+          audience="starters"
           title={
             <>
               Pick your side, meet in the <s>middle</s> mutual.
             </>
           }
-          pitch="Designers grab the plugin, developers clone the library, and the design does the rest."
+          pitch="Designers grab the plugin, developers install the library, and the design does the rest."
         >
           <Points points={STARTING_POINTS} />
           {TOOLKIT_DISCLAIMER}
@@ -622,6 +795,8 @@ export default () => {
         >
           <Points points={FINE_PRINT} />
         </Section>
+
+        <Footer />
       </main>
     </>
   )

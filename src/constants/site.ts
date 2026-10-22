@@ -13,7 +13,7 @@ export const REPO_URL = `https://github.com/${REPO_NAME}`
 export const SITE_URL = "https://cllp.se/unison/"
 
 /** The page title, for the browser tab, search results and social cards. */
-export const SITE_TITLE = `${REPO_NAME} - Figma properties, as code`
+export const SITE_TITLE = `${PRODUCT_NAME} - Figma properties, as code`
 
 /** The Figma plugin's Community page. */
 export const PLUGIN_URL = "https://www.figma.com/community/plugin/1691815551141309696"
@@ -28,6 +28,12 @@ export const EXPO_PLAYGROUND_URL = "https://github.com/cllpse/unison-playground-
 /** The component library's npm package. */
 export const PACKAGE_URL = "https://www.npmjs.com/package/unison-components"
 
+/** The author, credited in the footer, and their profiles there. */
+export const AUTHOR_NAME = "Thomas Angelbo"
+export const AUTHOR_GITHUB_URL = "https://github.com/cllpse"
+export const AUTHOR_LINKEDIN_URL = "https://www.linkedin.com/in/thomasangelbochristensen"
+export const AUTHOR_COMPANY_URL = "https://www.eject.io"
+
 /** The one-line description, for search results and the web app manifest. */
 export const SITE_DESCRIPTION =
   "Components that speak Figma's vocabulary, so designs ship as drawn and coding agents write in your design system instead of guessing at it."
@@ -40,8 +46,8 @@ export const SECTION_ACCENTS = {
   team: "[--accent:var(--color-purple)]",
   designers: "[--accent:var(--color-pink)]",
   developers: "[--accent:var(--color-orange)]",
-  agents: "[--accent:var(--color-cyan-deep)]",
-  proof: "[--accent:var(--color-green)]",
+  agents: "[--accent:var(--color-green)]",
+  proof: "[--accent:var(--color-yellow-deep)]",
   "get-started": "[--accent:var(--color-blue)]",
   // The fine print speaks to everyone, in the ink.
   "fine-print": "[--accent:var(--color-ink)]",
@@ -65,10 +71,10 @@ export const SECTION_UNDERLINES: Record<SectionId, string> = {
 }
 
 export const NAV_LINKS: { id: SectionId; label: string }[] = [
-  { id: "team", label: "The Team" },
-  { id: "designers", label: "Designers" },
-  { id: "developers", label: "Developers" },
-  { id: "agents", label: "Agents" },
-  { id: "proof", label: "Skeptics" },
-  { id: "get-started", label: "Starters" },
+  { id: "team", label: "the team" },
+  { id: "designers", label: "designers" },
+  { id: "developers", label: "developers" },
+  { id: "agents", label: "agents" },
+  { id: "proof", label: "skeptics" },
+  { id: "get-started", label: "starters" },
 ]

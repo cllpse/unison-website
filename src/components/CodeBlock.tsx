@@ -14,9 +14,9 @@ export default async (p: CodeBlock) => {
   const { code, caption, lang, error, wrap } = p
 
   return (
-    // The figure sets the code size (text-code: 0.9 of the body text, capped at the body text's largest size on
-    // phones), which the caption and the code share. The block stays inside the card's padding at every width.
-    <figure className="mt-6 min-w-0 text-code">
+    // The figure sets the code size (text-code-block: a notch under the hero's text-code, so 0.85 of the body text,
+    // 0.8 on phones), which the caption and the code share. The block stays inside the card's padding at every width.
+    <figure className="mt-6 min-w-0 text-code-block">
       {caption ? (
         <figcaption className="mb-2 px-1 font-mono leading-default font-light [--tracking:normal] text-muted">
           {caption}

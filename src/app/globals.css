@@ -25,6 +25,9 @@
   /* Code and its captions: 0.9 of the body text, a step down so code reads as smaller than the text around it, but
      never above the body text's largest size on phones (the base's 1.7rem floor times small's 0.625, 17px). */
   --text-code: min(calc(var(--text-small) * 0.9), calc(1.7rem * 0.625));
+  /* The code blocks in the sections, a notch smaller still: 0.85 of the body text where the hero's code is 0.9 (0.8
+     where it's 0.85, on phones), so a sample reads as an aside to the point it sits in. */
+  --text-code-block: calc(var(--text-code) * 0.85 / 0.9);
   --tracking-*: initial;
   --tracking-tight: -0.02625em;
   --tracking-default: -0.01375em;
@@ -60,6 +63,13 @@
     0 0 0 1px rgb(0 0 0 / 2%), 0 6px 60px -36px rgb(0 0 0 / 10%), 0 12px 84px -42px rgb(0 0 0 / 20%),
     0 12px 36px -48px rgb(0 0 0 / 30%), 0 24px 48px -66px rgb(0 0 0 / 40%), 0 36px 60px -78px rgb(0 0 0 / 50%);
 
+  /* The header's shadow once the page scrolls: the cards' shadow scaled to the bar. The cards' layers pull in by up to
+     78px a side, more than half the bar's height, so on the header all but the faintest vanished and nothing showed
+     over the white cards. These pull in by at most a fifth of the bar, so the shadow stays under it. */
+  --shadow-header:
+    0 1px 0 rgb(0 0 0 / 4%), 0 4px 12px -6px rgb(0 0 0 / 10%), 0 10px 24px -12px rgb(0 0 0 / 12%),
+    0 16px 32px -16px rgb(0 0 0 / 10%);
+
   /* Only these colors exist; Tailwind's defaults are dropped. */
   --color-*: initial;
   --color-black: rgb(10, 10, 10);
@@ -68,8 +78,8 @@
   --color-gray-edge: #ececec;
   /* Secondary text: a muted slate. */
   --color-muted: oklch(0.53 0.0133 231.77);
-  /* The accents, one per section, dark enough for text on white: a purple, a pink, an orange, a green (the proof's,
-     which also colors tags in code) and a blue; the agents take the cyan below. The red marks errors in code, on both
+  /* The accents, one per section, dark enough for text on white: a purple, a pink, an orange, a green (the agents',
+     which also colors tags in code) and a blue; the proof takes the yellow below. The red marks errors in code, on both
      themes. */
   --color-purple: #9067cf;
   --color-pink: #d14597;
@@ -77,10 +87,12 @@
   --color-green: #008948;
   --color-blue: #0079d8;
   --color-red: #ff5f32;
-  /* A warm star yellow, behind the links down to the proof. It's always under dark text, so it keeps one value on both
-     themes. */
+  /* A warm star yellow behind the links down to the proof, keeping one value on both themes, and its deep shade for
+     text on white, the proof's accent: the same hue at its fullest, darkened only to about 2.3:1, short of the
+     others, since a darker yellow turns brown; the dark theme uses the yellow itself. */
   --color-yellow: #f5d652;
-  /* The agents' cyan, and its deep shade for text on white: the same hue darkened to about 4:1 like the other accents;
+  --color-yellow-deep: #c8a901;
+  /* A cyan, and its deep shade for text on white: the same hue darkened to about 4:1 like the other accents;
      the dark theme uses the cyan itself. */
   --color-cyan: #0eb4c1;
   --color-cyan-deep: #0b8691;
@@ -134,8 +146,9 @@
 }
 
 /* The type scale's base: 2.225% of the window's width, never under 27.2px, so body text (62.5% of it) is 17px on
-   phones; from 64em (1024px) up 2.1277% (about 31px at 1440px), never under 24px. Below 64em code steps down a little
-   further, to 0.85 of the body text. */
+   phones; from 64em (1024px) up 2.1277% (about 31px at 1440px), never under 24px and no larger than at 2000px (about
+   43px), so type and spacing stop growing there while the page itself still spans wider windows. Below 64em code
+   steps down a little further, to 0.85 of the body text. */
 @layer theme {
   :root {
     --font-size: max(1.7rem, 2.225vw);
@@ -145,7 +158,7 @@
     }
 
     @media (min-width: 64em) {
-      --font-size: max(1.5rem, 2.1277vw);
+      --font-size: clamp(1.5rem, 2.1277vw, 2000px * 0.021277);
     }
   }
 }
@@ -168,8 +181,13 @@
   :where(code, kbd, pre) {
     --tracking: normal;
     font-weight: 300;
-    /* Code keeps its own lines: none of the body's pretty wrapping. */
-    text-wrap-style: auto;
+  }
+
+  /* Headings, the pitches under them (h3s) and the "For ..." labels wrap prettily, so a short line doesn't dangle at
+     their end. Running text wraps normally: Safari's pretty rebalances every line of a paragraph, which in a phone's
+     narrow measure leaves the whole paragraph ragged. */
+  :where(h1, h2, h3, h4, hgroup p) {
+    text-wrap: pretty;
   }
 
   a,
@@ -217,6 +235,7 @@
       --color-green: oklch(0.667 0.142 153.1);
       --color-blue: oklch(0.72 0.13 238);
       --color-cyan-deep: var(--color-cyan);
+      --color-yellow-deep: var(--color-yellow);
       /* The purple and the pink flip the same way: lighter steps mix into the dark page, darker ones into the
          off-white. */
       --color-purple-50: color-mix(in oklab, var(--color-purple) 8%, var(--color-black));
@@ -510,8 +529,8 @@
   --code-error: var(--color-red);
 }
 
-/* Scrollbars, the page's and the code blocks': a rounded thumb a quarter rem wide (4px), floating a quarter rem from
-   every edge of a clear track (so the track is 12px). The thumb is shaded the way the plugin window is, the shade
+/* The code blocks' scrollbars (the page keeps the browser's own): a rounded thumb a quarter rem wide (4px), floating
+   a quarter rem from every edge of a clear track (so the track is 12px). The thumb is shaded the way the plugin window is, the shade
    (black, or white on the dark theme) at an opacity, so it blends with whatever is behind it: 15%, 30% under the
    pointer. Styling the WebKit scrollbar also takes it out of macOS overlay mode; Firefox
    ignores those pseudo-elements, draws its own thin bar and gets the same colors through scrollbar-color. */
@@ -519,51 +538,6 @@
   --scrollbar-size: 0.25rem;
   --scrollbar-inset: 0.25rem;
   --scrollbar-track: calc(var(--scrollbar-size) + 2 * var(--scrollbar-inset));
-}
-
-/* The page's own scrollbar: shown only while the page scrolls (ContainOverscroll marks the root data-scrolling for a
-   moment after each scroll) or under the pointer. */
-@layer base {
-  ::-webkit-scrollbar {
-    width: var(--scrollbar-track);
-    height: var(--scrollbar-track);
-  }
-
-  ::-webkit-scrollbar-corner {
-    background: transparent;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border: var(--scrollbar-inset) solid transparent;
-    border-radius: 9999px;
-    background-clip: padding-box;
-    background-color: var(--scrollbar-thumb, transparent);
-  }
-
-  html[data-scrolling] {
-    --scrollbar-thumb: color-mix(in srgb, var(--color-shade) 15%, transparent);
-  }
-
-  /* The page's scrollbar track paints what sits beside it: the header's white (black on the dark theme) down to the
-     header's height, the canvas below. The track holds still as the sticky header does, so it continues the header and
-     the canvas instead of cutting either. */
-  ::-webkit-scrollbar-track {
-    background: linear-gradient(
-      var(--color-header) var(--header-height, 0px),
-      var(--color-canvas) var(--header-height, 0px)
-    );
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: color-mix(in srgb, var(--color-shade) 30%, transparent);
-  }
-
-  @supports not selector(::-webkit-scrollbar) {
-    html {
-      scrollbar-width: thin;
-      scrollbar-color: var(--scrollbar-thumb, transparent) var(--color-canvas);
-    }
-  }
 }
 
 /* Code-block scrollbars: shown while the block scrolls or is under the pointer, when the code scrolls at all (the
@@ -577,11 +551,20 @@
     --scrollbar-thumb: var(--scrollbar-rest, color-mix(in srgb, var(--color-shade) 15%, transparent));
   }
 
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-track);
+    height: var(--scrollbar-track);
+  }
+
+  &::-webkit-scrollbar-corner,
   &::-webkit-scrollbar-track {
     background: transparent;
   }
 
   &::-webkit-scrollbar-thumb {
+    border: var(--scrollbar-inset) solid transparent;
+    border-radius: 9999px;
+    background-clip: padding-box;
     background-color: var(--scrollbar-thumb);
   }
 
@@ -593,4 +576,76 @@
     scrollbar-width: thin;
     scrollbar-color: var(--scrollbar-thumb) transparent;
   }
+}
+
+/* A floating card (Section's `popover`) and its backdrop, both only fading. The card fades in as it opens and back out
+   as it closes; the backdrop dims the page by 30% of the black while the card is open, and clears while it's collapsed
+   or closed. Both move on the site's usual 116ms ease-out, and the card stays in the top layer through the fade out, so
+   they can finish it. */
+@utility popover-card {
+  transition:
+    opacity 116ms ease-out,
+    overlay 116ms ease-out allow-discrete,
+    display 116ms ease-out allow-discrete;
+
+  &:not(:popover-open) {
+    opacity: 0;
+  }
+
+  &::backdrop {
+    background-color: transparent;
+    transition:
+      background-color 116ms ease-out,
+      overlay 116ms ease-out allow-discrete,
+      display 116ms ease-out allow-discrete;
+  }
+
+  &:popover-open:not([data-collapsed])::backdrop {
+    background-color: color-mix(in srgb, var(--color-black) 30%, transparent);
+  }
+
+  @starting-style {
+    &:popover-open {
+      opacity: 0;
+    }
+
+    /* As specific as the open card's backdrop rule, or that rule would win and the backdrop would start dimmed. */
+    &:popover-open:not([data-collapsed])::backdrop {
+      background-color: transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &,
+    &::backdrop {
+      transition: none;
+    }
+  }
+}
+
+/* The TL;DR card's view transition (TldrCard.tsx): the card morphs between open and collapsed in 116ms, eased out
+   like the site's other transitions, showing its top rather than squashing, so it reads as rolling up into its
+   heading and down out of it. Only the card takes part; the page goes on under it, scrolling to the section a link
+   leads to. */
+:root {
+  view-transition-name: none;
+}
+
+::view-transition-group(tldr) {
+  animation-duration: 116ms;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-old(tldr),
+::view-transition-new(tldr) {
+  height: 100%;
+  object-fit: none;
+  object-position: top;
+  animation-duration: 116ms;
+}
+
+/* What a TL;DR link picks out (TldrCard.tsx marks the root while it stays selected) is selected in the starters' blue,
+   at the selections' usual 15%, rather than in the color of the section it's in. */
+html[data-tldr-selection] *::selection {
+  background-color: color-mix(in oklab, var(--color-blue) 15%, transparent);
 }

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Inter, Martian_Mono } from "next/font/google"
 import ContainOverscroll from "../components/ContainOverscroll"
-import { REPO_NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants/site"
+import { PRODUCT_NAME, REPO_NAME, SITE_DESCRIPTION, SITE_TITLE, SITE_URL } from "../constants/site"
 import "./globals.css"
 
 // Everything but code: Inter, at the weights the type scale uses (globals.css).
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: "/",
-    siteName: REPO_NAME,
+    siteName: PRODUCT_NAME,
     title: SITE_TITLE,
     description: SITE_DESCRIPTION,
     locale: "en_US",
@@ -78,7 +78,7 @@ export default (p: LayoutProps<"/">) => {
       className={`${inter.variable} ${martianMono.variable} h-full scroll-smooth antialiased motion-reduce:scroll-auto`}
     >
       {/* Outside a section the accent is the ink, so selections there are a light slate. */}
-      <body className="flex min-h-full flex-col bg-white font-sans text-pretty text-ink [--accent:var(--color-ink)] selection:bg-(--accent)/10 dark:bg-black">
+      <body className="flex min-h-full flex-col bg-white font-sans text-ink [--accent:var(--color-ink)] selection:bg-(--accent)/15 dark:bg-black">
         {children}
         <ContainOverscroll />
       </body>

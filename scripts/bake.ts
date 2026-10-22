@@ -1,7 +1,7 @@
 /**
- * Folds the static export in out/ into one small, self-contained dist/index.html that opens straight from disk:
+ * Folds the static export in out/ into one small dist/index.html that opens straight from disk:
  *
- * - The stylesheet is inlined, with only the fonts the page needs (the Latin subsets) as data URIs.
+ * - The stylesheet is inlined; the fonts load from Google Fonts (offline, the matched local fallbacks stand in).
  * - React and Next.js are dropped: the prerendered HTML is already the whole page, and the little that's interactive
  *   (the nav's current section, quick in-page jumps) comes from bakeClient.js.
  * - The icons and the manifest are inlined as data URIs.
@@ -23,16 +23,9 @@ const DIST = "dist"
 
 /**
  * Files fetched by their own URL, so they're published next to the page: the sitemap and the social card image (for
- * search engines and link previews), the transcript the proof section links to, and the GIF in its note (too large to
- * inline), with the still frame shown instead when motion is reduced.
+ * search engines and link previews) and the transcript the proof section links to.
  */
-const FETCHED_BY_URL = [
-  "sitemap.xml",
-  "opengraph-image.png",
-  "one-shot-session.txt",
-  "mindblown.gif",
-  "mindblown-still.png",
-]
+const FETCHED_BY_URL = ["sitemap.xml", "opengraph-image.png", "one-shot-session.txt"]
 
 const MIME_TYPES: Record<string, string> = {
   ".woff2": "font/woff2",
@@ -62,14 +55,21 @@ const replaceAsync = async (text: string, pattern: RegExp, replace: (...match: s
 }
 
 /**
- * Drops @font-face rules for character sets the page doesn't use. Google Fonts split each family by unicode-range;
- * only the basic Latin one (U+0000-00FF, which the minifier writes as U+??) stays, along with faces that don't split
- * at all.
+ * Drops next/font's self-hosted faces (every @font-face with a url()), since the baked page loads the same families
+ * from Google Fonts instead (GOOGLE_FONTS); the local fallback faces it sizes to match them stay.
  */
-const keepLatinFonts = (css: string) =>
-  css.replace(/@font-face\{[^}]*\}/g, (face) =>
-    !face.includes("unicode-range") || /unicode-range:U\+(?:\?\?|0+-0*FF)(?=[,;}])/i.test(face) ? face : "",
-  )
+const dropHostedFonts = (css: string) => css.replace(/@font-face\{[^}]*url\([^}]*\}/g, "")
+
+/**
+ * The page's fonts from Google Fonts, rather than inlined: the same families next/font names (layout.tsx), as variable
+ * fonts over the weights it declares. The stylesheet splits each family by character set, so browsers only fetch the
+ * Latin files the page uses.
+ */
+const GOOGLE_FONTS = [
+  '<link rel="preconnect" href="https://fonts.googleapis.com">',
+  '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>',
+  '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Martian+Mono:wght@100..800&display=swap">',
+].join("")
 
 /** Inlines a stylesheet's font and image url()s, resolved against the stylesheet's own path. */
 const inlineCss = (css: string, cssUrl: string) =>
@@ -89,7 +89,7 @@ html = html.replace(/<script\b(?![^>]*application\/ld\+json)[^>]*>[\s\S]*?<\/scr
 html = html.replace(/<link rel="(preload|modulepreload)"[^>]*>/g, "")
 
 html = await replaceAsync(html, /<link rel="stylesheet" href="([^"]+)"[^>]*>/g, async (_, url) => {
-  const css = await inlineCss(keepLatinFonts(await readFile(join(OUT, url), "utf8")), url)
+  const css = await inlineCss(dropHostedFonts(await readFile(join(OUT, url), "utf8")), url)
 
   return `<style>${css}</style>`
 })
@@ -105,6 +105,8 @@ html = html.replace(
   '"/manifest.webmanifest"',
   `"data:application/manifest+json;base64,${Buffer.from(JSON.stringify(manifest)).toString("base64")}"`,
 )
+
+html = html.replace("</head>", `${GOOGLE_FONTS}</head>`)
 
 const client = await readFile(join("scripts", "bakeClient.js"), "utf8")
 html = html.replace("</body>", `<script>${client}</script></body>`)

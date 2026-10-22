@@ -3,6 +3,8 @@ import CodeBlock, { type CodeBlock as CodeBlockProps } from "./CodeBlock"
 
 export type Point = {
   title: string
+  /** An id for the point, so a link can pick it out (the TL;DR card's do). */
+  id?: string
   /** The text: one paragraph, or several as an array. */
   body: ReactNode | ReactNode[]
   code?: CodeBlockProps[]
@@ -35,7 +37,7 @@ export default (p: Points) => {
       {columns.map((column) => (
         <ul key={column[0]?.title} className="flex flex-col gap-y-medium lg:gap-y-neutral @max-[52rem]:contents">
           {column.map((point) => (
-            <li key={point.title} style={{ order: points.indexOf(point) }}>
+            <li key={point.title} id={point.id} style={{ order: points.indexOf(point) }}>
               <h4>{point.title}</h4>
               {(Array.isArray(point.body) ? point.body : [point.body]).map((paragraph, index) => (
                 // biome-ignore lint/suspicious/noArrayIndexKey: fixed copy, never reordered

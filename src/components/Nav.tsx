@@ -7,7 +7,7 @@ import AgentsLabel from "./AgentsLabel"
 /**
  * The section links in the sticky header: plain until hovered, with a squiggle under the section you're reading. They
  * stay in the header at every width, wrapping onto more rows on narrow screens, a quarter of a line further apart than
- * the text's own line height.
+ * the text's own line height, and five eighths of a base size apart side by side.
  */
 export default () => {
   const ref = useRef<HTMLElement>(null)
@@ -77,22 +77,9 @@ export default () => {
   return (
     <nav
       ref={ref}
-      className="flex flex-wrap gap-x-small gap-y-[0.375em] text-small font-bold leading-default [&_a]:font-bold"
+      className="flex flex-wrap gap-x-[calc(var(--spacing-small)*1.25)] gap-y-[0.375em] text-small font-bold leading-default [&_a]:font-bold"
     >
-      <p>
-        {/* Two eyes looking right, toward the links: outlines and pupils in the text color, whites in the page color. */}
-        <svg
-          viewBox="0 0 20 16"
-          aria-hidden="true"
-          className="mr-1.5 inline-block size-[1.05em] fill-white stroke-current align-[-0.155em] dark:fill-black"
-        >
-          <ellipse cx="5.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />
-          <ellipse cx="14.5" cy="8" rx="4.5" ry="6.5" strokeWidth="1.5" />
-          <circle cx="7.3" cy="8.6" r="2.2" className="fill-current stroke-none" />
-          <circle cx="16.3" cy="8.6" r="2.2" className="fill-current stroke-none" />
-        </svg>
-        for…
-      </p>
+      <p>For…</p>
       {NAV_LINKS.map((link) => (
         <a
           key={link.id}

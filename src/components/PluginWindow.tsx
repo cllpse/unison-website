@@ -1,5 +1,6 @@
 import { readFile } from "node:fs/promises"
 import { join } from "node:path"
+import { type Config, optimize } from "svgo"
 import { highlight } from "../utilities/highlight"
 
 export type PluginWindow = {
@@ -26,6 +27,22 @@ const COLORS: Record<string, string> = {
 }
 
 /**
+ * SVGO's defaults, minus what the color swap below depends on: Figma's color names and hexes stay as written
+ * (convertColors), and so do fills that repeat the default black (removeUnknownsAndDefaults), since black stands for the
+ * shade; the mask ids stay too (cleanupIds), so they can't collide with another drawing's on the page. Coordinates keep
+ * two decimals: finer than the screen can show, so the drawing renders as Figma exported it.
+ */
+const SVGO_CONFIG: Config = {
+  floatPrecision: 2,
+  plugins: [
+    {
+      name: "preset-default",
+      params: { overrides: { convertColors: false, removeUnknownsAndDefaults: false, cleanupIds: false } },
+    },
+  ],
+}
+
+/**
  * The drawing, read at build time and inlined, its colors moved from attributes into styles (presentation attributes
  * can't take var()), and sized by its container instead of Figma's pixels.
  */
@@ -33,8 +50,8 @@ const drawing = async () => {
   const svg = await readFile(join(process.cwd(), "src/assets/plugin-window.svg"), "utf8")
 
   // Masks keep Figma's colors: a luminance mask's white is what lets the logo through, whatever the theme.
-  return svg
-    .replace(/ width="300" height="491"/, ' aria-hidden="true" class="size-full"')
+  return optimize(svg, SVGO_CONFIG)
+    .data.replace(/ width="300" height="491"/, ' aria-hidden="true" class="size-full"')
     .split(/(<mask[\s\S]*?<\/mask>)/)
     .map((part) =>
       part.startsWith("<mask")

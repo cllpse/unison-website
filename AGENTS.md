@@ -21,8 +21,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - `bun run typecheck`: `tsc --noEmit`; must pass before committing
 - `bunx biome check --write .`: format, lint and organize imports; must pass before committing
 - `bun run build`: production build; run it before pushing
-- `bun run bake`: the landing page as one small, self-contained `dist/index.html` that opens straight from disk
-  (`scripts/bake.ts`): styles, Latin fonts and icons inlined, and React swapped for `scripts/bakeClient.js`, which
+- `bun run bake`: the landing page as one small `dist/index.html` that opens straight from disk (`scripts/bake.ts`):
+  styles, images and icons inlined, fonts from Google Fonts, and React swapped for `scripts/bakeClient.js`, which
   mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it
   again in CI and publishes it to GitHub Pages (`.github/workflows/pages.yml`)
 - `bun run deploy`: bakes the page, bakes the web playground's one-shot pages (its `bun run bake`, a static export
@@ -55,7 +55,7 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   counterpart. Text is `ink` (a dark slate, off-white on the dark theme), which needs none.
 - The layout: a pale sage `canvas`, edge to edge below a plain white header, with each section on a square-cornered
   `card` with no shadow and the canvas showing between them; no page gutter and no separators. Headings and pitches
-  are in the `ink`, the headings heavy; the accent shows in the "for <Audience>" label and its underline. Don't ring
+  are in the `ink`, the headings heavy; the accent shows in the "For <audience>" label and its underline. Don't ring
   or highlight headings or pitches.
 - The hero shows the code in the plugin's own window: `PluginWindow` inlines `src/assets/plugin-window.svg`, the
   plugin window drawn in Figma with its code panel left empty, and lays the code over it, spanning its column, on the
@@ -76,22 +76,28 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   `mt-x-large`, `p-neutral lg:p-large`). Don't use Tailwind's numeric steps for them.
 - The nav stays in the header at every width, wrapping onto more rows on phones; there's no menu toggle.
 - Headings nest: the hero is the h1 with its subtitle as an h2; each section's promise is an h2, its pitch an h3 and
-  its points h4s. The "for <Audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
-- The page speaks to four audiences (the team, designers, developers, agents), one section each, then the proof, "for
-  Skeptics" (the one prompt an agent rebuilt three well-known pages from, in the web playground, and links to them),
+  its points h4s. The "For <audience>" label is a `p` kicker grouped with the h2 in an `hgroup`.
+- The page speaks to four audiences (the team, designers, developers, agents), one section each, then the proof, "For
+  skeptics" (the one prompt an agent rebuilt three well-known pages from, in the web playground, and links to them),
   then starters.
-- Every section has the same shape: a "for <Audience>" label linking to the section, a heading (`title`) that's a
-  promise, a one-line `pitch` (large, in the ink) on how the library keeps it, and the detail:
-  usually a `Points` grid of h4 points built from the arrays at the top of `page.tsx`.
+- Every section has the same shape: a "For <audience>" label linking to the section (lowercase, "For the team"; the nav
+  reads "For…" then "the team", "designers" and so on), a heading (`title`) that's a promise, a one-line `pitch`
+  (large, in the ink) on how the library keeps it, and the detail: usually a `Points` grid of h4 points built from the
+  arrays at the top of `page.tsx`.
 - `Section` styles the `h4`, `p` and emphasis inside it (emphasis in the accent; links keep the text color), and turns a
   direct `div`, `ol` or `ul` child into a two-column grid, so section markup in `page.tsx` stays class-free. `Points`
   uses that grid for two independent columns, so a tall point only pushes down the points below it. Section headings
-  and pitches (centered) and running paragraphs span the card, inside the `max-w-page` (1168px) column. All
-  text, titles included, wraps with `text-pretty` (set on `body`); code keeps its own lines and scrolls.
+  and pitches (centered) and running paragraphs span the card, inside the `max-w-page` (1168px) column. Headings,
+  pitches and "For ..." labels wrap with `text-wrap: pretty` (`globals.css`); running text wraps normally, since
+  Safari's pretty rebalances whole paragraphs and leaves them ragged on phones; code keeps its own lines and scrolls.
 - Code samples on the site use real flags and tokens from the library; check `src/types/figmaProperties.ts` and
   `src/constants` in cllpse/unison-components before writing one. Order each element's properties the same way:
   frames flow, alignment, width, height, padding, gap, corner radius, fill, stroke; text typography, then fill. The one
   liberty: typography flags drop their -wrap/-nowrap suffix (`typography-label`, not `typography-label-nowrap`).
+- The page ends with `Footer`, plain on the canvas below the last card: the author's photo (`src/assets/author.webp`,
+  cropped and compressed, inlined as a data URI at build time), "by <AUTHOR_NAME>" and icon-only links to their
+  GitHub, LinkedIn and eject.io (its mask, `src/assets/eject-mask.svg`, inlined in the text color; `AUTHOR_*` in
+  `src/constants/site.ts`).
 - Icon is being replaced by Vector; don't feature Icon in copy or samples.
 - Unison is in beta: the Team section, the first, ends with `BETA_DISCLAIMER` (`page.tsx`), a `Disclaimer`: a toned
   band across the bottom of the card, so it comes last, inviting people to get involved on GitHub. Don't repeat it in
@@ -128,9 +134,10 @@ Beyond that:
 
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
-- The exceptions, which the owner asked for: the real ellipses in the nav's "for…" and at the start of "…or simply
-  ship sooner" (For Team) and "…think LEGO® bricks" (For Developers), the ® itself (a registered trademark), and
-  the "…" that ends a shortened path in the hero's code sample ("M3 6h1v-2h2v-1h12v1h…").
+- A call to action that ends a paragraph (the yellow `ProofLink` badges, such as "See what one short prompt builds")
+  takes no full stop after it; the badge closes the paragraph. Mid-paragraph, the badge keeps its full stop.
+- The exceptions, which the owner asked for: the real ellipses in the nav's "For…" and at the start of "…or simply
+  ship sooner" (For Team).
 
 ## Comments and docs
 

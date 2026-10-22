@@ -6,12 +6,14 @@ import { useEffect } from "react"
  * Marks each code block that actually scrolls, per axis (data-scroll-x, data-scroll-y on its <pre>), so CodeBlock only
  * contains overscroll where there's something to scroll. overscroll-behavior: contain on a block that can't scroll would
  * still swallow the wheel, stopping the page from scrolling over it. It also marks the page's root and each code block
- * data-scrolling while they scroll, and for 800ms after, which is when their scrollbars show (globals.css).
+ * data-scrolling while they scroll, and for 800ms after, which is when their scrollbars show (globals.css). Other
+ * scrolling areas that take the code blocks' scrollbars (data-scroll-area, such as the TL;DR card's text) are marked
+ * the same way.
  */
 const SCROLLBAR_LINGER = 800
 export default () => {
   useEffect(() => {
-    const blocks = [...document.querySelectorAll<HTMLElement>("[data-code-block] > pre")]
+    const blocks = [...document.querySelectorAll<HTMLElement>("[data-code-block] > pre, [data-scroll-area]")]
 
     const mark = () => {
       for (const block of blocks) {

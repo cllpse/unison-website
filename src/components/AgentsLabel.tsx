@@ -4,7 +4,7 @@ export type AgentsLabel = {
 }
 
 /**
- * "Agents" as the nav and the Agents section's label show it. Both draw it in a square frame (underline-square-frame)
+ * "agents" as the nav and the Agents section's label show it. Both draw it in a square frame (underline-square-frame)
  * whose right edge cuts through the "s", so the "s" tips out of it, a little clockwise, pivoting on its bottom-left
  * corner. In the nav the frame comes and goes, so the "s" tips with it, on the frame's 58ms ease-out (half the site's
  * usual 116ms, a quick snap); the link is the group/link it listens to.
@@ -17,7 +17,7 @@ export default (p: AgentsLabel) => {
 
   return (
     <>
-      Agent<span className={`inline-block origin-bottom-left ${tip}`}>s</span>
+      agent<span className={`inline-block origin-bottom-left ${tip}`}>s</span>
     </>
   )
 }
