@@ -379,9 +379,8 @@
    the first 2px of the word's last letter, so the "s" of "Agents" steps out just past it: the frame ends --frame-s
    less 2px from the word's end, the "s" with the tracking (0.545em for bold Inter, as in the nav and the section
    label). It sits behind the text (the
-   link isolates its own stacking), so the letter crosses over the frame, and it fades like the other underlines but in
-   half their time (58ms), a quicker beat that the tipped "s" (AgentsLabel) shares. Meant for short, single-line
-   links. */
+   link isolates its own stacking), so the letter crosses over the frame, and it fades like the other underlines, in
+   116ms, a beat that the tipped "s" (AgentsLabel) shares. Meant for short, single-line links. */
 @utility underline-square-frame {
   position: relative;
   isolation: isolate;
@@ -393,7 +392,7 @@
     z-index: -1;
     inset: 1px calc(var(--frame-s, 0.545em) - 2px) 1px -0.15em;
     border: 2px solid var(--underline, currentColor);
-    transition: border-color 58ms var(--ease-out);
+    transition: border-color 116ms var(--ease-out);
   }
 
   @media (prefers-reduced-motion: reduce) {
