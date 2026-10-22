@@ -70,8 +70,8 @@
 
   // The TL;DR card (TldrCard.tsx): a link in it centers and selects the part of a section it picks out and collapses
   // the card to the top, and a click on the collapsed card opens it again, morphing through a view transition where
-  // there is one; Escape, its close button or a click outside closes it, and the hero's TL;DR button opens a collapsed
-  // card rather than closing it.
+  // there is one; past a window's height down the page it shows itself collapsed until its close button puts it away,
+  // and the hero's TL;DR button opens a collapsed card rather than closing it.
   const card = document.getElementById("tldr")
   if (card) {
     const openers = [...document.querySelectorAll('[popovertarget="tldr"]:not(#tldr *)')]
@@ -87,6 +87,29 @@
       if (document.startViewTransition && !still) document.startViewTransition(apply)
       else apply()
     }
+    // Once the page is scrolled more than a window's height, the card shows itself collapsed (auto), without its
+    // backdrop, and hides again back above that line, unless the reader has opened it. Its close button puts it away
+    // for the rest of the visit (dismissed); Escape or a click outside an open card collapses it to the chip again
+    // past that line, and closes it above.
+    let auto = false
+    let dismissed = false
+    const past = () => window.scrollY > window.innerHeight
+    const onScroll = () => {
+      const open = card.matches(":popover-open")
+      if (past()) {
+        if (open || dismissed) return
+        auto = true
+        card.setAttribute("data-collapsed", "")
+        card.showPopover()
+      } else if (open && auto && card.hasAttribute("data-collapsed")) card.hidePopover()
+    }
+    const close = () => {
+      if (!card.hasAttribute("data-collapsed") && past() && !dismissed) {
+        auto = true
+        collapse(true)
+      } else card.hidePopover()
+    }
+
     // The text a link last selected, while it stays selected.
     let picked = ""
     // Takes the page to the part of a section a link picks out (its data-part, or the section itself), centered in
@@ -118,9 +141,11 @@
       document.documentElement.removeAttribute("data-tldr-selection")
     }
     card.addEventListener("click", (event) => {
+      if (event.target.closest('button[aria-label="Close"]')) dismissed = true
       // The collapsed card's close button still closes it; anywhere else on it opens it again.
       if (card.hasAttribute("data-collapsed") && !event.target.closest("button")) {
         event.preventDefault()
+        auto = false
         collapse(false)
         return
       }
@@ -133,24 +158,31 @@
     const onOpener = (event) => {
       if (!card.matches(":popover-open")) return
       event.preventDefault()
+      auto = false
       collapse(false)
     }
     for (const opener of openers) opener.addEventListener("click", onOpener)
     document.addEventListener("click", (event) => {
       const open = card.matches(":popover-open") && !card.hasAttribute("data-collapsed")
-      if (open && !card.contains(event.target) && !openers.some((opener) => opener.contains(event.target)))
-        card.hidePopover()
+      if (open && !card.contains(event.target) && !openers.some((opener) => opener.contains(event.target))) close()
     })
     document.addEventListener("selectionchange", onSelection)
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && card.matches(":popover-open")) card.hidePopover()
+      if (event.key === "Escape" && card.matches(":popover-open")) close()
     })
     // A card closed while collapsed fades out as it is, and opens again whole.
     card.addEventListener("beforetoggle", (event) => {
-      if (event.newState !== "open") return
+      if (event.newState !== "open") {
+        auto = false
+        return
+      }
+      // Shown by scrolling, it opens collapsed.
+      if (auto) return
       card.removeAttribute("data-collapsed")
       // Before the next frame, once it's shown: a hidden area keeps its scroll position and can't be scrolled.
       requestAnimationFrame(toTop)
     })
+    window.addEventListener("scroll", onScroll, { passive: true })
+    onScroll()
   }
 })()

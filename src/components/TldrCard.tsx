@@ -5,16 +5,15 @@ import { useEffect } from "react"
 /**
  * Drives the hero's TL;DR card (a manual popover, Section's `popover`): a link in it to a section centers and selects
  * the part of it the link picks out and collapses the card to a small "TL;DR" at the top, with the backdrop gone so the
- * page can be used under it, and a click on the collapsed card opens it again. Opening and collapsing morph the card
- * through a view transition where the browser has them (globals.css), and simply switch where it doesn't. Escape, the
- * close button or a click outside the open card closes it; the TL;DR buttons open a collapsed card rather than closing
- * it. scripts/bakeClient.js does the same on the baked page.
+ * page can be used under it, and a click on the collapsed card opens it again. Past a window's height down the page the
+ * card shows itself collapsed, until its close button puts it away. Opening and collapsing morph the card through a
+ * view transition where the browser has them (globals.css), and simply switch where it doesn't. The hero's TL;DR opens
+ * a collapsed card rather than closing it. scripts/bakeClient.js does the same on the baked page.
  */
 export default ({ id }: { id: string }) => {
   useEffect(() => {
     const card = document.getElementById(id)
     if (!card) return
-    // The hero's TL;DR and the call-outs in the sections (TldrCallout).
     const openers = [...document.querySelectorAll(`[popovertarget="${id}"]:not(#${id} *)`)]
 
     // Each time the card opens or opens up again, its text starts from the top, at once rather than scrolling there.
@@ -28,6 +27,29 @@ export default ({ id }: { id: string }) => {
       const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches
       if (document.startViewTransition && !still) document.startViewTransition(apply)
       else apply()
+    }
+
+    // Once the page is scrolled more than a window's height, the card shows itself collapsed (auto), without its
+    // backdrop, and hides again back above that line, unless the reader has opened it. Its close button puts it away
+    // for the rest of the visit (dismissed); Escape or a click outside an open card collapses it to the chip again
+    // past that line, and closes it above.
+    let auto = false
+    let dismissed = false
+    const past = () => window.scrollY > window.innerHeight
+    const onScroll = () => {
+      const open = card.matches(":popover-open")
+      if (past()) {
+        if (open || dismissed) return
+        auto = true
+        card.setAttribute("data-collapsed", "")
+        card.showPopover()
+      } else if (open && auto && card.hasAttribute("data-collapsed")) card.hidePopover()
+    }
+    const close = () => {
+      if (!card.hasAttribute("data-collapsed") && past() && !dismissed) {
+        auto = true
+        collapse(true)
+      } else card.hidePopover()
     }
 
     // The text a link last selected, while it stays selected.
@@ -62,9 +84,11 @@ export default ({ id }: { id: string }) => {
     }
 
     const onCard = (event: MouseEvent) => {
+      if ((event.target as Element).closest('button[aria-label="Close"]')) dismissed = true
       // The collapsed card's close button still closes it; anywhere else on it opens it again.
       if (card.hasAttribute("data-collapsed") && !(event.target as Element).closest("button")) {
         event.preventDefault()
+        auto = false
         collapse(false)
         return
       }
@@ -77,20 +101,26 @@ export default ({ id }: { id: string }) => {
     const onOpener = (event: Event) => {
       if (!card.matches(":popover-open")) return
       event.preventDefault()
+      auto = false
       collapse(false)
     }
     // The open card's backdrop lets clicks through, so a click outside it is any click on the page.
     const onPage = (event: MouseEvent) => {
       const target = event.target as Node
       const open = card.matches(":popover-open") && !card.hasAttribute("data-collapsed")
-      if (open && !card.contains(target) && !openers.some((opener) => opener.contains(target))) card.hidePopover()
+      if (open && !card.contains(target) && !openers.some((opener) => opener.contains(target))) close()
     }
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape" && card.matches(":popover-open")) card.hidePopover()
+      if (event.key === "Escape" && card.matches(":popover-open")) close()
     }
     // A card closed while collapsed fades out as it is, and opens again whole.
     const onToggle = (event: Event) => {
-      if ((event as ToggleEvent).newState !== "open") return
+      if ((event as ToggleEvent).newState !== "open") {
+        auto = false
+        return
+      }
+      // Shown by scrolling, it opens collapsed.
+      if (auto) return
       card.removeAttribute("data-collapsed")
       // Before the next frame, once it's shown: a hidden area keeps its scroll position and can't be scrolled.
       requestAnimationFrame(toTop)
@@ -102,6 +132,8 @@ export default ({ id }: { id: string }) => {
     document.addEventListener("selectionchange", onSelection)
     document.addEventListener("keydown", onKey)
     card.addEventListener("beforetoggle", onToggle)
+    window.addEventListener("scroll", onScroll, { passive: true })
+    onScroll()
 
     return () => {
       card.removeEventListener("click", onCard)
@@ -110,6 +142,7 @@ export default ({ id }: { id: string }) => {
       document.removeEventListener("selectionchange", onSelection)
       document.removeEventListener("keydown", onKey)
       card.removeEventListener("beforetoggle", onToggle)
+      window.removeEventListener("scroll", onScroll)
     }
   }, [id])
 

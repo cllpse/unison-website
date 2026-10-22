@@ -8,7 +8,6 @@ import Points, { type Point } from "../components/Points"
 import ProofLink from "../components/ProofLink"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
-import TldrCallout from "../components/TldrCallout"
 import TldrCard from "../components/TldrCard"
 import {
   EXPO_PLAYGROUND_URL,
@@ -357,12 +356,7 @@ const BETA_DISCLAIMER = (
 const TEAM: Point[] = [
   {
     title: "Figma is the source of truth",
-    body: (
-      <>
-        No Storybook, second catalog or handoff doc to keep in sync. Layouts, styles and tokens live in Figma, and the
-        code is generated from there: one place to look, one place to update. <TldrCallout />
-      </>
-    ),
+    body: "No Storybook, second catalog or handoff doc to keep in sync. Layouts, styles and tokens live in Figma, and the code is generated from there: one place to look, one place to update.",
   },
   {
     title: "Less back-and-forth",
@@ -450,13 +444,7 @@ const DEVELOPERS: Point[] = [
     title: "Red squiggles and code completion",
     id: "code-completion",
     column: "left",
-    body: (
-      <>
-        Values that aren't in the design system are an error in your editor as you type, and every design token shows up
-        in code completion. Rename or remove a token and every place still using it turns red too, so nothing drifts out
-        of sync unnoticed. <TldrCallout />
-      </>
-    ),
+    body: "Values that aren't in the design system are an error in your editor as you type, and every design token shows up in code completion. Rename or remove a token and every place still using it turns red too, so nothing drifts out of sync unnoticed.",
     code: [
       {
         code: `<Text typography-smol fill-neutral-900>
@@ -548,8 +536,7 @@ const AGENTS: Point[] = [
         <a href={PAYPAL_URL} target="_blank" rel="noopener">
           more instructions
         </a>
-        . If an agent guesses a value that isn't a token, TypeScript stops it before it ever gets to review.{" "}
-        <TldrCallout />
+        . If an agent guesses a value that isn't a token, TypeScript stops it before it ever gets to review.
       </>
     ),
   },
@@ -614,8 +601,7 @@ export default () => {
                 weight, in the starters' blue, but with a plain 2px line under it that fades on hover, like the other
                 links' lines, a quarter as far below the text as theirs. It's a block a line of the pitch tall (the pitch's size times
                 its line height) at the top of the line, so it's centered on the sentence's lines rather than sitting on
-                their baseline, and set off by half a space more (the pitch's space is about 0.28 of its size). The
-                TL;DRs in the sections (TldrCallout) open the same card. */}
+                their baseline, and set off by half a space more (the pitch's space is about 0.28 of its size). */}
             <button
               type="button"
               popoverTarget="tldr"
@@ -710,7 +696,7 @@ export default () => {
           </p>
           <p>
             And with Unison, that's a call made with confidence. Left to AI alone, a design drifts a little with every
-            prompt; Unison's output is deterministic, so the same design always produces the same code. <TldrCallout />
+            prompt; Unison's output is deterministic, so the same design always produces the same code.
           </p>
           <Points points={DESIGNERS} />
         </Section>
@@ -764,7 +750,7 @@ export default () => {
             <a href={PROOF_COMMIT_URL} target="_blank" rel="noopener">
               one commit
             </a>
-            . <TldrCallout />
+            .
           </p>
           <Points points={PROOF_PAGES} />
           {EXTRAS_DISCLAIMER}
