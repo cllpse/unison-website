@@ -617,41 +617,40 @@ export default () => {
               to the top on the way (TldrCard). */}
           <Section id="get-started" popover="tldr" title={<span className="text-(--accent)">TL;DR</span>}>
             <p>
-              AI makes one-off UI cheap, so designers no longer have to squeeze every idea into a shared component or
-              wait for one to be updated. Their focus shifts from maintaining a catalog to{" "}
+              Now that AI makes one-off UI cheap, designers no longer need to negotiate every idea into a shared
+              component. Their focus shifts from keeping a catalog to{" "}
               <a href="#designers" data-part="taste">
                 exercising taste
               </a>
-              : designers compose freely in Figma, within the design tokens, and decide what looks right.
+              : composing freely in Figma, with only the design tokens locked.
             </p>
             <p>
-              Unison makes that safe. Its Figma plugin turns a design into code property for property, and the output is
-              deterministic, so the same design always produces the same code. That code is written against Unison's
-              component library, which{" "}
+              Unison makes that safe. Its Figma plugin turns a design into code, property for property. Same design,
+              same code, every time. The code is written against a component library that{" "}
               <a href="#developers" data-part="properties-panel">
                 speaks Figma's language
               </a>
-              : a handful of primitives whose properties are named after the ones in Figma's panels, such as auto
-              layout, alignment, hug and fill.
+              : a few primitives, Frame, Text and Vector, with properties named after the panel's own, like auto layout,
+              hug and fill.
             </p>
             <p>
               Developers get{" "}
               <a href="#developers" data-part="code-completion">
                 typed components
               </a>{" "}
-              that only accept the design's tokens, so the editor flags anything off the system before a reviewer has
-              to, and there's no pixel-pushing to match a mockup. Agents get{" "}
+              that accept only those tokens, so their editor flags anything outside the design system before a reviewer
+              has to. Agents get{" "}
               <a href="#agents" data-part="constraints">
                 the same vocabulary
               </a>
-              , and because it can only express the design system, the code they generate stays in bounds.
+              , one that can only express the design system, so what they write stays in bounds.
             </p>
             <p>
-              One codebase powers apps and websites alike: the same components run on iOS, Android and the web. And{" "}
+              One codebase runs on iOS, Android and the web.{" "}
               <a href="#team" data-part="tokens">
-                one tokens file
+                One tokens file
               </a>{" "}
-              feeds both Figma and the code, so a color, a size or a speed changes in one place and everything follows.
+              feeds both Figma and the code, so change a color once and both sides follow.
             </p>
           </Section>
           <TldrCard id="tldr" />
