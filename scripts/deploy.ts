@@ -2,7 +2,8 @@
  * Bakes the landing page and publishes it under /unison/ on the two sites that host it, eject.io and cllp.se. The web
  * playground's one-shot pages (the proof section's shadcn, Reddit and Google look-alikes) are baked too, as a static
  * export served from /unison/one-shot/, and go into dist/one-shot; the other models' one-shots, baked once from where
- * they were built and kept in this repository (ONE_SHOTS), go in beside them. Then dist/ (the page, its social card,
+ * they were built and kept in this repository (ONE_SHOTS), go in beside them. The playground's test page is baked
+ * again, served from /unison/playground/, into dist/playground. Then dist/ (the page, its social card,
  * its sitemap, the session transcript and the one-shot pages) is copied into each site's hosting folder, and
  * `firebase deploy` runs in each project. Stops at the first step that fails, so a broken bake never reaches either
  * site.
@@ -50,8 +51,27 @@ const SITES = [
   { root: join(homedir(), "Sites", "cllp-se"), folder: join("dist", "unison") },
 ]
 
-/** Runs a command with its output shown as it goes; a failure throws, which ends the script there. */
-const run = (command: string, args: string[], cwd?: string) => execFileSync(command, args, { cwd, stdio: "inherit" })
+/**
+ * The web playground's own test page, which exercises the library section by section, baked a second time as a static
+ * export served from /unison/playground/ (the developers section links it): its index page with the RSC payloads a
+ * client navigation fetches, and the scripts, styles and fonts it loads.
+ */
+const PLAYGROUND_PATH = "playground"
+const PLAYGROUND_PAGE = [
+  "_next",
+  "index.html",
+  "index.txt",
+  "__next._full.txt",
+  "__next.__PAGE__.txt",
+  "__next._tree.txt",
+]
+
+/**
+ * Runs a command with its output shown as it goes, with `env` added to the environment; a failure throws, which ends
+ * the script there.
+ */
+const run = (command: string, args: string[], cwd?: string, env?: Record<string, string>) =>
+  execFileSync(command, args, { cwd, stdio: "inherit", env: { ...process.env, ...env } })
 
 run("bun", ["run", "bake"])
 run("bun", ["run", "bake"], PLAYGROUND)
@@ -66,6 +86,11 @@ for (const { path } of published)
     const file = join(DIST, path, page, "index.html")
     await writeFile(file, (await readFile(file, "utf8")).replace("</head>", `${MIN_WIDTH}</head>`))
   }
+
+// The playground's next build replaces out/, so this comes after the one-shot pages are copied from it.
+run("bunx", ["next", "build"], PLAYGROUND, { BAKE_BASE_PATH: `/unison/${PLAYGROUND_PATH}` })
+for (const entry of PLAYGROUND_PAGE)
+  await cp(join(PLAYGROUND, "out", entry), join(DIST, PLAYGROUND_PATH, entry), { recursive: true })
 
 for (const { root, folder } of SITES) {
   const target = join(root, folder)

@@ -30,7 +30,9 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
   `~/Sites/cllp-se/dist/unison`, then runs `firebase deploy` in both projects (`scripts/deploy.ts`). The proof
   section links those pages relatively (`one-shot/shadcn/` and so on). Other models' one-shots are listed in
   `src/constants/oneShots.ts` and kept pre-baked in `one-shot/<model>/` (a static export served from
-  `/unison/one-shot/<model>`, built once from wherever the model wrote them); the deploy copies them in beside them
+  `/unison/one-shot/<model>`, built once from wherever the model wrote them); the deploy copies them in beside them. It also bakes the
+  playground's test page a second time, served from `/unison/playground`, into `dist/playground`, which the developers
+  section links
 
 ## Architecture
 

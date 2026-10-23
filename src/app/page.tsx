@@ -298,6 +298,9 @@ const TOOLKIT_DISCLAIMER = (
 )
 
 // Ends the developers section: where to see the library wired up.
+// The web playground's test page, baked and published next to this page in playground/ (scripts/deploy.ts).
+const PLAYGROUND_TEST_PAGE_URL = "playground/"
+
 const PLAYGROUNDS_DISCLAIMER = (
   <Disclaimer>
     Setting it up? The{" "}
@@ -308,7 +311,11 @@ const PLAYGROUNDS_DISCLAIMER = (
     <a href={EXPO_PLAYGROUND_URL} target="_blank" rel="noopener">
       Expo playground
     </a>{" "}
-    are reference implementations for websites and for apps.
+    are reference implementations for websites and for apps, and both include{" "}
+    <a href={PLAYGROUND_TEST_PAGE_URL} target="_blank" rel="noopener">
+      test pages
+    </a>{" "}
+    that exercise the whole component library.
   </Disclaimer>
 )
 
