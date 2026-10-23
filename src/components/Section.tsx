@@ -83,17 +83,17 @@ export default (p: Section) => {
       className={`${SECTION_ACCENTS[id]} ${placement} mx-auto max-w-page bg-card px-card-side py-medium lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral [&>p+p]:mt-4`}
     >
       {popover ? (
-        // The floating card's close button, in its top right corner as far in as the card's padding reaches on
-        // phones, half of it from 64em: a cross drawn like the proof links' arrow (a 12px grid, 1.75px round strokes),
-        // in the paragraphs' ink, the text size of the paragraphs, with a little room around it to tap.
+        // The floating card's close button, placed and sized exactly as the code popover's (CodePopover): at the code
+        // blocks' size, its cross 1.05em in from the top and the right, with room around it to tap. A cross drawn like
+        // the proof links' arrow (a 12px grid, 1.75px round strokes), in the paragraphs' ink.
         <button
           type="button"
           popoverTarget={popover}
           popoverTargetAction="hide"
           aria-label="Close"
-          className="absolute top-[calc(var(--spacing-medium)-0.4em)] right-[calc(var(--spacing-card-side)-0.4em)] cursor-pointer p-[0.4em] text-small text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none lg:top-[calc(var(--spacing-large)/2-0.4em)] lg:right-[calc(var(--spacing-large)/2-0.4em)]"
+          className="absolute top-[calc(1.05em-0.4em)] right-[calc(1.05em-0.4em)] cursor-pointer p-[0.4em] text-code-block text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none"
         >
-          <svg viewBox="0 0 12 12" aria-hidden="true" className="block size-[0.875em] fill-none stroke-current">
+          <svg viewBox="0 0 12 12" aria-hidden="true" className="block size-[1em] fill-none stroke-current">
             <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" strokeWidth="1.75" strokeLinecap="round" />
           </svg>
         </button>

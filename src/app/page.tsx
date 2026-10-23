@@ -1,5 +1,6 @@
 import AgentsLabel from "../components/AgentsLabel"
 import CodeBlock from "../components/CodeBlock"
+import CodePopover from "../components/CodePopover"
 import Disclaimer from "../components/Disclaimer"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
@@ -617,12 +618,12 @@ export default () => {
               to the top on the way (TldrCard). */}
           <Section id="get-started" popover="tldr" title={<span className="text-(--accent)">TL;DR</span>}>
             <p>
-              Now that AI makes one-off UI cheap, designers no longer need to negotiate every idea into a shared
-              component. Their focus shifts from keeping a catalog to{" "}
+              AI makes one-off UI cheap, so designers no longer need to negotiate every idea into a shared component.
+              Their focus shifts from keeping a catalog to{" "}
               <a href="#designers" data-part="taste">
                 exercising taste
               </a>
-              : composing freely in Figma, with only the design tokens locked.
+              : composing freely in Figma, with only design tokens locked.
             </p>
             <p>
               Unison makes that safe. Its Figma plugin turns a design into code, property for property. Same design,
@@ -654,11 +655,13 @@ export default () => {
             </p>
           </Section>
           <TldrCard id="tldr" />
+          {/* The hero sample, whole, for phones (PluginWindow opens it). */}
+          <CodePopover id="hero-code" code={EXAMPLE} />
           {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
               section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
               centered beside the window. Stacked on phones, they're as far apart as the cards are. */}
           <div className="mt-[calc(var(--spacing-neutral)*1.25)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-large lg:gap-y-neutral">
-            <PluginWindow code={EXAMPLE} />
+            <PluginWindow code={EXAMPLE} codePopover="hero-code" />
             <div className="min-w-0">
               <ShapesPreview />
             </div>
