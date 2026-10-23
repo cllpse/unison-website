@@ -8,22 +8,31 @@
  *
  * Each shape is its own drawing, so the row spaces them with the hero's own gap (large, as between the plugin window
  * and this row) instead of Figma's: the three share the rest of the width in proportion to their sizes, each at its own
- * aspect ratio, centered on one line. On phones the outlines are a fixed 1.5px instead of scaling with the drawing
+ * aspect ratio, centered on one line. Below md they stack instead, centered in a column the same gap apart, keeping
+ * their sizes relative to each other (the square at 45% of the width). On phones the outlines are a fixed 1.5px instead of scaling with the drawing
  * (which takes them under 1px there); the drawings don't clip them where they reach their edges.
  */
 const OUTLINE = "max-sm:[stroke-width:1.5] max-sm:[vector-effect:non-scaling-stroke]"
 
-/** Each drawing's classes: no clipping of the outlines on phones, and a share of the row by its width. */
-const DRAWING = "h-auto min-w-0 basis-0 max-sm:overflow-visible"
+/**
+ * Each drawing's classes: no clipping of the outlines on phones, and a share of the row by its width; stacked below md,
+ * it takes its own width instead (45% for the square, the others in proportion), since a share of the column would be a share of its height.
+ */
+const DRAWING = "h-auto min-w-0 basis-0 max-sm:overflow-visible max-md:basis-auto max-md:grow-0"
 
 export default () => {
   return (
     <div
       role="img"
-      aria-label="A square labeled shape, a squircle labeled reshape and a circle holding the site's pixel logo, in a row"
-      className="flex items-center gap-x-large"
+      aria-label="A square labeled shape, a squircle labeled reshape and a circle holding the site's pixel logo"
+      className="flex items-center gap-x-large max-md:flex-col max-md:gap-y-large"
     >
-      <svg viewBox="0 0 131.5 131.5" fill="none" aria-hidden="true" className={`${DRAWING} grow-[131.5]`}>
+      <svg
+        viewBox="0 0 131.5 131.5"
+        fill="none"
+        aria-hidden="true"
+        className={`${DRAWING} grow-[131.5] max-md:w-[45%]`}
+      >
         <rect x="0.75" y="0.75" width="130" height="130" rx="1.5" className="fill-ink/5" />
         <rect
           x="0.75"
@@ -39,7 +48,12 @@ export default () => {
           className="fill-ink"
         />
       </svg>
-      <svg viewBox="174 20 91.5 91.5" fill="none" aria-hidden="true" className={`${DRAWING} grow-[91.5]`}>
+      <svg
+        viewBox="174 20 91.5 91.5"
+        fill="none"
+        aria-hidden="true"
+        className={`${DRAWING} grow-[91.5] max-md:w-[calc(45%*91.5/131.5)]`}
+      >
         <rect x="174.75" y="20.75" width="90" height="90" rx="24" className="fill-purple/10" />
         <rect
           x="174.75"
@@ -55,7 +69,12 @@ export default () => {
           className="fill-purple"
         />
       </svg>
-      <svg viewBox="308 35 61.5 61.5" fill="none" aria-hidden="true" className={`${DRAWING} grow-[61.5]`}>
+      <svg
+        viewBox="308 35 61.5 61.5"
+        fill="none"
+        aria-hidden="true"
+        className={`${DRAWING} grow-[61.5] max-md:w-[calc(45%*61.5/131.5)]`}
+      >
         <rect x="308.75" y="35.75" width="60" height="60" rx="30" className="fill-pink/10" />
         <rect
           x="308.75"

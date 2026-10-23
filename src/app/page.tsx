@@ -667,10 +667,11 @@ export default () => {
           <CodePopover id="hero-code" code={EXAMPLE} />
           {/* The plugin's window with the code, and what the code renders, side by side where there's room, like the
               section grids, right on the canvas. Both span their column at their own aspect ratios, the preview
-              centered beside the window. Stacked on phones, they're as far apart as the cards are. */}
+              centered beside the window. Stacked on phones, they're as far apart as the cards are, with the preview
+              first, so the page opens on what the code draws. */}
           <div className="mt-[calc(var(--spacing-neutral)*1.25)] grid grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] items-center gap-x-large gap-y-large lg:gap-y-neutral">
             <PluginWindow code={EXAMPLE} codePopover="hero-code" />
-            <div className="min-w-0">
+            <div className="min-w-0 max-md:order-first">
               <ShapesPreview />
             </div>
           </div>
