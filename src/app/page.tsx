@@ -367,6 +367,7 @@ const TEAM: Point[] = [
   },
   {
     title: "One set of tokens, both sides",
+    id: "tokens",
     body: [
       "One tokens file feeds both sides: the plugin imports it into Figma as variables, text styles and shadow styles, and the components are generated from it. Motion has a file of its own beside it, for easings, durations and animations.",
       "Change a token once and both sides follow, so design and code never disagree on a color, a size or a speed.",
@@ -624,13 +625,14 @@ export default () => {
               : designers compose freely in Figma, within the design tokens, and decide what looks right.
             </p>
             <p>
-              Unison makes that safe. Its component library{" "}
+              Unison makes that safe. Its Figma plugin turns a design into code property for property, and the output is
+              deterministic, so the same design always produces the same code. That code is written against Unison's
+              component library, which{" "}
               <a href="#developers" data-part="properties-panel">
                 speaks Figma's language
               </a>
               : a handful of primitives whose properties are named after the ones in Figma's panels, such as auto
-              layout, alignment, hug and fill. The plugin turns a design into that code property for property, and the
-              output is deterministic, so the same design always produces the same code.
+              layout, alignment, hug and fill.
             </p>
             <p>
               Developers get{" "}
@@ -642,8 +644,14 @@ export default () => {
               <a href="#agents" data-part="constraints">
                 the same vocabulary
               </a>
-              , and since only the design system can be written in it, the code they generate stays in bounds. One
-              codebase powers apps and websites alike.
+              , and because it can only express the design system, the code they generate stays in bounds.
+            </p>
+            <p>
+              One codebase powers apps and websites alike: the same components run on iOS, Android and the web. And{" "}
+              <a href="#team" data-part="tokens">
+                one tokens file
+              </a>{" "}
+              feeds both Figma and the code, so a color, a size or a speed changes in one place and everything follows.
             </p>
           </Section>
           <TldrCard id="tldr" />
