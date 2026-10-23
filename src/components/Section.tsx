@@ -54,18 +54,21 @@ export default (p: Section) => {
   const { id, audience, title, pitch, children, popover } = p
 
   // In place on the page, the cards are 2 base sizes apart, 3 from 64em, and a jump to one leaves a base size above
-  // it. Floating, the card is centered in the view, a medium step in from its sides on phones and an xx-large one
-  // from 64em, no wider than the page, its text scrolling if it's taller than the view, its corners rounded as
-  // the yellow links to the proof are, with the cards' shadow lifting it off the dimmed page. Collapsed, it's just its
-  // heading at the text size of the header's links, padded a small step at the sides and half that above and below,
-  // centered a small step below the header, with the header's shadow, which suits its height. It inverts the card's
-  // colors, the heading and close button in white (the dark theme's off-white) on the accent, and keeps the close
-  // button, beside the heading on the right, its tap room taken back by negative margins so it doesn't make the card
-  // any bigger. A 2px
-  // ring in a lighter tint of its blue (a quarter white) sits over its shadow, setting it apart from the page: a ring
-  // rather than an outline, which Chrome rounds to device pixels and so draws thinner than 2px.
+  // it. Floating, the card is centered in the view, exactly as wide as the cards on the page (in from the view's sides
+  // as the canvas's content is, a small step on phones and an x-large one from 64em, and no wider than the page) and
+  // padded as they are, so its text lines up with theirs left and right (from 64em its side padding is a quarter
+  // more, and the card a quarter of the cards' padding wider on each side to match); an xx-large step from the top and bottom from
+  // 64em, its text scrolling if it's taller than the view, its corners rounded as the yellow links to the proof
+  // are, with the cards' shadow lifting it off the dimmed page. Collapsed, it's just its heading at the text size of
+  // the header's links, padded a small step at the sides and half that above and below, centered a small step above
+  // the bottom of the view, with the header's shadow in its blue (shadow-chip), which suits its height. It inverts the card's colors, the
+  // heading and close button in white (the dark theme's off-white) on the accent, and keeps the close button, beside
+  // the heading on the right, its tap room taken back by negative margins so it doesn't make the card any bigger. A
+  // ring in a lighter tint of its blue (a quarter white) sits over its shadow, setting it apart from the page, as thick
+  // relative to the chip as 2px is to its 17px text on phones, so it grows and shrinks with it: a ring rather than an
+  // outline, which Chrome rounds to device pixels.
   const placement = popover
-    ? "fixed inset-0 m-auto h-fit max-h-[calc(100svh-2*var(--spacing-medium))] w-[calc(100%-2*var(--spacing-medium))] flex-col overflow-hidden rounded-sm open:flex border-0 text-ink shadow-card popover-card lg:max-h-[calc(100svh-2*var(--spacing-xx-large))] lg:w-[calc(100%-2*var(--spacing-xx-large))] data-collapsed:inset-x-0 data-collapsed:top-[calc(var(--header-height)+var(--spacing-small))] data-collapsed:bottom-auto data-collapsed:mx-auto data-collapsed:w-fit data-collapsed:cursor-pointer data-collapsed:px-small data-collapsed:py-[calc(var(--spacing-small)/2)] data-collapsed:shadow-header data-collapsed:ring-2 data-collapsed:ring-[color-mix(in_oklab,var(--accent)_75%,var(--color-white))] data-collapsed:[&_h2]:my-0 data-collapsed:[&_h2]:text-small data-collapsed:[&_h2]:leading-default data-collapsed:flex-row data-collapsed:items-center data-collapsed:gap-x-small data-collapsed:bg-(--accent) data-collapsed:[&_h2_span]:text-white data-collapsed:[&>:not(header,button)]:hidden! data-collapsed:[&>button]:static data-collapsed:[&>button]:order-last data-collapsed:[&>button]:-my-[0.4em] data-collapsed:[&>button]:-mx-[0.4em] data-collapsed:[&>button]:text-white"
+    ? "fixed inset-0 m-auto h-fit max-h-[calc(100svh-2*var(--spacing-small))] w-[calc(100%-2*var(--spacing-small))] flex-col overflow-hidden rounded-sm open:flex border-0 text-ink shadow-card popover-card lg:max-h-[calc(100svh-2*var(--spacing-xx-large))] lg:w-[calc(100%-2*var(--spacing-x-large)+var(--spacing-large)/2)] lg:max-w-[calc(var(--container-page)+var(--spacing-large)/2)] lg:px-[calc(var(--spacing-large)*1.25)] data-collapsed:inset-x-0 data-collapsed:top-auto data-collapsed:bottom-small data-collapsed:mx-auto data-collapsed:w-fit data-collapsed:cursor-pointer data-collapsed:px-small data-collapsed:py-[calc(var(--spacing-small)/2)] data-collapsed:shadow-chip data-collapsed:ring-[length:calc(var(--text-small)/8.5)] data-collapsed:ring-[color-mix(in_oklab,var(--accent)_75%,var(--color-white))] data-collapsed:[&_h2]:my-0 data-collapsed:[&_h2]:text-small data-collapsed:[&_h2]:leading-default data-collapsed:flex-row data-collapsed:items-center data-collapsed:gap-x-small data-collapsed:bg-(--accent) data-collapsed:[&_h2_span]:text-white data-collapsed:[&>:not(header,button)]:hidden! data-collapsed:[&>button]:static data-collapsed:[&>button]:order-last data-collapsed:[&>button]:-my-[0.4em] data-collapsed:[&>button]:-mx-[0.4em] data-collapsed:[&>button]:text-white"
     : "mt-large scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] lg:mt-x-large"
 
   return (
@@ -133,7 +136,7 @@ export default (p: Section) => {
         // padding less the scrollbar's track, which is always reserved, so the text ends where the heading's space does.
         <div
           data-scroll-area
-          className="-mr-card-side block! min-h-0 overflow-y-auto overscroll-contain pr-[calc(var(--spacing-card-side)-var(--scrollbar-track))] [scrollbar-gutter:stable] scrollbar-code lg:-mr-large lg:pr-[calc(var(--spacing-large)-var(--scrollbar-track))] [&>p]:text-small [&>p]:leading-tight [&>p+p]:mt-4"
+          className="-mr-card-side block! min-h-0 overflow-y-auto overscroll-contain pr-[calc(var(--spacing-card-side)-var(--scrollbar-track))] [scrollbar-gutter:stable] scrollbar-code lg:-mr-[calc(var(--spacing-large)*1.25)] lg:pr-[calc(var(--spacing-large)*1.25-var(--scrollbar-track))] [&>p]:text-small [&>p]:leading-tight [&>p+p]:mt-4"
         >
           {children}
         </div>
