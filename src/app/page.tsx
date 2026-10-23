@@ -343,7 +343,7 @@ const EXTRAS_DISCLAIMER = (
       mode.
     </p>
     <p>
-      <i className="text-black dark:text-[#fff]">
+      <i className="text-[color-mix(in_oklab,var(--color-ink),var(--color-black))] dark:text-[color-mix(in_oklab,var(--color-ink),#fff)]">
         And that's agents working alone, so it's the floor, not the ceiling. When a real designer composes in Figma and
         Unison carries their work into code, the results are in another league.
       </i>
@@ -756,8 +756,11 @@ export default () => {
         >
           <p>
             The promise: the components hold up however the code gets written.{" "}
-            <i className="text-black dark:text-[#fff]">The proof, in the hardest case:</i> no Figma, no plugin, no
-            designer, just an agent writing straight against the library, from this prompt alone:
+            <i className="text-[color-mix(in_oklab,var(--color-ink),var(--color-black))] dark:text-[color-mix(in_oklab,var(--color-ink),#fff)]">
+              The proof, in the hardest case:
+            </i>{" "}
+            no Figma, no plugin, no designer, just an agent writing straight against the library, from this prompt
+            alone:
           </p>
           <CodeBlock code={PROOF_PROMPT} lang="text" wrap />
           <p>Each model built all three pages from it. Compare them with {pageLinks((page) => ORIGINAL_URLS[page])}.</p>
