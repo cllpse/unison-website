@@ -31,14 +31,15 @@ export default async (p: CodePopover) => {
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Shiki output, built from our own constant snippet
         dangerouslySetInnerHTML={{ __html: await highlight(code) }}
       />
-      {/* The close cross, as on the TL;DR card: drawn like the proof links' arrow, in the ink, with room to tap, its
-          cross level with the code's first line and as far in from the right as the code is from the left. */}
+      {/* The close cross, as on the TL;DR card: drawn like the proof links' arrow, in the ink, at the body text's size
+          (text-small) in the middle of a square twice that size, inset from the top right corner by three quarters
+          of the body text's size. */}
       <button
         type="button"
         popoverTarget={id}
         popoverTargetAction="hide"
         aria-label="Close"
-        className="absolute top-[calc(1.05em-0.4em)] right-[calc(1.05em-0.4em)] cursor-pointer p-[0.4em] text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none"
+        className="absolute top-[calc(var(--text-small)*0.75)] right-[calc(var(--text-small)*0.75)] flex size-[calc(var(--text-small)*2)] cursor-pointer items-center justify-center text-small text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none"
       >
         <svg viewBox="0 0 12 12" aria-hidden="true" className="block size-[1em] fill-none stroke-current">
           <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" strokeWidth="1.75" strokeLinecap="round" />

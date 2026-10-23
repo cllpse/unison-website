@@ -68,7 +68,7 @@ export default (p: Section) => {
   // relative to the chip as 2px is to its 17px text on phones, so it grows and shrinks with it: a ring rather than an
   // outline, which Chrome rounds to device pixels.
   const placement = popover
-    ? "fixed inset-0 m-auto h-fit max-h-[calc(100svh-2*var(--spacing-small))] w-[calc(100%-2*var(--spacing-small))] flex-col overflow-hidden rounded-sm open:flex border-0 text-ink shadow-card popover-card lg:max-h-[calc(100svh-2*var(--spacing-xx-large))] lg:w-[calc(100%-2*var(--spacing-x-large)+var(--spacing-large)/2)] lg:max-w-[calc(var(--container-page)+var(--spacing-large)/2)] lg:px-[calc(var(--spacing-large)*1.25)] data-collapsed:inset-x-0 data-collapsed:top-auto data-collapsed:bottom-small data-collapsed:mx-auto data-collapsed:w-fit data-collapsed:cursor-pointer data-collapsed:px-small data-collapsed:py-[calc(var(--spacing-small)/2)] data-collapsed:shadow-chip data-collapsed:ring-[length:calc(var(--text-small)/8.5)] data-collapsed:ring-[color-mix(in_oklab,var(--accent)_75%,var(--color-white))] data-collapsed:[&_h2]:my-0 data-collapsed:[&_h2]:text-small data-collapsed:[&_h2]:leading-default data-collapsed:flex-row data-collapsed:items-center data-collapsed:gap-x-small data-collapsed:bg-(--accent) data-collapsed:[&_h2_span]:text-white data-collapsed:[&>:not(header,button)]:hidden! data-collapsed:[&>button]:static data-collapsed:[&>button]:order-last data-collapsed:[&>button]:-my-[0.4em] data-collapsed:[&>button]:-mx-[0.4em] data-collapsed:[&>button]:text-white"
+    ? "fixed inset-0 m-auto h-fit max-h-[calc(100svh-2*var(--spacing-small))] w-[calc(100%-2*var(--spacing-small))] flex-col overflow-hidden rounded-sm open:flex border-0 text-ink shadow-card popover-card lg:max-h-[calc(100svh-2*var(--spacing-xx-large))] lg:w-[calc(100%-2*var(--spacing-x-large)+var(--spacing-large)/2)] lg:max-w-[calc(var(--container-page)+var(--spacing-large)/2)] lg:px-[calc(var(--spacing-large)*1.25)] data-collapsed:inset-x-0 data-collapsed:top-auto data-collapsed:bottom-small data-collapsed:mx-auto data-collapsed:w-fit data-collapsed:cursor-pointer data-collapsed:px-small data-collapsed:py-[calc(var(--spacing-small)/2)] data-collapsed:shadow-chip data-collapsed:ring-[length:calc(var(--text-small)/8.5)] data-collapsed:ring-[color-mix(in_oklab,var(--accent)_75%,var(--color-white))] data-collapsed:[&_h2]:my-0 data-collapsed:[&_h2]:text-small data-collapsed:[&_h2]:leading-default data-collapsed:flex-row data-collapsed:items-center data-collapsed:gap-x-small data-collapsed:bg-(--accent) data-collapsed:[&_h2_span]:text-white data-collapsed:[&>:not(header,button)]:hidden! data-collapsed:[&>button]:static data-collapsed:[&>button]:size-auto data-collapsed:[&>button]:p-[0.4em] data-collapsed:[&>button]:order-last data-collapsed:[&>button]:-my-[0.4em] data-collapsed:[&>button]:-mx-[0.4em] data-collapsed:[&>button]:text-white data-collapsed:[&>button_svg]:size-[0.875em]"
     : "mt-large scroll-mt-[calc(var(--header-height)+var(--spacing-medium))] lg:mt-x-large"
 
   return (
@@ -83,15 +83,16 @@ export default (p: Section) => {
       className={`${SECTION_ACCENTS[id]} ${placement} mx-auto max-w-page bg-card px-card-side py-medium lg:p-large [&_:is(a,abbr)]:underline-offset-[-0.09em] [&_:is(a,abbr)]:decoration-[length:0.095em] [&_:is(em,strong)]:text-(--accent) [&_h4]:text-small [&_h4]:font-bold [&_h4]:leading-default [&_h4]:text-ink [&>p]:text-small [&>p]:leading-tight [&_li_p]:text-small [&_li_p]:leading-tight [&_h4+p]:mt-1.5 [&_*+p]:mt-4 [&_li>p+p]:mt-2 [&>:is(div,ol,ul)]:mt-neutral [&>:is(div,ol,ul)]:grid [&>:is(div,ol,ul)]:gap-x-large [&>:is(div,ol,ul)]:gap-y-medium lg:[&>:is(div,ol,ul)]:gap-y-neutral [&>:is(div,ol,ul)]:grid-cols-[repeat(auto-fit,minmax(min(100%,24rem),1fr))] [&>:is(div,ol,ul)>*]:min-w-0 [&>div>figure]:mt-0 [&>p]:mt-neutral [&>p+p]:mt-4`}
     >
       {popover ? (
-        // The floating card's close button, placed and sized exactly as the code popover's (CodePopover): at the code
-        // blocks' size, its cross 1.05em in from the top and the right, with room around it to tap. A cross drawn like
-        // the proof links' arrow (a 12px grid, 1.75px round strokes), in the paragraphs' ink.
+        // The floating card's close button, in its top right corner at every width: a square twice the body text's
+        // size (text-small), inset from the top and the right by three quarters of the body text's size, with the cross at the body text's
+        // size in its middle. Collapsed, the cross shrinks to the chip's text (0.875em of it). Drawn like the proof
+        // links' arrow (a 12px grid, 1.75px round strokes), in the paragraphs' ink.
         <button
           type="button"
           popoverTarget={popover}
           popoverTargetAction="hide"
           aria-label="Close"
-          className="absolute top-[calc(1.05em-0.4em)] right-[calc(1.05em-0.4em)] cursor-pointer p-[0.4em] text-code-block text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none"
+          className="absolute top-[calc(var(--text-small)*0.75)] right-[calc(var(--text-small)*0.75)] flex size-[calc(var(--text-small)*2)] cursor-pointer items-center justify-center text-small text-ink transition-opacity duration-116 ease-out hover:opacity-60 motion-reduce:transition-none"
         >
           <svg viewBox="0 0 12 12" aria-hidden="true" className="block size-[1em] fill-none stroke-current">
             <path d="M2.5 2.5L9.5 9.5M9.5 2.5L2.5 9.5" strokeWidth="1.75" strokeLinecap="round" />
