@@ -28,7 +28,9 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - `bun run deploy`: bakes the page, bakes the web playground's one-shot pages (its `bun run bake`, a static export
   served from `/unison/one-shot`) into `dist/one-shot`, copies `dist/` into `~/Sites/eject.io/public/unison` and
   `~/Sites/cllp-se/dist/unison`, then runs `firebase deploy` in both projects (`scripts/deploy.ts`). The proof
-  section links those pages relatively (`one-shot/shadcn/` and so on)
+  section links those pages relatively (`one-shot/shadcn/` and so on). Other models' one-shots are listed in
+  `src/constants/oneShots.ts` and kept pre-baked in `one-shot/<model>/` (a static export served from
+  `/unison/one-shot/<model>`, built once from wherever the model wrote them); the deploy copies them in beside them
 
 ## Architecture
 

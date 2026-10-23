@@ -1,9 +1,11 @@
 /**
  * Bakes the landing page and publishes it under /unison/ on the two sites that host it, eject.io and cllp.se. The web
  * playground's one-shot pages (the proof section's shadcn, Reddit and Google look-alikes) are baked too, as a static
- * export served from /unison/one-shot/, and go into dist/one-shot. Then dist/ (the page, its social card, its sitemap,
- * the session transcript and the one-shot pages) is copied into each site's hosting folder, and `firebase deploy` runs
- * in each project. Stops at the first step that fails, so a broken bake never reaches either site.
+ * export served from /unison/one-shot/, and go into dist/one-shot; the other models' one-shots, baked once from where
+ * they were built and kept in this repository (ONE_SHOTS), go in beside them. Then dist/ (the page, its social card,
+ * its sitemap, the session transcript and the one-shot pages) is copied into each site's hosting folder, and
+ * `firebase deploy` runs in each project. Stops at the first step that fails, so a broken bake never reaches either
+ * site.
  *
  * Run through `bun run deploy`.
  *
@@ -16,9 +18,11 @@
  * // => (each project's firebase deploy output)
  */
 import { execFileSync } from "node:child_process"
+import { existsSync } from "node:fs"
 import { cp, mkdir, readFile, writeFile } from "node:fs/promises"
 import { homedir } from "node:os"
 import { basename, join } from "node:path"
+import { ONE_SHOT_PAGES, ONE_SHOTS } from "../src/constants/oneShots"
 
 const DIST = "dist"
 
@@ -28,8 +32,7 @@ const DIST = "dist"
  * styles and fonts they share.
  */
 const PLAYGROUND = join("..", "unison-playground-web")
-const ONE_SHOT = ["_next", "shadcn", "reddit", "google"]
-const ONE_SHOT_PAGES = ["shadcn", "reddit", "google"]
+const ONE_SHOT = ["_next", ...ONE_SHOT_PAGES]
 
 /**
  * The one-shot pages are laid out for a desktop window and fall apart on a phone, so each baked page keeps at least
@@ -55,10 +58,14 @@ run("bun", ["run", "bake"], PLAYGROUND)
 
 for (const entry of ONE_SHOT)
   await cp(join(PLAYGROUND, "out", entry), join(DIST, "one-shot", entry), { recursive: true })
-for (const page of ONE_SHOT_PAGES) {
-  const file = join(DIST, "one-shot", page, "index.html")
-  await writeFile(file, (await readFile(file, "utf8")).replace("</head>", `${MIN_WIDTH}</head>`))
-}
+// A model whose pages aren't baked yet is skipped; the proof section links them already.
+const published = ONE_SHOTS.filter(({ baked }) => !baked || existsSync(baked))
+for (const { baked, path } of published) if (baked) await cp(baked, join(DIST, path), { recursive: true })
+for (const { path } of published)
+  for (const page of ONE_SHOT_PAGES) {
+    const file = join(DIST, path, page, "index.html")
+    await writeFile(file, (await readFile(file, "utf8")).replace("</head>", `${MIN_WIDTH}</head>`))
+  }
 
 for (const { root, folder } of SITES) {
   const target = join(root, folder)

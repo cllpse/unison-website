@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react"
 import AgentsLabel from "../components/AgentsLabel"
 import CodeBlock from "../components/CodeBlock"
 import CodePopover from "../components/CodePopover"
@@ -10,6 +11,7 @@ import ProofLink from "../components/ProofLink"
 import Section, { HEADING, PITCH } from "../components/Section"
 import ShapesPreview from "../components/ShapesPreview"
 import TldrCard from "../components/TldrCard"
+import { ONE_SHOT_PAGES, ONE_SHOTS, type OneShotPage } from "../constants/oneShots"
 import {
   EXPO_PLAYGROUND_URL,
   LIBRARY_URL,
@@ -176,70 +178,66 @@ const MOTION_SAMPLE = `<Frame
 // The one prompt the proof pages were built from, as it was sent (the Google address shortened to its query).
 const PROOF_PROMPT = `Try one-shotting a few websites using ONLY the component library. Implement these as stand-alone pages in the web playground. Implement images and videos as blank frames with a background color. The URLs are: https://ui.shadcn.com/, https://www.reddit.com/r/artificial/, and https://www.google.com/search?q=Puppies`
 
-// The one commit in the web playground that added the three pages, exactly as the agent wrote them.
-const PROOF_COMMIT_URL =
-  "https://github.com/cllpse/unison-playground-web/commit/adbcbfe0aacc3490880102c0a8c85df7650c8b02"
-
-// The rebuilt pages, baked from the web playground and published next to this page in one-shot/ (scripts/deploy.ts).
-const SHADCN_PAGE_URL = "one-shot/shadcn/"
-const REDDIT_PAGE_URL = "one-shot/reddit/"
-const GOOGLE_PAGE_URL = "one-shot/google/"
-
 // The pages they were built from, which keep changing, so they'll drift apart from the one-shots over time.
-const SHADCN_ORIGINAL_URL = "https://ui.shadcn.com/"
-const REDDIT_ORIGINAL_URL = "https://www.reddit.com/r/artificial/"
-const GOOGLE_ORIGINAL_URL = "https://www.google.com/search?q=Puppies"
+const ORIGINAL_URLS: Record<OneShotPage, string> = {
+  shadcn: "https://ui.shadcn.com/",
+  reddit: "https://www.reddit.com/r/artificial/",
+  google: "https://www.google.com/search?q=Puppies",
+}
 
-const PROOF_PAGES: Point[] = [
-  {
-    title: "shadcn/ui",
-    body: (
-      <>
-        The homepage of the component library everyone knows, rebuilt in Frames and Text. See{" "}
-        <a href={SHADCN_PAGE_URL} target="_blank" rel="noopener">
-          the one-shot
-        </a>{" "}
-        and{" "}
-        <a href={SHADCN_ORIGINAL_URL} target="_blank" rel="noopener">
-          the original
-        </a>
-        .
-      </>
-    ),
-  },
-  {
-    title: "r/artificial",
-    body: (
-      <>
-        A busy Reddit feed, with its posts, votes and sidebar. See{" "}
-        <a href={REDDIT_PAGE_URL} target="_blank" rel="noopener">
-          the one-shot
-        </a>{" "}
-        and{" "}
-        <a href={REDDIT_ORIGINAL_URL} target="_blank" rel="noopener">
-          the original
-        </a>
-        .
-      </>
-    ),
-  },
-  {
-    title: "Google, for Puppies",
-    body: (
-      <>
-        A search results page, images and all. See{" "}
-        <a href={GOOGLE_PAGE_URL} target="_blank" rel="noopener">
-          the one-shot
-        </a>{" "}
-        and{" "}
-        <a href={GOOGLE_ORIGINAL_URL} target="_blank" rel="noopener">
-          the original
-        </a>
-        .
-      </>
-    ),
-  },
-]
+const PAGE_TITLES: Record<OneShotPage, string> = {
+  shadcn: "shadcn/ui",
+  reddit: "r/artificial",
+  google: "Google",
+}
+
+/** "A, B and C", joining a list's items, each a node. */
+const joinAnd = (items: ReactNode[]) =>
+  items.map((item, index) => (
+    // biome-ignore lint/suspicious/noArrayIndexKey: the list is fixed and never reordered.
+    <Fragment key={index}>
+      {index === 0 ? "" : index === items.length - 1 ? " and " : ", "}
+      {item}
+    </Fragment>
+  ))
+
+/** Links to the three pages, as "shadcn/ui, r/artificial and Google", each at `url(page)`. */
+const pageLinks = (url: (page: OneShotPage) => string) =>
+  joinAnd(
+    ONE_SHOT_PAGES.map((page) => (
+      <a key={page} href={url(page)} target="_blank" rel="noopener">
+        {PAGE_TITLES[page]}
+      </a>
+    )),
+  )
+
+/**
+ * One point per model given the prompt (constants/oneShots.ts), all alike: how it ran and its three pages, plus the
+ * session and commit where there are any.
+ */
+const PROOF_RUNS: Point[] = ONE_SHOTS.map((oneShot) => ({
+  title: oneShot.model,
+  body: (
+    <>
+      {oneShot.reasoning ? `At ${oneShot.reasoning} in ${oneShot.harness}` : `In ${oneShot.harness}`}:{" "}
+      {pageLinks((page) => `${oneShot.path}${page}/`)}.
+      {oneShot.session && oneShot.commit && (
+        <>
+          {" "}
+          See{" "}
+          <a href={oneShot.session} target="_blank" rel="noopener">
+            the session
+          </a>{" "}
+          and{" "}
+          <a href={oneShot.commit} target="_blank" rel="noopener">
+            the commit
+          </a>
+          .
+        </>
+      )}
+    </>
+  ),
+}))
 
 const UPDATE_DIFF = `  <Frame
     autolayout-vertical
@@ -333,12 +331,15 @@ const EXTRAS_DISCLAIMER = (
       />
     </picture>
     <p>
-      The prompt didn't explicitly ask for hover states, animations or a dark mode, but the library led the agent to all
-      three.
+      No run asked for hover states, animations or a dark mode. Hover states and animations are flags like any other, so
+      agents added them on their own, and since the library's colors come in light and dark, every page here has a dark
+      mode.
     </p>
     <p>
-      Hover states and animations are flags like any other, so it added them to every one-shot on its own, and since the
-      library's colors come in light and dark, each page has a dark mode without a line written for it.
+      <i className="text-black dark:text-[#fff]">
+        And that's agents working alone, so it's the floor, not the ceiling. When a real designer composes in Figma and
+        Unison carries their work into code, the results are in another league.
+      </i>
     </p>
   </Disclaimer>
 )
@@ -747,22 +748,13 @@ export default () => {
           pitch="One short prompt and three familiar pages, built by an agent with nothing but the library."
         >
           <p>
-            The promise: the components hold up however the code gets written. The proof: no Figma, no plugin, just an
-            agent writing straight against the library, from this prompt alone:
+            The promise: the components hold up however the code gets written.{" "}
+            <i className="text-black dark:text-[#fff]">The proof, in the hardest case:</i> no Figma, no plugin, no
+            designer, just an agent writing straight against the library, from this prompt alone:
           </p>
           <CodeBlock code={PROOF_PROMPT} lang="text" wrap />
-          <p>
-            Claude Opus 5.5, at medium effort, built all three pages from it in about 13 minutes, in{" "}
-            <a href="one-shot-session.txt" target="_blank" rel="noopener">
-              a single session
-            </a>
-            , with the types and lint passing. Everything it wrote is in{" "}
-            <a href={PROOF_COMMIT_URL} target="_blank" rel="noopener">
-              one commit
-            </a>
-            .
-          </p>
-          <Points points={PROOF_PAGES} />
+          <p>Each model built all three pages from it. Compare them with {pageLinks((page) => ORIGINAL_URLS[page])}.</p>
+          <Points points={PROOF_RUNS} />
           {EXTRAS_DISCLAIMER}
         </Section>
 
