@@ -16,6 +16,7 @@ import {
   EXPO_PLAYGROUND_URL,
   LIBRARY_URL,
   PACKAGE_URL,
+  PLUGIN_MANIFEST_INSTALL_URL,
   PLUGIN_URL,
   REPO_NAME,
   REPO_URL,
@@ -116,15 +117,22 @@ const AFTER = `/**
 const STARTING_POINTS: Point[] = [
   {
     title: "Designers",
-    body: (
+    body: [
       <>
         Install the{" "}
         <a href={PLUGIN_URL} target="_blank" rel="noopener">
           Figma plugin
         </a>{" "}
         from the Figma Community.
-      </>
-    ),
+      </>,
+      <>
+        Figma is still reviewing the plugin, so its Community page may not be live yet. In the meantime, you can{" "}
+        <a href={PLUGIN_MANIFEST_INSTALL_URL} target="_blank" rel="noopener">
+          install it from its manifest
+        </a>{" "}
+        in the Figma desktop app.
+      </>,
+    ],
   },
   {
     title: "Developers",

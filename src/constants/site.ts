@@ -18,6 +18,10 @@ export const SITE_TITLE = `${PRODUCT_NAME} - Figma properties, as code`
 /** The Figma plugin's Community page. */
 export const PLUGIN_URL = "https://www.figma.com/community/plugin/1691815551141309696"
 
+/** The Figma plugin's repository, and its README's steps for installing it from its manifest while it's in review. */
+export const PLUGIN_REPO_URL = "https://github.com/cllpse/unison-plugin"
+export const PLUGIN_MANIFEST_INSTALL_URL = `${PLUGIN_REPO_URL}#install-from-the-manifest`
+
 /** The component library's repository. */
 export const LIBRARY_URL = "https://github.com/cllpse/unison-components"
 
