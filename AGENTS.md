@@ -23,7 +23,8 @@ shells, Figma flag types, `compute*` helpers) don't apply here.
 - `bun run build`: production build; run it before pushing
 - `bun run bake`: the landing page as one small `dist/index.html` that opens straight from disk (`scripts/bake.ts`):
   styles, images and icons inlined, fonts from Google Fonts, and React swapped for `scripts/bakeClient.js`, which
-  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Every push to `main` bakes it
+  mirrors `Nav.tsx` and `ContainOverscroll.tsx`; keep those in step. Google Analytics' tag (gtag.js, `GOOGLE_TAG`) is
+  added there and only there, so the dev server doesn't count as visits. Every push to `main` bakes it
   again in CI and publishes it to GitHub Pages (`.github/workflows/pages.yml`)
 - `bun run deploy`: bakes the page, bakes the web playground's one-shot pages (its `bun run bake`, a static export
   served from `/unison/one-shot`) into `dist/one-shot`, copies `dist/` into `~/Sites/eject.io/public/unison` and

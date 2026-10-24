@@ -7,6 +7,8 @@
  * - The icons and the manifest are inlined as data URIs.
  * - The page's structured data (its JSON-LD script) stays, and the files search engines and link previews fetch by URL,
  *   the sitemap and the social card image, are copied alongside it.
+ * - Google Analytics' tag (gtag.js) opens the head, so the published page reports its visits and the dev server
+ *   doesn't.
  *
  * Run through `bun run bake`, which exports the site first; out/ is removed afterwards, so dist/ holds just the page and
  * those files.
@@ -71,6 +73,16 @@ const GOOGLE_FONTS = [
   '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Martian+Mono:wght@100..800&display=swap">',
 ].join("")
 
+/**
+ * Google Analytics' tag (gtag.js), as Google gives it, minus the whitespace. Added after the scripts are dropped, so it
+ * survives the bake, and only here, so `bun dev` and `next start` don't count as visits.
+ */
+const GOOGLE_TAG_ID = "G-Y5EWVL1QHR"
+const GOOGLE_TAG = [
+  `<script async src="https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}"></script>`,
+  `<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());gtag("config","${GOOGLE_TAG_ID}")</script>`,
+].join("")
+
 /** Inlines a stylesheet's font and image url()s, resolved against the stylesheet's own path. */
 const inlineCss = (css: string, cssUrl: string) =>
   replaceAsync(css, /url\((["']?)([^"')]+)\1\)/g, async (_, quote, url) => {
@@ -106,6 +118,7 @@ html = html.replace(
   `"data:application/manifest+json;base64,${Buffer.from(JSON.stringify(manifest)).toString("base64")}"`,
 )
 
+html = html.replace("<head>", `<head>${GOOGLE_TAG}`)
 html = html.replace("</head>", `${GOOGLE_FONTS}</head>`)
 
 const client = await readFile(join("scripts", "bakeClient.js"), "utf8")
