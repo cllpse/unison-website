@@ -614,7 +614,7 @@ export default () => {
             className={`${PITCH} mt-[calc(var(--font-size)*1.25-0.29em)]! text-[length:calc(var(--text-x-large)*1.25)]!`}
           >
             The design becomes the spec: designers get guardrails, developers get types, agents stay in bounds, and one
-            codebase powers apps and websites alike.{" "}
+            codebase powers apps and websites alike{" "}
             {/* A button that opens the TL;DR card below, styled as the header's "starters" link, at its size and
                 weight, in the starters' blue, but with a plain 2px line under it that fades on hover, like the other
                 links' lines, a quarter as far below the text as theirs. It's a block a line of the pitch tall (the pitch's size times
