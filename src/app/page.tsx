@@ -93,10 +93,10 @@ const BEFORE = `/**
 
 <div className="
   flex
-  px-6.5
-  py-5
+  px-6
+  py-[19px]
   gap-4.5
-  rounded-2.5xl
+  rounded-[10px]
   bg-violent-50
 ">`
 
