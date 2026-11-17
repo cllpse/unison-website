@@ -139,6 +139,9 @@ Beyond that:
 
 - Plain ASCII in everything the site renders: no typographic characters such as `·`, `→`, `©`, `–`, `—`, `…` or curly
   quotes, and no HTML entities (`&apos;`, `&ldquo;`, `&middot;`). Write `'`, `"`, `:`, `-` and words instead.
+- Headings and sub-headings (the hero's title, each section's `title` and `pitch`, the points' h4s, the social card's
+  title) take no full stop at the end; full stops inside them stay ("Design freely. It ships exactly the way you
+  composed it"). The hero's subtitle keeps its full stop, since the TL;DR button follows it.
 - A call to action that ends a paragraph (the yellow `ProofLink` badges, such as "See what one short prompt builds")
   takes no full stop after it; the badge closes the paragraph. Mid-paragraph, the badge keeps its full stop.
 - The exceptions, which the owner asked for: the real ellipses in the nav's "For…" and at the start of "…or simply

@@ -22,7 +22,7 @@ const CARD = {
   url: "opengraph-image.png",
   width: 1200,
   height: 630,
-  alt: "Figma properties, as code.",
+  alt: "Figma properties, as code",
   type: "image/png",
 }
 

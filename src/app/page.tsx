@@ -608,7 +608,7 @@ export default () => {
           <h1
             className={`${HEADING} text-[length:calc(var(--text-xxx-large)*1.25)]! lg:text-[length:calc(var(--text-xxxx-large)*1.25)]!`}
           >
-            Figma properties, as code.
+            Figma properties, as code
           </h1>
           <h2
             className={`${PITCH} mt-[calc(var(--font-size)*1.25-0.29em)]! text-[length:calc(var(--text-x-large)*1.25)]!`}
@@ -688,8 +688,8 @@ export default () => {
         <Section
           id="team"
           audience="the team"
-          title="One source of truth runs from Figma to every screen."
-          pitch="The whole team shares one vocabulary: Figma's, from designers to developers to agents."
+          title="One source of truth runs from Figma to every screen"
+          pitch="The whole team shares one vocabulary: Figma's, from designers to developers to agents"
         >
           <Points points={TEAM} />
           {BETA_DISCLAIMER}
@@ -698,8 +698,8 @@ export default () => {
         <Section
           id="designers"
           audience="designers"
-          title="Design freely. It ships exactly the way you composed it."
-          pitch="Build within the tokens, and the code mirrors the design property for property."
+          title="Design freely. It ships exactly the way you composed it"
+          pitch="Build within the tokens, and the code mirrors the design property for property"
         >
           <p>
             Freely, because the tokens are the only thing locked. Components still have their place, but for reuse, not
@@ -731,8 +731,8 @@ export default () => {
         <Section
           id="developers"
           audience="developers"
-          title="Your editor says no before a reviewer has to."
-          pitch="Generated from the design and typed against design tokens: no more pixel-pushing."
+          title="Your editor says no before a reviewer has to"
+          pitch="Generated from the design and typed against design tokens: no more pixel-pushing"
         >
           <Points points={DEVELOPERS} />
           {PLAYGROUNDS_DISCLAIMER}
@@ -741,8 +741,8 @@ export default () => {
         <Section
           id="agents"
           audience={<AgentsLabel />}
-          title="Your coding agent knows your design system."
-          pitch="The library gives your agent a vocabulary in which only your design system can be written."
+          title="Your coding agent knows your design system"
+          pitch="The library gives your agent a vocabulary in which only your design system can be written"
         >
           <p>
             Without one, an agent writes plausible CSS at best: a gap here, a color there. Each one has a chance to slip
@@ -760,8 +760,8 @@ export default () => {
         <Section
           id="proof"
           audience="skeptics"
-          title="Proof over promises."
-          pitch="One short prompt and three familiar pages, built by an agent with nothing but the library."
+          title="Proof over promises"
+          pitch="One short prompt and three familiar pages, built by an agent with nothing but the library"
         >
           <p>
             The promise: the components hold up however the code gets written.{" "}
@@ -782,10 +782,10 @@ export default () => {
           audience="starters"
           title={
             <>
-              Pick your side, meet in the <s>middle</s> mutual.
+              Pick your side, meet in the <s>middle</s> mutual
             </>
           }
-          pitch="Designers grab the plugin, developers install the library, and the design does the rest."
+          pitch="Designers grab the plugin, developers install the library, and the design does the rest"
         >
           <Points points={STARTING_POINTS} />
           {TOOLKIT_DISCLAIMER}
@@ -795,10 +795,10 @@ export default () => {
           id="fine-print"
           title={
             <>
-              The <sub>fine</sub> <sub>print.</sub>
+              The <sub>fine</sub> <sub>print</sub>
             </>
           }
-          pitch="Every approach has trade-offs, and these are worth making."
+          pitch="Every approach has trade-offs, and these are worth making"
         >
           <Points points={FINE_PRINT} />
         </Section>
