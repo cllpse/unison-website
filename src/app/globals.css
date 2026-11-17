@@ -95,10 +95,10 @@
   --color-blue: #0079d8;
   --color-red: #ff5f32;
   /* A warm star yellow behind the links down to the proof, keeping one value on both themes, and its deep shade for
-     text on white, the proof's accent: the same hue at its fullest, darkened only to about 2.3:1, short of the
+     text on white, the proof's accent: the same hue at its fullest, darkened only to about 1.9:1, short of the
      others, since a darker yellow turns brown; the dark theme uses the yellow itself. */
   --color-yellow: #f5d652;
-  --color-yellow-deep: #c8a901;
+  --color-yellow-deep: #d8b92a;
   /* A cyan, and its deep shade for text on white: the same hue darkened to about 4:1 like the other accents;
      the dark theme uses the cyan itself. */
   --color-cyan: #0eb4c1;
