@@ -698,7 +698,7 @@ export default () => {
         <Section
           id="designers"
           audience="designers"
-          title="Design freely. It ships exactly the way you composed it"
+          title="Design freely - it ships exactly the way you composed it"
           pitch="Build within the tokens, and the code mirrors the design property for property"
         >
           <p>
